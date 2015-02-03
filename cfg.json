@@ -1,0 +1,26 @@
+{
+  "deckBinders": [
+    {
+      "dBName": "Arena",
+      "decks": [
+        {
+          "name": "Pestal",
+          "importCode": "622 7t6 7t6 7t6 7t6 7t6 7t6 7ta 7ta 7tb 7td 7td 7um 7um 7um 7um 7um 7um 7um 7um 7um 7um 808 808 808 808 80i 80i 80i 80i 8pu"
+        },
+        {
+          "name": "sgFractal",
+          "importCode": "56i 56i 56i 56i 56i 58o 59m 59m 5aa 5aa 5fu 63a 63a 63a 63a 63a 63a 63a 63a 63a 752 786 7ee 7ee 7ee 7ee 7ee 80i 80i 80i 8pm"
+        }
+      ]
+    },
+    {
+      "dBName": "Gods",
+      "decks": [
+        {
+          "name": "ROL/HOPE",
+          "importCode": "5la 5lk 5lk 5lk 5lk 61o 61o 61u 61u 622 622 622 622 63a 63a 63a 63a 63a 63a 7jp 7jp 7jp 7jp 7jp 7jp 7jq 7k2 808 808 808 808 80i 8pu"
+        }
+      ]
+    }
+  ]
+}
