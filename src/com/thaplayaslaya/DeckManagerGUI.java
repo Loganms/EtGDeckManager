@@ -127,12 +127,16 @@ public class DeckManagerGUI extends JFrame{
 		public void actionPerformed(ActionEvent e) {
 			if (((JMenuItem)(e.getSource())).getText().equals("Deck Binder")) {
 				Case briefcase = DeckManager.cfg.getCase();
-				DeckBinder db = new DeckBinder();
 				String string = JOptionPane.showInputDialog("What do you want to name this Deck Binder?");
 				
 				if((string != null) && (string.length() > 0)) {
 					if(!briefcase.containsDeckBinder(string)){
+						DeckBinder db = new DeckBinder();
 						db.setName(string);
+						briefcase.addDeckBinder(db);
+						//might replace wonky "get by index" with Case's "getDeckBinder()" func.
+						briefcase.getDeckBinders().get(briefcase.getDeckBinders().size() - 1).addAsPanelTo(casePanel);
+						leftPanel.revalidate();
 					} else {
 						//TODO: tell user that name already exists.
 					}
@@ -140,11 +144,6 @@ public class DeckManagerGUI extends JFrame{
 				} else {
 					//TODO: tell user that name is not valid.
 				}
-				
-				
-				briefcase.addDeckBinder(db);
-				briefcase.getDeckBinders().get(DeckManager.cfg.getCase().getDeckBinders().size() - 1).addAsPanelTo(casePanel);
-				leftPanel.revalidate();
 			}
 		}
 	}
