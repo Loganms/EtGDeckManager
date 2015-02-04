@@ -48,4 +48,13 @@ public class Case {
 			db.addAsPanelTo(leftPanel);
 		}
 	}
+	
+	public boolean containsDeckBinder(String name) {
+		for( DeckBinder db : this.getDeckBinders()) {
+			if(db.toString().equals(name)){
+				return true;
+			}
+		}
+		return false;
+	}
 }

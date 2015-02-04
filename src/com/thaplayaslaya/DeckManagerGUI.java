@@ -31,9 +31,12 @@ public class DeckManagerGUI extends JFrame{
 	JPanel casePanel = new JPanel();
 	JPanel centerPanel = new JPanel();
 	JPanel promptPanel = new JPanel();
+	
 	JLabel currentlySelectedDeckLabel = new JLabel("[No deck currently selected]", JLabel.CENTER);
-
 	Deck currentlySelectedDeck;
+	
+	DeckBinder currentlySelectedDeckBinder;
+	
 	Case briefcase = DeckManager.cfg.getCase();
 	
 	public DeckManagerGUI() {
@@ -54,7 +57,7 @@ public class DeckManagerGUI extends JFrame{
 
 	private void setCenter() {
 		centerPanel.setLayout(new GridLayout(1,2));
-		setCase(briefcase);
+		setCase(DeckManager.cfg.getCase());
 		
 		JPanel rightPanel = new JPanel();	
 		JPanel innerRightPanel = new JPanel();
@@ -123,15 +126,24 @@ public class DeckManagerGUI extends JFrame{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (((JMenuItem)(e.getSource())).getText().equals("Deck Binder")) {
+				Case briefcase = DeckManager.cfg.getCase();
 				DeckBinder db = new DeckBinder();
 				String string = JOptionPane.showInputDialog("What do you want to name this Deck Binder?");
 				
 				if((string != null) && (string.length() > 0)) {
-					db.setName(string);
+					if(!briefcase.containsDeckBinder(string)){
+						db.setName(string);
+					} else {
+						//TODO: tell user that name already exists.
+					}
+					
+				} else {
+					//TODO: tell user that name is not valid.
 				}
-
+				
+				
 				briefcase.addDeckBinder(db);
-				briefcase.getDeckBinders().get(briefcase.getDeckBinders().size() - 1).addAsPanelTo(casePanel);
+				briefcase.getDeckBinders().get(DeckManager.cfg.getCase().getDeckBinders().size() - 1).addAsPanelTo(casePanel);
 				leftPanel.revalidate();
 			}
 		}
@@ -142,10 +154,19 @@ public class DeckManagerGUI extends JFrame{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(e.getActionCommand().equals("Rename")) {
-				currentlySelectedDeck.setName(JOptionPane.showInputDialog("Submit a new name for this deck.", currentlySelectedDeck.getName()));
-				setCurrentlySelectedDeck(currentlySelectedDeck);
-				currentlySelectedDeckLabel.revalidate();
-				leftPanel.requestFocusInWindow();
+				String newName = JOptionPane.showInputDialog("Submit a new name for this deck.", currentlySelectedDeck.getName());
+				if(newName != null && newName.length() > 0) {
+					if(!currentlySelectedDeckBinder.containsDeck(newName)){
+						currentlySelectedDeck.setName(newName);
+						setCurrentlySelectedDeck(currentlySelectedDeck);
+						currentlySelectedDeckLabel.revalidate();
+						leftPanel.requestFocusInWindow();
+					} else {
+						//TODO: tell user that name already exists in this Deck Binder.
+					}
+				} else {
+					//TODO: tell user that name is invalid.
+				}
 
 			}
 			
@@ -183,6 +204,10 @@ public class DeckManagerGUI extends JFrame{
 		leftPanel.add(scroll, BorderLayout.CENTER);
 		centerPanel.add(leftPanel);
 	
+	}
+	
+	public void setCurrentlySelectedDeckBinder(DeckBinder deckBinder) {
+		currentlySelectedDeckBinder = deckBinder;
 	}
 	
 	public void setCurrentlySelectedDeck(Deck deck) {

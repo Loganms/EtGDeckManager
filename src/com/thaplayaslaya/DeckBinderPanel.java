@@ -55,7 +55,6 @@ public class DeckBinderPanel extends JPanel {
 		comboBox.addItem(defaultDeck);
 		comboBox.addItemListener(new ItemChangeListener());
 		comboBox.addFocusListener(new cBFocusListener());
-		comboBox.setEditable(true);
 		this.add(comboBox, BorderLayout.CENTER);
 		this.setMaximumSize(MAXIMUM_SIZE);
 	}
@@ -88,6 +87,7 @@ public class DeckBinderPanel extends JPanel {
 			JComboBox<Deck> comboBox = (JComboBox<Deck>)e.getComponent();
 			System.out.println(comboBox.getSelectedItem().toString() + "focus gained");
 			DeckManager.getDeckManagerGUI().setCurrentlySelectedDeck((Deck)comboBox.getSelectedItem());
+			DeckManager.getDeckManagerGUI().setCurrentlySelectedDeckBinder(DeckManager.cfg.getCase().getDeckBinder(comboBox.getName()));
 		}
 		
 		@Override
@@ -107,13 +107,8 @@ public class DeckBinderPanel extends JPanel {
 				JLabel dBLabel = (JLabel)(((JButton)e.getSource()).getParent().getParent().getComponents())[0];
 				String newName = JOptionPane.showInputDialog("Choose a new name for this Deck Binder.", dBLabel.getText());
 				if(newName!= null && newName.length() > 0){
-					boolean flag = true;
-					for( DeckBinder db : DeckManager.cfg.getCase().getDeckBinders()) {
-						if(db.toString().equals(newName)){
-							flag = false;
-						}
-					}
-					if(flag) {
+					Case briefcase = DeckManager.cfg.getCase();
+					if(!briefcase.containsDeckBinder(newName)) {
 						DeckManager.cfg.getCase().getDeckBinder(dBLabel.getText()).setName(newName);
 						dBLabel.setText(newName);
 						

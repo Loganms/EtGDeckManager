@@ -48,4 +48,13 @@ public class DeckBinder {
 		panel.add(DBP);
 	}
 	
+	public boolean containsDeck(String name){
+		for( Deck d : this.getDecks()) {
+			if(d.toString().equals(name)){
+				return true;
+			}
+		}
+		return false;
+	}
+	
 }
