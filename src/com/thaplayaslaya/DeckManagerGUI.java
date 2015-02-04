@@ -37,8 +37,6 @@ public class DeckManagerGUI extends JFrame{
 	
 	DeckBinder currentlySelectedDeckBinder;
 	
-	Case briefcase = DeckManager.cfg.getCase();
-	
 	public DeckManagerGUI() {
 		super(windowName);
 		
@@ -156,6 +154,7 @@ public class DeckManagerGUI extends JFrame{
 				String newName = JOptionPane.showInputDialog("Submit a new name for this deck.", currentlySelectedDeck.getName());
 				if(newName != null && newName.length() > 0) {
 					if(!currentlySelectedDeckBinder.containsDeck(newName)){
+						DeckManager.cfg.getCase().getDeckBinder(currentlySelectedDeckBinder.toString()).getDeck(currentlySelectedDeck.getName()).setName(newName);
 						currentlySelectedDeck.setName(newName);
 						setCurrentlySelectedDeck(currentlySelectedDeck);
 						currentlySelectedDeckLabel.revalidate();

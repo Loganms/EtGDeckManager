@@ -52,6 +52,7 @@ public class DeckBinderPanel extends JPanel {
 		}
 		
 		defaultDeck.setName("add new deck");
+		comboBox.setName(deckBinder.toString());
 		comboBox.addItem(defaultDeck);
 		comboBox.addItemListener(new ItemChangeListener());
 		comboBox.addFocusListener(new cBFocusListener());
