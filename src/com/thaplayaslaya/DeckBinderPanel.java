@@ -60,11 +60,11 @@ public class DeckBinderPanel extends JPanel {
 		this.setMaximumSize(MAXIMUM_SIZE);
 	}
 	
-	public static JLabel getdBName() {
+	public JLabel getdBName() {
 		return dBName;
 	}
 
-	public static void setdBName(JLabel dBName) {
+	public void setdBName(JLabel dBName) {
 		DeckBinderPanel.dBName = dBName;
 	}
 
@@ -86,16 +86,17 @@ public class DeckBinderPanel extends JPanel {
 		public void focusGained(FocusEvent e) {
 			@SuppressWarnings("unchecked")
 			JComboBox<Deck> comboBox = (JComboBox<Deck>)e.getComponent();
-			System.out.println(comboBox.getSelectedItem().toString() + "focus gained");
+			System.out.println(comboBox.getSelectedItem().toString() + " focus gained");
 			DeckManager.getDeckManagerGUI().setCurrentlySelectedDeck((Deck)comboBox.getSelectedItem());
 			DeckManager.getDeckManagerGUI().setCurrentlySelectedDeckBinder(comboBox.getName());
+			System.out.println(comboBox.getName());
 		}
 		
 		@Override
 		public void focusLost(FocusEvent e) {
 			@SuppressWarnings("unchecked")
 			JComboBox<Deck> comboBox = (JComboBox<Deck>)e.getComponent();
-			System.out.println(comboBox.getSelectedItem().toString() + "focus lost");
+			System.out.println(comboBox.getSelectedItem().toString() + " focus lost");
 			
 		}
 	}
@@ -113,7 +114,9 @@ public class DeckBinderPanel extends JPanel {
 						briefcase.getDeckBinder(dBLabel.getText()).setName(newName);
 						DeckManager.getDeckManagerGUI().setCurrentlySelectedDeckBinder(newName);
 						dBLabel.setText(newName);
-						
+						//test: remembering to change name of comboBox 
+						// since that is the way I set currentlySelectedDeckBinder for DMGUI.
+						((JComboBox<?>)(((JButton)e.getSource()).getParent().getParent().getParent().getComponents())[1]).setName(newName);
 						
 					} else {
 						//TODO: supply user with pop ups explaining why their name change did not go through.

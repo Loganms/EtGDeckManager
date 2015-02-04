@@ -68,14 +68,9 @@ public class DeckManagerGUI extends JFrame{
 		JButton[] rightPanelButtons = {new JButton("Copy"),
 										new JButton("Duplicate"),
 										new JButton("Rename"),
-										new JButton("Update"),
+										new JButton("Edit"),
 										new JButton("Delete")
 				};
-		/*JButton copyButton = new JButton("Copy");
-		JButton duplicateButton = new JButton("Duplicate");
-		JButton renameButton = new JButton("Rename");
-		JButton updateButton = new JButton("Update");
-		JButton deleteButton = new JButton("Delete");*/
 		
 		rightPanel.setLayout(new BorderLayout());
 		rightPanel.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -93,12 +88,6 @@ public class DeckManagerGUI extends JFrame{
 		for(JButton jb : rightPanelButtons){
 			addAButton(jb, buttonsPanel);
 		}
-		
-		/*addAButton(copyButton, buttonsPanel);
-		addAButton(duplicateButton, buttonsPanel);
-		addAButton(renameButton, buttonsPanel);
-		addAButton(updateButton, buttonsPanel);
-		addAButton(deleteButton, buttonsPanel);*/
 		
 		innerRightPanel.add(buttonsPanel, BorderLayout.CENTER);
 		rightPanel.add(innerRightPanel);
