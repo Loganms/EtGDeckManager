@@ -5,6 +5,9 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -35,7 +38,7 @@ public class DeckManagerGUI extends JFrame{
 	JLabel currentlySelectedDeckLabel = new JLabel("[No deck currently selected]", JLabel.CENTER);
 	Deck currentlySelectedDeck;
 	
-	DeckBinder currentlySelectedDeckBinder;
+	String currentlySelectedDeckBinder;
 	
 	public DeckManagerGUI() {
 		super(windowName);
@@ -153,8 +156,8 @@ public class DeckManagerGUI extends JFrame{
 			if(e.getActionCommand().equals("Rename")) {
 				String newName = JOptionPane.showInputDialog("Submit a new name for this deck.", currentlySelectedDeck.getName());
 				if(newName != null && newName.length() > 0) {
-					if(!currentlySelectedDeckBinder.containsDeck(newName)){
-						DeckManager.cfg.getCase().getDeckBinder(currentlySelectedDeckBinder.toString()).getDeck(currentlySelectedDeck.getName()).setName(newName);
+					if(!DeckManager.cfg.getCase().getDeckBinder(currentlySelectedDeckBinder).containsDeck(newName)){
+						DeckManager.cfg.getCase().getDeckBinder(currentlySelectedDeckBinder).getDeck(currentlySelectedDeck.getName()).setName(newName);
 						currentlySelectedDeck.setName(newName);
 						setCurrentlySelectedDeck(currentlySelectedDeck);
 						currentlySelectedDeckLabel.revalidate();
@@ -166,6 +169,9 @@ public class DeckManagerGUI extends JFrame{
 					//TODO: tell user that name is invalid.
 				}
 
+			}
+			if(e.getActionCommand().equals("Copy")) {
+				Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(currentlySelectedDeck.getImportCode()), null);
 			}
 			
 		}
@@ -204,8 +210,8 @@ public class DeckManagerGUI extends JFrame{
 	
 	}
 	
-	public void setCurrentlySelectedDeckBinder(DeckBinder deckBinder) {
-		currentlySelectedDeckBinder = deckBinder;
+	public void setCurrentlySelectedDeckBinder(String name) {
+		currentlySelectedDeckBinder = name;
 	}
 	
 	public void setCurrentlySelectedDeck(Deck deck) {

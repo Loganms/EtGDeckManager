@@ -88,7 +88,7 @@ public class DeckBinderPanel extends JPanel {
 			JComboBox<Deck> comboBox = (JComboBox<Deck>)e.getComponent();
 			System.out.println(comboBox.getSelectedItem().toString() + "focus gained");
 			DeckManager.getDeckManagerGUI().setCurrentlySelectedDeck((Deck)comboBox.getSelectedItem());
-			DeckManager.getDeckManagerGUI().setCurrentlySelectedDeckBinder(DeckManager.cfg.getCase().getDeckBinder(comboBox.getName()));
+			DeckManager.getDeckManagerGUI().setCurrentlySelectedDeckBinder(comboBox.getName());
 		}
 		
 		@Override
@@ -110,8 +110,10 @@ public class DeckBinderPanel extends JPanel {
 				if(newName!= null && newName.length() > 0){
 					Case briefcase = DeckManager.cfg.getCase();
 					if(!briefcase.containsDeckBinder(newName)) {
-						DeckManager.cfg.getCase().getDeckBinder(dBLabel.getText()).setName(newName);
+						briefcase.getDeckBinder(dBLabel.getText()).setName(newName);
+						DeckManager.getDeckManagerGUI().setCurrentlySelectedDeckBinder(newName);
 						dBLabel.setText(newName);
+						
 						
 					} else {
 						//TODO: supply user with pop ups explaining why their name change did not go through.
