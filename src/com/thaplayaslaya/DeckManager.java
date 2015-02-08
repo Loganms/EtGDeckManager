@@ -9,19 +9,27 @@ public class DeckManager {
 	// Having issues with deckbinderpanel not refreshing
 	
 	private static DeckManagerGUI DMGUI;
-	List<DeckBinder> deckBinders;
+	//List<DeckBinder> deckBinders;
 	public static Gson gson;
 	public static Config cfg;
 
 	
 	public DeckManager() {
 		init();
+		
+		System.out.print("<From DeckManager line 19> DeckBinders: [ ");
+		for( DeckBinder db : cfg.getCase().getDeckBinders()){
+			System.out.print(db.getName() + " ");
+		}
+		System.out.println("]");
 	}
 	
 	private static void init() {
 		gson = new Gson();
-		cfg = new Config();
 		setDeckManagerGUI();
+		cfg = new Config();
+		DMGUI.setComponents();
+		
 	}
 	
 	public static DeckManagerGUI getDeckManagerGUI() {

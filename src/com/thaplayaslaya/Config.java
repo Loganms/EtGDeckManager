@@ -31,6 +31,9 @@ public class Config {
 			
 			briefcase = gson.fromJson(br, Case.class);
 			
+			for(DeckBinder db : briefcase.getDeckBinders()){
+				db.setDBP();
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

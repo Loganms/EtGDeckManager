@@ -1,33 +1,51 @@
 package com.thaplayaslaya;
 import java.util.ArrayList;
 
-import javax.swing.JPanel;
-
-
 public class DeckBinder {
 
-	private String dBName;
+	private String name;
+	transient DeckBinderPanel dBP;
 	private ArrayList<Deck> decks = new ArrayList<Deck>();
 	
 	public DeckBinder(){
-		dBName = "Default Name";
+	}
+
+	//called once Config has populated Case completely with JSON data.
+	public void setDBP() {
+		dBP = new DeckBinderPanel(name);
+		for(Deck d : decks) {
+			dBP.getComboBox().addItem(d);
+		}
+		dBP.getComboBox().addItem(Deck.getDefaultDeck());
 	}
 
 	public void addDeck(Deck deck) {
 		decks.add(deck);
+		//not the most elegant way, I know.
+		dBP.getComboBox().removeItem(dBP.getComboBox().getItemAt(dBP.getComboBox().getItemCount() - 1));
+		dBP.getComboBox().addItem(deck);
+		dBP.getComboBox().addItem(Deck.getDefaultDeck());
+	}
+	
+	public void removeDeck(Deck deck) {
+		decks.remove(deck);
+		dBP.getComboBox().removeItem(deck);
+		
 	}
 	
 	public void setName(String name) {
-		this.dBName = name;
+		System.out.println("Setting name of DBP and DB");
+		dBP.setName(name);
+		this.name = name;
 	}
 		
-	public String toString() {
-		return dBName;
+	public String getName() {
+		return name;
 	}
 
 	public Deck getDeck(String name) {
 		for (Deck d : this.decks) {
-			if (d.toString().equals(name)){
+			if (d.getName().equals(name)){
 				return d;
 			}
 		}
@@ -35,26 +53,38 @@ public class DeckBinder {
 		
 	}
 	
+	private DeckBinderPanel getDeckBinderPanel(){
+		
+		return dBP;
+		/*for( DeckBinderPanel dbp: DeckManager.getDeckManagerGUI().getDeckBinderPanels()) {
+			if(dbp.getName().equals(this.dBName)){
+				return dbp;
+			}
+		}
+		return null;*/
+	}
+	
 	public ArrayList<Deck> getDecks() {
 		return decks;
 	}
 
 	public void setDecks(ArrayList<Deck> decks) {
-		this.decks = decks;
+		for(Deck d : decks) {
+			this.addDeck(d);
+		};
 	}
 
-	public void addAsPanelTo(JPanel panel) {
+	/*public void addAsPanelTo(JPanel panel) {
 		DeckBinderPanel DBP = new DeckBinderPanel(this);
 		panel.add(DBP);
-	}
+	}*/
 	
 	public boolean containsDeck(String name){
 		for( Deck d : this.getDecks()) {
-			if(d.toString().equals(name)){
+			if(d.getName().equals(name)){
 				return true;
 			}
 		}
 		return false;
 	}
-	
 }

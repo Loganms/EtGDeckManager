@@ -1,8 +1,6 @@
 package com.thaplayaslaya;
 import java.util.ArrayList;
 
-import javax.swing.JPanel;
-
 public class Case {
 
 	private ArrayList<DeckBinder> deckBinders;
@@ -31,7 +29,7 @@ public class Case {
 	
 	public DeckBinder getDeckBinder(String name) {
 		for (DeckBinder db : this.deckBinders) {
-			if (db.toString().equals(name)){
+			if (db.getName().equals(name)){
 				return db;
 			}
 		}
@@ -43,15 +41,15 @@ public class Case {
 		this.deckBinders = deckBinders;
 	}
 
-	public void addToPanel(JPanel leftPanel) {
+	/*public void addToPanel(JPanel leftPanel) {
 		for(DeckBinder db : deckBinders) {
 			db.addAsPanelTo(leftPanel);
 		}
-	}
+	}*/
 	
 	public boolean containsDeckBinder(String name) {
 		for( DeckBinder db : this.getDeckBinders()) {
-			if(db.toString().equals(name)){
+			if(db.getName().equals(name)){
 				return true;
 			}
 		}

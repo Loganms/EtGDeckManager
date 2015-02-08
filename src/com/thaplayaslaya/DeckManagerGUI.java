@@ -6,10 +6,10 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
-import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.LinkedList;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -28,37 +28,37 @@ public class DeckManagerGUI extends JFrame{
 	
 	private static final long serialVersionUID = 3686286211660935696L;
 	
-	Dimension MINIMUM_SIZE = new Dimension(300, 100);
+	Dimension MINIMUM_SIZE = new Dimension(300, 275);
 	static String windowName = "Deck Manager";
 	JPanel leftPanel = new JPanel();
 	JPanel casePanel = new JPanel();
 	JPanel centerPanel = new JPanel();
 	JPanel promptPanel = new JPanel();
 	
+	LinkedList<DeckBinderPanel> deckBinderPanels = new LinkedList<DeckBinderPanel>();
+	
 	JLabel currentlySelectedDeckLabel = new JLabel("[No deck currently selected]", JLabel.CENTER);
 	Deck currentlySelectedDeck;
 	
-	String currentlySelectedDeckBinder;
+	private String currentlySelectedDeckBinder;
 	
 	public DeckManagerGUI() {
 		super(windowName);
 		
 		setFrameDefaults();
-		setComponents();
-		
-		this.pack();
 	}
 
-	private void setComponents() {
+	void setComponents() {
 		this.setLayout(new BorderLayout());
 		setOptionsBar();
 		setCenter();
-		
+		this.revalidate();
+		this.pack();
 	}
 
 	private void setCenter() {
 		centerPanel.setLayout(new GridLayout(1,2));
-		setCase(DeckManager.cfg.getCase());
+		setCase();
 		
 		JPanel rightPanel = new JPanel();	
 		JPanel innerRightPanel = new JPanel();
@@ -124,8 +124,10 @@ public class DeckManagerGUI extends JFrame{
 						DeckBinder db = new DeckBinder();
 						db.setName(string);
 						briefcase.addDeckBinder(db);
-						//might replace wonky "get by index" with Case's "getDeckBinder()" func.
-						briefcase.getDeckBinders().get(briefcase.getDeckBinders().size() - 1).addAsPanelTo(casePanel);
+						
+						//briefcase.getDeckBinders().get(briefcase.getDeckBinders().size() - 1).addAsPanelTo(casePanel);
+						//replaced  by:
+						casePanel.add(getDeckBinderPanels().getLast());
 						leftPanel.revalidate();
 					} else {
 						//TODO: tell user that name already exists.
@@ -142,25 +144,37 @@ public class DeckManagerGUI extends JFrame{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if(e.getActionCommand().equals("Rename")) {
-				String newName = JOptionPane.showInputDialog("Submit a new name for this deck.", currentlySelectedDeck.getName());
-				if(newName != null && newName.length() > 0) {
-					if(!DeckManager.cfg.getCase().getDeckBinder(currentlySelectedDeckBinder).containsDeck(newName)){
-						DeckManager.cfg.getCase().getDeckBinder(currentlySelectedDeckBinder).getDeck(currentlySelectedDeck.getName()).setName(newName);
-						currentlySelectedDeck.setName(newName);
-						setCurrentlySelectedDeck(currentlySelectedDeck);
-						currentlySelectedDeckLabel.revalidate();
-						leftPanel.requestFocusInWindow();
+			if(currentlySelectedDeck != null) {
+				if(e.getActionCommand().equals("Rename")) {
+					String newName = JOptionPane.showInputDialog("Submit a new name for this deck.", currentlySelectedDeck.getName());
+					if(newName != null && newName.length() > 0) {
+						if(!DeckManager.cfg.getCase().getDeckBinder(currentlySelectedDeckBinder).containsDeck(newName)){
+							DeckManager.cfg.getCase().getDeckBinder(currentlySelectedDeckBinder).getDeck(currentlySelectedDeck.getName()).setName(newName);
+							currentlySelectedDeck.setName(newName);
+							setCurrentlySelectedDeck(currentlySelectedDeck);
+							currentlySelectedDeckLabel.revalidate();
+							leftPanel.requestFocusInWindow();
+						} else {
+							//TODO: tell user that name already exists in this Deck Binder.
+						}
 					} else {
-						//TODO: tell user that name already exists in this Deck Binder.
+						//TODO: tell user that name is invalid.
 					}
-				} else {
-					//TODO: tell user that name is invalid.
-				}
 
-			}
-			if(e.getActionCommand().equals("Copy")) {
-				Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(currentlySelectedDeck.getImportCode()), null);
+				}
+				if(e.getActionCommand().equals("Copy")) {
+					Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(currentlySelectedDeck.getImportCode()), null);
+				}
+				if(e.getActionCommand().equals("Delete")) {
+					//Want to add verification to this option later
+					//i.e. are you sure?
+					DeckManager.cfg.getCase().getDeckBinder(currentlySelectedDeckBinder).removeDeck(currentlySelectedDeck);
+					setCurrentlySelectedDeck(null);
+					setCurrentlySelectedDeckBinder(null);
+				}
+			} else {
+				JOptionPane.showMessageDialog(null, "Please choose a deck first.");
+				
 			}
 			
 		}
@@ -186,9 +200,13 @@ public class DeckManagerGUI extends JFrame{
         container.add(panel);
     }
 	
-	public void setCase(Case briefcase) {
+	public void setCase() {
 		casePanel.setLayout(new BoxLayout(casePanel, BoxLayout.Y_AXIS));
-		briefcase.addToPanel(casePanel);
+		//briefcase.addToPanel(casePanel);
+		//replaced by:
+		for( DeckBinderPanel dbp: getDeckBinderPanels()) {
+			casePanel.add(dbp);
+		}
 		
 		leftPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 		leftPanel.setLayout(new BorderLayout());
@@ -199,13 +217,32 @@ public class DeckManagerGUI extends JFrame{
 	
 	}
 	
+	public LinkedList<DeckBinderPanel> getDeckBinderPanels() {
+		return deckBinderPanels;
+	}
+
+	public void setDeckBinderPanels(LinkedList<DeckBinderPanel> deckBinderPanels) {
+		this.deckBinderPanels = deckBinderPanels;
+	}
+
 	public void setCurrentlySelectedDeckBinder(String name) {
 		currentlySelectedDeckBinder = name;
 	}
 	
+	public String getCurrentlySelectedDeckBinder() {
+		return currentlySelectedDeckBinder;
+	}
+
 	public void setCurrentlySelectedDeck(Deck deck) {
-		currentlySelectedDeck = deck;
-		currentlySelectedDeckLabel.setText(deck.getName());
-		promptPanel.revalidate();
+		if(deck != null) {
+			currentlySelectedDeck = deck;
+			currentlySelectedDeckLabel.setText(deck.getName());
+			promptPanel.revalidate();
+		} else {
+			currentlySelectedDeck = null;
+			currentlySelectedDeckLabel.setText("[No deck currently selected]");
+			promptPanel.revalidate();
+		}
+		
 	}
 }
