@@ -121,14 +121,12 @@ public class DeckManagerGUI extends JFrame{
 				
 				if((string != null) && (string.length() > 0)) {
 					if(!briefcase.containsDeckBinder(string)){
-						DeckBinder db = new DeckBinder();
-						db.setName(string);
-						briefcase.addDeckBinder(db);
-						
-						//briefcase.getDeckBinders().get(briefcase.getDeckBinders().size() - 1).addAsPanelTo(casePanel);
-						//replaced  by:
+						DeckBinder db = new DeckBinder(string);
+						//briefcase.addDeckBinder(db);
+
 						casePanel.add(getDeckBinderPanels().getLast());
-						leftPanel.revalidate();
+						casePanel.revalidate();
+						//System.out.println(DeckManager.gson.toJson(briefcase));
 					} else {
 						//TODO: tell user that name already exists.
 					}

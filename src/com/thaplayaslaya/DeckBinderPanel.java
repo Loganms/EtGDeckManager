@@ -21,19 +21,24 @@ public class DeckBinderPanel extends JPanel {
 	
 	private static final long serialVersionUID = -1215607079828446786L;
 	private static final Dimension MAXIMUM_SIZE = new Dimension(120, 40+15);
-	private String name;
-	private JLabel dBName;
+	private String name = "[Default Name]";
+	private JLabel dBName = new JLabel(this.name, JLabel.LEFT);
 	private JComboBox<Deck> comboBox = new JComboBox<Deck>();
-	private Deck defaultDeck = new Deck();
 	private JButton renameButton = new JButton("R");
 	private JPanel northPanel = new JPanel();
 	
+	public DeckBinderPanel() {
+		init();
+	}
+	
 	public DeckBinderPanel(String name) {
-		dBName = new JLabel(name, JLabel.LEFT);
-		
+		init();
 		setName(name);
+	}
+	
+	private void init() {
 		this.setLayout(new BorderLayout());
-				
+		
 		dBName.setBorder(BorderFactory.createEmptyBorder(10, 0, 5, 0));
 		dBName.setPreferredSize(new Dimension(100, 10));
 		
@@ -49,14 +54,16 @@ public class DeckBinderPanel extends JPanel {
 		northPanel.add(renameButtonPanel, BorderLayout.EAST);
 		this.add(northPanel, BorderLayout.NORTH);
 		
-		comboBox.setName(name);
-		//defaultDeck.setName("add new deck");
-		//comboBox.addItem(defaultDeck);
-		comboBox.addItemListener(new ItemChangeListener());
-		comboBox.addFocusListener(new cBFocusListener());
+		
+		// Listeners were here
 		this.add(comboBox, BorderLayout.CENTER);
 		this.setMaximumSize(MAXIMUM_SIZE);
 		DeckManager.getDeckManagerGUI().getDeckBinderPanels().add(this);
+	}
+	
+	public void setListeners() {
+		comboBox.addItemListener(new ItemChangeListener());
+		comboBox.addFocusListener(new cBFocusListener());
 	}
 	
 	public void setName(String name) {
@@ -74,14 +81,6 @@ public class DeckBinderPanel extends JPanel {
 		return comboBox;
 	}
 
-	/*public JLabel getdBName() {
-		return dBName;
-	}*/
-
-	/*public void setdBName(String name) {
-		this.dBName.setText(name);
-	}*/
-
 	private class ItemChangeListener implements ItemListener{
 	    @Override
 	    public void itemStateChanged(ItemEvent e) {
@@ -92,16 +91,25 @@ public class DeckBinderPanel extends JPanel {
 	        	  if(!deck.getName().equals(Deck.getDefaultDeck().getName())) {
 	        		  DeckManager.getDeckManagerGUI().setCurrentlySelectedDeck(deck);
 	        	  } else {
-	        		  DeckManager.getDeckManagerGUI().setCurrentlySelectedDeck(null);
+	        		  //want this line to do everything
+	        		  DeckManager.cfg.getCase().getDeckBinder(DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder()).addNewDeck();
+	        		  //want to erase all of this
+	        		 /* DeckManager.getDeckManagerGUI().setCurrentlySelectedDeck(null);
 	        		  String newName = JOptionPane.showInputDialog("Enter a name for the new deck.");
-	        		  if(!DeckManager.cfg.getCase().getDeckBinder(DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder()).containsDeck(newName)) {
-	        			  Deck newDeck = new Deck();
-		        		  newDeck.setName(newName);
-		        		  DeckManager.cfg.getCase().getDeckBinder(DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder()).addDeck(newDeck);
-		        		  DeckManager.cfg.getCase().getDeckBinder(DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder()).dBP.getComboBox().setSelectedItem(newDeck);
-	        		  } else {
+	        		  DeckBinder db = DeckManager.cfg.getCase().getDeckBinder(DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder());
+	        		  if(db != null) {
+	        			  if(!db.containsDeck(newName)){
+	        				    Deck newDeck = new Deck();
+	        				    newDeck.setName(newName);
+	        				    db.addDeck(newDeck);
+	        				    db.dBP.getComboBox().setSelectedItem(newDeck);
+	        			  } else {
 	        			  System.out.println("This deck binder already contains a deck with that name.");
-	        		  }
+	        			  }
+	        			
+	        		  } else {
+	        			  System.out.println("Deck binder is null. Case does not contain " + DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder());
+	        		  }*/
 	        		  
 	        	  }
 	         	
@@ -117,6 +125,9 @@ public class DeckBinderPanel extends JPanel {
 			@SuppressWarnings("unchecked")
 			JComboBox<Deck> comboBox = (JComboBox<Deck>)e.getComponent();
 			System.out.println(comboBox.getSelectedItem().toString() + " focus gained");
+			if(comboBox.getSelectedItem().toString().equals(Deck.getDefaultDeck().getName())) {
+				DeckManager.cfg.getCase().getDeckBinder(DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder()).addNewDeck();
+			}
 			DeckManager.getDeckManagerGUI().setCurrentlySelectedDeck((Deck)comboBox.getSelectedItem());
 			DeckManager.getDeckManagerGUI().setCurrentlySelectedDeckBinder(comboBox.getName());
 			System.out.println(comboBox.getName());

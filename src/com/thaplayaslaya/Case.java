@@ -33,6 +33,7 @@ public class Case {
 				return db;
 			}
 		}
+		System.out.println("returning null from getDeckBinder(String name)");
 		return null;
 		
 	}

@@ -8,15 +8,35 @@ public class DeckBinder {
 	private ArrayList<Deck> decks = new ArrayList<Deck>();
 	
 	public DeckBinder(){
+		
+	}
+	
+	//If this constructor is called, it is because
+	//the user made a new DeckBinder.
+	public DeckBinder(String name) {
+		this.name = name;
+		DeckManager.getDeckManagerGUI().setCurrentlySelectedDeckBinder(name);
+		
+		DeckManager.cfg.getCase().addDeckBinder(this);
+		
+		dBP = new DeckBinderPanel(this.name);
+		finalizeDBSetup();
+		
 	}
 
 	//called once Config has populated Case completely with JSON data.
 	public void setDBP() {
-		dBP = new DeckBinderPanel(name);
+		dBP = new DeckBinderPanel(this.name);
 		for(Deck d : decks) {
 			dBP.getComboBox().addItem(d);
 		}
+		System.out.println("adding default deck to " + name);
+		finalizeDBSetup();
+	}
+	
+	private void finalizeDBSetup() {
 		dBP.getComboBox().addItem(Deck.getDefaultDeck());
+		dBP.setListeners();
 	}
 
 	public void addDeck(Deck deck) {
@@ -35,8 +55,9 @@ public class DeckBinder {
 	
 	public void setName(String name) {
 		System.out.println("Setting name of DBP and DB");
-		dBP.setName(name);
 		this.name = name;
+		dBP.setName(name);
+		
 	}
 		
 	public String getName() {
@@ -86,5 +107,10 @@ public class DeckBinder {
 			}
 		}
 		return false;
+	}
+
+	public void addNewDeck() {
+		CustomDialog cd = new CustomDialog(null);
+		cd.setVisible(true);
 	}
 }
