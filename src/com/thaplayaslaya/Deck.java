@@ -1,12 +1,12 @@
 package com.thaplayaslaya;
 
 public class Deck {
-	
-	//private transient final Deck DEFAULT;
+
+	// private transient final Deck DEFAULT;
 	private transient static String defaultDeckName = "add new deck";
 	private String name;
 	private String importCode;
-	
+
 	public Deck() {
 		name = "[No Name Set]";
 	}
@@ -26,13 +26,13 @@ public class Deck {
 	public void setImportCode(String importCode) {
 		this.importCode = importCode;
 	}
-	
+
 	public static Deck getDefaultDeck() {
 		Deck deck = new Deck();
 		deck.setName(defaultDeckName);
 		return deck;
 	}
-	
+
 	public String toString() {
 		return this.name;
 	}
