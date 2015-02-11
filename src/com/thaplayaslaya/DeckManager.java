@@ -1,7 +1,5 @@
 package com.thaplayaslaya;
 
-import java.util.List;
-
 import com.google.gson.Gson;
 
 public class DeckManager {

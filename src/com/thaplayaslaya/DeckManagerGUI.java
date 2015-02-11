@@ -38,7 +38,7 @@ public class DeckManagerGUI extends JFrame {
 	LinkedList<DeckBinderPanel> deckBinderPanels = new LinkedList<DeckBinderPanel>();
 
 	JLabel currentlySelectedDeckLabel = new JLabel("[No deck currently selected]", JLabel.CENTER);
-	Deck currentlySelectedDeck;
+	private Deck currentlySelectedDeck;
 
 	private String currentlySelectedDeckBinder;
 
@@ -65,7 +65,7 @@ public class DeckManagerGUI extends JFrame {
 
 		JLabel rightPrompt = new JLabel("What do you want to do with: ", JLabel.CENTER);
 
-		JButton[] rightPanelButtons = { new JButton("Copy"), new JButton("Duplicate"), new JButton("Rename"), new JButton("Edit"), new JButton("Delete") };
+		JButton[] rightPanelButtons = { new JButton("Copy"), new JButton("Duplicate (WIP)"),/* new JButton("Rename"),*/ new JButton("Edit"), new JButton("Delete") };
 
 		rightPanel.setLayout(new BorderLayout());
 		rightPanel.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -78,7 +78,7 @@ public class DeckManagerGUI extends JFrame {
 
 		JPanel buttonsPanel = new JPanel();
 
-		buttonsPanel.setLayout(new GridLayout(5, 1));
+		buttonsPanel.setLayout(new GridLayout(rightPanelButtons.length, 1));
 
 		for (JButton jb : rightPanelButtons) {
 			addAButton(jb, buttonsPanel);
@@ -111,25 +111,6 @@ public class DeckManagerGUI extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			if (((JMenuItem) (e.getSource())).getText().equals("Deck Binder")) {
 				DeckManager.cfg.getCase().addNewDeckBinder();
-				
-				/*Case briefcase = DeckManager.cfg.getCase();
-				String string = JOptionPane.showInputDialog("What do you want to name this Deck Binder?");
-
-				if ((string != null) && (string.length() > 0)) {
-					if (!briefcase.containsDeckBinder(string)) {
-						DeckBinder db = new DeckBinder(string);
-						// briefcase.addDeckBinder(db);
-
-						casePanel.add(getDeckBinderPanels().getLast());
-						casePanel.revalidate();
-						// System.out.println(DeckManager.gson.toJson(briefcase));
-					} else {
-						// TODO: tell user that name already exists.
-					}
-
-				} else {
-					// TODO: tell user that name is not valid.
-				}*/
 			}
 		}
 	}
@@ -139,7 +120,7 @@ public class DeckManagerGUI extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (currentlySelectedDeck != null) {
-				if (e.getActionCommand().equals("Rename")) {
+				/*if (e.getActionCommand().equals("Rename")) {
 					String newName = JOptionPane.showInputDialog("Submit a new name for this deck.", currentlySelectedDeck.getName());
 					if (newName != null && newName.length() > 0) {
 						if (!DeckManager.cfg.getCase().getDeckBinder(currentlySelectedDeckBinder).containsDeck(newName)) {
@@ -155,7 +136,10 @@ public class DeckManagerGUI extends JFrame {
 					} else {
 						// TODO: tell user that name is invalid.
 					}
-
+				}*/
+				if (e.getActionCommand().equals("Edit")) {
+					CustomDialog cd = new CustomDialog(null, 2);
+					cd.setVisible(true);
 				}
 				if (e.getActionCommand().equals("Copy")) {
 					Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(currentlySelectedDeck.getImportCode()), null);
@@ -169,7 +153,6 @@ public class DeckManagerGUI extends JFrame {
 				}
 			} else {
 				JOptionPane.showMessageDialog(null, "Please choose a deck first.");
-
 			}
 
 		}
@@ -239,5 +222,9 @@ public class DeckManagerGUI extends JFrame {
 			promptPanel.revalidate();
 		}
 
+	}
+
+	public Deck getCurrentlySelectedDeck() {
+		return currentlySelectedDeck;
 	}
 }

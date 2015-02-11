@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class DeckBinder {
 
 	private String name;
-	transient DeckBinderPanel dBP;
+	private transient DeckBinderPanel dBP;
 	private ArrayList<Deck> decks = new ArrayList<Deck>();
 
 	public DeckBinder() {
@@ -72,17 +72,10 @@ public class DeckBinder {
 			}
 		}
 		return null;
-
 	}
 
-	private DeckBinderPanel getDeckBinderPanel() {
-
+	public DeckBinderPanel getDeckBinderPanel() {
 		return dBP;
-		/*
-		 * for( DeckBinderPanel dbp:
-		 * DeckManager.getDeckManagerGUI().getDeckBinderPanels()) {
-		 * if(dbp.getName().equals(this.dBName)){ return dbp; } } return null;
-		 */
 	}
 
 	public ArrayList<Deck> getDecks() {

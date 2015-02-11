@@ -20,7 +20,7 @@ import javax.swing.JPanel;
 public class DeckBinderPanel extends JPanel {
 
 	private static final long serialVersionUID = -1215607079828446786L;
-	private static final Dimension MAXIMUM_SIZE = new Dimension(120, 40 + 15);
+	private static final Dimension MAXIMUM_SIZE = new Dimension(120, 40 + 20);
 	private String name = "[Default Name]";
 	private JLabel dBName = new JLabel(this.name, JLabel.LEFT);
 	private JComboBox<Deck> comboBox = new JComboBox<Deck>();
@@ -54,6 +54,7 @@ public class DeckBinderPanel extends JPanel {
 		northPanel.add(renameButtonPanel, BorderLayout.EAST);
 		this.add(northPanel, BorderLayout.NORTH);
 
+		comboBox.setBorder(BorderFactory.createEmptyBorder(0,0,5,0));
 		// Listeners were here
 		this.add(comboBox, BorderLayout.CENTER);
 		this.setMaximumSize(MAXIMUM_SIZE);
