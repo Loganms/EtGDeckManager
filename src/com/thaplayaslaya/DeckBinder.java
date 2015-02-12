@@ -22,7 +22,6 @@ public class DeckBinder {
 
 		dBP = new DeckBinderPanel(this.name);
 		finalizeDBSetup();
-
 	}
 
 	// called once Config has populated Case completely with JSON data.
@@ -51,14 +50,12 @@ public class DeckBinder {
 	public void removeDeck(Deck deck) {
 		decks.remove(deck);
 		dBP.getComboBox().removeItem(deck);
-
 	}
 
 	public void setName(String name) {
 		System.out.println("Setting name of DBP and DB");
 		this.name = name;
 		dBP.setName(name);
-
 	}
 
 	public String getName() {
@@ -86,13 +83,7 @@ public class DeckBinder {
 		for (Deck d : decks) {
 			this.addDeck(d);
 		}
-		;
 	}
-
-	/*
-	 * public void addAsPanelTo(JPanel panel) { DeckBinderPanel DBP = new
-	 * DeckBinderPanel(this); panel.add(DBP); }
-	 */
 
 	public boolean containsDeck(String name) {
 		for (Deck d : this.getDecks()) {
@@ -104,7 +95,6 @@ public class DeckBinder {
 	}
 
 	public void addNewDeck() {
-		CustomDialog cd = new CustomDialog(null, 0);
-		cd.setVisible(true);
+		new CustomDialog(DeckManager.getDeckManagerGUI(), 0);
 	}
 }

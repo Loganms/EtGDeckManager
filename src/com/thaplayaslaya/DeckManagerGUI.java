@@ -138,21 +138,23 @@ public class DeckManagerGUI extends JFrame {
 					}
 				}*/
 				if (e.getActionCommand().equals("Edit")) {
-					CustomDialog cd = new CustomDialog(null, 2);
-					cd.setVisible(true);
+					new CustomDialog(DeckManagerGUI.this, 2);
 				}
 				if (e.getActionCommand().equals("Copy")) {
 					Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(currentlySelectedDeck.getImportCode()), null);
 				}
+				
+				//TODO: when deleting the last custom deck of a deck binder, add new deck is auto selected and the window pops up.
+				// canceling that window causes unwanted results.
 				if (e.getActionCommand().equals("Delete")) {
 					// Want to add verification to this option later
 					// i.e. are you sure?
 					DeckManager.cfg.getCase().getDeckBinder(currentlySelectedDeckBinder).removeDeck(currentlySelectedDeck);
 					setCurrentlySelectedDeck(null);
-					setCurrentlySelectedDeckBinder(null);
+					//setCurrentlySelectedDeckBinder(null);
 				}
 			} else {
-				JOptionPane.showMessageDialog(null, "Please choose a deck first.");
+				JOptionPane.showMessageDialog(DeckManagerGUI.this, "Please choose a deck first.", "Try again", JOptionPane.ERROR_MESSAGE);
 			}
 
 		}
@@ -180,8 +182,6 @@ public class DeckManagerGUI extends JFrame {
 
 	public void setCase() {
 		casePanel.setLayout(new BoxLayout(casePanel, BoxLayout.Y_AXIS));
-		// briefcase.addToPanel(casePanel);
-		// replaced by:
 		for (DeckBinderPanel dbp : getDeckBinderPanels()) {
 			casePanel.add(dbp);
 		}

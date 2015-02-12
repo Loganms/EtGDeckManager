@@ -13,7 +13,8 @@ public class Case {
 	public void addDeckBinder(DeckBinder deckBinder) {
 		this.deckBinders.add(deckBinder);
 	}
-
+	
+	//Never used. May delete later.
 	public void addDeck(Deck deck, DeckBinder deckBinder) {
 		loop: for (DeckBinder db : this.deckBinders) {
 			if (db.equals(deckBinder)) {
@@ -53,8 +54,7 @@ public class Case {
 	//This is only called when user wants to make a new deck binder.
 	//Walks user through the process with prompts and validation.
 	public void addNewDeckBinder() {
-		CustomDialog cd = new CustomDialog(null, 1);
-		cd.setVisible(true);
+		new CustomDialog(DeckManager.getDeckManagerGUI(), 1);
 	}	
 }
 
