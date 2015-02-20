@@ -10,10 +10,12 @@ import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -65,7 +67,7 @@ public class DeckManagerGUI extends JFrame {
 
 		JLabel rightPrompt = new JLabel("What do you want to do with: ", JLabel.CENTER);
 
-		JButton[] rightPanelButtons = { new JButton("Copy"), new JButton("Duplicate (WIP)"),/* new JButton("Rename"),*/ new JButton("Edit"), new JButton("Delete") };
+		JButton[] rightPanelButtons = { new JButton("Copy"), new JButton("View Deck"),/* new JButton("Rename"),*/ new JButton("Edit"), new JButton("Delete") };
 
 		rightPanel.setLayout(new BorderLayout());
 		rightPanel.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -137,13 +139,26 @@ public class DeckManagerGUI extends JFrame {
 						// TODO: tell user that name is invalid.
 					}
 				}*/
-				if (e.getActionCommand().equals("Edit")) {
-					new CustomDialog(DeckManagerGUI.this, 2);
-				}
 				if (e.getActionCommand().equals("Copy")) {
 					Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(currentlySelectedDeck.getImportCode()), null);
 				}
-				
+				if (e.getActionCommand().equals("View Deck")) {
+					BufferedImage img = currentlySelectedDeck.getDeckImage();
+					if(img != null) {
+						JFrame frame = new JFrame(currentlySelectedDeck.getName());
+						frame.getContentPane().add(new JLabel(new ImageIcon(img)));
+						frame.pack();
+						frame.setVisible(true);
+						frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+					} else {
+						JOptionPane.showMessageDialog(DeckManagerGUI.this, "A deck image could not be created from "
+																			+ currentlySelectedDeck.getName()
+																			+ "'s import code.", "Error", JOptionPane.ERROR_MESSAGE);
+					}
+				}
+				if (e.getActionCommand().equals("Edit")) {
+					new CustomDialog(DeckManagerGUI.this, 2);
+				}
 				//TODO: when deleting the last custom deck of a deck binder, add new deck is auto selected and the window pops up.
 				// canceling that window causes unwanted results.
 				if (e.getActionCommand().equals("Delete")) {

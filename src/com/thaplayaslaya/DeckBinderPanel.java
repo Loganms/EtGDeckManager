@@ -54,8 +54,8 @@ public class DeckBinderPanel extends JPanel {
 		northPanel.add(renameButtonPanel, BorderLayout.EAST);
 		this.add(northPanel, BorderLayout.NORTH);
 
-		comboBox.setBorder(BorderFactory.createEmptyBorder(0,0,5,0));
 		// Listeners were here
+		this.setBorder(BorderFactory.createEmptyBorder(0,0,5,0));
 		this.add(comboBox, BorderLayout.CENTER);
 		this.setMaximumSize(MAXIMUM_SIZE);
 		DeckManager.getDeckManagerGUI().getDeckBinderPanels().add(this);
