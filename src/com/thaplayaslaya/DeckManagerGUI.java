@@ -46,7 +46,6 @@ public class DeckManagerGUI extends JFrame{
 
 	public DeckManagerGUI() {
 		super(windowName);
-
 		setFrameDefaults();
 	}
 
@@ -67,7 +66,9 @@ public class DeckManagerGUI extends JFrame{
 
 		JLabel rightPrompt = new JLabel("What do you want to do with: ", JLabel.CENTER);
 
-		JButton[] rightPanelButtons = { new JButton("Copy"), new JButton("View Deck"),/* new JButton("Rename"),*/ new JButton("Edit"), new JButton("Delete") };
+		JButton[] rightPanelButtons = { new JButton("Copy Code"), new JButton("View Deck"), new JButton("Edit"), new JButton("Delete") };
+		String[] rightPanelButtonsToolTips = { "Copy this deck's import code to your clipboard", "Display an image of this deck in a separate window", 
+												"Edit this deck's name and import code", "Delete this deck"};
 
 		rightPanel.setLayout(new BorderLayout());
 		rightPanel.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -82,8 +83,9 @@ public class DeckManagerGUI extends JFrame{
 
 		buttonsPanel.setLayout(new GridLayout(rightPanelButtons.length, 1));
 
-		for (JButton jb : rightPanelButtons) {
-			addAButton(jb, buttonsPanel);
+		for (int i = 0; i < rightPanelButtons.length; i++) {
+			rightPanelButtons[i].setToolTipText(rightPanelButtonsToolTips[i]);
+			addAButton(rightPanelButtons[i], buttonsPanel);
 		}
 
 		innerRightPanel.add(buttonsPanel, BorderLayout.CENTER);
@@ -122,7 +124,7 @@ public class DeckManagerGUI extends JFrame{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (currentlySelectedDeck != null) {
-				if (e.getActionCommand().equals("Copy")) {
+				if (e.getActionCommand().equals("Copy Code")) {
 					Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(currentlySelectedDeck.getImportCode()), null);
 				}
 				if (e.getActionCommand().equals("View Deck")) {

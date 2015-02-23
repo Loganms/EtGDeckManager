@@ -11,10 +11,7 @@ import java.awt.event.InputEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-
 import javax.swing.AbstractAction;
-import javax.swing.Action;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -50,6 +47,7 @@ public class DeckBinderPanel extends JPanel {
 
 		renameButton.setFont(new Font(Font.DIALOG, Font.PLAIN, 10));
 		renameButton.setMargin(new java.awt.Insets(0, 2, 0, 2));
+		renameButton.setToolTipText("Rename Deck Binder");
 		renameButton.addActionListener(new DeckBinderOptionsButtonsListener());
 
 		JPanel renameButtonPanel = new JPanel();
