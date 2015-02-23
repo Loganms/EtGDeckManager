@@ -36,10 +36,15 @@ public class Deck {
 	}
 
 	public void setImportCode(String importCode) {
-		if(!this.importCode.equals(importCode)){
+		if (this.importCode != null) {
+			if (!this.importCode.equals(importCode)) {
+				this.importCode = importCode;
+				this.deckImage = null;
+			}
+		} else {
 			this.importCode = importCode;
-			this.deckImage = null;
 		}
+
 	}
 
 	public static Deck getDefaultDeck() {
@@ -60,7 +65,7 @@ public class Deck {
 		if (this.hasDeckImage()) {
 			return deckImage;
 		} else {
-			if(generateDeckImage()) {
+			if (generateDeckImage()) {
 				return deckImage;
 			} else {
 				return null;
