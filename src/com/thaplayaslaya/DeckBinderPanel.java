@@ -7,21 +7,27 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.InputEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 
 public class DeckBinderPanel extends JPanel {
 
 	private static final long serialVersionUID = -1215607079828446786L;
 	private static final Dimension MAXIMUM_SIZE = new Dimension(120, 40 + 20);
-	private String name = "[Default Name]";
+	private String name = "[Default Name]", upArrow = "UpArrow", downArrow = "DownArrow";
 	private JLabel dBName = new JLabel(this.name, JLabel.LEFT);
 	private JComboBox<Deck> comboBox = new JComboBox<Deck>();
 	private JButton renameButton = new JButton("R");
@@ -54,7 +60,6 @@ public class DeckBinderPanel extends JPanel {
 		northPanel.add(renameButtonPanel, BorderLayout.EAST);
 		this.add(northPanel, BorderLayout.NORTH);
 
-		// Listeners were here
 		this.setBorder(BorderFactory.createEmptyBorder(0,0,5,0));
 		this.add(comboBox, BorderLayout.CENTER);
 		this.setMaximumSize(MAXIMUM_SIZE);
@@ -64,6 +69,12 @@ public class DeckBinderPanel extends JPanel {
 	public void setListeners() {
 		comboBox.addItemListener(new ItemChangeListener());
 		comboBox.addFocusListener(new cBFocusListener());
+		//Add keybinds to manipulate item order of the comboBox.
+		comboBox.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, InputEvent.SHIFT_DOWN_MASK), upArrow);
+		comboBox.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, InputEvent.SHIFT_DOWN_MASK), downArrow);
+		
+		comboBox.getActionMap().put(upArrow, new VertArrowAction(upArrow));
+		comboBox.getActionMap().put(downArrow, new VertArrowAction(downArrow));
 	}
 
 	public void setName(String name) {
@@ -79,6 +90,36 @@ public class DeckBinderPanel extends JPanel {
 
 	public JComboBox<Deck> getComboBox() {
 		return comboBox;
+	}
+	
+	private class VertArrowAction extends AbstractAction {
+
+		private static final long serialVersionUID = 2644070230078784280L;
+		public VertArrowAction (String text) {
+			super(text);
+			putValue(ACTION_COMMAND_KEY, text);
+		}
+		
+		//Move Items up/down within the JComboBox
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String actionCommand = e.getActionCommand();
+			@SuppressWarnings("unchecked")
+			JComboBox<Deck> comboBox = (JComboBox<Deck>) e.getSource();
+			Deck selectedDeck = (Deck) comboBox.getSelectedItem();
+			int selectedIndex = comboBox.getSelectedIndex();
+			if(actionCommand.equals(upArrow) && selectedIndex > 0) {
+				comboBox.removeItem(selectedDeck);
+				comboBox.insertItemAt(selectedDeck, selectedIndex - 1);
+				comboBox.setSelectedIndex(selectedIndex - 1);
+			} else if (actionCommand.equals(downArrow) && selectedIndex < comboBox.getItemCount() - 2) {
+				comboBox.removeItem(selectedDeck);
+				comboBox.insertItemAt(selectedDeck, selectedIndex + 1);
+				comboBox.setSelectedIndex(selectedIndex + 1);
+			}
+			
+		}
+		
 	}
 
 	private class ItemChangeListener implements ItemListener {
@@ -130,7 +171,7 @@ public class DeckBinderPanel extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			if (e.getActionCommand().equals("R")) {
 				JLabel dBLabel = (JLabel) (((JButton) e.getSource()).getParent().getParent().getComponents())[0];
-				String newName = JOptionPane.showInputDialog("Choose a new name for this Deck Binder.", dBLabel.getText());
+				String newName = JOptionPane.showInputDialog("What do you want to name this Deck Binder.", dBLabel.getText());
 				if (newName != null && newName.length() > 0) {
 					Case briefcase = DeckManager.cfg.getCase();
 					if (!briefcase.containsDeckBinder(newName)) {

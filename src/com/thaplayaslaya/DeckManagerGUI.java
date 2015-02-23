@@ -26,7 +26,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-public class DeckManagerGUI extends JFrame {
+public class DeckManagerGUI extends JFrame{
 
 	private static final long serialVersionUID = 3686286211660935696L;
 
@@ -122,23 +122,6 @@ public class DeckManagerGUI extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (currentlySelectedDeck != null) {
-				/*if (e.getActionCommand().equals("Rename")) {
-					String newName = JOptionPane.showInputDialog("Submit a new name for this deck.", currentlySelectedDeck.getName());
-					if (newName != null && newName.length() > 0) {
-						if (!DeckManager.cfg.getCase().getDeckBinder(currentlySelectedDeckBinder).containsDeck(newName)) {
-							DeckManager.cfg.getCase().getDeckBinder(currentlySelectedDeckBinder).getDeck(currentlySelectedDeck.getName()).setName(newName);
-							currentlySelectedDeck.setName(newName);
-							setCurrentlySelectedDeck(currentlySelectedDeck);
-							currentlySelectedDeckLabel.revalidate();
-							leftPanel.requestFocusInWindow();
-						} else {
-							// TODO: tell user that name already exists in this
-							// Deck Binder.
-						}
-					} else {
-						// TODO: tell user that name is invalid.
-					}
-				}*/
 				if (e.getActionCommand().equals("Copy")) {
 					Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(currentlySelectedDeck.getImportCode()), null);
 				}
