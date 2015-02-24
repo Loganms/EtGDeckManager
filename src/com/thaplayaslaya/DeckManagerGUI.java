@@ -206,6 +206,11 @@ public class DeckManagerGUI extends JFrame{
 	public void removeDeckBinderPanel(DeckBinderPanel dbp) {
 		casePanel.remove(dbp);
 		this.deckBinderPanels.remove(dbp);
+		if (currentlySelectedDeckBinder.equals(dbp.getName())) {
+			setCurrentlySelectedDeckBinder(null);
+			setCurrentlySelectedDeck(null);
+		}
+		promptPanel.revalidate();
 		casePanel.revalidate();
 	}
 
