@@ -65,6 +65,7 @@ public class DeckBinderPanel extends JPanel {
 		this.add(northPanel, BorderLayout.NORTH);
 
 		this.setBorder(BorderFactory.createEmptyBorder(0,0,5,0));
+		comboBox.setToolTipText("Move Deck (Shft+UP/DOWN)");
 		this.add(comboBox, BorderLayout.CENTER);
 		this.setMaximumSize(MAXIMUM_SIZE);
 		DeckManager.getDeckManagerGUI().getDeckBinderPanels().add(this);
