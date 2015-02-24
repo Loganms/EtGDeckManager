@@ -27,7 +27,7 @@ public class DeckBinderPanel extends JPanel {
 	private String name = "[Default Name]", upArrow = "UpArrow", downArrow = "DownArrow";
 	private JLabel dBName = new JLabel(this.name, JLabel.LEFT);
 	private JComboBox<Deck> comboBox = new JComboBox<Deck>();
-	private JButton renameButton = new JButton("R");
+	private JButton renameButton = new JButton("R"), deleteButton = new JButton("D");
 	private JPanel northPanel = new JPanel();
 
 	public DeckBinderPanel() {
@@ -49,9 +49,15 @@ public class DeckBinderPanel extends JPanel {
 		renameButton.setMargin(new java.awt.Insets(0, 2, 0, 2));
 		renameButton.setToolTipText("Rename Deck Binder");
 		renameButton.addActionListener(new DeckBinderOptionsButtonsListener());
+		
+		deleteButton.setFont(new Font(Font.DIALOG, Font.PLAIN, 10));
+		deleteButton.setMargin(new java.awt.Insets(0, 2, 0, 2));
+		deleteButton.setToolTipText("Delete Deck Binder");
+		deleteButton.addActionListener(new DeckBinderOptionsButtonsListener());
 
 		JPanel renameButtonPanel = new JPanel();
 		renameButtonPanel.add(renameButton, JPanel.RIGHT_ALIGNMENT);
+		renameButtonPanel.add(deleteButton, JPanel.RIGHT_ALIGNMENT);
 
 		northPanel.setLayout(new BorderLayout());
 		northPanel.add(dBName, BorderLayout.WEST);
@@ -192,6 +198,15 @@ public class DeckBinderPanel extends JPanel {
 					// change did not go through.
 					System.out.println("name is either null or 0 characters long.");
 				}
+			} else if (e.getActionCommand().equals("D")) {
+				if (JOptionPane.showConfirmDialog(DeckManager.getDeckManagerGUI(), "Are you sure you want to delete this deck binder?") == JOptionPane.YES_OPTION) {
+					DeckManager.cfg.getCase().removeDeckBinder(
+							DeckManager.cfg.getCase().getDeckBinder(
+								((JLabel) (((JButton) e.getSource()).getParent().getParent().getComponents())[0]).getText()
+							)
+					);
+				}
+				
 			}
 		}
 	}

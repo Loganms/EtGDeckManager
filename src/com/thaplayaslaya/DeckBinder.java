@@ -97,4 +97,9 @@ public class DeckBinder {
 	public void addNewDeck() {
 		new CustomDialog(DeckManager.getDeckManagerGUI(), 0);
 	}
+
+	public void delete(DeckBinder deckBinder) {
+		DeckManager.getDeckManagerGUI().removeDeckBinderPanel(deckBinder.dBP);
+		deckBinder = null;
+	}
 }

@@ -55,6 +55,11 @@ public class Case {
 	//Walks user through the process with prompts and validation.
 	public void addNewDeckBinder() {
 		new CustomDialog(DeckManager.getDeckManagerGUI(), 1);
+	}
+
+	public void removeDeckBinder(DeckBinder deckBinder) {
+		deckBinders.remove(deckBinder);
+		deckBinder.delete(deckBinder);
 	}	
 }
 

@@ -202,6 +202,12 @@ public class DeckManagerGUI extends JFrame{
 	public void setDeckBinderPanels(LinkedList<DeckBinderPanel> deckBinderPanels) {
 		this.deckBinderPanels = deckBinderPanels;
 	}
+	
+	public void removeDeckBinderPanel(DeckBinderPanel dbp) {
+		casePanel.remove(dbp);
+		this.deckBinderPanels.remove(dbp);
+		casePanel.revalidate();
+	}
 
 	public void setCurrentlySelectedDeckBinder(String name) {
 		currentlySelectedDeckBinder = name;
@@ -221,7 +227,6 @@ public class DeckManagerGUI extends JFrame{
 			currentlySelectedDeckLabel.setText("[No deck currently selected]");
 			promptPanel.revalidate();
 		}
-
 	}
 
 	public Deck getCurrentlySelectedDeck() {
