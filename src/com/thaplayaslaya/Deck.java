@@ -6,15 +6,21 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 
 public class Deck {
-
-	// private transient final Deck DEFAULT;
+	
+	private static final String defaultDeckName = "add new deck";
+	public static final Deck DEFAULT = new Deck(defaultDeckName);
+	
 	private transient BufferedImage deckImage;
-	private transient static String defaultDeckName = "add new deck";
+	
 	private String name;
 	private String importCode;
 
 	public Deck() {
 		name = "[No Name Set]";
+	}
+	
+	private Deck(String name) {
+		this.name = name;
 	}
 
 	public String getName() {
@@ -39,12 +45,6 @@ public class Deck {
 			this.importCode = importCode;
 		}
 
-	}
-
-	public static Deck getDefaultDeck() {
-		Deck deck = new Deck();
-		deck.setName(defaultDeckName);
-		return deck;
 	}
 
 	public boolean hasDeckImage() {

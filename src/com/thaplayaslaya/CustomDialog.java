@@ -24,7 +24,7 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 	private JOptionPane optionPane;
 	private String btnString1 = "Enter";
 	private String btnString2 = "Cancel";
-	private int typeOfOperation;
+	private OperationType typeOfOperation;
 
 	/**
 	 * Returns null if the typed string was invalid; otherwise, returns the
@@ -39,31 +39,31 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 	 * CustomDialog we are adding a new deck. Supplying an integer value of 1
 	 * tells CustomDialog we are adding a new deck binder.
 	 */
-	public CustomDialog(Frame aFrame, int typeOfOperation) {
+	public CustomDialog(Frame aFrame, OperationType operationType) {
 		super(aFrame, true);
-		this.typeOfOperation = typeOfOperation;
+		this.typeOfOperation = operationType;
 
 		// Create an array of the text and components to be displayed.
 		String msgString1 = null;
 		String msgString2 = null;
-		
+
 		nameTextField = new JTextField(10);
-		if (typeOfOperation == 0 || typeOfOperation == 2) {
+		if (typeOfOperation == OperationType.ADD_NEW_DECK || typeOfOperation == OperationType.EDIT_DECK) {
 			importCodeTextArea = new JTextArea(5, 10);
 			importCodeTextArea.setLineWrap(true);
 		}
-		
+
 		switch (typeOfOperation) {
-		case 0:
+		case ADD_NEW_DECK:
 			setTitle("New Deck");
 			msgString1 = "Enter a name for the deck.";
 			msgString2 = "Enter an import code or leave blank.";
 			break;
-		case 1:
+		case ADD_NEW_DECKBINDER:
 			setTitle("New Deck Binder");
 			msgString1 = "Enter a name for the deck binder.";
 			break;
-		case 2:
+		case EDIT_DECK:
 			setTitle("Edit Deck");
 			msgString1 = "Edit this deck's name.";
 			msgString2 = "Edit this deck's import code.";
@@ -109,7 +109,7 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 
 		// Register an event handler that reacts to option pane state changes.
 		optionPane.addPropertyChangeListener(this);
-		
+
 		pack();
 		setLocationRelativeTo(aFrame);
 		setVisible(true);
@@ -148,11 +148,10 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 
 			if (btnString1.equals(value)) {
 				if (typedText.length() > 0) {
-					if (getTypeOfOperation() == 0) {
+					switch (getTypeOfOperation()) {
+					case ADD_NEW_DECK:
 						DeckBinder db = DeckManager.cfg.getCase().getDeckBinder(DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder());
 
-						// JOptionPane.showMessageDialog(this,
-						// "Correct answer given");
 						if (db != null) {
 							if (!db.containsDeck(typedText)) {
 								Deck newDeck = new Deck();
@@ -170,42 +169,53 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 						} else {
 							System.out.println("CustomDialog class: the DB, " + db + " is null.");
 						}
-					} else if (getTypeOfOperation() == 1) {
+						
+						break;
+						
+					case ADD_NEW_DECKBINDER:
 						Case briefcase = DeckManager.cfg.getCase();
-							if (!briefcase.containsDeckBinder(typedText)) {
-								new DeckBinder(typedText);
-								// TODO: should have a function to do this for me.
-								DeckManager.getDeckManagerGUI().casePanel.add(DeckManager.getDeckManagerGUI().getDeckBinderPanels().getLast());
-								DeckManager.getDeckManagerGUI().casePanel.revalidate();
-								//
-								exit();
-							} else {
-								JOptionPane.showMessageDialog(this, "Sorry, \"" + typedText + "\" " + "already exists as a deck binder.\n" + "Please enter a different name.", "Try again",
-										JOptionPane.ERROR_MESSAGE);
-								typedText = null;
-								nameTextField.requestFocusInWindow();
-							}
-					} else if (getTypeOfOperation() == 2) {
+						
+						if (!briefcase.containsDeckBinder(typedText)) {
+							new DeckBinder(typedText);
+							// TODO: should have a function to do this for me.
+							DeckManager.getDeckManagerGUI().casePanel.add(DeckManager.getDeckManagerGUI().getDeckBinderPanels().getLast());
+							DeckManager.getDeckManagerGUI().casePanel.revalidate();
+							//
+							exit();
+						} else {
+							JOptionPane.showMessageDialog(this, "Sorry, \"" + typedText + "\" " + "already exists as a deck binder.\n" + "Please enter a different name.", "Try again",
+									JOptionPane.ERROR_MESSAGE);
+							typedText = null;
+							nameTextField.requestFocusInWindow();
+						}
+						
+						break;
+
+					case EDIT_DECK:
 						Deck oldDeck = DeckManager.getDeckManagerGUI().getCurrentlySelectedDeck();
-						DeckBinder db = DeckManager.cfg.getCase().getDeckBinder(DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder());
-						boolean nameTaken = db.containsDeck(typedText);
+						boolean nameTaken = DeckManager.cfg.getCase().getDeckBinder(DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder()).containsDeck(typedText);
 						boolean nameIsSame = typedText.equals(oldDeck.getName());
+						
 						if (nameTaken && nameIsSame) {
-							//Then I know the name of the deck has not been changed.
+							// Then I know the name of the deck has not been
+							// changed.
 							oldDeck.setImportCode(importCodeTextArea.getText());
 							exit();
 						} else if (!nameTaken && !nameIsSame) {
-							//Then I know the name has been changed and is valid.
+							// Then I know the name has been changed and is
+							// valid.
 							oldDeck.setName(typedText);
 							oldDeck.setImportCode(importCodeTextArea.getText());
 							exit();
 						} else if (nameTaken && !nameIsSame) {
-							//Then this name is already in use.
+							// Then this name is already in use.
 							JOptionPane.showMessageDialog(this, "Sorry, \"" + typedText + "\" " + "already exists in this deck binder.\n" + "Please enter a different name.", "Try again",
 									JOptionPane.ERROR_MESSAGE);
 							typedText = null;
 							nameTextField.requestFocusInWindow();
 						}
+						
+						break;
 					}
 				} else {
 					noTypedTextPrompt();
@@ -215,18 +225,18 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 			}
 		}
 	}
-	
+
 	public void noTypedTextPrompt() {
 		JOptionPane.showMessageDialog(this, "A name must be submitted.", "Try again", JOptionPane.ERROR_MESSAGE);
 		typedText = null;
 		nameTextField.requestFocusInWindow();
 	}
 
-	public int getTypeOfOperation() {
+	public OperationType getTypeOfOperation() {
 		return typeOfOperation;
 	}
 
-	public void setTypeOfOperation(int typeOfOperation) {
+	public void setTypeOfOperation(OperationType typeOfOperation) {
 		this.typeOfOperation = typeOfOperation;
 	}
 
@@ -234,7 +244,7 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 		typedText = null;
 		// need if statement to take focus off of "add new deck" option upon
 		// window closing.
-		if (getTypeOfOperation() == 0) {
+		if (getTypeOfOperation().equals(OperationType.ADD_NEW_DECK)) {
 			DeckManager.cfg.getCase().getDeckBinder(DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder()).getDeckBinderPanel().getComboBox().setSelectedIndex(0);
 		}
 		exit();

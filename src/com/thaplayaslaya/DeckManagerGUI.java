@@ -142,7 +142,7 @@ public class DeckManagerGUI extends JFrame{
 					}
 				}
 				if (e.getActionCommand().equals("Edit")) {
-					new CustomDialog(DeckManagerGUI.this, 2);
+					new CustomDialog(DeckManagerGUI.this, OperationType.EDIT_DECK);
 				}
 				//TODO: when deleting the last custom deck of a deck binder, add new deck is auto selected and the window pops up.
 				// canceling that window causes unwanted results.
@@ -207,7 +207,7 @@ public class DeckManagerGUI extends JFrame{
 		casePanel.remove(dbp);
 		this.deckBinderPanels.remove(dbp);
 		if (currentlySelectedDeckBinder.equals(dbp.getName())) {
-			setCurrentlySelectedDeckBinder(null);
+			currentlySelectedDeckBinder = null;
 			setCurrentlySelectedDeck(null);
 		}
 		promptPanel.revalidate();
@@ -216,6 +216,10 @@ public class DeckManagerGUI extends JFrame{
 
 	public void setCurrentlySelectedDeckBinder(String name) {
 		currentlySelectedDeckBinder = name;
+	}
+	
+	public void setCurrentlySelectedDeckBinder(DeckBinder db) {
+		currentlySelectedDeckBinder = db.getName();
 	}
 
 	public String getCurrentlySelectedDeckBinder() {

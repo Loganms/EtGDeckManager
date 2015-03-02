@@ -10,9 +10,9 @@ import com.google.gson.Gson;
 
 public class Config {
 
-	private String cfgFile = "cfg.json";
+	private static final String cfgFile = "cfg.json";
 	private File file;
-	private Case briefcase;
+	private static Case briefcase;
 	private String json;
 	private Gson gson = DeckManager.gson;
 
@@ -40,10 +40,6 @@ public class Config {
 	}
 
 	public void writeToFile() {
-		// reconcile changes to json (or maybe just the briefcase?)
-		// json = DeckManager.gson.toJson(briefcase);
-		// put json back into cfg.json
-
 		json = DeckManager.gson.toJson(briefcase);
 
 		try {

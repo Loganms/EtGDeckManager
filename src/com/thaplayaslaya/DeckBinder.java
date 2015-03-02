@@ -27,24 +27,22 @@ public class DeckBinder {
 	// called once Config has populated Case completely with JSON data.
 	public void setDBP() {
 		dBP = new DeckBinderPanel(this.name);
+		
 		for (Deck d : decks) {
 			dBP.getComboBox().addItem(d);
 		}
-		System.out.println("adding default deck to " + name);
+		
 		finalizeDBSetup();
 	}
 
 	private void finalizeDBSetup() {
-		dBP.getComboBox().addItem(Deck.getDefaultDeck());
+		dBP.getComboBox().addItem(Deck.DEFAULT);
 		dBP.setListeners();
 	}
 
 	public void addDeck(Deck deck) {
 		decks.add(deck);
-		// not the most elegant way, I know.
-		dBP.getComboBox().removeItem(dBP.getComboBox().getItemAt(dBP.getComboBox().getItemCount() - 1));
-		dBP.getComboBox().addItem(deck);
-		dBP.getComboBox().addItem(Deck.getDefaultDeck());
+		dBP.getComboBox().insertItemAt(deck, dBP.getComboBox().getItemCount() - 1);
 	}
 
 	public void removeDeck(Deck deck) {
@@ -79,12 +77,6 @@ public class DeckBinder {
 		return decks;
 	}
 
-	public void setDecks(ArrayList<Deck> decks) {
-		for (Deck d : decks) {
-			this.addDeck(d);
-		}
-	}
-
 	public boolean containsDeck(String name) {
 		for (Deck d : this.getDecks()) {
 			if (d.getName().equals(name)) {
@@ -95,7 +87,7 @@ public class DeckBinder {
 	}
 
 	public void addNewDeck() {
-		new CustomDialog(DeckManager.getDeckManagerGUI(), 0);
+		new CustomDialog(DeckManager.getDeckManagerGUI(), OperationType.ADD_NEW_DECK);
 	}
 
 	public void delete(DeckBinder deckBinder) {
