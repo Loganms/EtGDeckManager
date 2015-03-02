@@ -25,6 +25,7 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 	private String btnString1 = "Enter";
 	private String btnString2 = "Cancel";
 	private OperationType typeOfOperation;
+	private String extraInfo;
 
 	/**
 	 * Returns null if the typed string was invalid; otherwise, returns the
@@ -39,9 +40,10 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 	 * CustomDialog we are adding a new deck. Supplying an integer value of 1
 	 * tells CustomDialog we are adding a new deck binder.
 	 */
-	public CustomDialog(Frame aFrame, OperationType operationType) {
+	public CustomDialog(Frame aFrame, OperationType operationType, String extraInfo) {
 		super(aFrame, true);
 		this.typeOfOperation = operationType;
+		this.extraInfo = extraInfo;
 
 		// Create an array of the text and components to be displayed.
 		String msgString1 = null;
@@ -63,6 +65,12 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 			setTitle("New Deck Binder");
 			msgString1 = "Enter a name for the deck binder.";
 			break;
+		case RENAME_DECKBINDER:
+			setTitle("Rename Deck Binder");
+			msgString1 = "Enter a new name for this deck binder.";
+			nameTextField.setText(getExtraInfo());
+			nameTextField.selectAll();
+			break;
 		case EDIT_DECK:
 			setTitle("Edit Deck");
 			msgString1 = "Edit this deck's name.";
@@ -71,6 +79,9 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 			importCodeTextArea.setText(d.getImportCode());
 			nameTextField.setText(d.getName());
 			nameTextField.selectAll();
+			break;
+		
+		default:
 			break;
 		}
 
@@ -145,7 +156,10 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 			optionPane.setValue(JOptionPane.UNINITIALIZED_VALUE);
 
 			typedText = nameTextField.getText();
-
+			
+			boolean nameTaken;
+			boolean nameIsSame;
+			
 			if (btnString1.equals(value)) {
 				if (typedText.length() > 0) {
 					switch (getTypeOfOperation()) {
@@ -190,11 +204,25 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 						}
 						
 						break;
-
+					case RENAME_DECKBINDER:
+						DeckBinder oldDB = DeckManager.getCase().getDeckBinder(getExtraInfo());
+						nameTaken = DeckManager.getCase().containsDeckBinder(typedText);
+						nameIsSame = typedText.equals(oldDB.getName());
+						
+						if (!nameIsSame && !nameTaken) {
+							oldDB.setName(typedText);
+							exit();
+						} else if (!nameIsSame && nameTaken) {
+							JOptionPane.showMessageDialog(this, "Sorry, \"" + typedText + "\" " + "already exists as a deck binder.\n" + "Please enter a different name.", "Try again",
+									JOptionPane.ERROR_MESSAGE);
+							typedText = null;
+							nameTextField.requestFocusInWindow();
+						}
+						break;
 					case EDIT_DECK:
 						Deck oldDeck = DeckManager.getDeckManagerGUI().getCurrentlySelectedDeck();
-						boolean nameTaken = DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder().containsDeck(typedText);
-						boolean nameIsSame = typedText.equals(oldDeck.getName());
+						nameTaken = DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder().containsDeck(typedText);
+						nameIsSame = typedText.equals(oldDeck.getName());
 						
 						if (nameTaken && nameIsSame) {
 							// Then I know the name of the deck has not been
@@ -238,6 +266,14 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 
 	public void setTypeOfOperation(OperationType typeOfOperation) {
 		this.typeOfOperation = typeOfOperation;
+	}
+
+	public String getExtraInfo() {
+		return extraInfo;
+	}
+
+	public void setExtraInfo(String extraInfo) {
+		this.extraInfo = extraInfo;
 	}
 
 	public void escapeTheWindow() {

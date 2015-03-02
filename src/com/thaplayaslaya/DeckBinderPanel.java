@@ -174,7 +174,8 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("R")) {
-			String newName = JOptionPane.showInputDialog("What do you want to name this Deck Binder.", this.name);
+			new CustomDialog(DeckManager.getDeckManagerGUI(), OperationType.RENAME_DECKBINDER, this.name);
+			/*String newName = JOptionPane.showInputDialog("What do you want to name this Deck Binder.", this.name);
 			if (newName != null && newName.length() > 0) {
 				Case briefcase = DeckManager.getCase();
 				if (!briefcase.containsDeckBinder(newName)) {
@@ -191,7 +192,7 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 				// TODO: supply user with pop ups explaining why their name
 				// change did not go through.
 				System.out.println("name is either null or 0 characters long.");
-			}
+			}*/
 		} else if (e.getActionCommand().equals("D")) {
 			if (JOptionPane.showConfirmDialog(DeckManager.getDeckManagerGUI(), "Are you sure you want to delete this deck binder?") == JOptionPane.YES_OPTION) {
 				DeckManager.getCase().removeDeckBinder(DeckManager.getCase().getDeckBinder(this.name));

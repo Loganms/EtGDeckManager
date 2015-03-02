@@ -142,7 +142,7 @@ public class DeckManagerGUI extends JFrame{
 					}
 				}
 				if (e.getActionCommand().equals("Edit")) {
-					new CustomDialog(DeckManagerGUI.this, OperationType.EDIT_DECK);
+					new CustomDialog(DeckManagerGUI.this, OperationType.EDIT_DECK, null);
 				}
 				//TODO: when deleting the last custom deck of a deck binder, add new deck is auto selected and the window pops up.
 				// canceling that window causes unwanted results.

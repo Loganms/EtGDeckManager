@@ -87,7 +87,7 @@ public class DeckBinder {
 	}
 
 	public void addNewDeck() {
-		new CustomDialog(DeckManager.getDeckManagerGUI(), OperationType.ADD_NEW_DECK);
+		new CustomDialog(DeckManager.getDeckManagerGUI(), OperationType.ADD_NEW_DECK, null);
 	}
 
 	public void delete(DeckBinder deckBinder) {

@@ -44,7 +44,7 @@ public class Case {
 	//This is only called when user wants to make a new deck binder.
 	//Walks user through the process with prompts and validation.
 	public void addNewDeckBinder() {
-		new CustomDialog(DeckManager.getDeckManagerGUI(), OperationType.ADD_NEW_DECKBINDER);
+		new CustomDialog(DeckManager.getDeckManagerGUI(), OperationType.ADD_NEW_DECKBINDER, null);
 	}
 }
 
