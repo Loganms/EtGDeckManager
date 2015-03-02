@@ -150,7 +150,7 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 				if (typedText.length() > 0) {
 					switch (getTypeOfOperation()) {
 					case ADD_NEW_DECK:
-						DeckBinder db = DeckManager.cfg.getCase().getDeckBinder(DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder());
+						DeckBinder db = DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder();
 
 						if (db != null) {
 							if (!db.containsDeck(typedText)) {
@@ -193,7 +193,7 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 
 					case EDIT_DECK:
 						Deck oldDeck = DeckManager.getDeckManagerGUI().getCurrentlySelectedDeck();
-						boolean nameTaken = DeckManager.cfg.getCase().getDeckBinder(DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder()).containsDeck(typedText);
+						boolean nameTaken = DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder().containsDeck(typedText);
 						boolean nameIsSame = typedText.equals(oldDeck.getName());
 						
 						if (nameTaken && nameIsSame) {
@@ -245,7 +245,7 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 		// need if statement to take focus off of "add new deck" option upon
 		// window closing.
 		if (getTypeOfOperation().equals(OperationType.ADD_NEW_DECK)) {
-			DeckManager.cfg.getCase().getDeckBinder(DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder()).getDeckBinderPanel().getComboBox().setSelectedIndex(0);
+			DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder().getDeckBinderPanel().getComboBox().setSelectedIndex(0);
 		}
 		exit();
 	}

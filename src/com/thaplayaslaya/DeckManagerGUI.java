@@ -42,7 +42,7 @@ public class DeckManagerGUI extends JFrame{
 	JLabel currentlySelectedDeckLabel = new JLabel("[No deck currently selected]", JLabel.CENTER);
 	private Deck currentlySelectedDeck;
 
-	private String currentlySelectedDeckBinder;
+	private DeckBinder currentlySelectedDeckBinder;
 
 	public DeckManagerGUI() {
 		super(windowName);
@@ -149,7 +149,7 @@ public class DeckManagerGUI extends JFrame{
 				if (e.getActionCommand().equals("Delete")) {
 					// Want to add verification to this option later
 					// i.e. are you sure?
-					DeckManager.cfg.getCase().getDeckBinder(currentlySelectedDeckBinder).removeDeck(currentlySelectedDeck);
+					currentlySelectedDeckBinder.removeDeck(currentlySelectedDeck);
 					setCurrentlySelectedDeck(null);
 					//setCurrentlySelectedDeckBinder(null);
 				}
@@ -206,7 +206,7 @@ public class DeckManagerGUI extends JFrame{
 	public void removeDeckBinderPanel(DeckBinderPanel dbp) {
 		casePanel.remove(dbp);
 		this.deckBinderPanels.remove(dbp);
-		if (currentlySelectedDeckBinder.equals(dbp.getName())) {
+		if (currentlySelectedDeckBinder != null && currentlySelectedDeckBinder.equals(dbp.getName())) {
 			currentlySelectedDeckBinder = null;
 			setCurrentlySelectedDeck(null);
 		}
@@ -215,14 +215,14 @@ public class DeckManagerGUI extends JFrame{
 	}
 
 	public void setCurrentlySelectedDeckBinder(String name) {
-		currentlySelectedDeckBinder = name;
+		currentlySelectedDeckBinder = DeckManager.getCase().getDeckBinder(name);
 	}
 	
 	public void setCurrentlySelectedDeckBinder(DeckBinder db) {
-		currentlySelectedDeckBinder = db.getName();
+		currentlySelectedDeckBinder = db;
 	}
 
-	public String getCurrentlySelectedDeckBinder() {
+	public DeckBinder getCurrentlySelectedDeckBinder() {
 		return currentlySelectedDeckBinder;
 	}
 

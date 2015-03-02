@@ -138,7 +138,7 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 					if (!deck.getName().equals(Deck.DEFAULT.getName())) {
 						DeckManager.getDeckManagerGUI().setCurrentlySelectedDeck(deck);
 					} else {
-						DeckManager.cfg.getCase().getDeckBinder(DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder()).addNewDeck();
+						DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder().addNewDeck();
 					}
 				}
 			}
@@ -155,7 +155,7 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 			DeckManager.getDeckManagerGUI().setCurrentlySelectedDeckBinder(comboBox.getName());
 
 			if (comboBox.getSelectedItem().toString().equals(Deck.DEFAULT.getName())) {
-				DeckManager.cfg.getCase().getDeckBinder(DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder()).addNewDeck();
+				DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder().addNewDeck();
 			}
 
 			DeckManager.getDeckManagerGUI().setCurrentlySelectedDeck((Deck) comboBox.getSelectedItem());
