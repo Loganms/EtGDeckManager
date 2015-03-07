@@ -81,8 +81,11 @@ public class Deck {
 				if (currentCard.equals(cardArray[i + 1])) {
 					counter++;
 				} else {
-					if (counter > 0) {
+					if (counter > 0 && counter <10) {
 						urlpath.append("z" + counter + currentCard);
+					} else if (counter >= 10) {
+						char increment = 'A';
+						urlpath.append("z" + (char)(increment + (counter - 10)) + currentCard);
 					} else {
 						urlpath.append(currentCard);
 					}

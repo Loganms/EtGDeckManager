@@ -27,7 +27,7 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 	private String name = "[Default Name]", upArrow = "UpArrow", downArrow = "DownArrow";
 	private JLabel dBName = new JLabel(this.name, JLabel.LEFT);
 	private JComboBox<Deck> comboBox = new JComboBox<Deck>();
-	private JButton renameButton = new JButton("R"), deleteButton = new JButton("D");
+	private JButton renameButton = new JButton(OperationType.RENAME_DECKBINDER.getButtonText()), deleteButton = new JButton("D");
 	private JPanel northPanel = new JPanel();
 
 	public DeckBinderPanel() {
@@ -173,26 +173,8 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getActionCommand().equals("R")) {
+		if (e.getActionCommand().equals(OperationType.RENAME_DECKBINDER.getButtonText())) {
 			new CustomDialog(DeckManager.getDeckManagerGUI(), OperationType.RENAME_DECKBINDER, this.name);
-			/*String newName = JOptionPane.showInputDialog("What do you want to name this Deck Binder.", this.name);
-			if (newName != null && newName.length() > 0) {
-				Case briefcase = DeckManager.getCase();
-				if (!briefcase.containsDeckBinder(newName)) {
-					DeckBinder db = briefcase.getDeckBinder(this.name);
-					db.setName(newName);
-					DeckManager.getDeckManagerGUI().setCurrentlySelectedDeckBinder(db);
-				} else {
-					// TODO: supply user with pop ups explaining why their
-					// name change did not go through.
-					System.out.println("name already exists for another deck binder.");
-				}
-
-			} else {
-				// TODO: supply user with pop ups explaining why their name
-				// change did not go through.
-				System.out.println("name is either null or 0 characters long.");
-			}*/
 		} else if (e.getActionCommand().equals("D")) {
 			if (JOptionPane.showConfirmDialog(DeckManager.getDeckManagerGUI(), "Are you sure you want to delete this deck binder?") == JOptionPane.YES_OPTION) {
 				DeckManager.getCase().removeDeckBinder(DeckManager.getCase().getDeckBinder(this.name));

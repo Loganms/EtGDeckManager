@@ -66,7 +66,7 @@ public class DeckManagerGUI extends JFrame{
 
 		JLabel rightPrompt = new JLabel("What do you want to do with: ", JLabel.CENTER);
 
-		JButton[] rightPanelButtons = { new JButton("Copy Code"), new JButton("View Deck"), new JButton("Edit"), new JButton("Delete") };
+		JButton[] rightPanelButtons = { new JButton("Copy Code"), new JButton("View Deck"), new JButton(OperationType.EDIT_DECK.getButtonText()), new JButton("Delete") };
 		String[] rightPanelButtonsToolTips = { "Copy this deck's import code to your clipboard", "Display an image of this deck in a separate window", 
 												"Edit this deck's name and import code", "Delete this deck"};
 
@@ -141,7 +141,7 @@ public class DeckManagerGUI extends JFrame{
 																			+ "'s import code.", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 				}
-				if (e.getActionCommand().equals("Edit")) {
+				if (e.getActionCommand().equals(OperationType.EDIT_DECK.getButtonText())) {
 					new CustomDialog(DeckManagerGUI.this, OperationType.EDIT_DECK, null);
 				}
 				//TODO: when deleting the last custom deck of a deck binder, add new deck is auto selected and the window pops up.
