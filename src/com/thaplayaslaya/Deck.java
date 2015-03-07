@@ -73,7 +73,7 @@ public class Deck {
 			cardArray = importCode.split(" ");
 			StringBuilder urlpath = new StringBuilder("http://dek.im/deck/");
 			int i;
-			String currentCard;
+			String currentCard = null;
 			int counter = 0;
 
 			for (i = 0; i < cardArray.length - 1; i++) {
@@ -83,17 +83,33 @@ public class Deck {
 				} else {
 					if (counter > 0 && counter <10) {
 						urlpath.append("z" + counter + currentCard);
-					} else if (counter >= 10) {
-						char increment = 'A';
-						urlpath.append("z" + (char)(increment + (counter - 10)) + currentCard);
+					} else if (counter >= 10 && counter < 36) {
+						char increment = (char) ('A' + (counter - 10));
+						urlpath.append("z" + increment + currentCard);
+					} else if (counter >= 36) {
+						char increment = (char) ('A' + (counter - 10) + 6);
+						urlpath.append("z" + increment + currentCard);
 					} else {
 						urlpath.append(currentCard);
 					}
 					counter = 0;
 				}
 			}
-
-			urlpath.append(cardArray[i] + ".png");
+			
+			if (counter != 0) {
+				if (counter > 0 && counter < 10) {
+					urlpath.append("z" + counter + currentCard);
+				} else if (counter >= 10 && counter < 36) {
+					char increment = (char) ('A' + (counter - 10));
+					urlpath.append("z" + increment + currentCard);
+				} else if (counter >= 36) {
+					char increment = (char) ('A' + (counter - 10) + 6);
+					urlpath.append("z" + increment + currentCard);
+				}
+			} else {
+				urlpath.append(cardArray[i] + ".png");
+			}
+			
 			System.out.println(urlpath.toString());
 
 			try {
