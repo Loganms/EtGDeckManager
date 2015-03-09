@@ -234,6 +234,7 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 							// valid.
 							oldDeck.setName(typedText);
 							oldDeck.setImportCode(importCodeTextArea.getText());
+							DeckManager.getDeckManagerGUI().setCurrentlySelectedDeck(oldDeck);
 							exit();
 						} else if (nameTaken && !nameIsSame) {
 							// Then this name is already in use.

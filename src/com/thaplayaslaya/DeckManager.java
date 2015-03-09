@@ -4,8 +4,6 @@ import com.google.gson.Gson;
 
 public class DeckManager {
 
-	//TODO: Having issues with deckbinderpanel not refreshing
-
 	private static DeckManagerGUI DMGUI;
 	public static Gson gson;
 	public static Config cfg;

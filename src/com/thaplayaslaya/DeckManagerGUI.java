@@ -29,7 +29,7 @@ import javax.swing.JScrollPane;
 public class DeckManagerGUI extends JFrame {
 
 	private static final long serialVersionUID = 3686286211660935696L;
-	private static final Dimension MINIMUM_SIZE = new Dimension(300, 275);
+	private static final Dimension MINIMUM_SIZE = new Dimension(320, 270);
 	private static final String windowName = "Deck Manager";
 	
 	JPanel leftPanel = new JPanel();

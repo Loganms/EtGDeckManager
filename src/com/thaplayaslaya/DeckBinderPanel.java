@@ -196,6 +196,10 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 			new CustomDialog(DeckManager.getDeckManagerGUI(), OperationType.RENAME_DECKBINDER, this.name);
 		} else if (e.getActionCommand().equals("D")) {
 			if (JOptionPane.showConfirmDialog(DeckManager.getDeckManagerGUI(), "Are you sure you want to delete this deck binder?") == JOptionPane.YES_OPTION) {
+				DeckManagerGUI dmg = DeckManager.getDeckManagerGUI();
+				if (DeckManager.getCase().getDeckBinder(this.name).getDecks().contains(dmg.getCurrentlySelectedDeck())){
+					dmg.setCurrentlySelectedDeck(null);
+				}
 				DeckManager.getCase().removeDeckBinder(DeckManager.getCase().getDeckBinder(this.name));
 			}
 		}
