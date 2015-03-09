@@ -17,6 +17,7 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -26,24 +27,26 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-public class DeckManagerGUI extends JFrame{
+public class DeckManagerGUI extends JFrame {
 
 	private static final long serialVersionUID = 3686286211660935696L;
-
-	Dimension MINIMUM_SIZE = new Dimension(300, 275);
-	static String windowName = "Deck Manager";
+	private static final Dimension MINIMUM_SIZE = new Dimension(300, 275);
+	private static final String windowName = "Deck Manager";
+	
 	JPanel leftPanel = new JPanel();
 	JPanel casePanel = new JPanel();
 	JPanel centerPanel = new JPanel();
 	JPanel promptPanel = new JPanel();
-
-	LinkedList<DeckBinderPanel> deckBinderPanels = new LinkedList<DeckBinderPanel>();
-
+	
 	JLabel currentlySelectedDeckLabel = new JLabel("[No deck currently selected]", JLabel.CENTER);
+	
+	LinkedList<DeckBinderPanel> deckBinderPanels = new LinkedList<DeckBinderPanel>();
+	
 	private Deck currentlySelectedDeck;
-
 	private DeckBinder currentlySelectedDeckBinder;
 
+	JButton[] rightPanelButtons = { new JButton("Copy Code"), new JButton("View Deck"), new JButton(OperationType.EDIT_DECK.getButtonText()), new JButton("Delete") };
+	
 	public DeckManagerGUI() {
 		super(windowName);
 		setFrameDefaults();
@@ -66,9 +69,9 @@ public class DeckManagerGUI extends JFrame{
 
 		JLabel rightPrompt = new JLabel("What do you want to do with: ", JLabel.CENTER);
 
-		JButton[] rightPanelButtons = { new JButton("Copy Code"), new JButton("View Deck"), new JButton(OperationType.EDIT_DECK.getButtonText()), new JButton("Delete") };
-		String[] rightPanelButtonsToolTips = { "Copy this deck's import code to your clipboard", "Display an image of this deck in a separate window", 
-												"Edit this deck's name and import code", "Delete this deck"};
+		
+		String[] rightPanelButtonsToolTips = { "Copy this deck's import code to your clipboard", "Display an image of this deck in a separate window", "Edit this deck's name and import code",
+				"Delete this deck" };
 
 		rightPanel.setLayout(new BorderLayout());
 		rightPanel.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -127,31 +130,30 @@ public class DeckManagerGUI extends JFrame{
 				if (e.getActionCommand().equals("Copy Code")) {
 					Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(currentlySelectedDeck.getImportCode()), null);
 				}
-				if (e.getActionCommand().equals("View Deck")) {
+				else if (e.getActionCommand().equals("View Deck")) {
 					BufferedImage img = currentlySelectedDeck.getDeckImage();
-					if(img != null) {
+					if (img != null) {
 						JFrame frame = new JFrame(currentlySelectedDeck.getName());
 						frame.getContentPane().add(new JLabel(new ImageIcon(img)));
 						frame.pack();
 						frame.setVisible(true);
 						frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 					} else {
-						JOptionPane.showMessageDialog(DeckManagerGUI.this, "A deck image could not be created from "
-																			+ currentlySelectedDeck.getName()
-																			+ "'s import code.", "Error", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(DeckManagerGUI.this, "A deck image could not be created from " + currentlySelectedDeck.getName() + "'s import code.", "Error",
+								JOptionPane.ERROR_MESSAGE);
 					}
 				}
-				if (e.getActionCommand().equals(OperationType.EDIT_DECK.getButtonText())) {
+				else if (e.getActionCommand().equals(OperationType.EDIT_DECK.getButtonText())) {
 					new CustomDialog(DeckManagerGUI.this, OperationType.EDIT_DECK, null);
 				}
-				//TODO: when deleting the last custom deck of a deck binder, add new deck is auto selected and the window pops up.
-				// canceling that window causes unwanted results.
-				if (e.getActionCommand().equals("Delete")) {
-					// Want to add verification to this option later
-					// i.e. are you sure?
-					currentlySelectedDeckBinder.removeDeck(currentlySelectedDeck);
-					setCurrentlySelectedDeck(null);
-					//setCurrentlySelectedDeckBinder(null);
+	
+				else if (e.getActionCommand().equals("Delete")) {
+					if (JOptionPane.showConfirmDialog(DeckManager.getDeckManagerGUI(), "Are you sure you want to delete " + currentlySelectedDeck.getName() + "?") == JOptionPane.YES_OPTION) {
+						currentlySelectedDeckBinder.getDeckBinderPanel().disableListeners();
+						currentlySelectedDeckBinder.removeDeck(currentlySelectedDeck);
+						setCurrentlySelectedDeck(null);
+						currentlySelectedDeckBinder.getDeckBinderPanel().enableListeners();
+					}
 				}
 			} else {
 				JOptionPane.showMessageDialog(DeckManagerGUI.this, "Please choose a deck first.", "Try again", JOptionPane.ERROR_MESSAGE);
@@ -202,7 +204,7 @@ public class DeckManagerGUI extends JFrame{
 	public void setDeckBinderPanels(LinkedList<DeckBinderPanel> deckBinderPanels) {
 		this.deckBinderPanels = deckBinderPanels;
 	}
-	
+
 	public void removeDeckBinderPanel(DeckBinderPanel dbp) {
 		casePanel.remove(dbp);
 		this.deckBinderPanels.remove(dbp);
@@ -217,7 +219,7 @@ public class DeckManagerGUI extends JFrame{
 	public void setCurrentlySelectedDeckBinder(String name) {
 		currentlySelectedDeckBinder = DeckManager.getCase().getDeckBinder(name);
 	}
-	
+
 	public void setCurrentlySelectedDeckBinder(DeckBinder db) {
 		currentlySelectedDeckBinder = db;
 	}
@@ -227,7 +229,7 @@ public class DeckManagerGUI extends JFrame{
 	}
 
 	public void setCurrentlySelectedDeck(Deck deck) {
-		if (deck != null) {
+		if (deck != null && !deck.equals(Deck.DEFAULT)) {
 			currentlySelectedDeck = deck;
 			currentlySelectedDeckLabel.setText(deck.getName());
 			promptPanel.revalidate();

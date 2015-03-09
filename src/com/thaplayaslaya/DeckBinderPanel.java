@@ -11,6 +11,7 @@ import java.awt.event.InputEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
+
 import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -27,8 +28,11 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 	private String name = "[Default Name]", upArrow = "UpArrow", downArrow = "DownArrow";
 	private JLabel dBName = new JLabel(this.name, JLabel.LEFT);
 	private JComboBox<Deck> comboBox = new JComboBox<Deck>();
-	private JButton renameButton = new JButton(OperationType.RENAME_DECKBINDER.getButtonText()), deleteButton = new JButton("D");
+	private JButton renameButton = new JButton(OperationType.RENAME_DECKBINDER.getButtonText()), deleteButton = new JButton("D");	
 	private JPanel northPanel = new JPanel();
+	private ItemChangeListener itemChangeListener = new ItemChangeListener();
+	private cBFocusListener focusListener = new cBFocusListener();
+	private boolean hasListenersEnabled = false;
 
 	public DeckBinderPanel() {
 		init();
@@ -72,8 +76,7 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 	}
 
 	public void setListeners() {
-		comboBox.addItemListener(new ItemChangeListener());
-		comboBox.addFocusListener(new cBFocusListener());
+		enableListeners();
 		// Add keybinds to manipulate item order of the comboBox.
 		comboBox.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, InputEvent.SHIFT_DOWN_MASK), upArrow);
 		comboBox.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, InputEvent.SHIFT_DOWN_MASK), downArrow);
@@ -81,7 +84,23 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 		comboBox.getActionMap().put(upArrow, new VertArrowAction(upArrow));
 		comboBox.getActionMap().put(downArrow, new VertArrowAction(downArrow));
 	}
+	
+	public void disableListeners() {
+		if(hasListenersEnabled) {
+			comboBox.removeItemListener(itemChangeListener);
+			comboBox.removeFocusListener(focusListener);
+			this.hasListenersEnabled = false;
+		}
+	}
 
+	public void enableListeners() {
+		if(!hasListenersEnabled){
+			comboBox.addItemListener(itemChangeListener);
+			comboBox.addFocusListener(focusListener);
+			this.hasListenersEnabled = true;
+		}
+	}
+	
 	public void setName(String name) {
 		this.name = name;
 		dBName.setName(name);
@@ -135,7 +154,7 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 				Deck deck = ((Deck) e.getItem());
 				// this might be an unnecessary check.
 				if ((deck.getName() != null) && (deck.getName().length() > 0)) {
-					if (!deck.getName().equals(Deck.DEFAULT.getName())) {
+					if (!deck.equals(Deck.DEFAULT)) {
 						DeckManager.getDeckManagerGUI().setCurrentlySelectedDeck(deck);
 					} else {
 						DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder().addNewDeck();
@@ -154,7 +173,7 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 			System.out.println(comboBox.getSelectedItem().toString() + " focus gained");
 			DeckManager.getDeckManagerGUI().setCurrentlySelectedDeckBinder(comboBox.getName());
 
-			if (comboBox.getSelectedItem().toString().equals(Deck.DEFAULT.getName())) {
+			if (comboBox.getSelectedItem().equals(Deck.DEFAULT)) {
 				DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder().addNewDeck();
 			}
 
@@ -166,7 +185,7 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 		public void focusLost(FocusEvent e) {
 			@SuppressWarnings("unchecked")
 			JComboBox<Deck> comboBox = (JComboBox<Deck>) e.getComponent();
-			System.out.println(((Deck) comboBox.getSelectedItem()).getName() + " focus lost");
+			System.out.println( ((Deck) comboBox.getSelectedItem()).getName() + " focus lost");
 
 		}
 	}

@@ -51,7 +51,7 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 
 		nameTextField = new JTextField(10);
 		if (typeOfOperation == OperationType.ADD_NEW_DECK || typeOfOperation == OperationType.EDIT_DECK) {
-			importCodeTextArea = new JTextArea(5, 39);
+			importCodeTextArea = new JTextArea(7, 20);
 			importCodeTextArea.setLineWrap(true);
 		}
 
@@ -281,7 +281,14 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 		// need if statement to take focus off of "add new deck" option upon
 		// window closing.
 		if (getTypeOfOperation().equals(OperationType.ADD_NEW_DECK)) {
-			DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder().getDeckBinderPanel().getComboBox().setSelectedIndex(0);
+			DeckBinder db = DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder();
+			db.getDeckBinderPanel().getComboBox().setSelectedIndex(0);
+			//For the case where only "add new deck" is left in the DBP
+			if(db.getDecks().isEmpty()){
+				db.getDeckBinderPanel().getComboBox().setFocusable(false);
+				db.getDeckBinderPanel().getComboBox().setFocusable(true);
+				//TODO: known bug, the ComboBox's button gets stuck in a depressed state.
+			}
 		}
 		exit();
 	}
