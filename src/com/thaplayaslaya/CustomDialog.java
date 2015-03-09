@@ -287,7 +287,7 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 			if(db.getDecks().isEmpty()){
 				db.getDeckBinderPanel().getComboBox().setFocusable(false);
 				db.getDeckBinderPanel().getComboBox().setFocusable(true);
-				//TODO: known bug, the ComboBox's button gets stuck in a depressed state.
+				db.getDeckBinderPanel().revalidate();
 			}
 		}
 		exit();
