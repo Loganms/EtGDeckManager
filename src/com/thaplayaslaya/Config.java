@@ -43,7 +43,9 @@ public class Config {
 		json = DeckManager.gson.toJson(briefcase);
 
 		try {
-			FileWriter writer = new FileWriter(file);
+			//"document.json" is a test file will be replaced
+			//with file field created above in final program.
+			FileWriter writer = new FileWriter("document.json");
 			writer.write(json);
 			writer.close();
 		} catch (IOException e) {

@@ -1,6 +1,7 @@
 package com.thaplayaslaya;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 public class DeckManager {
 
@@ -13,7 +14,7 @@ public class DeckManager {
 	}
 
 	private static void init() {
-		gson = new Gson();
+		gson = new GsonBuilder().setPrettyPrinting().create();
 		DMGUI = new DeckManagerGUI();
 		cfg = new Config();
 		DMGUI.setComponents();
@@ -26,5 +27,10 @@ public class DeckManager {
 
 	public static DeckManagerGUI getDeckManagerGUI() {
 		return DMGUI;
+	}
+
+	public static void saveAndExit() {
+		cfg.writeToFile();
+		System.exit(0);
 	}
 }
