@@ -47,7 +47,8 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 		this.setLayout(new BorderLayout());
 
 		dBName.setBorder(BorderFactory.createEmptyBorder(10, 0, 5, 0));
-		dBName.setPreferredSize(new Dimension(100, 10));
+		dBName.setPreferredSize(new Dimension(80, 10));
+		dBName.setToolTipText("Move (Ctrl+UP/DOWN)");
 
 		renameButton.setFont(new Font(Font.DIALOG, Font.PLAIN, 10));
 		renameButton.setMargin(new java.awt.Insets(0, 2, 0, 2));
@@ -69,7 +70,7 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 		this.add(northPanel, BorderLayout.NORTH);
 
 		this.setBorder(BorderFactory.createEmptyBorder(0, 0, 5, 0));
-		comboBox.setToolTipText("Move Deck (Shft+UP/DOWN)");
+		comboBox.setToolTipText("Move (Shft+UP/DOWN)");
 		this.add(comboBox, BorderLayout.CENTER);
 		this.setMaximumSize(MAXIMUM_SIZE);
 		DeckManager.getDeckManagerGUI().getDeckBinderPanels().add(this);

@@ -17,7 +17,7 @@ public class DeckBinder {
 	public DeckBinder(String name) {
 		this.name = name;
 		DeckManager.getDeckManagerGUI().setCurrentlySelectedDeckBinder(name);
-
+		DeckManager.getDeckManagerGUI().setCurrentlySelectedDeck(null);
 		DeckManager.cfg.getCase().addDeckBinder(this);
 
 		dBP = new DeckBinderPanel(this.name);

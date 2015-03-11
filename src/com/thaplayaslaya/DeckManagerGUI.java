@@ -10,15 +10,19 @@ import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 
+import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -26,28 +30,30 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRootPane;
 import javax.swing.JScrollPane;
+import javax.swing.KeyStroke;
 
 public class DeckManagerGUI extends JFrame {
 
 	private static final long serialVersionUID = 3686286211660935696L;
 	private static final Dimension MINIMUM_SIZE = new Dimension(320, 270);
-	private static final String windowName = "Deck Manager";
-	
+	private static final String windowName = "Deck Manager", upArrow = "UpArrow", downArrow = "DownArrow";
+
 	JPanel leftPanel = new JPanel();
 	JPanel casePanel = new JPanel();
 	JPanel centerPanel = new JPanel();
 	JPanel promptPanel = new JPanel();
-	
+
 	JLabel currentlySelectedDeckLabel = new JLabel("[No deck currently selected]", JLabel.CENTER);
-	
+
 	LinkedList<DeckBinderPanel> deckBinderPanels = new LinkedList<DeckBinderPanel>();
-	
+
 	private Deck currentlySelectedDeck;
 	private DeckBinder currentlySelectedDeckBinder;
 
 	JButton[] rightPanelButtons = { new JButton("Copy Code"), new JButton("View Deck"), new JButton(OperationType.EDIT_DECK.getButtonText()), new JButton("Delete") };
-	
+
 	public DeckManagerGUI() {
 		super(windowName);
 		setFrameDefaults();
@@ -70,7 +76,6 @@ public class DeckManagerGUI extends JFrame {
 
 		JLabel rightPrompt = new JLabel("What do you want to do with: ", JLabel.CENTER);
 
-		
 		String[] rightPanelButtonsToolTips = { "Copy this deck's import code to your clipboard", "Display an image of this deck in a separate window", "Edit this deck's name and import code",
 				"Delete this deck" };
 
@@ -130,8 +135,7 @@ public class DeckManagerGUI extends JFrame {
 			if (currentlySelectedDeck != null) {
 				if (e.getActionCommand().equals("Copy Code")) {
 					Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(currentlySelectedDeck.getImportCode()), null);
-				}
-				else if (e.getActionCommand().equals("View Deck")) {
+				} else if (e.getActionCommand().equals("View Deck")) {
 					BufferedImage img = currentlySelectedDeck.getDeckImage();
 					if (img != null) {
 						JFrame frame = new JFrame(currentlySelectedDeck.getName());
@@ -143,11 +147,10 @@ public class DeckManagerGUI extends JFrame {
 						JOptionPane.showMessageDialog(DeckManagerGUI.this, "A deck image could not be created from " + currentlySelectedDeck.getName() + "'s import code.", "Error",
 								JOptionPane.ERROR_MESSAGE);
 					}
-				}
-				else if (e.getActionCommand().equals(OperationType.EDIT_DECK.getButtonText())) {
+				} else if (e.getActionCommand().equals(OperationType.EDIT_DECK.getButtonText())) {
 					new CustomDialog(DeckManagerGUI.this, OperationType.EDIT_DECK, null);
 				}
-	
+
 				else if (e.getActionCommand().equals("Delete")) {
 					if (JOptionPane.showConfirmDialog(DeckManager.getDeckManagerGUI(), "Are you sure you want to delete " + currentlySelectedDeck.getName() + "?") == JOptionPane.YES_OPTION) {
 						currentlySelectedDeckBinder.getDeckBinderPanel().disableListeners();
@@ -164,6 +167,52 @@ public class DeckManagerGUI extends JFrame {
 
 	}
 
+	private class VertArrowAction extends AbstractAction {
+
+		private static final long serialVersionUID = 2644070230078784280L;
+
+		public VertArrowAction(String text) {
+			super(text);
+			putValue(ACTION_COMMAND_KEY, text);
+		}
+
+		// Move DBPs up/down within the CasePanel
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String actionCommand = e.getActionCommand();
+			if (getCurrentlySelectedDeckBinder() != null) {
+				DeckBinder db = getCurrentlySelectedDeckBinder();
+				int index = DeckManager.getCase().getDeckBinders().indexOf(db);
+				if (actionCommand.equals(upArrow) && index > 0) {
+					casePanel.remove(index);
+					deckBinderPanels.remove(index);
+					DeckManager.getCase().getDeckBinders().remove(index);
+					
+					casePanel.add(db.getDeckBinderPanel(), index - 1);
+					deckBinderPanels.add(index - 1, db.getDeckBinderPanel());
+					DeckManager.getCase().getDeckBinders().add(index - 1, db);
+					
+					casePanel.revalidate();
+					System.out.println("CTRL+UP pressed and activated");
+				} else if (actionCommand.equals(downArrow) && index < deckBinderPanels.size() - 1) {
+					casePanel.remove(index);
+					deckBinderPanels.remove(index);
+					DeckManager.getCase().getDeckBinders().remove(index);
+					
+					casePanel.add(db.getDeckBinderPanel(), index + 1);
+					deckBinderPanels.add(index + 1, db.getDeckBinderPanel());
+					DeckManager.getCase().getDeckBinders().add(index + 1, db);
+					
+					casePanel.revalidate();
+					System.out.println("CTRL+DOWN pressed and activated");
+				}
+			} else {
+				System.out.println("No deck binder selected. Can't move!");
+			}
+
+		}
+	}
+
 	private void setFrameDefaults() {
 		this.setMinimumSize(MINIMUM_SIZE);
 		this.setResizable(true);
@@ -172,13 +221,20 @@ public class DeckManagerGUI extends JFrame {
 		this.setFocusable(true);
 		this.requestFocus();
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		this.addWindowListener( new WindowAdapter() {
-			@Override 
+
+		this.addWindowListener(new WindowAdapter() {
+			@Override
 			public void windowClosing(WindowEvent e) {
 				DeckManager.saveAndExit();
 			}
 		});
 
+		JRootPane p = this.getRootPane();
+		p.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, InputEvent.CTRL_DOWN_MASK), upArrow);
+		p.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, InputEvent.CTRL_DOWN_MASK), downArrow);
+
+		p.getActionMap().put(upArrow, new VertArrowAction(upArrow));
+		p.getActionMap().put(downArrow, new VertArrowAction(downArrow));
 	}
 
 	private void addAButton(JButton button, Container container) {
