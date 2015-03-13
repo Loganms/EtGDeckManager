@@ -78,7 +78,7 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 
 	public void setListeners() {
 		enableListeners();
-		// Add keybinds to manipulate item order of the comboBox.
+		// Add keybinds to manipulate item order inside the comboBox.
 		comboBox.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, InputEvent.SHIFT_DOWN_MASK), upArrow);
 		comboBox.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, InputEvent.SHIFT_DOWN_MASK), downArrow);
 
@@ -143,9 +143,7 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 				comboBox.insertItemAt(selectedDeck, selectedIndex + 1);
 				comboBox.setSelectedIndex(selectedIndex + 1);
 			}
-
 		}
-
 	}
 
 	private class ItemChangeListener implements ItemListener {

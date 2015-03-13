@@ -44,7 +44,6 @@ public class Deck {
 		} else {
 			this.importCode = importCode;
 		}
-
 	}
 
 	public boolean hasDeckImage() {
@@ -126,7 +125,6 @@ public class Deck {
 			return false;
 		}
 		return false;
-
 	}
 
 	public String toString() {

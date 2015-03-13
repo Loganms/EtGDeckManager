@@ -18,7 +18,6 @@ public class DeckManager {
 		DMGUI = new DeckManagerGUI();
 		cfg = new Config();
 		DMGUI.setComponents();
-
 	}
 	
 	public static Case getCase() {

@@ -40,7 +40,7 @@ public class DeckBinder {
 		dBP.setListeners();
 	}
 	
-	//System (if user, see "addNewDeck()") is adding a deck.
+	//System  is adding a deck. (if user, see "addNewDeck()")
 	public void addDeck(Deck deck) {
 		decks.add(deck);
 		dBP.getComboBox().insertItemAt(deck, dBP.getComboBox().getItemCount() - 1);
@@ -90,7 +90,6 @@ public class DeckBinder {
 	//User is adding a new deck.
 	public void addNewDeck() {
 		new CustomDialog(DeckManager.getDeckManagerGUI(), OperationType.ADD_NEW_DECK, null);
-		//dBP.enableListeners();
 	}
 
 	public void delete(DeckBinder deckBinder) {

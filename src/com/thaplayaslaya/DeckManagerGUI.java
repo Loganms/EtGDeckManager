@@ -39,20 +39,17 @@ public class DeckManagerGUI extends JFrame {
 	private static final long serialVersionUID = 3686286211660935696L;
 	private static final Dimension MINIMUM_SIZE = new Dimension(320, 270);
 	private static final String windowName = "Deck Manager", upArrow = "UpArrow", downArrow = "DownArrow";
+	private static final JButton[] rightPanelButtons = { new JButton("Copy Code"), new JButton("View Deck"), new JButton(OperationType.EDIT_DECK.getButtonText()), new JButton("Delete") };
 
-	JPanel leftPanel = new JPanel();
-	JPanel casePanel = new JPanel();
-	JPanel centerPanel = new JPanel();
-	JPanel promptPanel = new JPanel();
-
-	JLabel currentlySelectedDeckLabel = new JLabel("[No deck currently selected]", JLabel.CENTER);
-
-	LinkedList<DeckBinderPanel> deckBinderPanels = new LinkedList<DeckBinderPanel>();
+	private JPanel leftPanel = new JPanel();
+	private JPanel casePanel = new JPanel();
+	private JPanel centerPanel = new JPanel();
+	private JPanel promptPanel = new JPanel();
 
 	private Deck currentlySelectedDeck;
 	private DeckBinder currentlySelectedDeckBinder;
-
-	JButton[] rightPanelButtons = { new JButton("Copy Code"), new JButton("View Deck"), new JButton(OperationType.EDIT_DECK.getButtonText()), new JButton("Delete") };
+	private JLabel currentlySelectedDeckLabel = new JLabel("[No deck currently selected]", JLabel.CENTER);
+	private LinkedList<DeckBinderPanel> deckBinderPanels = new LinkedList<DeckBinderPanel>();
 
 	public DeckManagerGUI() {
 		super(windowName);
@@ -115,7 +112,6 @@ public class DeckManagerGUI extends JFrame {
 
 		this.add(bar, BorderLayout.NORTH);
 		bar.add(fileMenu);
-
 	}
 
 	private class FileMenuActionListener implements ActionListener {
@@ -162,9 +158,7 @@ public class DeckManagerGUI extends JFrame {
 			} else {
 				JOptionPane.showMessageDialog(DeckManagerGUI.this, "Please choose a deck first.", "Try again", JOptionPane.ERROR_MESSAGE);
 			}
-
 		}
-
 	}
 
 	private class VertArrowAction extends AbstractAction {
@@ -187,29 +181,28 @@ public class DeckManagerGUI extends JFrame {
 					casePanel.remove(index);
 					deckBinderPanels.remove(index);
 					DeckManager.getCase().getDeckBinders().remove(index);
-					
+
 					casePanel.add(db.getDeckBinderPanel(), index - 1);
 					deckBinderPanels.add(index - 1, db.getDeckBinderPanel());
 					DeckManager.getCase().getDeckBinders().add(index - 1, db);
-					
+
 					casePanel.revalidate();
 					System.out.println("CTRL+UP pressed and activated");
 				} else if (actionCommand.equals(downArrow) && index < deckBinderPanels.size() - 1) {
 					casePanel.remove(index);
 					deckBinderPanels.remove(index);
 					DeckManager.getCase().getDeckBinders().remove(index);
-					
+
 					casePanel.add(db.getDeckBinderPanel(), index + 1);
 					deckBinderPanels.add(index + 1, db.getDeckBinderPanel());
 					DeckManager.getCase().getDeckBinders().add(index + 1, db);
-					
+
 					casePanel.revalidate();
 					System.out.println("CTRL+DOWN pressed and activated");
 				}
 			} else {
 				System.out.println("No deck binder selected. Can't move!");
 			}
-
 		}
 	}
 
@@ -257,7 +250,6 @@ public class DeckManagerGUI extends JFrame {
 		scroll.setBorder(BorderFactory.createEmptyBorder());
 		leftPanel.add(scroll, BorderLayout.CENTER);
 		centerPanel.add(leftPanel);
-
 	}
 
 	public LinkedList<DeckBinderPanel> getDeckBinderPanels() {
@@ -268,6 +260,7 @@ public class DeckManagerGUI extends JFrame {
 		this.deckBinderPanels = deckBinderPanels;
 	}
 
+	//TODO: when removing the last DBP, a ghost image of that DBP is left until manual refresh i.e. resizing the window.
 	public void removeDeckBinderPanel(DeckBinderPanel dbp) {
 		casePanel.remove(dbp);
 		this.deckBinderPanels.remove(dbp);
@@ -305,5 +298,9 @@ public class DeckManagerGUI extends JFrame {
 
 	public Deck getCurrentlySelectedDeck() {
 		return currentlySelectedDeck;
+	}
+
+	public JPanel getCasePanel() {
+		return casePanel;
 	}
 }

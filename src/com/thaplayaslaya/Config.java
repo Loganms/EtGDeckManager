@@ -11,8 +11,8 @@ import com.google.gson.Gson;
 public class Config {
 
 	private static final String cfgFile = "cfg.json";
-	private File file;
 	private static Case briefcase;
+	private File file;
 	private String json;
 	private Gson gson = DeckManager.gson;
 
@@ -43,6 +43,7 @@ public class Config {
 		json = DeckManager.gson.toJson(briefcase);
 
 		try {
+			//TODO:
 			//"document.json" is a test file will be replaced
 			//with file field created above in final program.
 			FileWriter writer = new FileWriter("document.json");

@@ -16,16 +16,13 @@ import javax.swing.JTextField;
 public class CustomDialog extends JDialog implements ActionListener, PropertyChangeListener {
 
 	private static final long serialVersionUID = -2396181031393526824L;
-	private String typedText = null;
+	private String typedText = null, btnString1 = "Enter", btnString2 = "Cancel", extraInfo;
 	@SuppressWarnings("unused")
 	private String typedImportCode = null;
 	private JTextField nameTextField;
 	private JTextArea importCodeTextArea;
 	private JOptionPane optionPane;
-	private String btnString1 = "Enter";
-	private String btnString2 = "Cancel";
 	private OperationType typeOfOperation;
-	private String extraInfo;
 
 	/**
 	 * Returns null if the typed string was invalid; otherwise, returns the
@@ -192,9 +189,8 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 						if (!briefcase.containsDeckBinder(typedText)) {
 							new DeckBinder(typedText);
 							// TODO: should have a function to do this for me.
-							DeckManager.getDeckManagerGUI().casePanel.add(DeckManager.getDeckManagerGUI().getDeckBinderPanels().getLast());
-							DeckManager.getDeckManagerGUI().casePanel.revalidate();
-							//
+							DeckManager.getDeckManagerGUI().getCasePanel().add(DeckManager.getDeckManagerGUI().getDeckBinderPanels().getLast());
+							DeckManager.getDeckManagerGUI().getCasePanel().revalidate();
 							exit();
 						} else {
 							JOptionPane.showMessageDialog(this, "Sorry, \"" + typedText + "\" " + "already exists as a deck binder.\n" + "Please enter a different name.", "Try again",
