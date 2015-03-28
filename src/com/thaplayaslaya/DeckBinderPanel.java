@@ -200,6 +200,7 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 					dmg.setCurrentlySelectedDeck(null);
 				}
 				DeckManager.getCase().removeDeckBinder(DeckManager.getCase().getDeckBinder(this.name));
+				dmg.getCasePanel().revalidate();
 			}
 		}
 	}
