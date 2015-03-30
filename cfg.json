@@ -1,15 +1,19 @@
 {
   "deckBinders": [
     {
-      "name": "Arena",
+      "name": "G/P Arena",
       "decks": [
         {
-          "name": "Pestal",
-          "importCode": "622 7t6 7t6 7t6 7t6 7t6 7t6 7ta 7ta 7tb 7td 7td 7um 7um 7um 7um 7um 7um 7um 7um 7um 7um 808 808 808 808 80i 80i 80i 80i 8pu"
+          "name": "Pestal 101",
+          "importCode": "7t6 7t6 7t6 7t6 7t6 7t6 7ta 7ta 7td 7td 7um 7um 7um 7um 7um 7um 7um 7um 7um 7um 808 808 808 808 80i 80i 80i 80i 80i 80i 8pu"
         },
         {
-          "name": "sgFractal",
-          "importCode": "56i 56i 56i 56i 56i 58o 59m 59m 5aa 5aa 5fu 63a 63a 63a 63a 63a 63a 63a 63a 63a 752 786 7ee 7ee 7ee 7ee 7ee 80i 80i 80i 8pm"
+          "name": "Chaos Wyrms",
+          "importCode": "6u2 6u2 6u2 6u2 6u2 6u2 7ms 7ms 7ms 7ms 7ms 7ms 7mt 7mt 7mt 7mt 7mt 7mt 7mu 7mu 7mu 7mu 7mu 7mu 7nq 7nq 7nq 7nq 7nq 7nq 8pj"
+        },
+        {
+          "name": "Swallow",
+          "importCode": "744 744 744 744 744 744 744 744 744 74b 74b 74b 74b 74b 74d 74d 752 752 752 752 75m 75m 75m 7gq 7gq 7h0 7h0 7hi 7hi 7hi 8pp"
         }
       ]
     },
@@ -17,12 +21,24 @@
       "name": "Gods",
       "decks": [
         {
-          "name": "ROL/HOPE",
-          "importCode": "5la 5lk 5lk 5lk 5lk 61o 61o 61u 61u 622 622 622 622 63a 63a 63a 63a 63a 63a 7jp 7jp 7jp 7jp 7jp 7jp 7jq 7k2 808 808 808 808 80i 8pu"
+          "name": "NOT FG OTK",
+          "importCode": "5lk 5lk 5lk 7hi 7hi 7hi 7jp 7jp 7jp 7jp 7jp 7jp 808 808 808 808 808 808 808 808 808 80e 80e 80i 80i 80i 80i 80m 80m 80m 8pp"
         },
         {
-          "name": "60card",
-          "importCode": "4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa"
+          "name": "Limitless Speed",
+          "importCode": "6qq 6qq 6qq 6qq 6qq 6qq 6qq 74a 7dr 7dr 7jq 7la 7la 7la 7n9 7q5 7q5 7q5 7q5 7q5 7ri 7ri 7ri 7ri 80b 80b 80b 80d 80d 80d 80d 80d 80d 8pu"
+        },
+        {
+          "name": "PDials",
+          "importCode": "710 710 710 710 718 718 718 718 718 718 71a 71a 71u 71u 71u 71u 71u 71u 72i 72i 72i 7km 7km 7km 7q9 7q9 7q9 7q9 7q9 7q9 8pq"
+        },
+        {
+          "name": "Perpetual Light",
+          "importCode": "7jp 7jp 7jp 7jp 7jp 7jp 7ju 7ju 7k4 7k4 7k4 7k4 808 808 808 808 808 80e 80e 80e 80i 80i 80i 80i 80i 81q 81q 81q 81q 81q 8pu"
+        },
+        {
+          "name": "Voodoo Bravery",
+          "importCode": "6u3 6u3 6u3 6u3 6u3 6ve 6ve 6ve 6ve 6ve 74d 74d 77l 77l 77l 77l 77l 77l 7ee 7ee 7ee 7ee 7ee 7ee 7tg 7tg 80b 80b 80b 80b 8pu"
         }
       ]
     }

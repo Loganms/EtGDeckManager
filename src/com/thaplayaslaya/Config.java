@@ -18,7 +18,17 @@ public class Config {
 
 	public Config() {
 		file = new File(cfgFile);
-		readCaseData();
+		if(!file.isFile()){
+			System.out.println("no file");
+			try {
+				file.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			briefcase = new Case();
+		} else {
+			readCaseData();
+		}
 	}
 
 	public Case getCase() {
@@ -27,9 +37,14 @@ public class Config {
 
 	private void readCaseData() {
 		try {
+			
 			BufferedReader br = new BufferedReader(new FileReader(file));
-
+			
 			briefcase = gson.fromJson(br, Case.class);
+			
+			if(briefcase == null) {
+				briefcase = new Case();
+			}
 
 			for (DeckBinder db : briefcase.getDeckBinders()) {
 				db.setDBP();
@@ -41,12 +56,12 @@ public class Config {
 
 	public void writeToFile() {
 		json = DeckManager.gson.toJson(briefcase);
-
 		try {
-			//TODO:
-			//"document.json" is a test file will be replaced
-			//with file field created above in final program.
-			FileWriter writer = new FileWriter("document.json");
+			if (!file.isFile()){
+				file.createNewFile();
+			}
+		
+			FileWriter writer = new FileWriter(file);
 			writer.write(json);
 			writer.close();
 		} catch (IOException e) {

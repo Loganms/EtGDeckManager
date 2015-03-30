@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Case {
 
-	private ArrayList<DeckBinder> deckBinders;
+	private ArrayList<DeckBinder> deckBinders = new ArrayList<DeckBinder>();
 
 	public Case() {
 
