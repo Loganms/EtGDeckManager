@@ -32,7 +32,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRootPane;
 import javax.swing.JScrollPane;
-//import javax.swing.JTabbedPane;
+import javax.swing.JTabbedPane;
 import javax.swing.KeyStroke;
 
 public class DeckManagerGUI extends JFrame {
@@ -41,15 +41,17 @@ public class DeckManagerGUI extends JFrame {
 	private static final Dimension MINIMUM_SIZE = new Dimension(320, 270);
 	private static final String windowName = "Deck Manager", upArrow = "UpArrow", downArrow = "DownArrow";
 	private static final JButton[] rightPanelButtons = { new JButton("Copy Code"), new JButton("View Deck"), new JButton(OperationType.EDIT_DECK.getButtonText()), new JButton("Delete") };
-
-	//private JTabbedPane tabbedPane = new JTabbedPane();
+	
+	//TODO: tabbed pane makes Ctrl+UP/DOWN features not work for organization.
+	private JTabbedPane tabbedPane = new JTabbedPane();
 	
 	private JPanel leftPanel = new JPanel();
 	private JPanel casePanel = new JPanel();
 	private JPanel centerPanel = new JPanel();
 	private JPanel promptPanel = new JPanel();
 	
-	//private JPanel oraclePanel = new JPanel();
+	private JPanel oraclePanel = new OraclePanel();
+	private FalseGod currentlySelectedFG = null;
 
 	private Deck currentlySelectedDeck;
 	private DeckBinder currentlySelectedDeckBinder;
@@ -102,10 +104,9 @@ public class DeckManagerGUI extends JFrame {
 		innerRightPanel.add(buttonsPanel, BorderLayout.CENTER);
 		rightPanel.add(innerRightPanel);
 		centerPanel.add(rightPanel);
-		/*tabbedPane.addTab("Deck Manager", null, centerPanel, "Default View");
+		tabbedPane.addTab("Deck Manager", null, centerPanel, "Default View");
 		tabbedPane.addTab("Oracle", null, oraclePanel, "Recommended Decks");
-		this.add(tabbedPane, BorderLayout.CENTER);*/
-		this.add(centerPanel, BorderLayout.CENTER);
+		this.add(tabbedPane, BorderLayout.CENTER);
 	}
 
 	private void setOptionsBar() {
@@ -306,6 +307,15 @@ public class DeckManagerGUI extends JFrame {
 
 	public Deck getCurrentlySelectedDeck() {
 		return currentlySelectedDeck;
+	}
+
+	public FalseGod getCurrentlySelectedFG() {
+		return currentlySelectedFG;
+	}
+
+	public void setCurrentlySelectedFG(FalseGod FalseGod) {
+		this.currentlySelectedFG = FalseGod;
+		System.out.println("Currently Selected FG: " + FalseGod);
 	}
 
 	public JPanel getCasePanel() {
