@@ -88,7 +88,8 @@ public class OraclePanel extends JPanel {
 			if(!currentlySelectedFG.equals(previouslySelectedFG)) {
 				List<URL> urls = DownloadPage.getRecommendedDeckURLS(currentlySelectedFG);
 				for(URL url: urls) {
-					System.out.println("from G&Di" + url);
+					System.out.println("from G&Di " + url);
+					System.out.println("from G&Di " + Deck.convertURLToCode(url));
 				}
 			}
 			
