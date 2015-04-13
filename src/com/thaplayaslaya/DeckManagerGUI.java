@@ -269,7 +269,6 @@ public class DeckManagerGUI extends JFrame {
 		this.deckBinderPanels = deckBinderPanels;
 	}
 
-	//TODO: when removing the last DBP, a ghost image of that DBP is left until manual refresh i.e. resizing the window.
 	public void removeDeckBinderPanel(DeckBinderPanel dbp) {
 		casePanel.remove(dbp);
 		this.deckBinderPanels.remove(dbp);
@@ -277,8 +276,11 @@ public class DeckManagerGUI extends JFrame {
 			currentlySelectedDeckBinder = null;
 			setCurrentlySelectedDeck(null);
 		}
+		// Calling repaint after revalidate solved ghosting issue
 		promptPanel.revalidate();
+		promptPanel.repaint();
 		casePanel.revalidate();
+		casePanel.repaint();
 	}
 
 	public void setCurrentlySelectedDeckBinder(String name) {

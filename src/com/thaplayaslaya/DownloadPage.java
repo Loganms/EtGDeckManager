@@ -27,7 +27,7 @@ public class DownloadPage {
 	}
 	
 	//Returns null if no deck image links are found 
-    public static List<URL> getRecommendedDeckURLS(String baseURL) throws IOException {
+    private static List<URL> getRecommendedDeckURLS(String baseURL) throws IOException {
     	
     	List<URL> deckImageURLs = new ArrayList<URL>();
         URL url = new URL(baseURL);
