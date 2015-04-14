@@ -15,7 +15,7 @@ import javax.swing.JLabel;
 @SuppressWarnings("serial")
 class LabelImage extends JLabel implements MouseListener {
 	
-	ImageIcon icon;
+	//ImageIcon icon;
 	ImageIcon full;
 	ImageMagnifier im;
 
@@ -25,7 +25,7 @@ class LabelImage extends JLabel implements MouseListener {
 			BufferedImage temp = ImageIO.read(url);
 			full = new ImageIcon(temp);
 			temp = temp.getSubimage(4, 2, 278, 245);
-			icon = new ImageIcon(temp.getScaledInstance(temp.getHeight()/4, temp.getWidth()/4, Image.SCALE_SMOOTH));
+			setIcon( new ImageIcon(temp.getScaledInstance(temp.getHeight()/4, temp.getWidth()/4, Image.SCALE_SMOOTH)));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -35,7 +35,7 @@ class LabelImage extends JLabel implements MouseListener {
 	private void init() {
 		addMouseListener(this);
 		this.setBorder(BorderFactory.createEtchedBorder());
-		this.setIcon(icon);
+		//this.setIcon(icon);
 	}
 
 	public void mouseClicked(MouseEvent event) {
