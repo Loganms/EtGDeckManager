@@ -19,7 +19,7 @@ public class DeckManager {
 		cfg = new Config();
 		DMGUI.setComponents();
 	}
-	
+
 	public static Case getCase() {
 		return cfg.getCase();
 	}

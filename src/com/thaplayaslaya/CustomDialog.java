@@ -77,7 +77,7 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 			nameTextField.setText(d.getName());
 			nameTextField.selectAll();
 			break;
-		
+
 		default:
 			break;
 		}
@@ -153,10 +153,10 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 			optionPane.setValue(JOptionPane.UNINITIALIZED_VALUE);
 
 			typedText = nameTextField.getText();
-			
+
 			boolean nameTaken;
 			boolean nameIsSame;
-			
+
 			if (btnString1.equals(value)) {
 				if (typedText.length() > 0) {
 					switch (getTypeOfOperation()) {
@@ -180,12 +180,12 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 						} else {
 							System.out.println("CustomDialog class: the DB, " + db + " is null.");
 						}
-						
+
 						break;
-						
+
 					case ADD_NEW_DECKBINDER:
 						Case briefcase = DeckManager.cfg.getCase();
-						
+
 						if (!briefcase.containsDeckBinder(typedText)) {
 							new DeckBinder(typedText);
 							// TODO: should have a function to do this for me.
@@ -198,13 +198,13 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 							typedText = null;
 							nameTextField.requestFocusInWindow();
 						}
-						
+
 						break;
 					case RENAME_DECKBINDER:
 						DeckBinder oldDB = DeckManager.getCase().getDeckBinder(getExtraInfo());
 						nameTaken = DeckManager.getCase().containsDeckBinder(typedText);
 						nameIsSame = typedText.equals(oldDB.getName());
-						
+
 						if (!nameIsSame && !nameTaken) {
 							oldDB.setName(typedText);
 							exit();
@@ -219,7 +219,7 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 						Deck oldDeck = DeckManager.getDeckManagerGUI().getCurrentlySelectedDeck();
 						nameTaken = DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder().containsDeck(typedText);
 						nameIsSame = typedText.equals(oldDeck.getName());
-						
+
 						if (nameTaken && nameIsSame) {
 							// Then I know the name of the deck has not been
 							// changed.
@@ -239,7 +239,7 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 							typedText = null;
 							nameTextField.requestFocusInWindow();
 						}
-						
+
 						break;
 					}
 				} else {
@@ -280,8 +280,8 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 		if (getTypeOfOperation().equals(OperationType.ADD_NEW_DECK)) {
 			DeckBinder db = DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder();
 			db.getDeckBinderPanel().getComboBox().setSelectedIndex(0);
-			//For the case where only "add new deck" is left in the DBP
-			if(db.getDecks().isEmpty()){
+			// For the case where only "add new deck" is left in the DBP
+			if (db.getDecks().isEmpty()) {
 				db.getDeckBinderPanel().getComboBox().setFocusable(false);
 				db.getDeckBinderPanel().getComboBox().setFocusable(true);
 				db.getDeckBinderPanel().revalidate();

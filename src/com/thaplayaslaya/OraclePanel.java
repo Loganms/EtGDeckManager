@@ -26,19 +26,20 @@ public class OraclePanel extends JPanel {
 
 	private static final long serialVersionUID = 6311196152723245093L;
 
-	//private static final Dimension DEFAULT_DECK_IMAGE_SIZE = new Dimension(646, 252);
-	
+	// private static final Dimension DEFAULT_DECK_IMAGE_SIZE = new
+	// Dimension(646, 252);
+
 	private JPanel mainPanel1 = new JPanel(), godsPanel = new JPanel(), godsCBPanel = new JPanel(), godsButtonPanel = new JPanel();
 	private JComboBox<FalseGod> godsCB = new JComboBox<>();
 	private JLabel godsLabel = new JLabel("Predicted God", JLabel.CENTER), mainPanel2Label = new JLabel("Community-Recommended Decks:");
 	private JButton godsButton = new JButton("Go");
 
 	private JPanel mainPanel2 = new JPanel();
-	
+
 	private JPanel progPanel = new JPanel();
 	private JLabel progLabel = new JLabel("Searching...", JLabel.CENTER);
 	private JProgressBar progBar = new JProgressBar();
-	
+
 	private FalseGod currentlySelectedFG = null, previouslySelectedFG = null;
 	double goTime;
 
@@ -64,13 +65,12 @@ public class OraclePanel extends JPanel {
 		mainPanel1.add(mainPanel2Label, BorderLayout.SOUTH);
 
 		mainPanel2.setBorder(BorderFactory.createEtchedBorder());
-		
+
 		progPanel.setLayout(new BorderLayout());
 		progLabel.setLabelFor(progBar);
 		progBar.setIndeterminate(true);
 		progPanel.add(progLabel, BorderLayout.NORTH);
 		progPanel.add(progBar, BorderLayout.CENTER);
-		
 
 		this.add(mainPanel1);
 		this.add(mainPanel2);
@@ -115,7 +115,7 @@ public class OraclePanel extends JPanel {
 			mainPanel2.add(progPanel);
 			mainPanel2.revalidate();
 			mainPanel2.repaint();
-			
+
 			SwingWorker<List<LabelImage>, Integer> worker = new SwingWorker<List<LabelImage>, Integer>() {
 
 				@Override
@@ -125,7 +125,7 @@ public class OraclePanel extends JPanel {
 					List<URL> urls = DownloadPage.getRecommendedDeckURLS(currentlySelectedFG);
 					System.out.println(urls.size() + " URLs downloaded in " + (System.currentTimeMillis() - goTime2) / 1000 + "sec");
 					int count = urls.size();
-					//goTime3 is longest in any scenario.
+					// goTime3 is longest in any scenario.
 					double goTime3 = System.currentTimeMillis();
 					for (URL url : urls) {
 						images.add(new LabelImage(url));

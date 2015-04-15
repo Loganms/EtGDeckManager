@@ -18,7 +18,7 @@ public class Config {
 
 	public Config() {
 		file = new File(cfgFile);
-		if(!file.isFile()){
+		if (!file.isFile()) {
 			System.out.println("no file");
 			try {
 				file.createNewFile();
@@ -37,12 +37,12 @@ public class Config {
 
 	private void readCaseData() {
 		try {
-			
+
 			BufferedReader br = new BufferedReader(new FileReader(file));
-			
+
 			briefcase = gson.fromJson(br, Case.class);
-			
-			if(briefcase == null) {
+
+			if (briefcase == null) {
 				briefcase = new Case();
 			}
 
@@ -57,10 +57,10 @@ public class Config {
 	public void writeToFile() {
 		json = DeckManager.gson.toJson(briefcase);
 		try {
-			if (!file.isFile()){
+			if (!file.isFile()) {
 				file.createNewFile();
 			}
-		
+
 			FileWriter writer = new FileWriter(file);
 			writer.write(json);
 			writer.close();

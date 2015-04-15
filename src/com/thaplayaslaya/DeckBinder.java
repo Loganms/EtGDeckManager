@@ -27,11 +27,11 @@ public class DeckBinder {
 	// called once Config has populated Case completely with JSON data.
 	public void setDBP() {
 		dBP = new DeckBinderPanel(this.name);
-		
+
 		for (Deck d : decks) {
 			dBP.getComboBox().addItem(d);
 		}
-		
+
 		finalizeDBSetup();
 	}
 
@@ -39,8 +39,8 @@ public class DeckBinder {
 		dBP.getComboBox().addItem(Deck.DEFAULT);
 		dBP.setListeners();
 	}
-	
-	//System  is adding a deck. (if user, see "addNewDeck()")
+
+	// System is adding a deck. (if user, see "addNewDeck()")
 	public void addDeck(Deck deck) {
 		decks.add(deck);
 		dBP.getComboBox().insertItemAt(deck, dBP.getComboBox().getItemCount() - 1);
@@ -86,8 +86,8 @@ public class DeckBinder {
 		}
 		return false;
 	}
-	
-	//User is adding a new deck.
+
+	// User is adding a new deck.
 	public void addNewDeck() {
 		new CustomDialog(DeckManager.getDeckManagerGUI(), OperationType.ADD_NEW_DECK, null);
 	}

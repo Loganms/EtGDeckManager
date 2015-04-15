@@ -1,4 +1,5 @@
 package com.thaplayaslaya;
+
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
@@ -16,8 +17,8 @@ import javax.swing.JLabel;
 
 @SuppressWarnings("serial")
 class LabelImage extends JLabel implements MouseListener {
-	
-	private URL deckURL; 
+
+	private URL deckURL;
 	private String deckCode = null;
 	private ImageIcon full;
 	private ImageMagnifier im;
@@ -29,13 +30,13 @@ class LabelImage extends JLabel implements MouseListener {
 			BufferedImage temp = ImageIO.read(url);
 			full = new ImageIcon(temp);
 			temp = temp.getSubimage(4, 2, 278, 245);
-			setIcon( new ImageIcon(temp.getScaledInstance(temp.getHeight()/4, temp.getWidth()/4, Image.SCALE_SMOOTH)));
+			setIcon(new ImageIcon(temp.getScaledInstance(temp.getHeight() / 4, temp.getWidth() / 4, Image.SCALE_SMOOTH)));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		init();
 	}
-	
+
 	private void init() {
 		addMouseListener(this);
 		this.setBorder(BorderFactory.createEtchedBorder());
@@ -80,12 +81,11 @@ class ImageMagnifier extends JFrame {
 		full = imageFile;
 		getContentPane().add(new JLabel(full));
 		Point loc = parent.getLocation();
-		loc.x = loc.x + (parent.getWidth()/2) - (full.getIconWidth()/2);
-		loc.y = loc.y - (full.getIconHeight()/3);
+		loc.x = loc.x + (parent.getWidth() / 2) - (full.getIconWidth() / 2);
+		loc.y = loc.y - (full.getIconHeight() / 3);
 		setLocation(loc);
 		setSize(full.getIconWidth(), full.getIconHeight());
 		setVisible(true);
 	}
 
-	
 }

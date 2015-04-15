@@ -28,7 +28,7 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 	private String name = "[Default Name]", upArrow = "UpArrow", downArrow = "DownArrow";
 	private JLabel dBName = new JLabel(this.name, JLabel.LEFT);
 	private JComboBox<Deck> comboBox = new JComboBox<Deck>();
-	private JButton renameButton = new JButton(OperationType.RENAME_DECKBINDER.getButtonText()), deleteButton = new JButton("D");	
+	private JButton renameButton = new JButton(OperationType.RENAME_DECKBINDER.getButtonText()), deleteButton = new JButton("D");
 	private JPanel northPanel = new JPanel();
 	private ItemChangeListener itemChangeListener = new ItemChangeListener();
 	private cBFocusListener focusListener = new cBFocusListener();
@@ -85,9 +85,9 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 		comboBox.getActionMap().put(upArrow, new VertArrowAction(upArrow));
 		comboBox.getActionMap().put(downArrow, new VertArrowAction(downArrow));
 	}
-	
+
 	public void disableListeners() {
-		if(hasListenersEnabled) {
+		if (hasListenersEnabled) {
 			comboBox.removeItemListener(itemChangeListener);
 			comboBox.removeFocusListener(focusListener);
 			this.hasListenersEnabled = false;
@@ -95,13 +95,13 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 	}
 
 	public void enableListeners() {
-		if(!hasListenersEnabled){
+		if (!hasListenersEnabled) {
 			comboBox.addItemListener(itemChangeListener);
 			comboBox.addFocusListener(focusListener);
 			this.hasListenersEnabled = true;
 		}
 	}
-	
+
 	public void setName(String name) {
 		this.name = name;
 		dBName.setName(name);
@@ -184,7 +184,7 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 		public void focusLost(FocusEvent e) {
 			@SuppressWarnings("unchecked")
 			JComboBox<Deck> comboBox = (JComboBox<Deck>) e.getComponent();
-			System.out.println( ((Deck) comboBox.getSelectedItem()).getName() + " focus lost");
+			System.out.println(((Deck) comboBox.getSelectedItem()).getName() + " focus lost");
 
 		}
 	}
@@ -196,7 +196,7 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 		} else if (e.getActionCommand().equals("D")) {
 			if (JOptionPane.showConfirmDialog(DeckManager.getDeckManagerGUI(), "Are you sure you want to delete this deck binder?") == JOptionPane.YES_OPTION) {
 				DeckManagerGUI dmg = DeckManager.getDeckManagerGUI();
-				if (DeckManager.getCase().getDeckBinder(this.name).getDecks().contains(dmg.getCurrentlySelectedDeck())){
+				if (DeckManager.getCase().getDeckBinder(this.name).getDecks().contains(dmg.getCurrentlySelectedDeck())) {
 					dmg.setCurrentlySelectedDeck(null);
 				}
 				DeckManager.getCase().removeDeckBinder(DeckManager.getCase().getDeckBinder(this.name));

@@ -17,8 +17,8 @@ public class Case {
 	public void removeDeckBinder(DeckBinder deckBinder) {
 		deckBinders.remove(deckBinder);
 		deckBinder.delete(deckBinder);
-	}	
-	
+	}
+
 	public ArrayList<DeckBinder> getDeckBinders() {
 		return deckBinders;
 	}
@@ -40,11 +40,10 @@ public class Case {
 		}
 		return false;
 	}
-	
-	//This is only called when user wants to make a new deck binder.
-	//Walks user through the process with prompts and validation.
+
+	// This is only called when user wants to make a new deck binder.
+	// Walks user through the process with prompts and validation.
 	public void addNewDeckBinder() {
 		new CustomDialog(DeckManager.getDeckManagerGUI(), OperationType.ADD_NEW_DECKBINDER, null);
 	}
 }
-

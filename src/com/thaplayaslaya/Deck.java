@@ -70,10 +70,10 @@ public class Deck {
 		String[] cardArray;
 		if (importCode != null && importCode.length() > 1) {
 			cardArray = importCode.split(" ");
-			/* Use /deck/ over /cache/
-			*  /deck/ is always available
-			*  /cache/ is only made after /deck/ has been called once.
-			*/
+			/*
+			 * Use /deck/ over /cache/ /deck/ is always available /cache/ is
+			 * only made after /deck/ has been called once.
+			 */
 			StringBuilder urlpath = new StringBuilder("http://dek.im/deck/");
 			int i;
 			String currentCard = null;
@@ -141,7 +141,7 @@ public class Deck {
 
 		for (int i = 0; i < link.length; i++) {
 			if (link[i] == 'z') {
-				for (int n = 0; n < charToNumber(link[i + 1]); n++) {	
+				for (int n = 0; n < charToNumber(link[i + 1]); n++) {
 					sb.append("" + link[i + 2] + link[i + 3] + link[i + 4] + ' ');
 				}
 				i = i + 4;
