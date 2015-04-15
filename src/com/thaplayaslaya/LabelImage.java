@@ -1,5 +1,6 @@
 package com.thaplayaslaya;
 
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
@@ -39,7 +40,7 @@ class LabelImage extends JLabel implements MouseListener {
 
 	private void init() {
 		addMouseListener(this);
-		this.setBorder(BorderFactory.createEtchedBorder());
+		this.setBorder(BorderFactory.createRaisedBevelBorder());
 	}
 
 	public String getDeckCode() {
@@ -54,7 +55,10 @@ class LabelImage extends JLabel implements MouseListener {
 	public void mouseClicked(MouseEvent event) {
 		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(this.getDeckCode()), null);
 		System.out.println("Added " + this.getDeckCode() + " to system clipboard");
-
+		for(LabelImage li : DeckManager.getDeckManagerGUI().getOraclePanel().getImages()){
+			li.setBorder(BorderFactory.createRaisedBevelBorder());
+		}
+		this.setBorder(BorderFactory.createLoweredBevelBorder());
 	}
 
 	public void mouseEntered(MouseEvent event) {
@@ -82,7 +86,7 @@ class ImageMagnifier extends JFrame {
 		getContentPane().add(new JLabel(full));
 		Point loc = parent.getLocation();
 		loc.x = loc.x + (parent.getWidth() / 2) - (full.getIconWidth() / 2);
-		loc.y = loc.y - (full.getIconHeight() / 3);
+		loc.y = loc.y - 115;
 		setLocation(loc);
 		setSize(full.getIconWidth(), full.getIconHeight());
 		setVisible(true);

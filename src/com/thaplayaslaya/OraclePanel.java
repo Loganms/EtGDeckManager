@@ -1,11 +1,15 @@
 package com.thaplayaslaya;
 
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.MouseEvent;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,10 +45,12 @@ public class OraclePanel extends JPanel {
 	private JProgressBar progBar = new JProgressBar();
 
 	private FalseGod currentlySelectedFG = null, previouslySelectedFG = null;
+	
+	private List<LabelImage> images = null;
 	double goTime;
 
 	public OraclePanel() {
-		this.setLayout(new GridLayout(2, 1));
+		this.setLayout(new BorderLayout());
 		mainPanel1.setLayout(new BorderLayout());
 
 		godsCB.setModel(new DefaultComboBoxModel<>(FalseGod.values()));
@@ -54,6 +60,7 @@ public class OraclePanel extends JPanel {
 		godsButton.addActionListener(new ButtonListener());
 
 		godsLabel.setLabelFor(godsCB);
+		godsLabel.setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0));
 		godsCBPanel.add(godsCB);
 		godsPanel.setLayout(new BorderLayout());
 		godsPanel.add(godsLabel, BorderLayout.NORTH);
@@ -62,6 +69,7 @@ public class OraclePanel extends JPanel {
 		godsPanel.add(godsButtonPanel, BorderLayout.EAST);
 
 		mainPanel1.add(godsPanel, BorderLayout.WEST);
+		mainPanel2Label.setBorder(BorderFactory.createEmptyBorder(10, 2, 0, 0));
 		mainPanel1.add(mainPanel2Label, BorderLayout.SOUTH);
 
 		mainPanel2.setBorder(BorderFactory.createEtchedBorder());
@@ -72,8 +80,8 @@ public class OraclePanel extends JPanel {
 		progPanel.add(progLabel, BorderLayout.NORTH);
 		progPanel.add(progBar, BorderLayout.CENTER);
 
-		this.add(mainPanel1);
-		this.add(mainPanel2);
+		this.add(mainPanel1, BorderLayout.NORTH);
+		this.add(mainPanel2, BorderLayout.CENTER);
 	}
 
 	public FalseGod getCurrentlySelectedFG() {
@@ -106,6 +114,14 @@ public class OraclePanel extends JPanel {
 			}
 		}
 	}
+	
+	public void setImages(List<LabelImage> images) {
+		this.images = images;
+	}
+	
+	public List<LabelImage> getImages() {
+		return this.images;
+	}
 
 	private void gatherAndDisplayIntel() {
 		// protects from redundant searches.
@@ -116,7 +132,7 @@ public class OraclePanel extends JPanel {
 			mainPanel2.revalidate();
 			mainPanel2.repaint();
 
-			SwingWorker<List<LabelImage>, Integer> worker = new SwingWorker<List<LabelImage>, Integer>() {
+			SwingWorker<List<LabelImage>, Void> worker = new SwingWorker<List<LabelImage>, Void>() {
 
 				@Override
 				protected List<LabelImage> doInBackground() throws Exception {
@@ -135,16 +151,12 @@ public class OraclePanel extends JPanel {
 				}
 
 				@Override
-				protected void process(List<Integer> chunks) {
-
-				}
-
-				@Override
 				protected void done() {
 					try {
 						double goTime4 = System.currentTimeMillis();
 						mainPanel2.remove(progPanel);
-						for (LabelImage li : get()) {
+						setImages(get());
+						for (LabelImage li : getImages()) {
 							mainPanel2.add(li);
 						}
 						mainPanel2.revalidate();

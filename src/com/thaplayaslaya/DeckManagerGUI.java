@@ -38,7 +38,7 @@ import javax.swing.KeyStroke;
 public class DeckManagerGUI extends JFrame {
 
 	private static final long serialVersionUID = 3686286211660935696L;
-	private static final Dimension MINIMUM_SIZE = new Dimension(320, 270);
+	private static final Dimension MINIMUM_SIZE = new Dimension(380, 275);
 	private static final String windowName = "Deck Manager", upArrow = "UpArrow", downArrow = "DownArrow";
 	private static final JButton[] rightPanelButtons = { new JButton("Copy Code"), new JButton("View Deck"), new JButton(OperationType.EDIT_DECK.getButtonText()), new JButton("Delete") };
 
@@ -50,7 +50,7 @@ public class DeckManagerGUI extends JFrame {
 	private JPanel centerPanel = new JPanel();
 	private JPanel promptPanel = new JPanel();
 
-	private JPanel oraclePanel = new OraclePanel();
+	private OraclePanel oraclePanel = new OraclePanel();
 	private FalseGod currentlySelectedFG = null;
 
 	private Deck currentlySelectedDeck;
@@ -322,5 +322,9 @@ public class DeckManagerGUI extends JFrame {
 
 	public JPanel getCasePanel() {
 		return casePanel;
+	}
+
+	public OraclePanel getOraclePanel() {
+		return oraclePanel;
 	}
 }
