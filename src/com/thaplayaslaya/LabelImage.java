@@ -1,6 +1,8 @@
 package com.thaplayaslaya;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
@@ -15,13 +17,15 @@ import javax.swing.JLabel;
 @SuppressWarnings("serial")
 class LabelImage extends JLabel implements MouseListener {
 	
-	//ImageIcon icon;
-	ImageIcon full;
-	ImageMagnifier im;
+	private URL deckURL; 
+	private String deckCode = null;
+	private ImageIcon full;
+	private ImageMagnifier im;
 
 	public LabelImage(URL url) {
 		super();
 		try {
+			deckURL = url;
 			BufferedImage temp = ImageIO.read(url);
 			full = new ImageIcon(temp);
 			temp = temp.getSubimage(4, 2, 278, 245);
@@ -35,10 +39,21 @@ class LabelImage extends JLabel implements MouseListener {
 	private void init() {
 		addMouseListener(this);
 		this.setBorder(BorderFactory.createEtchedBorder());
-		//this.setIcon(icon);
+	}
+
+	public String getDeckCode() {
+		if (deckCode == null) {
+			deckCode = Deck.convertURLToCode(this.deckURL);
+			return deckCode;
+		} else {
+			return deckCode;
+		}
 	}
 
 	public void mouseClicked(MouseEvent event) {
+		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(this.getDeckCode()), null);
+		System.out.println("Added " + this.getDeckCode() + " to system clipboard");
+
 	}
 
 	public void mouseEntered(MouseEvent event) {
