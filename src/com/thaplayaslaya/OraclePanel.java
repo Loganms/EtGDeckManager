@@ -2,14 +2,11 @@ package com.thaplayaslaya;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Toolkit;
-import java.awt.datatransfer.StringSelection;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.awt.event.MouseEvent;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,10 +30,12 @@ public class OraclePanel extends JPanel {
 	// private static final Dimension DEFAULT_DECK_IMAGE_SIZE = new
 	// Dimension(646, 252);
 
-	private JPanel mainPanel1 = new JPanel(), godsPanel = new JPanel(), godsCBPanel = new JPanel(), godsButtonPanel = new JPanel();
+	private JPanel mainPanel1 = new JPanel();
+	private JPanel godsPanel = new JPanel(), godsCBPanel = new JPanel(), godsButtonPanel = new JPanel(), godImagePanel = new JPanel(), mainPanel1SouthPanel = new JPanel();
 	private JComboBox<FalseGod> godsCB = new JComboBox<>();
-	private JLabel godsLabel = new JLabel("Predicted God", JLabel.CENTER), mainPanel2Label = new JLabel("Community-Recommended Decks:");
+	private JLabel godsLabel = new JLabel("Predicted False God", JLabel.CENTER), mainPanel2Label = new JLabel("Community-Recommended Decks:"), helpLabel = new JLabel(" ? ");
 	private JButton godsButton = new JButton("Go");
+	LabelImage godImage;
 
 	private JPanel mainPanel2 = new JPanel();
 
@@ -45,7 +44,7 @@ public class OraclePanel extends JPanel {
 	private JProgressBar progBar = new JProgressBar();
 
 	private FalseGod currentlySelectedFG = null, previouslySelectedFG = null;
-	
+
 	private List<LabelImage> images = null;
 	double goTime;
 
@@ -69,8 +68,13 @@ public class OraclePanel extends JPanel {
 		godsPanel.add(godsButtonPanel, BorderLayout.EAST);
 
 		mainPanel1.add(godsPanel, BorderLayout.WEST);
+		mainPanel1.add(godImagePanel, BorderLayout.CENTER);
+
+		mainPanel1SouthPanel.setLayout(new BorderLayout());
 		mainPanel2Label.setBorder(BorderFactory.createEmptyBorder(10, 2, 0, 0));
-		mainPanel1.add(mainPanel2Label, BorderLayout.SOUTH);
+		mainPanel1SouthPanel.add(mainPanel2Label, BorderLayout.WEST);
+
+		mainPanel1.add(mainPanel1SouthPanel, BorderLayout.SOUTH);
 
 		mainPanel2.setBorder(BorderFactory.createEtchedBorder());
 
@@ -98,11 +102,27 @@ public class OraclePanel extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			goTime = System.currentTimeMillis();
 			previouslySelectedFG = currentlySelectedFG;
+			if (previouslySelectedFG == null) {
+				helpLabel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(10, 0, 0, 4), BorderFactory.createLineBorder(Color.BLACK, 1, true)));
+				helpLabel.setFont(new Font(helpLabel.getFont().getFontName(), Font.PLAIN, 9));
+				helpLabel.setToolTipText("Click on a recommended deck to copy its import code to your clipboard");
+				mainPanel1SouthPanel.add(helpLabel, BorderLayout.EAST);
+			}
 			setCurrentlySelectedFG((FalseGod) godsCB.getSelectedItem());
 			System.out.println("Previously Selected FG: " + previouslySelectedFG);
 			System.out.println("Currently Selected FG: " + currentlySelectedFG);
 			gatherAndDisplayIntel();
+			//DEBUGtestDownloadFGDeck();
 		}
+
+		/*private void DEBUGtestDownloadFGDeck() {
+			try {
+				DownloadPage.getFalseGodDeck(getCurrentlySelectedFG());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+		}*/
 	}
 
 	private class ItemChangeListener implements ItemListener {
@@ -114,11 +134,11 @@ public class OraclePanel extends JPanel {
 			}
 		}
 	}
-	
+
 	public void setImages(List<LabelImage> images) {
 		this.images = images;
 	}
-	
+
 	public List<LabelImage> getImages() {
 		return this.images;
 	}
@@ -131,12 +151,16 @@ public class OraclePanel extends JPanel {
 			mainPanel2.add(progPanel);
 			mainPanel2.revalidate();
 			mainPanel2.repaint();
-
+			if(godImage != null) {
+				godImagePanel.remove(godImage);
+			}
+			
 			SwingWorker<List<LabelImage>, Void> worker = new SwingWorker<List<LabelImage>, Void>() {
 
 				@Override
 				protected List<LabelImage> doInBackground() throws Exception {
 					List<LabelImage> images = new ArrayList<LabelImage>();
+					images.add(new LabelImage(DownloadPage.getFalseGodDeck(currentlySelectedFG)));
 					double goTime2 = System.currentTimeMillis();
 					List<URL> urls = DownloadPage.getRecommendedDeckURLS(currentlySelectedFG);
 					System.out.println(urls.size() + " URLs downloaded in " + (System.currentTimeMillis() - goTime2) / 1000 + "sec");
@@ -156,8 +180,19 @@ public class OraclePanel extends JPanel {
 						double goTime4 = System.currentTimeMillis();
 						mainPanel2.remove(progPanel);
 						setImages(get());
-						for (LabelImage li : getImages()) {
-							mainPanel2.add(li);
+						for (int i = 0; i < getImages().size(); i++) {
+							if (i == 0) {
+								godImage = images.get(0);
+								godImage.setClickable(false);
+						
+								godImage.setBorder(BorderFactory.createEtchedBorder());
+								
+								godImagePanel.add(godImage, BorderLayout.CENTER);
+								godImagePanel.revalidate();
+								godImagePanel.repaint();
+							} else {
+								mainPanel2.add(images.get(i));
+							}
 						}
 						mainPanel2.revalidate();
 						mainPanel2.repaint();

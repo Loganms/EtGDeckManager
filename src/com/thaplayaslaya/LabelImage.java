@@ -1,6 +1,5 @@
 package com.thaplayaslaya;
 
-import java.awt.Color;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
@@ -23,6 +22,7 @@ class LabelImage extends JLabel implements MouseListener {
 	private String deckCode = null;
 	private ImageIcon full;
 	private ImageMagnifier im;
+	private boolean clickable = true;
 
 	public LabelImage(URL url) {
 		super();
@@ -30,6 +30,7 @@ class LabelImage extends JLabel implements MouseListener {
 			deckURL = url;
 			BufferedImage temp = ImageIO.read(url);
 			full = new ImageIcon(temp);
+			// Custom personal-preference sub-image: includes first 3 columns (30 cards)
 			temp = temp.getSubimage(4, 2, 278, 245);
 			setIcon(new ImageIcon(temp.getScaledInstance(temp.getHeight() / 4, temp.getWidth() / 4, Image.SCALE_SMOOTH)));
 		} catch (Exception e) {
@@ -53,12 +54,14 @@ class LabelImage extends JLabel implements MouseListener {
 	}
 
 	public void mouseClicked(MouseEvent event) {
-		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(this.getDeckCode()), null);
+		if ( this.isClickable()) {
+			Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(this.getDeckCode()), null);
 		System.out.println("Added " + this.getDeckCode() + " to system clipboard");
 		for(LabelImage li : DeckManager.getDeckManagerGUI().getOraclePanel().getImages()){
 			li.setBorder(BorderFactory.createRaisedBevelBorder());
 		}
 		this.setBorder(BorderFactory.createLoweredBevelBorder());
+		}
 	}
 
 	public void mouseEntered(MouseEvent event) {
@@ -73,6 +76,14 @@ class LabelImage extends JLabel implements MouseListener {
 	}
 
 	public void mouseReleased(MouseEvent event) {
+	}
+
+	public void setClickable(boolean b) {
+		this.clickable = b;
+	}
+	
+	public boolean isClickable() {
+		return this.clickable;
 	}
 }
 

@@ -7,8 +7,6 @@ public enum FalseGod {
 			"Scorpio"), SEISM("Seism"), SERKET("Serket");
 	private String name;
 
-	// private Deck[] recommendedDecks;
-
 	FalseGod(String name) {
 		this.name = name;
 	}

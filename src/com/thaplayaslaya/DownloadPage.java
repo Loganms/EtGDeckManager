@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -44,15 +45,18 @@ public class DownloadPage {
 			if (line.contains("http://dek.im/cache/")) {
 				found = true;
 				String[] strings = line.split("http://dek.im/d/");
+				// moved builder out of for loop.
+				StringBuilder builder = new StringBuilder();
 				for (String s : strings) {
-					StringBuilder builder = new StringBuilder();
 					if (s.contains("http://dek.im/cache/")) {
 						int index1 = s.lastIndexOf("http://dek.im/cache/");
 						// (+4) because I want to include the ".png"
 						int index2 = s.indexOf(".png", index1) + 4;
 						builder.append(s.substring(index1, index2));
 						deckImageURLs.add(new URL(builder.toString()));
-						System.out.println("From function " + builder.toString());
+						// empty out the builder.
+						builder.setLength(0);
+						System.out.println("From getRecommendedDeckURLS " + builder.toString());
 					}
 				}
 			}
@@ -61,5 +65,76 @@ public class DownloadPage {
 			}
 		}
 		return null;
+	}
+
+	public static URL getFalseGodDeck(FalseGod god) throws IOException {
+
+		URL url = new URL("http://elementscommunity.org/forum/false-gods/here-are-the-decks-of-the-actual-false-gods/");
+		URLConnection con = url.openConnection();
+		InputStream is = con.getInputStream();
+		BufferedReader br = new BufferedReader(new InputStreamReader(is));
+
+		String line = null;
+		String godSet1 = null;
+		String godSet2 = null;
+		readingLoop: while ((line = br.readLine()) != null) {
+			if (line.length() > 10000) {
+				if (godSet1 == null)
+					godSet1 = line;
+				else {
+					godSet2 = line;
+					break readingLoop;
+				}
+			}
+		}
+		char initial = god.name().charAt(0);
+		if (initial <= 'G') {
+			System.out.println(god.name() + "less than or = G");
+			return extractDeckURL((godSet1.split("The False Gods:"))[1], god);
+		} else if (initial >= 'H') {
+			if (god.equals(FalseGod.JEZEBEL)) {
+				System.out.println(god.name() + "greater than or = H");
+				return extractJezebelURL(godSet2);
+			}
+			return extractDeckURL(godSet2, god);
+		} else {
+			return null;
+		}
+
+	}
+
+	// Stupid fix for stupid problem
+	// Forums aren't uniform enough to use one method for all gods, Jezebel is
+	// only outlier.
+	private static URL extractJezebelURL(String string) throws MalformedURLException {
+		System.out.println(string);
+		// Jezebel has an erroneous space before his name so a different key
+		// must be used.
+		string = string.split("post_" + FalseGod.JEZEBEL.toString())[1];
+		System.out.println(string);
+		int index1, index2;
+		if (string.contains("http://dek.im/cache/")) {
+			System.out.println("string contains http...");
+		}
+		index1 = string.indexOf("http://dek.im/cache/");
+		index2 = string.indexOf(".png", index1) + 4;
+		string = string.substring(index1, index2);
+		System.out.println(string);
+		return new URL(string);
+	}
+
+	private static URL extractDeckURL(String string, FalseGod god) throws MalformedURLException {
+		System.out.println(string);
+		string = string.split(">" + god.toString())[1];
+		System.out.println(string);
+		int index1, index2;
+		if (string.contains("http://dek.im/cache/")) {
+			System.out.println("string contains http...");
+		}
+		index1 = string.indexOf("http://dek.im/cache/");
+		index2 = string.indexOf(".png", index1) + 4;
+		string = string.substring(index1, index2);
+		System.out.println(string);
+		return new URL(string);
 	}
 }
