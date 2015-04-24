@@ -56,6 +56,7 @@ class LabelImage extends JLabel implements MouseListener {
 		}
 		addMouseListener(this);
 		this.setBorder(BorderFactory.createRaisedBevelBorder());
+		setToolTipText("Click to copy import code");
 	}
 
 	public String getDeckCode() {
@@ -70,8 +71,6 @@ class LabelImage extends JLabel implements MouseListener {
 	public void mouseClicked(MouseEvent event) {
 		if (this.isClickable()) {
 			Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(this.getDeckCode()), null);
-			System.out.println("Added " + this.getDeckCode() + " to system clipboard");
-			System.out.println("X: " + getWidth() + ", Y: " + getHeight());
 			for (LabelImage li : DeckManager.getDeckManagerGUI().getOraclePanel().getImages()) {
 				li.setBorder(BorderFactory.createRaisedBevelBorder());
 			}

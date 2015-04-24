@@ -21,6 +21,7 @@ import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.InputMap;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -45,7 +46,6 @@ public class DeckManagerGUI extends JFrame {
 
 	private DeckManagerMenuBar menuBar;
 
-	// TODO: tabbed pane makes Ctrl+UP/DOWN features not work for organization.
 	private JTabbedPane tabbedPane = new JTabbedPane();
 
 	private JPanel leftPanel = new JPanel();
@@ -113,50 +113,17 @@ public class DeckManagerGUI extends JFrame {
 		innerRightPanel.add(buttonsPanel, BorderLayout.CENTER);
 		rightPanel.add(innerRightPanel);
 		centerPanel.add(rightPanel);
-		tabbedPane.addTab("Deck Manager", null, centerPanel, "Default View");
-		tabbedPane.addTab("Oracle", null, oraclePanel, "Recommended Decks");
+		tabbedPane.addTab("Deck Manager", null, centerPanel, "Save Organize Edit");
+		tabbedPane.addTab("Oracle", null, oraclePanel, "Prediction Help");
+
+		KeyStroke ctrlUp = KeyStroke.getKeyStroke(KeyEvent.VK_UP, InputEvent.CTRL_DOWN_MASK);
+		KeyStroke ctrlDown = KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, InputEvent.CTRL_DOWN_MASK);
+		InputMap inputMap = tabbedPane.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+		inputMap.put(ctrlUp, "none");
+		inputMap.put(ctrlDown, "none");
+
 		this.add(tabbedPane, BorderLayout.CENTER);
 	}
-
-	/*
-	 * private void setOptionsBar() { JMenuBar bar = new JMenuBar(); JMenu
-	 * fileMenu = new JMenu("File"); JMenu newMenu = new JMenu("New"); JMenuItem
-	 * newDeckBinderOption = new JMenuItem("Deck Binder");
-	 * newDeckBinderOption.addActionListener(new FileMenuActionListener());
-	 * newMenu.add(newDeckBinderOption);
-	 * 
-	 * fileMenu.add(newMenu);
-	 * 
-	 * JMenu viewMenu = new JMenu("View"); JMenu deckImages = new
-	 * JMenu("Deck Images"); ButtonGroup group1 = new ButtonGroup(), group2 =
-	 * new ButtonGroup(); JRadioButtonMenuItem[] deckImagesOptionsItems = { new
-	 * JRadioButtonMenuItem("Top"), new JRadioButtonMenuItem("Bottom"), new
-	 * JRadioButtonMenuItem("Left"), new JRadioButtonMenuItem("Right"), new
-	 * JRadioButtonMenuItem("Center"), new JRadioButtonMenuItem("Flush Top"),
-	 * new JRadioButtonMenuItem("Flush Bottom"), new
-	 * JRadioButtonMenuItem("Flush Left"), new
-	 * JRadioButtonMenuItem("Flush Right") }; JSeparator seperator = new
-	 * JSeparator();
-	 * 
-	 * for (int i = 0; i < 9; i++) {
-	 * 
-	 * if (i < 4) { group1.add(deckImagesOptionsItems[i]);
-	 * 
-	 * } else if (i >= 4) { if (i == 4) { deckImages.add(seperator); }
-	 * group2.add(deckImagesOptionsItems[i]); } deckImagesOptionsItems[i].add
-	 * deckImages.add(deckImagesOptionsItems[i]); }
-	 * 
-	 * viewMenu.add(deckImages);
-	 * 
-	 * bar.add(fileMenu); bar.add(viewMenu); this.add(bar, BorderLayout.NORTH);
-	 * }
-	 * 
-	 * private class FileMenuActionListener implements ActionListener {
-	 * 
-	 * @Override public void actionPerformed(ActionEvent e) { if (((JMenuItem)
-	 * (e.getSource())).getText().equals("Deck Binder")) {
-	 * DeckManager.cfg.getCase().addNewDeckBinder(); } } }
-	 */
 
 	private class RightButtonsPanelListener implements ActionListener {
 

@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -22,9 +23,6 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 public class OraclePanel extends JPanel {
 
 	private static final long serialVersionUID = 6311196152723245093L;
-
-	// private static final Dimension DEFAULT_DECK_IMAGE_SIZE = new
-	// Dimension(646, 252);
 
 	private JPanel mainPanel1 = new JPanel();
 	private JPanel godsPanel = new JPanel(), godsCBPanel = new JPanel(), godsButtonPanel = new JPanel(), godImagePanel = new JPanel(),
@@ -43,7 +41,6 @@ public class OraclePanel extends JPanel {
 	private FalseGod currentlySelectedFG = null, previouslySelectedFG = null;
 
 	private List<LabelImage> images = null;
-	double goTime;
 
 	public OraclePanel() {
 		this.setLayout(new BorderLayout());
@@ -53,7 +50,8 @@ public class OraclePanel extends JPanel {
 		AutoCompleteDecorator.decorate(godsCB);
 
 		godsButton.addActionListener(new ButtonListener());
-
+		godsButton.setToolTipText("Gather information on the selected False God");
+		
 		godsLabel.setLabelFor(godsCB);
 		godsLabel.setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0));
 		godsCBPanel.add(godsCB);
@@ -156,7 +154,7 @@ public class OraclePanel extends JPanel {
 								godImage = images.get(0);
 								godImage.setClickable(false);
 								godImage.setGod(true);
-								godImage.setToolTipText("3x Mark\n2x Cards\n2x Draw");
+								godImage.setToolTipText("Powers: 3x Mark, 2x Cards, 2x Draw");
 
 								godImagePanel.add(godImage, BorderLayout.CENTER);
 								godImagePanel.revalidate();
