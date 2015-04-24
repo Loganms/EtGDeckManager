@@ -131,7 +131,7 @@ class ImageMagnifier extends JFrame {
 		} else if (ploc == DeckManagerMenuBar.RIGHT) {
 			loc.x += parent.getWidth();
 		}
-		
+
 		if (pmod == DeckManagerMenuBar.CENTER) {
 			if (ploc == DeckManagerMenuBar.TOP || ploc == DeckManagerMenuBar.BOTTOM) {
 				loc.x = loc.x + (parent.getWidth() / 2) - (full.getIconWidth() / 2);
@@ -143,7 +143,7 @@ class ImageMagnifier extends JFrame {
 		} else if (pmod == DeckManagerMenuBar.FLUSH_BOTTOM) {
 			loc.y = loc.y + parent.getHeight() - full.getIconHeight();
 		}
-		
+
 		setLocation(loc);
 		setSize(full.getIconWidth(), full.getIconHeight());
 		setVisible(true);

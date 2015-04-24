@@ -44,7 +44,7 @@ public class DeckManagerGUI extends JFrame {
 			new JButton("Delete") };
 
 	private DeckManagerMenuBar menuBar;
-	
+
 	// TODO: tabbed pane makes Ctrl+UP/DOWN features not work for organization.
 	private JTabbedPane tabbedPane = new JTabbedPane();
 
@@ -59,7 +59,7 @@ public class DeckManagerGUI extends JFrame {
 	private DeckBinder currentlySelectedDeckBinder;
 	private JLabel currentlySelectedDeckLabel = new JLabel("[No deck currently selected]", JLabel.CENTER);
 	private LinkedList<DeckBinderPanel> deckBinderPanels = new LinkedList<DeckBinderPanel>();
-	
+
 	private String preferredDeckImageLocation = "";
 	private String preferredDeckImageLocationMod = "";
 
@@ -70,8 +70,8 @@ public class DeckManagerGUI extends JFrame {
 
 	void setComponents() {
 		this.setLayout(new BorderLayout());
-		//setOptionsBar();
-		
+		// setOptionsBar();
+
 		setCenter();
 		this.revalidate();
 		this.pack();
@@ -118,62 +118,45 @@ public class DeckManagerGUI extends JFrame {
 		this.add(tabbedPane, BorderLayout.CENTER);
 	}
 
-	/*private void setOptionsBar() {
-		JMenuBar bar = new JMenuBar();
-		JMenu fileMenu = new JMenu("File");
-		JMenu newMenu = new JMenu("New");
-		JMenuItem newDeckBinderOption = new JMenuItem("Deck Binder");
-		newDeckBinderOption.addActionListener(new FileMenuActionListener());
-		newMenu.add(newDeckBinderOption);
-
-		fileMenu.add(newMenu);
-
-		JMenu viewMenu = new JMenu("View");
-		JMenu deckImages = new JMenu("Deck Images");
-		ButtonGroup group1 = new ButtonGroup(), group2 = new ButtonGroup();
-		JRadioButtonMenuItem[] deckImagesOptionsItems = {
-				new JRadioButtonMenuItem("Top"),
-				new JRadioButtonMenuItem("Bottom"),
-				new JRadioButtonMenuItem("Left"),
-				new JRadioButtonMenuItem("Right"),
-				new JRadioButtonMenuItem("Center"),
-				new JRadioButtonMenuItem("Flush Top"),
-				new JRadioButtonMenuItem("Flush Bottom"),
-				new JRadioButtonMenuItem("Flush Left"),
-				new JRadioButtonMenuItem("Flush Right") };
-		JSeparator seperator = new JSeparator();
-
-		for (int i = 0; i < 9; i++) {
-			
-			if (i < 4) {
-				group1.add(deckImagesOptionsItems[i]);
-
-			} else if (i >= 4) {
-				if (i == 4) {
-					deckImages.add(seperator);	
-				}
-				group2.add(deckImagesOptionsItems[i]);
-			}
-			deckImagesOptionsItems[i].add
-			deckImages.add(deckImagesOptionsItems[i]);
-		}
-
-		viewMenu.add(deckImages);
-
-		bar.add(fileMenu);
-		bar.add(viewMenu);
-		this.add(bar, BorderLayout.NORTH);
-	}
-
-	private class FileMenuActionListener implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			if (((JMenuItem) (e.getSource())).getText().equals("Deck Binder")) {
-				DeckManager.cfg.getCase().addNewDeckBinder();
-			}
-		}
-	}*/
+	/*
+	 * private void setOptionsBar() { JMenuBar bar = new JMenuBar(); JMenu
+	 * fileMenu = new JMenu("File"); JMenu newMenu = new JMenu("New"); JMenuItem
+	 * newDeckBinderOption = new JMenuItem("Deck Binder");
+	 * newDeckBinderOption.addActionListener(new FileMenuActionListener());
+	 * newMenu.add(newDeckBinderOption);
+	 * 
+	 * fileMenu.add(newMenu);
+	 * 
+	 * JMenu viewMenu = new JMenu("View"); JMenu deckImages = new
+	 * JMenu("Deck Images"); ButtonGroup group1 = new ButtonGroup(), group2 =
+	 * new ButtonGroup(); JRadioButtonMenuItem[] deckImagesOptionsItems = { new
+	 * JRadioButtonMenuItem("Top"), new JRadioButtonMenuItem("Bottom"), new
+	 * JRadioButtonMenuItem("Left"), new JRadioButtonMenuItem("Right"), new
+	 * JRadioButtonMenuItem("Center"), new JRadioButtonMenuItem("Flush Top"),
+	 * new JRadioButtonMenuItem("Flush Bottom"), new
+	 * JRadioButtonMenuItem("Flush Left"), new
+	 * JRadioButtonMenuItem("Flush Right") }; JSeparator seperator = new
+	 * JSeparator();
+	 * 
+	 * for (int i = 0; i < 9; i++) {
+	 * 
+	 * if (i < 4) { group1.add(deckImagesOptionsItems[i]);
+	 * 
+	 * } else if (i >= 4) { if (i == 4) { deckImages.add(seperator); }
+	 * group2.add(deckImagesOptionsItems[i]); } deckImagesOptionsItems[i].add
+	 * deckImages.add(deckImagesOptionsItems[i]); }
+	 * 
+	 * viewMenu.add(deckImages);
+	 * 
+	 * bar.add(fileMenu); bar.add(viewMenu); this.add(bar, BorderLayout.NORTH);
+	 * }
+	 * 
+	 * private class FileMenuActionListener implements ActionListener {
+	 * 
+	 * @Override public void actionPerformed(ActionEvent e) { if (((JMenuItem)
+	 * (e.getSource())).getText().equals("Deck Binder")) {
+	 * DeckManager.cfg.getCase().addNewDeckBinder(); } } }
+	 */
 
 	private class RightButtonsPanelListener implements ActionListener {
 
@@ -370,7 +353,7 @@ public class DeckManagerGUI extends JFrame {
 	}
 
 	public void setPreferredDeckImageLocation(String preferredDeckImageLocation) {
-		
+
 		this.preferredDeckImageLocation = preferredDeckImageLocation;
 	}
 

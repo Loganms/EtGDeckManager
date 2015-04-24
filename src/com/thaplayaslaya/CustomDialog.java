@@ -1,8 +1,15 @@
 package com.thaplayaslaya;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.beans.*;
+import java.awt.Frame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -138,7 +145,8 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 	public void propertyChange(PropertyChangeEvent e) {
 		String prop = e.getPropertyName();
 
-		if (isVisible() && (e.getSource() == optionPane) && (JOptionPane.VALUE_PROPERTY.equals(prop) || JOptionPane.INPUT_VALUE_PROPERTY.equals(prop))) {
+		if (isVisible() && (e.getSource() == optionPane)
+				&& (JOptionPane.VALUE_PROPERTY.equals(prop) || JOptionPane.INPUT_VALUE_PROPERTY.equals(prop))) {
 			Object value = optionPane.getValue();
 
 			if (value == JOptionPane.UNINITIALIZED_VALUE) {
@@ -172,8 +180,8 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 								db.getDeckBinderPanel().getComboBox().setSelectedItem(newDeck);
 								exit();
 							} else {
-								JOptionPane.showMessageDialog(this, "Sorry, \"" + typedText + "\" " + "already exists in this deck binder.\n" + "Please enter a different name.", "Try again",
-										JOptionPane.ERROR_MESSAGE);
+								JOptionPane.showMessageDialog(this, "Sorry, \"" + typedText + "\" " + "already exists in this deck binder.\n"
+										+ "Please enter a different name.", "Try again", JOptionPane.ERROR_MESSAGE);
 								typedText = null;
 								nameTextField.requestFocusInWindow();
 							}
@@ -193,8 +201,8 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 							DeckManager.getDeckManagerGUI().getCasePanel().revalidate();
 							exit();
 						} else {
-							JOptionPane.showMessageDialog(this, "Sorry, \"" + typedText + "\" " + "already exists as a deck binder.\n" + "Please enter a different name.", "Try again",
-									JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(this, "Sorry, \"" + typedText + "\" " + "already exists as a deck binder.\n"
+									+ "Please enter a different name.", "Try again", JOptionPane.ERROR_MESSAGE);
 							typedText = null;
 							nameTextField.requestFocusInWindow();
 						}
@@ -209,8 +217,8 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 							oldDB.setName(typedText);
 							exit();
 						} else if (!nameIsSame && nameTaken) {
-							JOptionPane.showMessageDialog(this, "Sorry, \"" + typedText + "\" " + "already exists as a deck binder.\n" + "Please enter a different name.", "Try again",
-									JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(this, "Sorry, \"" + typedText + "\" " + "already exists as a deck binder.\n"
+									+ "Please enter a different name.", "Try again", JOptionPane.ERROR_MESSAGE);
 							typedText = null;
 							nameTextField.requestFocusInWindow();
 						}
@@ -234,8 +242,8 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 							exit();
 						} else if (nameTaken && !nameIsSame) {
 							// Then this name is already in use.
-							JOptionPane.showMessageDialog(this, "Sorry, \"" + typedText + "\" " + "already exists in this deck binder.\n" + "Please enter a different name.", "Try again",
-									JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(this, "Sorry, \"" + typedText + "\" " + "already exists in this deck binder.\n"
+									+ "Please enter a different name.", "Try again", JOptionPane.ERROR_MESSAGE);
 							typedText = null;
 							nameTextField.requestFocusInWindow();
 						}

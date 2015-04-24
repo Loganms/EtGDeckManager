@@ -27,7 +27,8 @@ public class OraclePanel extends JPanel {
 	// Dimension(646, 252);
 
 	private JPanel mainPanel1 = new JPanel();
-	private JPanel godsPanel = new JPanel(), godsCBPanel = new JPanel(), godsButtonPanel = new JPanel(), godImagePanel = new JPanel(), mainPanel1SouthPanel = new JPanel();
+	private JPanel godsPanel = new JPanel(), godsCBPanel = new JPanel(), godsButtonPanel = new JPanel(), godImagePanel = new JPanel(),
+			mainPanel1SouthPanel = new JPanel();
 	private JComboBox<FalseGod> godsCB = new JComboBox<>();
 	private JLabel godsLabel = new JLabel("Predicted False God", JLabel.CENTER), mainPanel2Label = new JLabel("Community-Recommended Deck(s):");
 	private JButton godsButton = new JButton("Go");
@@ -69,8 +70,6 @@ public class OraclePanel extends JPanel {
 		mainPanel1SouthPanel.setLayout(new BorderLayout());
 		mainPanel2Label.setBorder(BorderFactory.createEmptyBorder(10, 2, 0, 0));
 		mainPanel1SouthPanel.add(mainPanel2Label, BorderLayout.WEST);
-		
-		
 
 		mainPanel1.add(mainPanel1SouthPanel, BorderLayout.SOUTH);
 
@@ -99,7 +98,7 @@ public class OraclePanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			previouslySelectedFG = currentlySelectedFG;
-			
+
 			setCurrentlySelectedFG((FalseGod) godsCB.getSelectedItem());
 			System.out.println("Previously Selected FG: " + previouslySelectedFG);
 			System.out.println("Currently Selected FG: " + currentlySelectedFG);
@@ -132,9 +131,6 @@ public class OraclePanel extends JPanel {
 			mainPanel2.add(progPanel);
 			mainPanel2.revalidate();
 			mainPanel2.repaint();
-			
-				
-			
 
 			SwingWorker<List<LabelImage>, Void> worker = new SwingWorker<List<LabelImage>, Void>() {
 
@@ -161,7 +157,7 @@ public class OraclePanel extends JPanel {
 								godImage.setClickable(false);
 								godImage.setGod(true);
 								godImage.setToolTipText("3x Mark\n2x Cards\n2x Draw");
-								
+
 								godImagePanel.add(godImage, BorderLayout.CENTER);
 								godImagePanel.revalidate();
 								godImagePanel.repaint();

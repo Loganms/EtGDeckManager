@@ -36,9 +36,9 @@ public class DeckManagerMenuBar extends JMenuBar {
 		viewMenu = new JMenu("View");
 		deckImagesMenu = new JMenu("Deck Images");
 		createDeckImagesOptions();
-		
-		//deckImagesOptions[preferenceToIntCode(DeckManager.getDeckManagerGUI().getPreferredDeckImageLocation())].doClick();
-		//deckImagesOptions[preferenceToIntCode(DeckManager.getDeckManagerGUI().getPreferredDeckImageLocationMod())].doClick();
+
+		// deckImagesOptions[preferenceToIntCode(DeckManager.getDeckManagerGUI().getPreferredDeckImageLocation())].doClick();
+		// deckImagesOptions[preferenceToIntCode(DeckManager.getDeckManagerGUI().getPreferredDeckImageLocationMod())].doClick();
 
 		for (int i = 0; i < deckImagesOptions.length; i++) {
 			if (i == 4) {
@@ -188,14 +188,14 @@ public class DeckManagerMenuBar extends JMenuBar {
 	}
 
 	public static boolean validateLocation(String preferredDeckImageLocation) {
-		if (preferenceToIntCode(preferredDeckImageLocation) < CENTER){
+		if (preferenceToIntCode(preferredDeckImageLocation) < CENTER) {
 			return true;
 		}
 		return false;
 	}
-	
+
 	public static boolean validateLocationMod(String preferredDeckImageLocationMod) {
-		if (preferenceToIntCode(preferredDeckImageLocationMod) >= CENTER){
+		if (preferenceToIntCode(preferredDeckImageLocationMod) >= CENTER) {
 			return true;
 		}
 		return false;

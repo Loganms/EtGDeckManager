@@ -41,7 +41,7 @@ public class Config {
 			BufferedReader br = new BufferedReader(new FileReader(file));
 
 			briefcase = gson.fromJson(br, Case.class);
-			
+
 			System.out.println(briefcase.getPreferredDeckImageLocation());
 
 			if (briefcase == null) {
@@ -52,10 +52,10 @@ public class Config {
 				db.setDBP();
 			}
 
-			((DeckManagerMenuBar) DeckManager.getDeckManagerGUI().getJMenuBar()).getDeckImagesOptions()[DeckManagerMenuBar.preferenceToIntCode(briefcase
-					.getPreferredDeckImageLocation())].doClick();
-			((DeckManagerMenuBar) DeckManager.getDeckManagerGUI().getJMenuBar()).getDeckImagesOptions()[DeckManagerMenuBar.preferenceToIntCode(briefcase
-					.getPreferredDeckImageLocationMod())].doClick();
+			((DeckManagerMenuBar) DeckManager.getDeckManagerGUI().getJMenuBar()).getDeckImagesOptions()[DeckManagerMenuBar
+					.preferenceToIntCode(briefcase.getPreferredDeckImageLocation())].doClick();
+			((DeckManagerMenuBar) DeckManager.getDeckManagerGUI().getJMenuBar()).getDeckImagesOptions()[DeckManagerMenuBar
+					.preferenceToIntCode(briefcase.getPreferredDeckImageLocationMod())].doClick();
 
 		} catch (IOException e) {
 			e.printStackTrace();
