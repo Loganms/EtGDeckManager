@@ -25,9 +25,6 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRootPane;
@@ -40,8 +37,14 @@ public class DeckManagerGUI extends JFrame {
 	private static final long serialVersionUID = 3686286211660935696L;
 	private static final Dimension MINIMUM_SIZE = new Dimension(380, 275);
 	private static final String windowName = "Deck Manager", upArrow = "UpArrow", downArrow = "DownArrow";
-	private static final JButton[] rightPanelButtons = { new JButton("Copy Code"), new JButton("View Deck"), new JButton(OperationType.EDIT_DECK.getButtonText()), new JButton("Delete") };
+	private static final JButton[] rightPanelButtons = {
+			new JButton("Copy Code"),
+			new JButton("View Deck"),
+			new JButton(OperationType.EDIT_DECK.getButtonText()),
+			new JButton("Delete") };
 
+	private DeckManagerMenuBar menuBar;
+	
 	// TODO: tabbed pane makes Ctrl+UP/DOWN features not work for organization.
 	private JTabbedPane tabbedPane = new JTabbedPane();
 
@@ -51,12 +54,14 @@ public class DeckManagerGUI extends JFrame {
 	private JPanel promptPanel = new JPanel();
 
 	private OraclePanel oraclePanel = new OraclePanel();
-	private FalseGod currentlySelectedFG = null;
 
 	private Deck currentlySelectedDeck;
 	private DeckBinder currentlySelectedDeckBinder;
 	private JLabel currentlySelectedDeckLabel = new JLabel("[No deck currently selected]", JLabel.CENTER);
 	private LinkedList<DeckBinderPanel> deckBinderPanels = new LinkedList<DeckBinderPanel>();
+	
+	private String preferredDeckImageLocation = "";
+	private String preferredDeckImageLocationMod = "";
 
 	public DeckManagerGUI() {
 		super(windowName);
@@ -65,7 +70,8 @@ public class DeckManagerGUI extends JFrame {
 
 	void setComponents() {
 		this.setLayout(new BorderLayout());
-		setOptionsBar();
+		//setOptionsBar();
+		
 		setCenter();
 		this.revalidate();
 		this.pack();
@@ -80,7 +86,10 @@ public class DeckManagerGUI extends JFrame {
 
 		JLabel rightPrompt = new JLabel("What do you want to do with: ", JLabel.CENTER);
 
-		String[] rightPanelButtonsToolTips = { "Copy this deck's import code to your clipboard", "Display an image of this deck in a separate window", "Edit this deck's name and import code",
+		String[] rightPanelButtonsToolTips = {
+				"Copy this deck's import code to your clipboard",
+				"Display an image of this deck in a separate window",
+				"Edit this deck's name and import code",
 				"Delete this deck" };
 
 		rightPanel.setLayout(new BorderLayout());
@@ -109,7 +118,7 @@ public class DeckManagerGUI extends JFrame {
 		this.add(tabbedPane, BorderLayout.CENTER);
 	}
 
-	private void setOptionsBar() {
+	/*private void setOptionsBar() {
 		JMenuBar bar = new JMenuBar();
 		JMenu fileMenu = new JMenu("File");
 		JMenu newMenu = new JMenu("New");
@@ -119,8 +128,41 @@ public class DeckManagerGUI extends JFrame {
 
 		fileMenu.add(newMenu);
 
-		this.add(bar, BorderLayout.NORTH);
+		JMenu viewMenu = new JMenu("View");
+		JMenu deckImages = new JMenu("Deck Images");
+		ButtonGroup group1 = new ButtonGroup(), group2 = new ButtonGroup();
+		JRadioButtonMenuItem[] deckImagesOptionsItems = {
+				new JRadioButtonMenuItem("Top"),
+				new JRadioButtonMenuItem("Bottom"),
+				new JRadioButtonMenuItem("Left"),
+				new JRadioButtonMenuItem("Right"),
+				new JRadioButtonMenuItem("Center"),
+				new JRadioButtonMenuItem("Flush Top"),
+				new JRadioButtonMenuItem("Flush Bottom"),
+				new JRadioButtonMenuItem("Flush Left"),
+				new JRadioButtonMenuItem("Flush Right") };
+		JSeparator seperator = new JSeparator();
+
+		for (int i = 0; i < 9; i++) {
+			
+			if (i < 4) {
+				group1.add(deckImagesOptionsItems[i]);
+
+			} else if (i >= 4) {
+				if (i == 4) {
+					deckImages.add(seperator);	
+				}
+				group2.add(deckImagesOptionsItems[i]);
+			}
+			deckImagesOptionsItems[i].add
+			deckImages.add(deckImagesOptionsItems[i]);
+		}
+
+		viewMenu.add(deckImages);
+
 		bar.add(fileMenu);
+		bar.add(viewMenu);
+		this.add(bar, BorderLayout.NORTH);
 	}
 
 	private class FileMenuActionListener implements ActionListener {
@@ -131,7 +173,7 @@ public class DeckManagerGUI extends JFrame {
 				DeckManager.cfg.getCase().addNewDeckBinder();
 			}
 		}
-	}
+	}*/
 
 	private class RightButtonsPanelListener implements ActionListener {
 
@@ -149,7 +191,8 @@ public class DeckManagerGUI extends JFrame {
 						frame.setVisible(true);
 						frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 					} else {
-						JOptionPane.showMessageDialog(DeckManagerGUI.this, "A deck image could not be created from " + currentlySelectedDeck.getName() + "'s import code.", "Error",
+						JOptionPane.showMessageDialog(DeckManagerGUI.this,
+								"A deck image could not be created from " + currentlySelectedDeck.getName() + "'s import code.", "Error",
 								JOptionPane.ERROR_MESSAGE);
 					}
 				} else if (e.getActionCommand().equals(OperationType.EDIT_DECK.getButtonText())) {
@@ -157,7 +200,8 @@ public class DeckManagerGUI extends JFrame {
 				}
 
 				else if (e.getActionCommand().equals("Delete")) {
-					if (JOptionPane.showConfirmDialog(DeckManager.getDeckManagerGUI(), "Are you sure you want to delete " + currentlySelectedDeck.getName() + "?") == JOptionPane.YES_OPTION) {
+					if (JOptionPane.showConfirmDialog(DeckManager.getDeckManagerGUI(),
+							"Are you sure you want to delete " + currentlySelectedDeck.getName() + "?") == JOptionPane.YES_OPTION) {
 						currentlySelectedDeckBinder.getDeckBinderPanel().disableListeners();
 						currentlySelectedDeckBinder.removeDeck(currentlySelectedDeck);
 						setCurrentlySelectedDeck(null);
@@ -219,6 +263,8 @@ public class DeckManagerGUI extends JFrame {
 		this.setMinimumSize(MINIMUM_SIZE);
 		this.setResizable(true);
 		this.setLocationRelativeTo(null);
+		menuBar = new DeckManagerMenuBar();
+		this.setJMenuBar(menuBar);
 		this.setVisible(true);
 		this.setFocusable(true);
 		this.requestFocus();
@@ -311,20 +357,28 @@ public class DeckManagerGUI extends JFrame {
 		return currentlySelectedDeck;
 	}
 
-	public FalseGod getCurrentlySelectedFG() {
-		return currentlySelectedFG;
-	}
-
-	public void setCurrentlySelectedFG(FalseGod FalseGod) {
-		this.currentlySelectedFG = FalseGod;
-		System.out.println("Currently Selected FG: " + FalseGod);
-	}
-
 	public JPanel getCasePanel() {
 		return casePanel;
 	}
 
 	public OraclePanel getOraclePanel() {
 		return oraclePanel;
+	}
+
+	public String getPreferredDeckImageLocation() {
+		return preferredDeckImageLocation;
+	}
+
+	public void setPreferredDeckImageLocation(String preferredDeckImageLocation) {
+		
+		this.preferredDeckImageLocation = preferredDeckImageLocation;
+	}
+
+	public String getPreferredDeckImageLocationMod() {
+		return preferredDeckImageLocationMod;
+	}
+
+	public void setPreferredDeckImageLocationMod(String preferredDeckImageLocationMod) {
+		this.preferredDeckImageLocationMod = preferredDeckImageLocationMod;
 	}
 }

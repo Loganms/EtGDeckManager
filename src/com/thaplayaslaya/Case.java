@@ -3,9 +3,11 @@ package com.thaplayaslaya;
 import java.util.ArrayList;
 
 public class Case {
-
+	
+	private String preferredDeckImageLocation;
+	private String preferredDeckImageLocationMod;
 	private ArrayList<DeckBinder> deckBinders = new ArrayList<DeckBinder>();
-
+	
 	public Case() {
 
 	}
@@ -46,4 +48,24 @@ public class Case {
 	public void addNewDeckBinder() {
 		new CustomDialog(DeckManager.getDeckManagerGUI(), OperationType.ADD_NEW_DECKBINDER, null);
 	}
+
+	public String getPreferredDeckImageLocation() {
+		if(DeckManagerMenuBar.validateLocation(preferredDeckImageLocation)){
+			return preferredDeckImageLocation;
+		}
+		return "TOP";
+	}
+
+	public String getPreferredDeckImageLocationMod() {
+		if(DeckManagerMenuBar.validateLocationMod(preferredDeckImageLocationMod)){
+			return preferredDeckImageLocationMod;
+		}
+		return "CENTER";
+	}
+	
+	public void prepareForSave() {
+		preferredDeckImageLocation = DeckManager.getDeckManagerGUI().getPreferredDeckImageLocation();
+		preferredDeckImageLocationMod = DeckManager.getDeckManagerGUI().getPreferredDeckImageLocationMod();
+	}
+
 }
