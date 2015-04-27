@@ -42,8 +42,6 @@ public class Config {
 
 			briefcase = gson.fromJson(br, Case.class);
 
-			System.out.println(briefcase.getPreferredDeckImageLocation());
-
 			if (briefcase == null) {
 				briefcase = new Case();
 			}

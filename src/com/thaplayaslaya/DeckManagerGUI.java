@@ -37,11 +37,11 @@ public class DeckManagerGUI extends JFrame {
 
 	private static final long serialVersionUID = 3686286211660935696L;
 	private static final Dimension MINIMUM_SIZE = new Dimension(380, 275);
-	private static final String windowName = "Deck Manager", upArrow = "UpArrow", downArrow = "DownArrow";
+	private static final String windowName = "EtG Deck Manager", upArrow = "UpArrow", downArrow = "DownArrow";
 	private static final JButton[] rightPanelButtons = {
 			new JButton("Copy Code"),
 			new JButton("View Deck"),
-			new JButton(OperationType.EDIT_DECK.getButtonText()),
+			new JButton(OperationType.EDIT_DECK.getText()),
 			new JButton("Delete") };
 
 	private DeckManagerMenuBar menuBar;
@@ -145,7 +145,7 @@ public class DeckManagerGUI extends JFrame {
 								"A deck image could not be created from " + currentlySelectedDeck.getName() + "'s import code.", "Error",
 								JOptionPane.ERROR_MESSAGE);
 					}
-				} else if (e.getActionCommand().equals(OperationType.EDIT_DECK.getButtonText())) {
+				} else if (e.getActionCommand().equals(OperationType.EDIT_DECK.getText())) {
 					new CustomDialog(DeckManagerGUI.this, OperationType.EDIT_DECK, null);
 				}
 
@@ -190,7 +190,6 @@ public class DeckManagerGUI extends JFrame {
 					DeckManager.getCase().getDeckBinders().add(index - 1, db);
 
 					casePanel.revalidate();
-					System.out.println("CTRL+UP pressed and activated");
 				} else if (actionCommand.equals(downArrow) && index < deckBinderPanels.size() - 1) {
 					casePanel.remove(index);
 					deckBinderPanels.remove(index);
@@ -201,7 +200,6 @@ public class DeckManagerGUI extends JFrame {
 					DeckManager.getCase().getDeckBinders().add(index + 1, db);
 
 					casePanel.revalidate();
-					System.out.println("CTRL+DOWN pressed and activated");
 				}
 			} else {
 				System.out.println("No deck binder selected. Can't move!");

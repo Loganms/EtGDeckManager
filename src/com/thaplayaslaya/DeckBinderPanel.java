@@ -28,7 +28,7 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 	private String name = "[Default Name]", upArrow = "UpArrow", downArrow = "DownArrow";
 	private JLabel dBName = new JLabel(this.name, JLabel.LEFT);
 	private JComboBox<Deck> comboBox = new JComboBox<Deck>();
-	private JButton renameButton = new JButton(OperationType.RENAME_DECKBINDER.getButtonText()), deleteButton = new JButton("D");
+	private JButton renameButton = new JButton(OperationType.RENAME_DECKBINDER.getText()), deleteButton = new JButton("D");
 	private JPanel northPanel = new JPanel();
 	private ItemChangeListener itemChangeListener = new ItemChangeListener();
 	private cBFocusListener focusListener = new cBFocusListener();
@@ -169,7 +169,6 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 		public void focusGained(FocusEvent e) {
 			@SuppressWarnings("unchecked")
 			JComboBox<Deck> comboBox = (JComboBox<Deck>) e.getComponent();
-			System.out.println(comboBox.getSelectedItem().toString() + " focus gained");
 			DeckManager.getDeckManagerGUI().setCurrentlySelectedDeckBinder(comboBox.getName());
 
 			if (comboBox.getSelectedItem().equals(Deck.DEFAULT)) {
@@ -177,21 +176,16 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 			}
 
 			DeckManager.getDeckManagerGUI().setCurrentlySelectedDeck((Deck) comboBox.getSelectedItem());
-			System.out.println(comboBox.getName());
 		}
 
 		@Override
 		public void focusLost(FocusEvent e) {
-			@SuppressWarnings("unchecked")
-			JComboBox<Deck> comboBox = (JComboBox<Deck>) e.getComponent();
-			System.out.println(((Deck) comboBox.getSelectedItem()).getName() + " focus lost");
-
 		}
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getActionCommand().equals(OperationType.RENAME_DECKBINDER.getButtonText())) {
+		if (e.getActionCommand().equals(OperationType.RENAME_DECKBINDER.getText())) {
 			new CustomDialog(DeckManager.getDeckManagerGUI(), OperationType.RENAME_DECKBINDER, this.name);
 		} else if (e.getActionCommand().equals("D")) {
 			if (JOptionPane.showConfirmDialog(DeckManager.getDeckManagerGUI(), "Are you sure you want to delete this deck binder?") == JOptionPane.YES_OPTION) {

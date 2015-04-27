@@ -46,7 +46,12 @@
     },
     {
       "name": "news",
-      "decks": []
+      "decks": [
+        {
+          "name": "na",
+          "importCode": ""
+        }
+      ]
     }
   ]
 }

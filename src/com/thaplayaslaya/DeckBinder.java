@@ -52,7 +52,6 @@ public class DeckBinder {
 	}
 
 	public void setName(String name) {
-		System.out.println("Setting name of DBP and DB");
 		this.name = name;
 		dBP.setName(name);
 	}

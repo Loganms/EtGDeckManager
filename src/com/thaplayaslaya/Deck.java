@@ -117,8 +117,6 @@ public class Deck {
 				urlpath.append(cardArray[i] + ".png");
 			}
 
-			System.out.println(urlpath.toString());
-
 			try {
 				URL url = new URL(urlpath.toString());
 				InputStream inputStream = url.openStream();

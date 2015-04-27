@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -98,19 +97,8 @@ public class OraclePanel extends JPanel {
 			previouslySelectedFG = currentlySelectedFG;
 
 			setCurrentlySelectedFG((FalseGod) godsCB.getSelectedItem());
-			System.out.println("Previously Selected FG: " + previouslySelectedFG);
-			System.out.println("Currently Selected FG: " + currentlySelectedFG);
 			gatherAndDisplayIntel();
-			// DEBUGtestDownloadFGDeck();
 		}
-
-		/*
-		 * private void DEBUGtestDownloadFGDeck() { try {
-		 * DownloadPage.getFalseGodDeck(getCurrentlySelectedFG()); } catch
-		 * (IOException e) { e.printStackTrace(); }
-		 * 
-		 * }
-		 */
 	}
 
 	public void setImages(List<LabelImage> images) {

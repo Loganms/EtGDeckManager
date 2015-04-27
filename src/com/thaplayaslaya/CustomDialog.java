@@ -84,7 +84,6 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 			nameTextField.setText(d.getName());
 			nameTextField.selectAll();
 			break;
-
 		default:
 			break;
 		}
@@ -206,7 +205,6 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 							typedText = null;
 							nameTextField.requestFocusInWindow();
 						}
-
 						break;
 					case RENAME_DECKBINDER:
 						DeckBinder oldDB = DeckManager.getCase().getDeckBinder(getExtraInfo());
@@ -247,7 +245,6 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 							typedText = null;
 							nameTextField.requestFocusInWindow();
 						}
-
 						break;
 					}
 				} else {

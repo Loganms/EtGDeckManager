@@ -56,7 +56,6 @@ public class DownloadPage {
 						deckImageURLs.add(new URL(builder.toString()));
 						// empty out the builder.
 						builder.setLength(0);
-						System.out.println("From getRecommendedDeckURLS " + builder.toString());
 					}
 				}
 			}
@@ -89,11 +88,9 @@ public class DownloadPage {
 		}
 		char initial = god.name().charAt(0);
 		if (initial <= 'G') {
-			System.out.println(god.name() + "less than or = G");
 			return extractDeckURL((godSet1.split("The False Gods:"))[1], god);
 		} else if (initial >= 'H') {
 			if (god.equals(FalseGod.JEZEBEL)) {
-				System.out.println(god.name() + "greater than or = H");
 				return extractJezebelURL(godSet2);
 			}
 			return extractDeckURL(godSet2, god);
@@ -107,34 +104,22 @@ public class DownloadPage {
 	// Forums aren't uniform enough to use one method for all gods, Jezebel is
 	// only outlier.
 	private static URL extractJezebelURL(String string) throws MalformedURLException {
-		System.out.println(string);
 		// Jezebel has an erroneous space before his name so a different key
 		// must be used.
 		string = string.split("post_" + FalseGod.JEZEBEL.toString())[1];
-		System.out.println(string);
 		int index1, index2;
-		if (string.contains("http://dek.im/cache/")) {
-			System.out.println("string contains http...");
-		}
 		index1 = string.indexOf("http://dek.im/cache/");
 		index2 = string.indexOf(".png", index1) + 4;
 		string = string.substring(index1, index2);
-		System.out.println(string);
 		return new URL(string);
 	}
 
 	private static URL extractDeckURL(String string, FalseGod god) throws MalformedURLException {
-		System.out.println(string);
 		string = string.split(">" + god.toString())[1];
-		System.out.println(string);
 		int index1, index2;
-		if (string.contains("http://dek.im/cache/")) {
-			System.out.println("string contains http...");
-		}
 		index1 = string.indexOf("http://dek.im/cache/");
 		index2 = string.indexOf(".png", index1) + 4;
 		string = string.substring(index1, index2);
-		System.out.println(string);
 		return new URL(string);
 	}
 }
