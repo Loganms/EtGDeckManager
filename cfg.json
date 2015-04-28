@@ -1,6 +1,6 @@
 {
-  "preferredDeckImageLocation": "TOP",
-  "preferredDeckImageLocationMod": "CENTER",
+  "preferredDeckImageLocation": "BOTTOM",
+  "preferredDeckImageLocationMod": "FLUSH_LEFT",
   "deckBinders": [
     {
       "name": "G/P Arena",

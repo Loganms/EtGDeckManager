@@ -57,6 +57,7 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 		if (typeOfOperation == OperationType.ADD_NEW_DECK || typeOfOperation == OperationType.EDIT_DECK) {
 			importCodeTextArea = new JTextArea(7, 20);
 			importCodeTextArea.setLineWrap(true);
+			importCodeTextArea.setWrapStyleWord(true);
 		}
 
 		switch (typeOfOperation) {

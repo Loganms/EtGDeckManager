@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 
 public class DeckManager {
 
+	public static final String VERSION_ID = "v1.0";
 	private static DeckManagerGUI DMGUI;
 	public static Gson gson;
 	public static Config cfg;
