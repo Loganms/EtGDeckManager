@@ -11,7 +11,8 @@ public class Case {
 	private ArrayList<DeckBinder> deckBinders = new ArrayList<DeckBinder>();
 
 	public Case() {
-
+		preferredDeckImageLocation = Orientation.TOP.name();
+		preferredDeckImageLocationMod = Orientation.CENTER.name();
 	}
 
 	public void addDeckBinder(DeckBinder deckBinder) {

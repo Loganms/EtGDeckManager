@@ -26,6 +26,12 @@ public class Config {
 				e.printStackTrace();
 			}
 			briefcase = new Case();
+
+			((DeckManagerMenuBar) DeckManager.getDeckManagerGUI().getJMenuBar()).getDeckImagesOptions()[DeckManagerMenuBar
+					.preferenceToIntCode(briefcase.getPreferredDeckImageLocation())].doClick();
+			((DeckManagerMenuBar) DeckManager.getDeckManagerGUI().getJMenuBar()).getDeckImagesOptions()[DeckManagerMenuBar
+					.preferenceToIntCode(briefcase.getPreferredDeckImageLocationMod())].doClick();
+
 		} else {
 			readCaseData();
 		}

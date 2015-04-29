@@ -360,7 +360,7 @@ public class DeckManagerMenuBar extends JMenuBar {
 	}
 
 	public static boolean validateLocation(String preferredDeckImageLocation) {
-		if (preferenceToIntCode(preferredDeckImageLocation) < CENTER) {
+		if (preferenceToIntCode(preferredDeckImageLocation) > -1 && preferenceToIntCode(preferredDeckImageLocation) < CENTER) {
 			return true;
 		}
 		return false;
