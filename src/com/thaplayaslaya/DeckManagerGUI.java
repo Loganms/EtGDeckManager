@@ -210,7 +210,7 @@ public class DeckManagerGUI extends JFrame {
 		URL iconURL = getClass().getResource("/com/thaplayaslaya/icon.png");
 		ImageIcon icon = new ImageIcon(iconURL);
 		this.setIconImage(icon.getImage());
-		
+
 		this.setMinimumSize(MINIMUM_SIZE);
 		this.setResizable(true);
 		this.setLocationRelativeTo(null);

@@ -2,6 +2,8 @@ package com.thaplayaslaya;
 
 import java.util.ArrayList;
 
+import com.thaplayaslaya.DeckManagerMenuBar.Orientation;
+
 public class Case {
 
 	private String preferredDeckImageLocation;
@@ -52,20 +54,35 @@ public class Case {
 	public String getPreferredDeckImageLocation() {
 		if (DeckManagerMenuBar.validateLocation(preferredDeckImageLocation)) {
 			return preferredDeckImageLocation;
+		} else {
+			preferredDeckImageLocation = Orientation.TOP.name();
+			return preferredDeckImageLocation;
 		}
-		return "TOP";
 	}
 
 	public String getPreferredDeckImageLocationMod() {
 		if (DeckManagerMenuBar.validateLocationMod(preferredDeckImageLocationMod)) {
 			return preferredDeckImageLocationMod;
+		} else {
+			preferredDeckImageLocationMod = Orientation.CENTER.name();
+			return preferredDeckImageLocationMod;
 		}
-		return "CENTER";
 	}
 
 	public void prepareForSave() {
-		preferredDeckImageLocation = DeckManager.getDeckManagerGUI().getPreferredDeckImageLocation();
-		preferredDeckImageLocationMod = DeckManager.getDeckManagerGUI().getPreferredDeckImageLocationMod();
+		DeckManagerGUI dmgui = DeckManager.getDeckManagerGUI();
+		if (DeckManagerMenuBar.validateLocation(dmgui.getPreferredDeckImageLocation())) {
+			preferredDeckImageLocation = DeckManager.getDeckManagerGUI().getPreferredDeckImageLocation();
+
+		} else {
+			preferredDeckImageLocation = Orientation.TOP.name();
+		}
+		if (DeckManagerMenuBar.validateLocationMod(dmgui.getPreferredDeckImageLocationMod())) {
+			preferredDeckImageLocationMod = DeckManager.getDeckManagerGUI().getPreferredDeckImageLocationMod();
+
+		} else {
+			preferredDeckImageLocationMod = Orientation.CENTER.name();
+		}
 	}
 
 }
