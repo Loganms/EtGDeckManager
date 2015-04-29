@@ -2,6 +2,7 @@ package com.thaplayaslaya;
 
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -18,6 +19,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButtonMenuItem;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
@@ -42,7 +44,7 @@ public class DeckManagerMenuBar extends JMenuBar {
 	private ButtonGroup locationGroup = new ButtonGroup(), modifierGroup = new ButtonGroup();
 
 	private JMenu helpMenu;
-	private String[] helpMenuNames = { "User Manual", "Source Code", "About" };
+	private String[] helpMenuNames = { "User Manual", "Tips and Tricks", "Source Code", "About" };
 	private JMenuItem[] helpMenuItems;
 
 	boolean isSetup = true;
@@ -148,63 +150,79 @@ public class DeckManagerMenuBar extends JMenuBar {
 				JLabel label1 = new JLabel("Deck Manager", SwingConstants.LEFT);
 				JTextArea text1 = new JTextArea(
 						"     Deck management begins by creating a Deck Binder. To do this, access File > New > Deck Binder. You will be prompted for a name. Enter what ever you like, you can always rename it later by pressing the button with an \"R\" on it. Alternatively, you can delete the entire Deck Binder from the list by pressing the \"D\" button. Be careful, in addition to deleting the Deck Binder, any decks that were saved inside will also be erased.\n\n     A new Deck Binder will be empty except for the option labeled \"add new deck\". Clicking on \"add new deck\" will create a deck and prompt you for a name and import code. Only a name is required to create a new deck; you can add the import code later or edit the name and import code by pressing the \"Edit Deck\" button, on the right side of the Deck Manager tab. The button labeled \"Copy Code\" copies the selected deck's import code to your system clipboard so that you can paste it elsewhere.\n\n     If a deck has its import code set, clicking the \"View Deck\" button will display an image of the deck in a seperate window. This feature requires an Internet connection. Lastly, the \"Delete\" button deletes the selected deck from its respective Deck Binder.",
-						12, 30);
+						12, 31);
 				dressTextArea(text1);
 
 				JLabel label2 = new JLabel("Oracle", SwingConstants.LEFT);
 				JTextArea text2 = new JTextArea(
-						"     Every day, the Oracle predicts the next False God you will encounter. To make the most of this information, navigate to the Oracle tab. On the Oracle tab, find the name of the False God that the oracle predicted and click the \"Go\" button. Alternatively, you can begin typing the name of the False God into the search box which will auto-complete the name for you.\n\n     Within a couple seconds, depending on your Internet connection, you will see various thumbnail images of decks pop up. Hover over any of the decks to see a complete image. To the right of the search box is the deck that the False God will use against you. Realize that all False God decks contain twice as many cards as are shown in the image. In addition, False Gods fight with a 3x Mark and draw two cards per turn.\n\n     Any other decks listed in the lower portion of the Oracle tab are community-recommended decks: the same ones you will find on the community forums. Each False God has at least one recommended deck. Once you find a suitable deck, click its thumbnail image to copy the import code to your system clipboard.",
-						12, 30);
+						"     Every day, the Oracle predicts the next False God you will encounter. To make the most of this information, navigate to the Oracle tab. On the Oracle tab, find the name of the False God that the oracle predicted and click the \"Go\" button. Alternatively, you can begin typing the name of the False God into the search box which will auto-complete the name for you.\n\n     Within a couple seconds, depending on your Internet connection, you will see various thumbnail images of decks pop up. Hover over any of the decks to see a complete image. To the right of the search box is the deck that the False God will use against you. Realize that all False God decks contain twice as many cards as are shown in the image. In addition, False Gods fight with a 3x Mark and draw two cards per turn.\n\n     Any other decks listed in the lower portion of the Oracle tab are community-recommended decks: the same ones you will find on the community forums. Each False God has at least one recommended deck. Once you find a suitable deck, click its thumbnail image to copy the import code to your system clipboard.", 12, 31);
 				dressTextArea(text2);
 				Component[] comps = new Component[] { label1, text1, label2, text2 };
 
 				new InformationWindow(helpMenuNames[0], comps, true);
 			} else if (button.equals(helpMenuNames[1])) {
-				JLabel label1 = new JLabel("EtG Deck Manager is an Open Source Project");
-				JLabel label2 = new JLabel("All Source Code is Available at:");
+				JLabel label1 = new JLabel("Move Deck Binders UP/DOWN");
+				JTextPane text1 = new JTextPane();
+				dressTextPane(text1);
+				text1.setText("Ctrl + UP/DOWN Arrow");
 				
-				JTextPane f = new JTextPane();
-				dressTextPane(f);
-				//TODO: Consider HyperlinkListener
-				f.setText("<html>https://github.com/ThaPlayaSlaya/EtGDeckManager</html>"); 
-
-				Component[] comps = new Component[] { label1, label2, f };
+				JLabel label2 = new JLabel("Move Decks UP/DOWN");
+				JTextPane text2 = new JTextPane();
+				dressTextPane(text2);
+				text2.setText("Shft + UP/DOWN Arrow");
+				
+				Component[] comps = new Component[] {label1, text1, label2, text2};
 				new InformationWindow(helpMenuNames[1], comps, false);
 			} else if (button.equals(helpMenuNames[2])) {
-				JLabel label1 = new JLabel(helpMenuNames[2] + " EtG Deck Manager " + DeckManager.VERSION_ID);
-				
-				JTextArea text1 = new JTextArea("     EtG Deck Manager " + DeckManager.VERSION_ID + " was made by Logan Scheiner. EtG Deck Manager " + DeckManager.VERSION_ID + " is free, open source software. If you paid for EtG Deck Manager " + DeckManager.VERSION_ID + ", contact Logan on the Official Elements Community forums, username: Tha_Playa_Slaya.", 6, 31);
+				JLabel label1 = new JLabel("EtG Deck Manager is an Open Source Project");
+				JLabel label2 = new JLabel("All Source Code is Available at:");
+
+				JTextPane f = new JTextPane();
+				dressTextPane(f);
+				// TODO: Consider HyperlinkListener
+				f.setText("https://github.com/ThaPlayaSlaya/EtGDeckManager");
+
+				Component[] comps = new Component[] { label1, label2, f };
+				new InformationWindow(helpMenuNames[2], comps, false);
+			} else if (button.equals(helpMenuNames[3])) {
+				JLabel label1 = new JLabel(helpMenuNames[3] + " EtG Deck Manager " + DeckManager.VERSION_ID);
+
+				JTextArea text1 = new JTextArea("     EtG Deck Manager " + DeckManager.VERSION_ID + " was made by Logan Scheiner. EtG Deck Manager "
+						+ DeckManager.VERSION_ID + " is free, open source software. If you paid for EtG Deck Manager " + DeckManager.VERSION_ID
+						+ ", contact Logan on the Official Elements Community forums, username: Tha_Playa_Slaya.", 6, 31);
 				dressTextArea(text1);
-				
+
 				JLabel label2 = new JLabel("EtG Deck Manager " + DeckManager.VERSION_ID + " Depends on the Following Libraries");
 				JTextPane textpane1 = new JTextPane();
 				dressTextPane(textpane1);
-				textpane1.setText("<html>gson v2.2.4</html>");
-				
+				textpane1.setText("gson v2.2.4");
+
 				JTextPane textpane2 = new JTextPane();
 				dressTextPane(textpane2);
-				textpane2.setText("<html>SwingX v1.6.4</html>");
-				
+				textpane2.setText("SwingX v1.6.4");
+
 				JLabel label3 = new JLabel("Acknowledgments");
 				label3.setBorder(BorderFactory.createEmptyBorder(30, 0, 0, 0));
-				JTextArea text2 = new JTextArea("     Special thanks to Elements forum member and administrator, Antiaverage, for developing the extremely helpful http://dek.im which this program uses for some features.", 3, 31);
+				JTextArea text2 = new JTextArea(
+						"     Special thanks to Elements forum member and administrator, Antiaverage, for developing the extremely helpful http://dek.im which this program uses for some features.",
+						3, 31);
 				dressTextArea(text2);
-				
-				JTextArea text3 = new JTextArea("     Elements forum legendary member Xenocidious who created the first deck managing tool for the community available at http://elementscommunity.org/forum/elements-tools/the-deck-manager-2-0/", 3, 31);
+
+				JTextArea text3 = new JTextArea(
+						"     Elements forum legendary member Xenocidious who created the first deck managing tool for the community available at http://elementscommunity.org/forum/elements-tools/the-deck-manager-2-0/",
+						3, 31);
 				dressTextArea(text3);
-				
-				
-				Component[] comps = new Component[] {label1, text1, label2, textpane1, textpane2, label3, text2, text3};
-				new InformationWindow(helpMenuNames[2], comps, true);
+
+				Component[] comps = new Component[] { label1, text1, label2, textpane1, textpane2, label3, text2, text3 };
+				new InformationWindow(helpMenuNames[3], comps, true);
 			}
 		}
-		
+
 		private void dressTextPane(JTextPane textPane) {
-			textPane.setContentType("text/html"); 
 			textPane.setEditable(false);
 			textPane.setBackground(null);
-			textPane.setBorder(null); 
-			textPane.setFont(UIManager.getFont("Label.font"));
+			textPane.setBorder(null);
+			textPane.setFont(UIManager.getFont("TextArea.font"));
 		}
 
 		private void dressTextArea(JTextArea textArea) {
@@ -238,6 +256,7 @@ public class DeckManagerMenuBar extends JMenuBar {
 				scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 				scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 				scroll.setBorder(BorderFactory.createEmptyBorder());
+				
 
 				optionPane = new JOptionPane(scroll, JOptionPane.PLAIN_MESSAGE, JOptionPane.OK_OPTION, null, options, options[0]);
 			} else {
