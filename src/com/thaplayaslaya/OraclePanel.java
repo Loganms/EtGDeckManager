@@ -50,7 +50,7 @@ public class OraclePanel extends JPanel {
 
 		godsButton.addActionListener(new ButtonListener());
 		godsButton.setToolTipText("Gather information on the selected False God");
-		
+
 		godsLabel.setLabelFor(godsCB);
 		godsLabel.setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0));
 		godsCBPanel.add(godsCB);

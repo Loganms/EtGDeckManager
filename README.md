@@ -2,7 +2,7 @@
 Deck managing software for Elements the Game.
 
 EtGDeckManager is a quick and easy way to save all of your decks locally. 
-Some features require an Internet connection, such as viewing decks or accessing community support.
+Some features require an Internet connection, such as viewing decks or accessing Oracle support.
 
 [USER INFO]
 
@@ -10,14 +10,16 @@ EtGDeckManager comes with a default cfg.JSON file but is not required. Any chang
 
 Hovering over any of the buttons or components will give a short description of their feature. The buttons labeled "R" and "D" to the right of the deck binder's name refer to renaming and deleting that specific deck binder. Deleting a deck binder means deleting all deck information stored within that deck binder. All of the buttons on the right half of the Deck Manager tab represent options relating to the currently selected deck, which can be seen in the upper-right corner. For example, the "Copy Code" button will copy the currently selected deck's import code into your system's clipboard, making it available to paste into Elements the Game.
 
-[END USER INFO]
+More information can be found in-application under the Help menu.
 
-Special thanks to Elements forum member and Administrator Antiaverage for developing the extremely helpful http://dek.im which this program uses for some features.
+[Acknowledgments]
 
-Acknowledgment to Xenocidious for creating the first Deck Manager for Elements the Game, available at <http://elementscommunity.org/forum/elements-tools/the-deck-manager-2-0/>
+Special thanks to Elements forum member and administrator, Antiaverage, for developing the extremely helpful http://dek.im which this program uses for some features.
 
-EtGDeckManager uses libraries from Google's open source GSON project.
+Acknowledgment to legendary Elements forum member, Xenocidious, for creating the first Deck Manager for Elements the Game, available at <http://elementscommunity.org/forum/elements-tools/the-deck-manager-2-0/>
 
-EtGDeckManager uses SwingX libraries.
+EtGDeckManager uses libraries from Google's open source Gson project v2.2.4.
+
+EtGDeckManager uses SwingX libraries v1.6.4.
 
 

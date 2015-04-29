@@ -1,7 +1,6 @@
 package com.thaplayaslaya;
 
 import java.awt.Component;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -43,6 +42,7 @@ public class DeckManagerMenuBar extends JMenuBar {
 
 	private JMenu helpMenu;
 	private String[] helpMenuNames = { "User Manual", "Tips and Tricks", "Source Code", "About" };
+	@SuppressWarnings("unused")
 	private JMenuItem[] helpMenuItems;
 
 	boolean isSetup = true;
@@ -164,13 +164,13 @@ public class DeckManagerMenuBar extends JMenuBar {
 				JTextPane text1 = new JTextPane();
 				dressTextPane(text1);
 				text1.setText("Ctrl + UP/DOWN Arrow");
-				
+
 				JLabel label2 = new JLabel("Move Decks UP/DOWN");
 				JTextPane text2 = new JTextPane();
 				dressTextPane(text2);
 				text2.setText("Shft + UP/DOWN Arrow");
-				
-				Component[] comps = new Component[] {label1, text1, label2, text2};
+
+				Component[] comps = new Component[] { label1, text1, label2, text2 };
 				new InformationWindow(helpMenuNames[1], comps, false);
 			} else if (button.equals(helpMenuNames[2])) {
 				JLabel label1 = new JLabel("EtG Deck Manager is an Open Source Project");
@@ -178,7 +178,6 @@ public class DeckManagerMenuBar extends JMenuBar {
 
 				JTextPane f = new JTextPane();
 				dressTextPane(f);
-				// TODO: Consider HyperlinkListener
 				f.setText("https://github.com/ThaPlayaSlaya/EtGDeckManager");
 
 				Component[] comps = new Component[] { label1, label2, f };
@@ -194,7 +193,7 @@ public class DeckManagerMenuBar extends JMenuBar {
 				JLabel label2 = new JLabel("EtG Deck Manager " + DeckManager.VERSION_ID + " Depends on the Following Libraries");
 				JTextPane textpane1 = new JTextPane();
 				dressTextPane(textpane1);
-				textpane1.setText("gson v2.2.4");
+				textpane1.setText("Gson v2.2.4");
 
 				JTextPane textpane2 = new JTextPane();
 				dressTextPane(textpane2);
@@ -208,7 +207,7 @@ public class DeckManagerMenuBar extends JMenuBar {
 				dressTextArea(text2);
 
 				JTextArea text3 = new JTextArea(
-						"     Elements forum legendary member Xenocidious who created the first deck managing tool for the community available at http://elementscommunity.org/forum/elements-tools/the-deck-manager-2-0/",
+						"     Legendary Elements forum member, Xenocidious, who created the first deck managing tool for the community available at http://elementscommunity.org/forum/elements-tools/the-deck-manager-2-0/",
 						3, 31);
 				dressTextArea(text3);
 
