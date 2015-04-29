@@ -15,6 +15,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
+import java.net.URL;
 import java.util.LinkedList;
 
 import javax.swing.AbstractAction;
@@ -70,8 +71,6 @@ public class DeckManagerGUI extends JFrame {
 
 	void setComponents() {
 		this.setLayout(new BorderLayout());
-		// setOptionsBar();
-
 		setCenter();
 		this.revalidate();
 		this.pack();
@@ -208,6 +207,10 @@ public class DeckManagerGUI extends JFrame {
 	}
 
 	private void setFrameDefaults() {
+		URL iconURL = getClass().getResource("/com/thaplayaslaya/icon.png");
+		ImageIcon icon = new ImageIcon(iconURL);
+		this.setIconImage(icon.getImage());
+		
 		this.setMinimumSize(MINIMUM_SIZE);
 		this.setResizable(true);
 		this.setLocationRelativeTo(null);
