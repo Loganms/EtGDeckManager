@@ -2,7 +2,6 @@ package com.thaplayaslaya;
 
 import java.awt.Component;
 import java.awt.Font;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -19,7 +18,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButtonMenuItem;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
@@ -150,12 +148,13 @@ public class DeckManagerMenuBar extends JMenuBar {
 				JLabel label1 = new JLabel("Deck Manager", SwingConstants.LEFT);
 				JTextArea text1 = new JTextArea(
 						"     Deck management begins by creating a Deck Binder. To do this, access File > New > Deck Binder. You will be prompted for a name. Enter what ever you like, you can always rename it later by pressing the button with an \"R\" on it. Alternatively, you can delete the entire Deck Binder from the list by pressing the \"D\" button. Be careful, in addition to deleting the Deck Binder, any decks that were saved inside will also be erased.\n\n     A new Deck Binder will be empty except for the option labeled \"add new deck\". Clicking on \"add new deck\" will create a deck and prompt you for a name and import code. Only a name is required to create a new deck; you can add the import code later or edit the name and import code by pressing the \"Edit Deck\" button, on the right side of the Deck Manager tab. The button labeled \"Copy Code\" copies the selected deck's import code to your system clipboard so that you can paste it elsewhere.\n\n     If a deck has its import code set, clicking the \"View Deck\" button will display an image of the deck in a seperate window. This feature requires an Internet connection. Lastly, the \"Delete\" button deletes the selected deck from its respective Deck Binder.",
-						12, 31);
+						12, 30);
 				dressTextArea(text1);
 
 				JLabel label2 = new JLabel("Oracle", SwingConstants.LEFT);
 				JTextArea text2 = new JTextArea(
-						"     Every day, the Oracle predicts the next False God you will encounter. To make the most of this information, navigate to the Oracle tab. On the Oracle tab, find the name of the False God that the oracle predicted and click the \"Go\" button. Alternatively, you can begin typing the name of the False God into the search box which will auto-complete the name for you.\n\n     Within a couple seconds, depending on your Internet connection, you will see various thumbnail images of decks pop up. Hover over any of the decks to see a complete image. To the right of the search box is the deck that the False God will use against you. Realize that all False God decks contain twice as many cards as are shown in the image. In addition, False Gods fight with a 3x Mark and draw two cards per turn.\n\n     Any other decks listed in the lower portion of the Oracle tab are community-recommended decks: the same ones you will find on the community forums. Each False God has at least one recommended deck. Once you find a suitable deck, click its thumbnail image to copy the import code to your system clipboard.", 12, 31);
+						"     Every day, the Oracle predicts the next False God you will encounter. To make the most of this information, navigate to the Oracle tab. On the Oracle tab, find the name of the False God that the oracle predicted and click the \"Go\" button. Alternatively, you can begin typing the name of the False God into the search box which will auto-complete the name for you.\n\n     Within a couple seconds, depending on your Internet connection, you will see various thumbnail images of decks pop up. Hover over any of the decks to see a complete image. To the right of the search box is the deck that the False God will use against you. Realize that all False God decks contain twice as many cards as are shown in the image. In addition, False Gods fight with a 3x Mark and draw two cards per turn.\n\n     Any other decks listed in the lower portion of the Oracle tab are community-recommended decks: the same ones you will find on the community forums. Each False God has at least one recommended deck. Once you find a suitable deck, click its thumbnail image to copy the import code to your system clipboard.",
+						12, 30);
 				dressTextArea(text2);
 				Component[] comps = new Component[] { label1, text1, label2, text2 };
 
@@ -256,7 +255,6 @@ public class DeckManagerMenuBar extends JMenuBar {
 				scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 				scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 				scroll.setBorder(BorderFactory.createEmptyBorder());
-				
 
 				optionPane = new JOptionPane(scroll, JOptionPane.PLAIN_MESSAGE, JOptionPane.OK_OPTION, null, options, options[0]);
 			} else {
