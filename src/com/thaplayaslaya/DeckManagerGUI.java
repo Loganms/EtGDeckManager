@@ -58,7 +58,7 @@ public class DeckManagerGUI extends JFrame {
 
 	private Deck currentlySelectedDeck;
 	private DeckBinder currentlySelectedDeckBinder;
-	private JLabel currentlySelectedDeckLabel = new JLabel("[No deck currently selected]", JLabel.CENTER);
+	private JLabel currentlySelectedDeckLabel = new JLabel("[No Deck Selected]", JLabel.CENTER);
 	private LinkedList<DeckBinderPanel> deckBinderPanels = new LinkedList<DeckBinderPanel>();
 
 	private String preferredDeckImageLocation = "";
@@ -83,7 +83,7 @@ public class DeckManagerGUI extends JFrame {
 		JPanel rightPanel = new JPanel();
 		JPanel innerRightPanel = new JPanel();
 
-		JLabel rightPrompt = new JLabel("What do you want to do with: ", JLabel.CENTER);
+		JLabel rightPrompt = new JLabel("Currently Selected Deck", JLabel.CENTER);
 
 		String[] rightPanelButtonsToolTips = {
 				"Copy this deck's import code to your clipboard",
