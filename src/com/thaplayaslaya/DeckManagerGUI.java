@@ -212,6 +212,7 @@ public class DeckManagerGUI extends JFrame {
 		this.setIconImage(icon.getImage());
 
 		this.setMinimumSize(MINIMUM_SIZE);
+		this.setPreferredSize(MINIMUM_SIZE);
 		this.setResizable(true);
 		this.setLocationRelativeTo(null);
 		menuBar = new DeckManagerMenuBar();
@@ -253,6 +254,7 @@ public class DeckManagerGUI extends JFrame {
 		leftPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 		leftPanel.setLayout(new BorderLayout());
 		JScrollPane scroll = new JScrollPane(casePanel);
+		scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scroll.setBorder(BorderFactory.createEmptyBorder());
 		leftPanel.add(scroll, BorderLayout.CENTER);
 		centerPanel.add(leftPanel);

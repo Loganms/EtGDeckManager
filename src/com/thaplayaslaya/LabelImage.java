@@ -22,7 +22,7 @@ import javax.swing.SwingConstants;
 @SuppressWarnings("serial")
 class LabelImage extends JLabel implements MouseListener {
 
-	private static final Dimension DEFAULT_ICON_IMAGE_SIZE = new Dimension(65, 73);
+	private static final Dimension DEFAULT_ICON_IMAGE_SIZE = new Dimension(65, 65);
 	private URL deckURL;
 	private String deckCode = null;
 	private ImageIcon full;
@@ -50,7 +50,8 @@ class LabelImage extends JLabel implements MouseListener {
 			// Custom personal-preference sub-image: includes first 3 columns
 			// (30 cards)
 			temp = temp.getSubimage(4, 2, 278, 245);
-			setIcon(new ImageIcon(temp.getScaledInstance(temp.getHeight() / 4, temp.getWidth() / 4, Image.SCALE_SMOOTH)));
+			int height = temp.getHeight()/4;
+			setIcon(new ImageIcon(temp.getScaledInstance(height, height, Image.SCALE_SMOOTH)));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
