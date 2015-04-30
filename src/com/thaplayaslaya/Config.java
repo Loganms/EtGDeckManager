@@ -10,7 +10,7 @@ import com.google.gson.Gson;
 
 public class Config {
 
-	private static final String cfgFile = "cfg2.json";
+	private static final String cfgFile = "cfg.json";
 	private static Case briefcase;
 	private File file;
 	private String json;
