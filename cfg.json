@@ -1,24 +1,7 @@
 {
-  "preferredDeckImageLocation": "BOTTOM",
-  "preferredDeckImageLocationMod": "FLUSH_LEFT",
+  "preferredDeckImageLocation": "TOP",
+  "preferredDeckImageLocationMod": "CENTER",
   "deckBinders": [
-    {
-      "name": "G/P Arena",
-      "decks": [
-        {
-          "name": "Pestal 101",
-          "importCode": "7t6 7t6 7t6 7t6 7t6 7t6 7ta 7ta 7td 7td 7um 7um 7um 7um 7um 7um 7um 7um 7um 7um 808 808 808 808 80i 80i 80i 80i 80i 80i 8pu"
-        },
-        {
-          "name": "Chaos Wyrms",
-          "importCode": "6u2 6u2 6u2 6u2 6u2 6u2 7ms 7ms 7ms 7ms 7ms 7ms 7mt 7mt 7mt 7mt 7mt 7mt 7mu 7mu 7mu 7mu 7mu 7mu 7nq 7nq 7nq 7nq 7nq 7nq 8pj"
-        },
-        {
-          "name": "Swallow",
-          "importCode": "744 744 744 744 744 744 744 744 744 74b 74b 74b 74b 74b 74d 74d 752 752 752 752 75m 75m 75m 7gq 7gq 7h0 7h0 7hi 7hi 7hi 8pp"
-        }
-      ]
-    },
     {
       "name": "Gods",
       "decks": [
@@ -45,8 +28,21 @@
       ]
     },
     {
-      "name": "sv",
-      "decks": []
+      "name": "G/P Arena",
+      "decks": [
+        {
+          "name": "Pestal 101",
+          "importCode": "7t6 7t6 7t6 7t6 7t6 7t6 7ta 7ta 7td 7td 7um 7um 7um 7um 7um 7um 7um 7um 7um 7um 808 808 808 808 80i 80i 80i 80i 80i 80i 8pu"
+        },
+        {
+          "name": "Chaos Wyrms",
+          "importCode": "6u2 6u2 6u2 6u2 6u2 6u2 7ms 7ms 7ms 7ms 7ms 7ms 7mt 7mt 7mt 7mt 7mt 7mt 7mu 7mu 7mu 7mu 7mu 7mu 7nq 7nq 7nq 7nq 7nq 7nq 8pj"
+        },
+        {
+          "name": "Swallow",
+          "importCode": "744 744 744 744 744 744 744 744 744 74b 74b 74b 74b 74b 74d 74d 752 752 752 752 75m 75m 75m 7gq 7gq 7h0 7h0 7hi 7hi 7hi 8pp"
+        }
+      ]
     }
   ]
 }

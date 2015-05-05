@@ -38,7 +38,7 @@ public class DeckManagerGUI extends JFrame {
 
 	private static final long serialVersionUID = 3686286211660935696L;
 	private static final Dimension MINIMUM_SIZE = new Dimension(380, 275);
-	private static final String windowName = "EtG Deck Manager", upArrow = "UpArrow", downArrow = "DownArrow";
+	private static final String windowName = "EtG Deck Manager", upArrow = "UpArrow", downArrow = "DownArrow", newDeck = "newDeck", newBinder = "newBinder";
 	private static final JButton[] rightPanelButtons = {
 			new JButton("Copy Code"),
 			new JButton("View Deck"),
@@ -58,7 +58,8 @@ public class DeckManagerGUI extends JFrame {
 
 	private Deck currentlySelectedDeck;
 	private DeckBinder currentlySelectedDeckBinder;
-	private JLabel currentlySelectedDeckLabel = new JLabel("[No Deck Selected]", JLabel.CENTER);
+	private static final String NO_DECK_SELECTED = "[No Deck Selected]";
+	private JLabel currentlySelectedDeckLabel = new JLabel(NO_DECK_SELECTED, JLabel.CENTER);
 	private LinkedList<DeckBinderPanel> deckBinderPanels = new LinkedList<DeckBinderPanel>();
 
 	private String preferredDeckImageLocation = "";
@@ -113,7 +114,9 @@ public class DeckManagerGUI extends JFrame {
 		rightPanel.add(innerRightPanel);
 		centerPanel.add(rightPanel);
 		tabbedPane.addTab("Deck Manager", null, centerPanel, "Save Organize Edit");
+		tabbedPane.setMnemonicAt(tabbedPane.getTabCount() - 1, KeyEvent.VK_M);
 		tabbedPane.addTab("Oracle", null, oraclePanel, "Prediction Help");
+		tabbedPane.setMnemonicAt(tabbedPane.getTabCount() - 1, KeyEvent.VK_O);
 
 		KeyStroke ctrlUp = KeyStroke.getKeyStroke(KeyEvent.VK_UP, InputEvent.CTRL_DOWN_MASK);
 		KeyStroke ctrlDown = KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, InputEvent.CTRL_DOWN_MASK);
@@ -163,11 +166,11 @@ public class DeckManagerGUI extends JFrame {
 		}
 	}
 
-	private class VertArrowAction extends AbstractAction {
+	private class HotkeyAction extends AbstractAction {
 
 		private static final long serialVersionUID = 2644070230078784280L;
 
-		public VertArrowAction(String text) {
+		public HotkeyAction(String text) {
 			super(text);
 			putValue(ACTION_COMMAND_KEY, text);
 		}
@@ -199,9 +202,13 @@ public class DeckManagerGUI extends JFrame {
 					DeckManager.getCase().getDeckBinders().add(index + 1, db);
 
 					casePanel.revalidate();
+				} else if (actionCommand.equals(newDeck)) {
+					DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder().addNewDeck();
 				}
+			} else if (actionCommand.equals(newBinder)) {
+				DeckManager.cfg.getCase().addNewDeckBinder();
 			} else {
-				System.out.println("No deck binder selected. Can't move!");
+				System.out.println("HotkeyAction fails.");
 			}
 		}
 	}
@@ -232,9 +239,13 @@ public class DeckManagerGUI extends JFrame {
 		JRootPane p = this.getRootPane();
 		p.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, InputEvent.CTRL_DOWN_MASK), upArrow);
 		p.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, InputEvent.CTRL_DOWN_MASK), downArrow);
+		p.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_B, InputEvent.CTRL_DOWN_MASK), newBinder);
+		p.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_D, InputEvent.CTRL_DOWN_MASK), newDeck);
 
-		p.getActionMap().put(upArrow, new VertArrowAction(upArrow));
-		p.getActionMap().put(downArrow, new VertArrowAction(downArrow));
+		p.getActionMap().put(upArrow, new HotkeyAction(upArrow));
+		p.getActionMap().put(downArrow, new HotkeyAction(downArrow));
+		p.getActionMap().put(newBinder, new HotkeyAction(newBinder));
+		p.getActionMap().put(newDeck, new HotkeyAction(newDeck));
 	}
 
 	private void addAButton(JButton button, Container container) {
@@ -301,7 +312,7 @@ public class DeckManagerGUI extends JFrame {
 			promptPanel.revalidate();
 		} else {
 			currentlySelectedDeck = null;
-			currentlySelectedDeckLabel.setText("[No deck currently selected]");
+			currentlySelectedDeckLabel.setText(NO_DECK_SELECTED);
 			promptPanel.revalidate();
 		}
 	}

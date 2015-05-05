@@ -1,8 +1,10 @@
 package com.thaplayaslaya;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -20,8 +22,12 @@ import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
+import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 
 @SuppressWarnings("serial")
 public class DeckManagerMenuBar extends JMenuBar {
@@ -41,7 +47,7 @@ public class DeckManagerMenuBar extends JMenuBar {
 	private ButtonGroup locationGroup = new ButtonGroup(), modifierGroup = new ButtonGroup();
 
 	private JMenu helpMenu;
-	private String[] helpMenuNames = { "User Manual", "Tips and Tricks", "Source Code", "About" };
+	private String[] helpMenuNames = { "User Manual", "Shortcuts", "Source Code", "About" };
 	@SuppressWarnings("unused")
 	private JMenuItem[] helpMenuItems;
 
@@ -49,9 +55,13 @@ public class DeckManagerMenuBar extends JMenuBar {
 
 	public DeckManagerMenuBar() {
 		fileMenu = new JMenu("File");
+		fileMenu.setMnemonic(KeyEvent.VK_F);
 
 		newMenu = new JMenu("New");
+		newMenu.setMnemonic(KeyEvent.VK_N);
 		newDeckBinderOption = new JMenuItem("Deck Binder");
+		newDeckBinderOption.setMnemonic(KeyEvent.VK_B);
+		newDeckBinderOption.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B, KeyEvent.CTRL_DOWN_MASK));
 		newDeckBinderOption.setActionCommand("Deck Binder");
 		newDeckBinderOption.addActionListener(menuActionListener);
 		newMenu.add(newDeckBinderOption);
@@ -160,17 +170,16 @@ public class DeckManagerMenuBar extends JMenuBar {
 
 				new InformationWindow(helpMenuNames[0], comps, true);
 			} else if (button.equals(helpMenuNames[1])) {
-				JLabel label1 = new JLabel("Move Deck Binders UP/DOWN");
-				JTextPane text1 = new JTextPane();
-				dressTextPane(text1);
-				text1.setText("Ctrl + UP/DOWN Arrow");
+				ShortcutDescription moveDeckBinder = new ShortcutDescription("Move Deck Binder UP/DOWN", "A deck must be selected",
+						"Ctrl + UP/DOWN Arrow");
+				ShortcutDescription moveDeck = new ShortcutDescription("Move Deck UP/DOWN", "A deck must be selected",
+						"Shft + UP/DOWN Arrow");
+				ShortcutDescription createNewDeckBinder = new ShortcutDescription("Create New Deck Binder", null,
+						"Ctrl + B");
+				ShortcutDescription createNewDeck = new ShortcutDescription("Create New Deck Binder", "A deck must be selected",
+						"Ctrl + D");
 
-				JLabel label2 = new JLabel("Move Decks UP/DOWN");
-				JTextPane text2 = new JTextPane();
-				dressTextPane(text2);
-				text2.setText("Shft + UP/DOWN Arrow");
-
-				Component[] comps = new Component[] { label1, text1, label2, text2 };
+				Component[] comps = new Component[] { moveDeckBinder, moveDeck, createNewDeckBinder, createNewDeck };
 				new InformationWindow(helpMenuNames[1], comps, false);
 			} else if (button.equals(helpMenuNames[2])) {
 				JLabel label1 = new JLabel("EtG Deck Manager is an Open Source Project");
@@ -215,19 +224,56 @@ public class DeckManagerMenuBar extends JMenuBar {
 				new InformationWindow(helpMenuNames[3], comps, true);
 			}
 		}
+	}
 
-		private void dressTextPane(JTextPane textPane) {
-			textPane.setEditable(false);
-			textPane.setBackground(null);
-			textPane.setBorder(null);
-			textPane.setFont(UIManager.getFont("TextArea.font"));
-		}
+	private void dressTextPane(JTextPane textPane) {
+		textPane.setEditable(false);
+		textPane.setBackground(null);
+		textPane.setBorder(null);
+		textPane.setFont(UIManager.getFont("TextArea.font"));
+	}
 
-		private void dressTextArea(JTextArea textArea) {
-			textArea.setEditable(false);
-			textArea.setLineWrap(true);
-			textArea.setWrapStyleWord(true);
-			textArea.setOpaque(false);
+	private void dressTextArea(JTextArea textArea) {
+		textArea.setEditable(false);
+		textArea.setLineWrap(true);
+		textArea.setWrapStyleWord(true);
+		textArea.setOpaque(false);
+	}
+
+	private class ShortcutDescription extends JPanel {
+		JLabel action = new JLabel();
+		JTextPane condition = new JTextPane();
+		JTextPane hotkey = new JTextPane();
+
+		public ShortcutDescription(String action, String condition, String hotkey) {
+			super();
+			this.setLayout(new BorderLayout());
+			StyledDocument doc = this.condition.getStyledDocument();
+			SimpleAttributeSet center = new SimpleAttributeSet();
+			StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
+			doc.setParagraphAttributes(0, doc.getLength(), center, false);
+			
+			if (action != null) {
+				this.action.setText(action);
+				this.action.setHorizontalAlignment(SwingConstants.CENTER);
+				this.add(this.action, BorderLayout.NORTH);
+			}
+			
+			dressTextPane(this.condition);
+			if (condition != null) {
+				this.condition.setText("Condition: " + condition);
+			} else {
+				this.condition.setText("Condition: None");
+			}
+			this.add(this.condition, BorderLayout.CENTER);
+			
+			if (hotkey != null) {
+				doc = this.hotkey.getStyledDocument();
+				doc.setParagraphAttributes(0, doc.getLength(), center, false);
+				dressTextPane(this.hotkey);
+				this.hotkey.setText(hotkey);
+				this.add(this.hotkey, BorderLayout.SOUTH);
+			}
 		}
 	}
 
