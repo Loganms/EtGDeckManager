@@ -15,6 +15,7 @@ public class Deck {
 
 	private String name;
 	private String importCode;
+	private String notes;
 
 	public Deck() {
 		name = "[No Name Set]";
@@ -45,6 +46,14 @@ public class Deck {
 		} else {
 			this.importCode = importCode;
 		}
+	}
+
+	public String getNotes() {
+		return notes;
+	}
+
+	public void setNotes(String notes) {
+		this.notes = notes;
 	}
 
 	public boolean hasDeckImage() {

@@ -1,5 +1,6 @@
 package com.thaplayaslaya;
 
+import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,8 +12,11 @@ import java.awt.event.WindowListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -27,7 +31,9 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 	@SuppressWarnings("unused")
 	private String typedImportCode = null;
 	private JTextField nameTextField;
+	private JTabbedPane tabPane;
 	private JTextArea importCodeTextArea;
+	private JTextArea deckNotesTextArea;
 	private JOptionPane optionPane;
 	private OperationType typeOfOperation;
 
@@ -51,20 +57,30 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 
 		// Create an array of the text and components to be displayed.
 		String msgString1 = null;
-		String msgString2 = null;
+		//String msgString2 = null;
 
 		nameTextField = new JTextField(10);
 		if (typeOfOperation == OperationType.ADD_NEW_DECK || typeOfOperation == OperationType.EDIT_DECK) {
 			importCodeTextArea = new JTextArea(7, 20);
+			tabPane = new JTabbedPane();
+			
 			importCodeTextArea.setLineWrap(true);
 			importCodeTextArea.setWrapStyleWord(true);
+			importCodeTextArea.setMinimumSize(new Dimension(300,100));
+			tabPane.addTab("Code", importCodeTextArea);
+			deckNotesTextArea = new JTextArea();
+			deckNotesTextArea.setLineWrap(true);
+			deckNotesTextArea.setWrapStyleWord(true);
+			JScrollPane scroll = new JScrollPane(deckNotesTextArea);
+			scroll.setBorder(BorderFactory.createEmptyBorder());
+			tabPane.addTab("Notes", scroll);
 		}
 
 		switch (typeOfOperation) {
 		case ADD_NEW_DECK:
 			setTitle("New Deck");
 			msgString1 = "Enter a name for the deck.";
-			msgString2 = "Enter an import code or leave blank.";
+			//msgString2 = "Enter an import code or leave blank.";
 			break;
 		case ADD_NEW_DECKBINDER:
 			setTitle("New Deck Binder");
@@ -79,9 +95,10 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 		case EDIT_DECK:
 			setTitle("Edit Deck");
 			msgString1 = "Edit this deck's name.";
-			msgString2 = "Edit this deck's import code.";
+			//msgString2 = "Edit this deck's import code.";
 			Deck d = DeckManager.getDeckManagerGUI().getCurrentlySelectedDeck();
 			importCodeTextArea.setText(d.getImportCode());
+			deckNotesTextArea.setText(d.getNotes());
 			nameTextField.setText(d.getName());
 			nameTextField.selectAll();
 			break;
@@ -89,14 +106,14 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 			break;
 		}
 
-		Object[] array = { msgString1, nameTextField, msgString2, importCodeTextArea };
+		Object[] array = { msgString1, nameTextField, tabPane };
 
 		// Create an array specifying the number of dialog buttons
 		// and their text.
 		Object[] options = { btnString1, btnString2 };
 
 		// Create the JOptionPane.
-		optionPane = new JOptionPane(array, JOptionPane.QUESTION_MESSAGE, JOptionPane.YES_NO_OPTION, null, options, options[0]);
+		optionPane = new JOptionPane(array, JOptionPane.PLAIN_MESSAGE, JOptionPane.YES_NO_OPTION, null, options, options[0]);
 
 		// Make this dialog display it.
 		setContentPane(optionPane);
@@ -176,6 +193,7 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 								Deck newDeck = new Deck();
 								newDeck.setName(typedText);
 								newDeck.setImportCode(importCodeTextArea.getText());
+								newDeck.setNotes(deckNotesTextArea.getText());
 								db.addDeck(newDeck);
 								db.getDeckBinderPanel().getComboBox().setSelectedItem(newDeck);
 								exit();
@@ -231,12 +249,14 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 							// Then I know the name of the deck has not been
 							// changed.
 							oldDeck.setImportCode(importCodeTextArea.getText());
+							oldDeck.setNotes(deckNotesTextArea.getText());
 							exit();
 						} else if (!nameTaken && !nameIsSame) {
 							// Then I know the name has been changed and is
 							// valid.
 							oldDeck.setName(typedText);
 							oldDeck.setImportCode(importCodeTextArea.getText());
+							oldDeck.setNotes(deckNotesTextArea.getText());
 							DeckManager.getDeckManagerGUI().setCurrentlySelectedDeck(oldDeck);
 							exit();
 						} else if (nameTaken && !nameIsSame) {
