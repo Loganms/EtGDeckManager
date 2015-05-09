@@ -1,9 +1,6 @@
 package com.thaplayaslaya;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -14,19 +11,14 @@ import java.awt.event.InputEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
 
 import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
-import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.KeyStroke;
 
 public class DeckBinderPanel extends JPanel implements ActionListener {
@@ -35,8 +27,7 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 	private static final Dimension MAXIMUM_SIZE = new Dimension(120, 40 + 20);
 	private String name = "[Default Name]", upArrow = "UpArrow", downArrow = "DownArrow";
 	private JLabel dBName = new JLabel(this.name, JLabel.LEFT);
-	private XComboBox<Deck> comboBox = new XComboBox<Deck>();
-	//private ComboBoxNotesRenderer renderer = new ComboBoxNotesRenderer();
+	private JComboBox<Deck> comboBox = new XComboBox<Deck>();
 	private JButton renameButton = new JButton(OperationType.RENAME_DECKBINDER.getText()), deleteButton = new JButton("D");
 	private JPanel northPanel = new JPanel();
 	private ItemChangeListener itemChangeListener = new ItemChangeListener();
@@ -207,64 +198,6 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 				DeckManager.getCase().removeDeckBinder(DeckManager.getCase().getDeckBinder(this.name));
 				dmg.getCasePanel().revalidate();
 			}
-		}
-	}
-
-	/*@SuppressWarnings("serial")
-	private class ComboBoxNotesRenderer extends DefaultListCellRenderer {
-		private NoteWindow nw;
-
-		@Override
-		public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-
-			super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-
-			if (value instanceof Deck && isSelected) {
-				// list.setToolTipText( ( (Deck)value ).getNotes() );
-				nw.getInstance(((Deck) value).getNotes());
-			} else if (!(value instanceof Deck) && isSelected) {
-				nw.setNotes(null);
-				nw.setVisible(false);
-
-			}
-
-			return this;
-		}
-	}*/
-
-	@SuppressWarnings("serial")
-	static class NoteWindow extends JFrame {
-		private static JTextArea notes;
-
-		private static final NoteWindow instance = new NoteWindow();
-		private static Container pane = instance.getContentPane();
-
-		private NoteWindow() {
-			setUndecorated(true);
-			setSize(100,100);
-			setFocusableWindowState(false);
-		}
-
-		public static NoteWindow getInstance(String newNotes) {
-			if (null == notes) {
-				notes = new JTextArea(newNotes);
-				pane.add(notes);
-				pane.revalidate();
-				instance.setVisible(true);
-				return instance;
-			} else {
-				instance.setVisible(false);
-				pane.remove(notes);
-				notes = null;
-				notes = new JTextArea(newNotes);
-				pane.add(notes);
-				instance.setVisible(true);
-				return instance;
-			}
-		}
-
-		public void setNotes(String newNotes) {
-			notes.setText(newNotes);
 		}
 	}
 }
