@@ -169,7 +169,7 @@ public class XComboBox<Object> extends JComboBox<Object> {
 			contentPane.setBorder(BorderFactory.createEmptyBorder(5, 17, 5, 10));
 			contentPane.setLayout(new BorderLayout());
 			setContentPane(contentPane);
-			setPreferredSize(SIZE);
+			setSize(SIZE);
 			setFocusableWindowState(false);
 		}
 
