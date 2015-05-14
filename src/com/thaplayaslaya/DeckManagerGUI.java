@@ -37,8 +37,9 @@ import javax.swing.KeyStroke;
 public class DeckManagerGUI extends JFrame {
 
 	private static final long serialVersionUID = 3686286211660935696L;
-	private static final Dimension MINIMUM_SIZE = new Dimension(380, 275);
-	private static final String windowName = "EtG Deck Manager", upArrow = "UpArrow", downArrow = "DownArrow", newDeck = "newDeck", newBinder = "newBinder";
+	private static final Dimension MINIMUM_CONTENT_SIZE = new Dimension(364, 214);
+	private static final String windowName = "EtG Deck Manager", upArrow = "UpArrow", downArrow = "DownArrow", newDeck = "newDeck",
+			newBinder = "newBinder";
 	private static final JButton[] rightPanelButtons = {
 			new JButton("Copy Code"),
 			new JButton("View Deck"),
@@ -75,6 +76,12 @@ public class DeckManagerGUI extends JFrame {
 		setCenter();
 		this.revalidate();
 		this.pack();
+		this.setVisible(true);
+		int minFrameX = MINIMUM_CONTENT_SIZE.width + getInsets().left + getInsets().right;
+		int minFrameY = MINIMUM_CONTENT_SIZE.height + getInsets().top + getInsets().bottom + menuBar.getHeight();
+		this.setMinimumSize(new Dimension(minFrameX, minFrameY));
+		this.setFocusable(true);
+		this.requestFocus();
 	}
 
 	private void setCenter() {
@@ -134,6 +141,9 @@ public class DeckManagerGUI extends JFrame {
 			if (currentlySelectedDeck != null) {
 				if (e.getActionCommand().equals("Copy Code")) {
 					Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(currentlySelectedDeck.getImportCode()), null);
+					System.out.println("Frame is " + DeckManager.getDeckManagerGUI().getWidth() + "x" + DeckManager.getDeckManagerGUI().getHeight());
+					System.out.println("Content is " + DeckManager.getDeckManagerGUI().getContentPane().getWidth() + "x"
+							+ DeckManager.getDeckManagerGUI().getContentPane().getHeight());
 				} else if (e.getActionCommand().equals("View Deck")) {
 					BufferedImage img = currentlySelectedDeck.getDeckImage();
 					if (img != null) {
@@ -218,15 +228,14 @@ public class DeckManagerGUI extends JFrame {
 		ImageIcon icon = new ImageIcon(iconURL);
 		this.setIconImage(icon.getImage());
 
-		this.setMinimumSize(MINIMUM_SIZE);
-		this.setPreferredSize(MINIMUM_SIZE);
+		
+		this.getContentPane().setMinimumSize(MINIMUM_CONTENT_SIZE);
+		this.getContentPane().setPreferredSize(MINIMUM_CONTENT_SIZE);
 		this.setResizable(true);
 		this.setLocationRelativeTo(null);
 		menuBar = new DeckManagerMenuBar();
 		this.setJMenuBar(menuBar);
-		this.setVisible(true);
-		this.setFocusable(true);
-		this.requestFocus();
+		
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
 		this.addWindowListener(new WindowAdapter() {

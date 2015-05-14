@@ -27,7 +27,7 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 	private static final Dimension MAXIMUM_SIZE = new Dimension(120, 40 + 20);
 	private String name = "[Default Name]", upArrow = "UpArrow", downArrow = "DownArrow";
 	private JLabel dBName = new JLabel(this.name, JLabel.LEFT);
-	private JComboBox<Deck> comboBox = new XComboBox<Deck>();
+	private JComboBox<Deck> comboBox = new DeckBinderComboBox<Deck>();
 	private JButton renameButton = new JButton(OperationType.RENAME_DECKBINDER.getText()), deleteButton = new JButton("D");
 	private JPanel northPanel = new JPanel();
 	private ItemChangeListener itemChangeListener = new ItemChangeListener();

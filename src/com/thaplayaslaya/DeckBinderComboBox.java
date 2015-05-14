@@ -30,7 +30,7 @@ import javax.swing.event.PopupMenuListener;
 import javax.swing.plaf.basic.ComboPopup;
 
 @SuppressWarnings({ "serial", "hiding" })
-public class XComboBox<Object> extends JComboBox<Object> {
+public class DeckBinderComboBox<Object> extends JComboBox<Object> {
 	private boolean isMouseInside = false;
 	private ListSelectionListener listener;
 	private MouseListener mouseListener;
@@ -38,7 +38,7 @@ public class XComboBox<Object> extends JComboBox<Object> {
 	private NoteWindow nw;
 	private Timer enterTimer;
 
-	public XComboBox() {
+	public DeckBinderComboBox() {
 		enterTimer = new Timer(750, new insideTimerAction());
 		enterTimer.setRepeats(false);
 		uninstall();
