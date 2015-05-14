@@ -2,23 +2,35 @@ package com.thaplayaslaya;
 
 import java.awt.Dimension;
 import java.awt.Frame;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import javax.swing.AbstractAction;
+import javax.swing.ActionMap;
 import javax.swing.BorderFactory;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
+import javax.swing.event.UndoableEditEvent;
+import javax.swing.event.UndoableEditListener;
+import javax.swing.text.Document;
+import javax.swing.undo.CannotUndoException;
+import javax.swing.undo.UndoManager;
 
 /*Thank you to David Kroukamp from StackExchange
  <http://stackoverflow.com/questions/13055107/joptionpane-check-user-input-and-prevent-from-closing-until-conditions-are-met>
@@ -36,6 +48,7 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 	private JTextArea deckNotesTextArea;
 	private JOptionPane optionPane;
 	private OperationType typeOfOperation;
+	private UndoManager undoManager;
 
 	/**
 	 * Returns null if the typed string was invalid; otherwise, returns the
@@ -57,25 +70,23 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 
 		// Create an array of the text and components to be displayed.
 		String msgString1 = null;
-		//String msgString2 = null;
 
 		nameTextField = new JTextField(10);
 		if (typeOfOperation == OperationType.ADD_NEW_DECK || typeOfOperation == OperationType.EDIT_DECK) {
+			undoManager = new UndoManager();
 			importCodeTextArea = new JTextArea(7, 20);
 			tabPane = new JTabbedPane();
 			
-			importCodeTextArea.setLineWrap(true);
-			importCodeTextArea.setWrapStyleWord(true);
+			initTextArea(importCodeTextArea);
 			importCodeTextArea.setMinimumSize(new Dimension(300,100));
 			tabPane.addTab("Code", importCodeTextArea);
 			deckNotesTextArea = new JTextArea();
-			deckNotesTextArea.setLineWrap(true);
-			deckNotesTextArea.setWrapStyleWord(true);
+			initTextArea(deckNotesTextArea);
 			JScrollPane scroll = new JScrollPane(deckNotesTextArea);
 			scroll.setBorder(BorderFactory.createEmptyBorder());
 			tabPane.addTab("Notes", scroll);
 		}
-
+		
 		switch (typeOfOperation) {
 		case ADD_NEW_DECK:
 			setTitle("New Deck");
@@ -289,6 +300,52 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 
 	public void setTypeOfOperation(OperationType typeOfOperation) {
 		this.typeOfOperation = typeOfOperation;
+	}
+	
+	@SuppressWarnings("serial")
+	public void initTextArea(JTextArea textArea){
+		textArea.setLineWrap(true);
+		textArea.setWrapStyleWord(true);
+		
+		Document doc = textArea.getDocument();
+		doc.addUndoableEditListener(new UndoableEditListener() {
+			@Override
+			public void undoableEditHappened(UndoableEditEvent e) {
+				System.out.println("Add edit");
+				undoManager.addEdit(e.getEdit());
+			}
+		});
+		
+		InputMap im = textArea.getInputMap(JComponent.WHEN_FOCUSED);
+		ActionMap am = textArea.getActionMap();
+
+		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_Z, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()), "Undo");
+		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_Y, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()), "Redo");
+
+		am.put("Undo", new AbstractAction() {
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        try {
+		            if (undoManager.canUndo()) {
+		                undoManager.undo();
+		            }
+		        } catch (CannotUndoException exp) {
+		            exp.printStackTrace();
+		        }
+		    }
+		});
+		am.put("Redo", new AbstractAction() {
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        try {
+		            if (undoManager.canRedo()) {
+		                undoManager.redo();
+		            }
+		        } catch (CannotUndoException exp) {
+		            exp.printStackTrace();
+		        }
+		    }
+		});
 	}
 
 	public String getExtraInfo() {
