@@ -50,7 +50,7 @@ class LabelImage extends JLabel implements MouseListener {
 			// Custom personal-preference sub-image: includes first 3 columns
 			// (30 cards)
 			temp = temp.getSubimage(4, 2, 278, 245);
-			int height = temp.getHeight()/4;
+			int height = temp.getHeight() / 4;
 			setIcon(new ImageIcon(temp.getScaledInstance(height, height, Image.SCALE_SMOOTH)));
 		} catch (Exception e) {
 			e.printStackTrace();

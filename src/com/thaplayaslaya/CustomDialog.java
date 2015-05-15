@@ -76,9 +76,9 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 			undoManager = new UndoManager();
 			importCodeTextArea = new JTextArea(7, 20);
 			tabPane = new JTabbedPane();
-			
+
 			initTextArea(importCodeTextArea);
-			importCodeTextArea.setMinimumSize(new Dimension(300,100));
+			importCodeTextArea.setMinimumSize(new Dimension(300, 100));
 			tabPane.addTab("Code", importCodeTextArea);
 			deckNotesTextArea = new JTextArea();
 			initTextArea(deckNotesTextArea);
@@ -86,12 +86,12 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 			scroll.setBorder(BorderFactory.createEmptyBorder());
 			tabPane.addTab("Notes", scroll);
 		}
-		
+
 		switch (typeOfOperation) {
 		case ADD_NEW_DECK:
 			setTitle("New Deck");
 			msgString1 = "Enter a name for the deck.";
-			//msgString2 = "Enter an import code or leave blank.";
+			// msgString2 = "Enter an import code or leave blank.";
 			break;
 		case ADD_NEW_DECKBINDER:
 			setTitle("New Deck Binder");
@@ -106,7 +106,7 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 		case EDIT_DECK:
 			setTitle("Edit Deck");
 			msgString1 = "Edit this deck's name.";
-			//msgString2 = "Edit this deck's import code.";
+			// msgString2 = "Edit this deck's import code.";
 			Deck d = DeckManager.getDeckManagerGUI().getCurrentlySelectedDeck();
 			importCodeTextArea.setText(d.getImportCode());
 			deckNotesTextArea.setText(d.getNotes());
@@ -301,21 +301,20 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 	public void setTypeOfOperation(OperationType typeOfOperation) {
 		this.typeOfOperation = typeOfOperation;
 	}
-	
+
 	@SuppressWarnings("serial")
-	public void initTextArea(JTextArea textArea){
+	public void initTextArea(JTextArea textArea) {
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
-		
+
 		Document doc = textArea.getDocument();
 		doc.addUndoableEditListener(new UndoableEditListener() {
 			@Override
 			public void undoableEditHappened(UndoableEditEvent e) {
-				System.out.println("Add edit");
 				undoManager.addEdit(e.getEdit());
 			}
 		});
-		
+
 		InputMap im = textArea.getInputMap(JComponent.WHEN_FOCUSED);
 		ActionMap am = textArea.getActionMap();
 
@@ -323,28 +322,28 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_Y, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()), "Redo");
 
 		am.put("Undo", new AbstractAction() {
-		    @Override
-		    public void actionPerformed(ActionEvent e) {
-		        try {
-		            if (undoManager.canUndo()) {
-		                undoManager.undo();
-		            }
-		        } catch (CannotUndoException exp) {
-		            exp.printStackTrace();
-		        }
-		    }
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					if (undoManager.canUndo()) {
+						undoManager.undo();
+					}
+				} catch (CannotUndoException exp) {
+					exp.printStackTrace();
+				}
+			}
 		});
 		am.put("Redo", new AbstractAction() {
-		    @Override
-		    public void actionPerformed(ActionEvent e) {
-		        try {
-		            if (undoManager.canRedo()) {
-		                undoManager.redo();
-		            }
-		        } catch (CannotUndoException exp) {
-		            exp.printStackTrace();
-		        }
-		    }
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					if (undoManager.canRedo()) {
+						undoManager.redo();
+					}
+				} catch (CannotUndoException exp) {
+					exp.printStackTrace();
+				}
+			}
 		});
 	}
 

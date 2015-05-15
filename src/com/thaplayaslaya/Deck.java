@@ -40,10 +40,14 @@ public class Deck {
 	public void setImportCode(String importCode) {
 		if (this.importCode != null) {
 			if (!this.importCode.equals(importCode)) {
+				importCode = importCode.trim();
+				importCode = importCode.replaceAll("[\\\t|\\\n|\\\r]", "");
 				this.importCode = importCode;
 				this.deckImage = null;
 			}
 		} else {
+			importCode = importCode.trim();
+			importCode = importCode.replaceAll("[\\\t|\\\n|\\\r]", "");
 			this.importCode = importCode;
 		}
 	}

@@ -228,14 +228,13 @@ public class DeckManagerGUI extends JFrame {
 		ImageIcon icon = new ImageIcon(iconURL);
 		this.setIconImage(icon.getImage());
 
-		
 		this.getContentPane().setMinimumSize(MINIMUM_CONTENT_SIZE);
 		this.getContentPane().setPreferredSize(MINIMUM_CONTENT_SIZE);
 		this.setResizable(true);
 		this.setLocationRelativeTo(null);
 		menuBar = new DeckManagerMenuBar();
 		this.setJMenuBar(menuBar);
-		
+
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
 		this.addWindowListener(new WindowAdapter() {

@@ -137,8 +137,8 @@ public class DeckBinderComboBox<Object> extends JComboBox<Object> {
 				GradientPaint gp = new GradientPaint(0, 0, BACKGROUND_COLOR_LIGHT, 0, getHeight(), BACKGROUND_COLOR_DARK);
 				g2d.setPaint(gp);
 
-				int[] x = new int[] { 0, getWidth() -1, getWidth()-1, 7, 7 };
-				int[] y = new int[] { 0, 0, getHeight() -1, getHeight()-1, 7 };
+				int[] x = new int[] { 0, getWidth() - 1, getWidth() - 1, 7, 7 };
+				int[] y = new int[] { 0, 0, getHeight() - 1, getHeight() - 1, 7 };
 
 				g2d.drawPolygon(x, y, x.length);
 				g2d.fillPolygon(x, y, x.length);
@@ -157,8 +157,8 @@ public class DeckBinderComboBox<Object> extends JComboBox<Object> {
 				super.paintBorder(g);
 			}
 		};
-		
-		//TODO: Should adjust this later to be smart
+
+		// TODO: Should adjust this later to be smart
 		public static final Dimension SIZE = new Dimension(209, 140);
 		private static final NoteWindow instance = new NoteWindow();
 
@@ -185,7 +185,7 @@ public class DeckBinderComboBox<Object> extends JComboBox<Object> {
 				notes.setForeground(TEXT_COLOR);
 				notes.setLineWrap(true);
 				notes.setWrapStyleWord(true);
-				//notes.setMaximumSize(SIZE);
+				// notes.setMaximumSize(SIZE);
 
 				readyInstance(newNotes, point);
 

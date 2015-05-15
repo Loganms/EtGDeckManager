@@ -172,12 +172,9 @@ public class DeckManagerMenuBar extends JMenuBar {
 			} else if (button.equals(helpMenuNames[1])) {
 				ShortcutDescription moveDeckBinder = new ShortcutDescription("Move Deck Binder UP/DOWN", "A deck must be selected",
 						"Ctrl + UP/DOWN Arrow");
-				ShortcutDescription moveDeck = new ShortcutDescription("Move Deck UP/DOWN", "A deck must be selected",
-						"Shft + UP/DOWN Arrow");
-				ShortcutDescription createNewDeckBinder = new ShortcutDescription("Create New Deck Binder", null,
-						"Ctrl + B");
-				ShortcutDescription createNewDeck = new ShortcutDescription("Create New Deck Binder", "A deck must be selected",
-						"Ctrl + D");
+				ShortcutDescription moveDeck = new ShortcutDescription("Move Deck UP/DOWN", "A deck must be selected", "Shft + UP/DOWN Arrow");
+				ShortcutDescription createNewDeckBinder = new ShortcutDescription("Create New Deck Binder", null, "Ctrl + B");
+				ShortcutDescription createNewDeck = new ShortcutDescription("Create New Deck Binder", "A deck must be selected", "Ctrl + D");
 
 				Component[] comps = new Component[] { moveDeckBinder, moveDeck, createNewDeckBinder, createNewDeck };
 				new InformationWindow(helpMenuNames[1], comps, false);
@@ -252,13 +249,13 @@ public class DeckManagerMenuBar extends JMenuBar {
 			SimpleAttributeSet center = new SimpleAttributeSet();
 			StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
 			doc.setParagraphAttributes(0, doc.getLength(), center, false);
-			
+
 			if (action != null) {
 				this.action.setText(action);
 				this.action.setHorizontalAlignment(SwingConstants.CENTER);
 				this.add(this.action, BorderLayout.NORTH);
 			}
-			
+
 			dressTextPane(this.condition);
 			if (condition != null) {
 				this.condition.setText("Condition: " + condition);
@@ -266,7 +263,7 @@ public class DeckManagerMenuBar extends JMenuBar {
 				this.condition.setText("Condition: None");
 			}
 			this.add(this.condition, BorderLayout.CENTER);
-			
+
 			if (hotkey != null) {
 				doc = this.hotkey.getStyledDocument();
 				doc.setParagraphAttributes(0, doc.getLength(), center, false);

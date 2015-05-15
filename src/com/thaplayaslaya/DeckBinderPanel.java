@@ -70,7 +70,7 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 		this.add(northPanel, BorderLayout.NORTH);
 
 		this.setBorder(BorderFactory.createEmptyBorder(0, 0, 5, 0));
-		//comboBox.setRenderer(renderer);
+		// comboBox.setRenderer(renderer);
 		comboBox.setToolTipText("Move (Shft+UP/DOWN)");
 
 		this.add(comboBox, BorderLayout.CENTER);
