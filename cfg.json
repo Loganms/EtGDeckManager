@@ -1,4 +1,5 @@
 {
+  "VERSION_ID": "v1.0.2",
   "preferredDeckImageLocation": "TOP",
   "preferredDeckImageLocationMod": "CENTER",
   "deckBinders": [
@@ -7,28 +8,23 @@
       "decks": [
         {
           "name": "NOT FG OTK",
-          "importCode": "5lk 5lk 5lk 7hi 7hi 7hi 7jp 7jp 7jp 7jp 7jp 7jp 808 808 808 808 808 808 808 808 808 80e 80e 80i 80i 80i 80i 80m 80m 80m 8pp",
-          "notes": "not fg otk notes"
+          "importCode": "5lk 5lk 5lk 7hi 7hi 7hi 7jp 7jp 7jp 7jp 7jp 7jp 808 808 808 808 808 808 808 808 808 80e 80e 80i 80i 80i 80i 80m 80m 80m 8pp"
         },
         {
           "name": "Limitless Speed",
-          "importCode": "6qq 6qq 6qq 6qq 6qq 6qq 6qq 74a 7dr 7dr 7jq 7la 7la 7la 7n9 7q5 7q5 7q5 7q5 7q5 7ri 7ri 7ri 7ri 80b 80b 80b 80d 80d 80d 80d 80d 80d 8pu",
-          "notes": "limitless speed notes limitless speed notes limitless speed notes limitless speed notes limitless speed notes limitless speed notes limitless speed notes limitless speed notes limitless speed notes limitless speed notes limitless speed notes limitless speed notes limitless speed notes END"
+          "importCode": "6qq 6qq 6qq 6qq 6qq 6qq 6qq 74a 7dr 7dr 7jq 7la 7la 7la 7n9 7q5 7q5 7q5 7q5 7q5 7ri 7ri 7ri 7ri 80b 80b 80b 80d 80d 80d 80d 80d 80d 8pu"
         },
         {
           "name": "PDials",
-          "importCode": "710 710 710 710 718 718 718 718 718 718 71a 71a 71u 71u 71u 71u 71u 71u 72i 72i 72i 7km 7km 7km 7q9 7q9 7q9 7q9 7q9 7q9 8pq",
-          "notes": "Notes of the deck, PDials"
+          "importCode": "710 710 710 710 718 718 718 718 718 718 71a 71a 71u 71u 71u 71u 71u 71u 72i 72i 72i 7km 7km 7km 7q9 7q9 7q9 7q9 7q9 7q9 8pq"
         },
         {
           "name": "Perpetual Light",
-          "importCode": "7jp 7jp 7jp 7jp 7jp 7jp 7ju 7ju 7k4 7k4 7k4 7k4 808 808 808 808 808 80e 80e 80e 80i 80i 80i 80i 80i 81q 81q 81q 81q 81q 8pu",
-          "notes": "Perpetual Light Notes:\nthese are notes for the deck of Perpetual Light"
+          "importCode": "7jp 7jp 7jp 7jp 7jp 7jp 7ju 7ju 7k4 7k4 7k4 7k4 808 808 808 808 808 80e 80e 80e 80i 80i 80i 80i 80i 81q 81q 81q 81q 81q 8pu"
         },
         {
           "name": "Voodoo Bravery",
-          "importCode": "6u3 6u3 6u3 6u3 6u3 6ve 6ve 6ve 6ve 6ve 74d 74d 77l 77l 77l 77l 77l 77l 7ee 7ee 7ee 7ee 7ee 7ee 7tg 7tg 80b 80b 80b 80b 8pu",
-          "notes": "aaaaaaaaaaaaaaaaaaaaaaaaa"
+          "importCode": "6u3 6u3 6u3 6u3 6u3 6ve 6ve 6ve 6ve 6ve 74d 74d 77l 77l 77l 77l 77l 77l 7ee 7ee 7ee 7ee 7ee 7ee 7tg 7tg 80b 80b 80b 80b 8pu"
         }
       ]
     },
@@ -37,8 +33,7 @@
       "decks": [
         {
           "name": "Pestal 101",
-          "importCode": "7t6 7t6 7t6 7t6 7t6 7t6 7ta 7ta 7td 7td 7um 7um 7um 7um 7um 7um 7um 7um 7um 7um 808 808 808 808 80i 80i 80i 80i 80i 80i 8pu",
-          "notes": "Pestal notes"
+          "importCode": "7t6 7t6 7t6 7t6 7t6 7t6 7ta 7ta 7td 7td 7um 7um 7um 7um 7um 7um 7um 7um 7um 7um 808 808 808 808 80i 80i 80i 80i 80i 80i 8pu"
         },
         {
           "name": "Chaos Wyrms",
@@ -50,5 +45,36 @@
         }
       ]
     }
-  ]
+  ],
+  "customFalseGodCounters": {
+    "AKEBONO": [],
+    "GEMINI": [],
+    "MORTE": [],
+    "OCTANE": [],
+    "FEROX": [],
+    "DESTINY": [],
+    "CHAOS_LORD": [],
+    "FIRE_QUEEN": [],
+    "ETERNAL_PHOENIX": [],
+    "HERMES": [],
+    "RAINBOW": [],
+    "DARK_MATTER": [],
+    "JEZEBEL": [],
+    "LIONHEART": [],
+    "PARADOX": [],
+    "SERKET": [],
+    "SEISM": [],
+    "INCARNATE": [],
+    "GRAVITON": [],
+    "DECAY": [],
+    "DREAM_CATCHER": [],
+    "OSIRIS": [],
+    "DIVINE_GLORY": [],
+    "MIRACLE": [],
+    "ELIDNIS": [],
+    "SCORPIO": [],
+    "OBLITERATOR": [],
+    "NEPTUNE": [],
+    "HECATE": []
+  }
 }

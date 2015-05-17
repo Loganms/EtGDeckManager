@@ -11,9 +11,9 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 
-@SuppressWarnings("serial")
 public class FalseGodLabelImage extends LabelImage {
 
+	private static final long serialVersionUID = -3060538608623976124L;
 	@SuppressWarnings("unused")
 	private URL deckURL;
 

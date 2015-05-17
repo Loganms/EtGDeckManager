@@ -14,9 +14,9 @@ import javax.swing.ImageIcon;
 import com.thaplayaslaya.DeckManager;
 import com.thaplayaslaya.datastructures.Deck;
 
-@SuppressWarnings("serial")
 public class RecommendedDeckLabelImage extends LabelImage {
 
+	private static final long serialVersionUID = -6450108372428180522L;
 	private URL deckURL;
 	private String deckCode = null;
 

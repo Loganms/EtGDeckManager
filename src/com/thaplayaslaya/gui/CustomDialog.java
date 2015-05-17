@@ -26,6 +26,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
+import javax.swing.UIManager;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
 import javax.swing.text.Document;
@@ -119,11 +120,25 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 			nameTextField.setText(d.getName());
 			nameTextField.selectAll();
 			break;
+		case ADD_NEW_FG_COUNTER_DECK:
+			setTitle("New Custom Counter");
+			msgString1 = "Enter a properly formatted deck code.";
+			undoManager = new UndoManager();
+			importCodeTextArea = new JTextArea(7, 20);
+			initTextArea(importCodeTextArea);
+			importCodeTextArea.setMinimumSize(new Dimension(300, 100));
+			importCodeTextArea.setBorder(BorderFactory.createEtchedBorder());
+			break;
 		default:
 			break;
 		}
-
-		Object[] array = { msgString1, nameTextField, tabPane };
+		
+		Object[] array;
+		if (!this.typeOfOperation.equals(OperationType.ADD_NEW_FG_COUNTER_DECK)){
+			 array = new Object[]{ msgString1, nameTextField, tabPane };
+		} else {
+			array = new Object[]{ msgString1, importCodeTextArea };
+		}
 
 		// Create an array specifying the number of dialog buttons
 		// and their text.
@@ -200,7 +215,7 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 			boolean nameIsSame;
 
 			if (btnString1.equals(value)) {
-				if (typedText.length() > 0) {
+				if (typedText.length() > 0 || getTypeOfOperation().equals(OperationType.ADD_NEW_FG_COUNTER_DECK)) {
 					switch (getTypeOfOperation()) {
 					case ADD_NEW_DECK:
 						DeckBinder db = DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder();
@@ -283,6 +298,21 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 							typedText = null;
 							nameTextField.requestFocusInWindow();
 						}
+						break;
+					case ADD_NEW_FG_COUNTER_DECK:
+						if (importCodeTextArea.getText().length() > 1){
+							Deck newDeck = new Deck();
+							newDeck.setImportCode(importCodeTextArea.getText());
+							DeckManager.getCase().addFGCounterDeck(getExtraInfo(), newDeck);
+							DeckManager.getDeckManagerGUI().getOraclePanel().refreshCounterDecks();
+							exit();
+						} else {
+							JOptionPane.showMessageDialog(this, "Sorry, \"" + importCodeTextArea.getText() + "\" is not an import code.\n"
+									+ "Please make sure you input the code correctly.", "Try again", JOptionPane.ERROR_MESSAGE);
+							importCodeTextArea.requestFocusInWindow();
+						}
+						break;
+					default:
 						break;
 					}
 				} else {

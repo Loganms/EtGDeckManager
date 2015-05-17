@@ -1,6 +1,8 @@
 package com.thaplayaslaya.datastructures;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.thaplayaslaya.DeckManager;
 import com.thaplayaslaya.gui.CustomDialog;
@@ -10,15 +12,22 @@ import com.thaplayaslaya.gui.DeckManagerMenuBar.Orientation;
 
 public class Case {
 
+	@SuppressWarnings("unused")
+	private String VERSION_ID = DeckManager.VERSION_ID;
 	private String preferredDeckImageLocation;
 	private String preferredDeckImageLocationMod;
 	private ArrayList<DeckBinder> deckBinders = new ArrayList<DeckBinder>();
+	private Map<String, ArrayList<Deck>> customFalseGodCounters = new HashMap<String, ArrayList<Deck>>();
 
 	public Case() {
 		preferredDeckImageLocation = Orientation.TOP.name();
 		preferredDeckImageLocationMod = Orientation.CENTER.name();
 	}
 
+	public Map<String, ArrayList<Deck>> getFGCounterMap() {
+		return customFalseGodCounters;
+	}
+	
 	public void addDeckBinder(DeckBinder deckBinder) {
 		this.deckBinders.add(deckBinder);
 	}
@@ -54,6 +63,20 @@ public class Case {
 	// Walks user through the process with prompts and validation.
 	public void addNewDeckBinder() {
 		new CustomDialog(DeckManager.getDeckManagerGUI(), OperationType.ADD_NEW_DECKBINDER, null);
+	}
+	
+	public void initializeNewFGCounterMap() {
+		for(FalseGod fg : FalseGod.values()){
+			customFalseGodCounters.put(fg.name(), new ArrayList<Deck>());
+		}
+	}
+
+	public ArrayList<Deck> getFGCounterDeckList(String name) {
+		return customFalseGodCounters.get(name);
+	}
+
+	public void addFGCounterDeck(String nameofFG, Deck counter) {
+		customFalseGodCounters.get(nameofFG).add(counter);
 	}
 
 	public String getPreferredDeckImageLocation() {

@@ -27,11 +27,13 @@ public interface ILabelImage extends MouseListener {
 	public void mouseReleased(MouseEvent event);
 }
 
-@SuppressWarnings("serial")
+
 class ImageMagnifier extends JWindow {
-	ImageIcon full;
-	int ploc = DeckManagerMenuBar.preferenceToIntCode(DeckManager.getDeckManagerGUI().getPreferredDeckImageLocation());
-	int pmod = DeckManagerMenuBar.preferenceToIntCode(DeckManager.getDeckManagerGUI().getPreferredDeckImageLocationMod());
+	
+	private static final long serialVersionUID = 3772686270645875087L;
+	private ImageIcon full;
+	private int ploc = DeckManagerMenuBar.preferenceToIntCode(DeckManager.getDeckManagerGUI().getPreferredDeckImageLocation());
+	private int pmod = DeckManagerMenuBar.preferenceToIntCode(DeckManager.getDeckManagerGUI().getPreferredDeckImageLocationMod());
 
 	public ImageMagnifier(ImageIcon imageFile, JFrame parent) {
 		full = imageFile;

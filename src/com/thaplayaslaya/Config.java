@@ -9,14 +9,12 @@ import java.io.IOException;
 import com.google.gson.Gson;
 import com.thaplayaslaya.datastructures.Case;
 import com.thaplayaslaya.datastructures.DeckBinder;
-import com.thaplayaslaya.datastructures.FGCounterMap;
 import com.thaplayaslaya.gui.DeckManagerMenuBar;
 
 public class Config {
 
 	private static final String cfgFile = "cfg.json";
 	private static Case briefcase;
-	private static FGCounterMap counterDecks;
 	private File file;
 	private String json;
 	private Gson gson = DeckManager.gson;
@@ -30,7 +28,8 @@ public class Config {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			briefcase = new Case();
+			briefcase = new Case();				
+			briefcase.initializeNewFGCounterMap();
 
 			((DeckManagerMenuBar) DeckManager.getDeckManagerGUI().getJMenuBar()).getDeckImagesOptions()[DeckManagerMenuBar
 					.preferenceToIntCode(briefcase.getPreferredDeckImageLocation())].doClick();
@@ -53,8 +52,9 @@ public class Config {
 
 			briefcase = gson.fromJson(br, Case.class);
 
-			if (briefcase == null) {
+			if (null == briefcase) {
 				briefcase = new Case();
+				briefcase.initializeNewFGCounterMap();
 			}
 
 			for (DeckBinder db : briefcase.getDeckBinders()) {

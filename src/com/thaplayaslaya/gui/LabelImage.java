@@ -8,9 +8,9 @@ import javax.swing.JLabel;
 
 import com.thaplayaslaya.DeckManager;
 
-@SuppressWarnings("serial")
 public class LabelImage extends JLabel implements ILabelImage {
 
+	private static final long serialVersionUID = -7289961803730609648L;
 	protected ImageIcon full;
 	protected ImageMagnifier im;
 
@@ -44,12 +44,16 @@ public class LabelImage extends JLabel implements ILabelImage {
 
 	@Override
 	public void mouseEntered(MouseEvent event) {
-		im = new ImageMagnifier(full, DeckManager.getDeckManagerGUI());
+		if (null != full) {
+			im = new ImageMagnifier(full, DeckManager.getDeckManagerGUI());
+		}
 	}
 
 	@Override
 	public void mouseExited(MouseEvent event) {
-		im.dispose();
+		if (null != im) {
+			im.dispose();
+		}
 	}
 
 	@Override

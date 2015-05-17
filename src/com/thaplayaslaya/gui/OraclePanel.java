@@ -20,7 +20,9 @@ import javax.swing.SwingWorker;
 
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
+import com.thaplayaslaya.DeckManager;
 import com.thaplayaslaya.DownloadPage;
+import com.thaplayaslaya.datastructures.Deck;
 import com.thaplayaslaya.datastructures.FalseGod;
 
 public class OraclePanel extends JPanel {
@@ -46,6 +48,7 @@ public class OraclePanel extends JPanel {
 	private FalseGod currentlySelectedFG = null, previouslySelectedFG = null;
 
 	private List<RecommendedDeckLabelImage> recommendedDeckImages = null;
+	private List<CounterDeckLabelImage> counterDeckLabelImages = null;
 
 	public OraclePanel() {
 		this.setLayout(new BorderLayout());
@@ -69,15 +72,6 @@ public class OraclePanel extends JPanel {
 		mainPanel1.add(godsPanel, BorderLayout.WEST);
 		godImagePanel.add(godLabelImage);
 		mainPanel1.add(godImagePanel, BorderLayout.CENTER);
-
-		// mainPanel1SouthPanel.setLayout(new BorderLayout());
-		// mainPanel2Label.setBorder(BorderFactory.createEmptyBorder(10, 2, 0,
-		// 0));
-		// mainPanel1SouthPanel.add(mainPanel2Label, BorderLayout.WEST);
-
-		// mainPanel1.add(mainPanel1SouthPanel, BorderLayout.SOUTH);
-
-		// mainPanel2.setBorder(BorderFactory.createEtchedBorder());
 
 		deckDisplayTabPane.addTab("C-R Deck(s)", recommendedDecksPanel);
 		deckDisplayTabPane.addTab("Custom Deck(s)", customSavedDecksPanel);
@@ -118,56 +112,103 @@ public class OraclePanel extends JPanel {
 	public List<RecommendedDeckLabelImage> getRecommendedDeckImages() {
 		return this.recommendedDeckImages;
 	}
+	
+	public void setCounterDeckImages(List<CounterDeckLabelImage> images) {
+		this.counterDeckLabelImages = images;
+	}
+	
+	public List<CounterDeckLabelImage> getCounterDeckImages() {
+		return this.counterDeckLabelImages;
+	}
 
 	private void gatherAndDisplayIntel() {
 		// protects from redundant searches and button spam
 		if (!currentlySelectedFG.equals(previouslySelectedFG)) {
 			recommendedDecksPanel.removeAll();
+			customSavedDecksPanel.removeAll();
 			progBar.setVisible(true);
 			recommendedDecksPanel.add(progPanel);
 			recommendedDecksPanel.revalidate();
 			recommendedDecksPanel.repaint();
+			customSavedDecksPanel.revalidate();
+			customSavedDecksPanel.repaint();
 
-			SwingWorker<List<RecommendedDeckLabelImage>, FalseGodLabelImage> worker = new SwingWorker<List<RecommendedDeckLabelImage>, FalseGodLabelImage>() {
-
-				@Override
-				protected List<RecommendedDeckLabelImage> doInBackground() throws Exception {
-					List<RecommendedDeckLabelImage> images = new ArrayList<>();
-					publish(new FalseGodLabelImage(DownloadPage.getFalseGodDeckURL(currentlySelectedFG)));
-					List<URL> urls = DownloadPage.getRecommendedDeckURLS(currentlySelectedFG);
-					for (URL url : urls) {
-						images.add(new RecommendedDeckLabelImage(url));
-					}
-					return images;
-				}
-
-				@Override
-				protected void process(List<FalseGodLabelImage> chunks) {
-					godImagePanel.remove(godLabelImage);
-					godLabelImage = chunks.get(chunks.size() - 1);
-					godImagePanel.add(godLabelImage, BorderLayout.CENTER);
-					godImagePanel.revalidate();
-					godImagePanel.repaint();
-				}
-
-				@Override
-				protected void done() {
-					try {
-						recommendedDecksPanel.remove(progPanel);
-						setRecommendedDeckImages(get());
-						for (LabelImage li : get()) {
-							recommendedDecksPanel.add(li);
-						}
-						recommendedDecksPanel.revalidate();
-						recommendedDecksPanel.repaint();
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					} catch (ExecutionException e) {
-						e.printStackTrace();
-					}
-				}
-			};
-			worker.execute();
+			SwingWorker<List<RecommendedDeckLabelImage>, FalseGodLabelImage> worker1 = new RecommendedAndFGDeckGatherer();
+			worker1.execute();
+			SwingWorker<List<CounterDeckLabelImage>, Void> worker2 = new CounterDeckGatherer();
+			worker2.execute();
 		}
+	}
+	
+	class RecommendedAndFGDeckGatherer extends SwingWorker<List<RecommendedDeckLabelImage>, FalseGodLabelImage> {
+		@Override
+		protected List<RecommendedDeckLabelImage> doInBackground() throws Exception {
+			List<RecommendedDeckLabelImage> images = new ArrayList<>();
+			publish(new FalseGodLabelImage(DownloadPage.getFalseGodDeckURL(currentlySelectedFG)));
+			List<URL> urls = DownloadPage.getRecommendedDeckURLS(currentlySelectedFG);
+			for (URL url : urls) {
+				images.add(new RecommendedDeckLabelImage(url));
+			}
+			return images;
+		}
+
+		@Override
+		protected void process(List<FalseGodLabelImage> chunks) {
+			godImagePanel.remove(godLabelImage);
+			godLabelImage = chunks.get(chunks.size() - 1);
+			godImagePanel.add(godLabelImage, BorderLayout.CENTER);
+			godImagePanel.revalidate();
+			godImagePanel.repaint();
+		}
+
+		@Override
+		protected void done() {
+			try {
+				recommendedDecksPanel.remove(progPanel);
+				setRecommendedDeckImages(get());
+				for (LabelImage li : get()) {
+					recommendedDecksPanel.add(li);
+				}
+				recommendedDecksPanel.revalidate();
+				recommendedDecksPanel.repaint();
+			} catch (InterruptedException | ExecutionException  e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	class CounterDeckGatherer extends SwingWorker<List<CounterDeckLabelImage>, Void> {
+
+		@Override
+		protected List<CounterDeckLabelImage> doInBackground() throws Exception {
+			List<CounterDeckLabelImage> images = new ArrayList<>();
+			for(Deck d : DeckManager.getCase().getFGCounterDeckList(currentlySelectedFG.name())){
+				images.add(new CounterDeckLabelImage(d));
+			}
+			images.add(CounterDeckLabelImage.DEFAULT);
+			return images;
+		}
+		
+		@Override
+		protected void done() {
+			try {
+				setCounterDeckImages(get());
+				for (LabelImage li : get()) {
+					customSavedDecksPanel.add(li);
+				}
+				customSavedDecksPanel.revalidate();
+				customSavedDecksPanel.repaint();
+			} catch (InterruptedException | ExecutionException  e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public void refreshCounterDecks() {
+		customSavedDecksPanel.removeAll();
+		customSavedDecksPanel.revalidate();
+		customSavedDecksPanel.repaint();
+		CounterDeckGatherer worker = new CounterDeckGatherer();
+		worker.execute();
 	}
 }
