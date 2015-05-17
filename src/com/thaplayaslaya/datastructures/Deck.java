@@ -1,4 +1,4 @@
-package com.thaplayaslaya;
+package com.thaplayaslaya.datastructures;
 
 import java.awt.image.BufferedImage;
 import java.io.InputStream;

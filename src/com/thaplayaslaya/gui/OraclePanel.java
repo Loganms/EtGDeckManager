@@ -1,4 +1,4 @@
-package com.thaplayaslaya;
+package com.thaplayaslaya.gui;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -19,6 +19,9 @@ import javax.swing.JTabbedPane;
 import javax.swing.SwingWorker;
 
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
+
+import com.thaplayaslaya.DownloadPage;
+import com.thaplayaslaya.datastructures.FalseGod;
 
 public class OraclePanel extends JPanel {
 

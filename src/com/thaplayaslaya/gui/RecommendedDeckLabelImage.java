@@ -1,4 +1,4 @@
-package com.thaplayaslaya;
+package com.thaplayaslaya.gui;
 
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -10,6 +10,9 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+
+import com.thaplayaslaya.DeckManager;
+import com.thaplayaslaya.datastructures.Deck;
 
 @SuppressWarnings("serial")
 public class RecommendedDeckLabelImage extends LabelImage {

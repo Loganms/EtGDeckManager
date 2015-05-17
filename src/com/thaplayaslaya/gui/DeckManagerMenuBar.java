@@ -1,4 +1,4 @@
-package com.thaplayaslaya;
+package com.thaplayaslaya.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -28,6 +28,8 @@ import javax.swing.UIManager;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
+
+import com.thaplayaslaya.DeckManager;
 
 @SuppressWarnings("serial")
 public class DeckManagerMenuBar extends JMenuBar {

@@ -1,4 +1,5 @@
-package com.thaplayaslaya;
+package com.thaplayaslaya.datastructures;
+
 
 public class FGCounterDeck extends Deck {
 

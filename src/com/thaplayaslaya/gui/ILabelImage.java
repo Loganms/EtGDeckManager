@@ -1,4 +1,4 @@
-package com.thaplayaslaya;
+package com.thaplayaslaya.gui;
 
 import java.awt.Dimension;
 import java.awt.Point;
@@ -9,6 +9,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JWindow;
+
+import com.thaplayaslaya.DeckManager;
 
 public interface ILabelImage extends MouseListener {
 

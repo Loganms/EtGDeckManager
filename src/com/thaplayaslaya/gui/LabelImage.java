@@ -1,10 +1,12 @@
-package com.thaplayaslaya;
+package com.thaplayaslaya.gui;
 
 import java.awt.event.MouseEvent;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+
+import com.thaplayaslaya.DeckManager;
 
 @SuppressWarnings("serial")
 public class LabelImage extends JLabel implements ILabelImage {

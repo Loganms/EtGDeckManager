@@ -1,4 +1,4 @@
-package com.thaplayaslaya;
+package com.thaplayaslaya.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -28,6 +28,8 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 import javax.swing.plaf.basic.ComboPopup;
+
+import com.thaplayaslaya.datastructures.Deck;
 
 @SuppressWarnings({ "serial", "hiding" })
 public class DeckBinderComboBox<Object> extends JComboBox<Object> {

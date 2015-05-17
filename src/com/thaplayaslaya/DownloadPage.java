@@ -10,6 +10,8 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.thaplayaslaya.datastructures.FalseGod;
+
 public class DownloadPage {
 
 	public static List<URL> getRecommendedDeckURLS(FalseGod god) {

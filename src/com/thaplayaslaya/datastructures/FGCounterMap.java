@@ -1,4 +1,4 @@
-package com.thaplayaslaya;
+package com.thaplayaslaya.datastructures;
 
 import java.util.ArrayList;
 import java.util.HashMap;

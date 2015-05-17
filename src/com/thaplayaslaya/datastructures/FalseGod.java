@@ -1,4 +1,4 @@
-package com.thaplayaslaya;
+package com.thaplayaslaya.datastructures;
 
 public enum FalseGod {
 	AKEBONO("Akebono"), CHAOS_LORD("Chaos Lord"), DARK_MATTER("Dark Matter"), DECAY("Decay"), DESTINY("Destiny"), DIVINE_GLORY("Divine Glory"), DREAM_CATCHER(

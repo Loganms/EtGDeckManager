@@ -1,6 +1,10 @@
-package com.thaplayaslaya;
+package com.thaplayaslaya.datastructures;
 
 import java.util.ArrayList;
+
+import com.thaplayaslaya.DeckManager;
+import com.thaplayaslaya.gui.CustomDialog;
+import com.thaplayaslaya.gui.DeckBinderPanel;
 
 public class DeckBinder {
 

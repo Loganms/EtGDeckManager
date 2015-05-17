@@ -2,6 +2,8 @@ package com.thaplayaslaya;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.thaplayaslaya.datastructures.Case;
+import com.thaplayaslaya.gui.DeckManagerGUI;
 
 public class DeckManager {
 

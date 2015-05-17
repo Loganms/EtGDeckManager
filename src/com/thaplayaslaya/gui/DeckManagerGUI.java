@@ -1,4 +1,4 @@
-package com.thaplayaslaya;
+package com.thaplayaslaya.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -33,6 +33,11 @@ import javax.swing.JRootPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.KeyStroke;
+
+import com.thaplayaslaya.DeckManager;
+import com.thaplayaslaya.datastructures.Deck;
+import com.thaplayaslaya.datastructures.DeckBinder;
+import com.thaplayaslaya.datastructures.OperationType;
 
 public class DeckManagerGUI extends JFrame {
 
@@ -71,7 +76,7 @@ public class DeckManagerGUI extends JFrame {
 		setFrameDefaults();
 	}
 
-	void setComponents() {
+	public void setComponents() {
 		this.setLayout(new BorderLayout());
 		setCenter();
 		this.revalidate();

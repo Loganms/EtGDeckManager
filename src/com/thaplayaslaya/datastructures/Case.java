@@ -1,8 +1,12 @@
-package com.thaplayaslaya;
+package com.thaplayaslaya.datastructures;
 
 import java.util.ArrayList;
 
-import com.thaplayaslaya.DeckManagerMenuBar.Orientation;
+import com.thaplayaslaya.DeckManager;
+import com.thaplayaslaya.gui.CustomDialog;
+import com.thaplayaslaya.gui.DeckManagerGUI;
+import com.thaplayaslaya.gui.DeckManagerMenuBar;
+import com.thaplayaslaya.gui.DeckManagerMenuBar.Orientation;
 
 public class Case {
 

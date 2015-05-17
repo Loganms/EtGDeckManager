@@ -1,4 +1,4 @@
-package com.thaplayaslaya;
+package com.thaplayaslaya.gui;
 
 import java.awt.Dimension;
 import java.awt.Frame;
@@ -31,6 +31,12 @@ import javax.swing.event.UndoableEditListener;
 import javax.swing.text.Document;
 import javax.swing.undo.CannotUndoException;
 import javax.swing.undo.UndoManager;
+
+import com.thaplayaslaya.DeckManager;
+import com.thaplayaslaya.datastructures.Case;
+import com.thaplayaslaya.datastructures.Deck;
+import com.thaplayaslaya.datastructures.DeckBinder;
+import com.thaplayaslaya.datastructures.OperationType;
 
 /*Thank you to David Kroukamp from StackExchange
  <http://stackoverflow.com/questions/13055107/joptionpane-check-user-input-and-prevent-from-closing-until-conditions-are-met>

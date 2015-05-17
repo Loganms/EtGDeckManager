@@ -1,4 +1,4 @@
-package com.thaplayaslaya;
+package com.thaplayaslaya.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -20,6 +20,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
+
+import com.thaplayaslaya.DeckManager;
+import com.thaplayaslaya.datastructures.Deck;
+import com.thaplayaslaya.datastructures.OperationType;
 
 public class DeckBinderPanel extends JPanel implements ActionListener {
 
