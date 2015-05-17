@@ -15,6 +15,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
+import javax.swing.JTabbedPane;
 import javax.swing.SwingWorker;
 
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
@@ -24,14 +25,16 @@ public class OraclePanel extends JPanel {
 	private static final long serialVersionUID = 6311196152723245093L;
 
 	private JPanel mainPanel1 = new JPanel();
-	private JPanel godsPanel = new JPanel(), godsCBPanel = new JPanel(), godsButtonPanel = new JPanel(), godImagePanel = new JPanel(),
-			mainPanel1SouthPanel = new JPanel();
+	private JPanel godsPanel = new JPanel(), godsCBPanel = new JPanel(), godsButtonPanel = new JPanel(), godImagePanel = new JPanel();
 	private JComboBox<FalseGod> godsCB = new JComboBox<>();
-	private JLabel godsLabel = new JLabel("Predicted False God", JLabel.CENTER), mainPanel2Label = new JLabel("Community-Recommended Deck(s):");
+	private JLabel godsLabel = new JLabel("Predicted False God", JLabel.CENTER);
 	private JButton godsButton = new JButton("Go");
-	private LabelImage godImage = new LabelImage();
+	private LabelImage godLabelImage = new FalseGodLabelImage();
 
-	private JPanel mainPanel2 = new JPanel();
+	private JTabbedPane deckDisplayTabPane = new JTabbedPane();
+
+	private JPanel recommendedDecksPanel = new JPanel();
+	private JPanel customSavedDecksPanel = new JPanel();
 
 	private JPanel progPanel = new JPanel();
 	private JLabel progLabel = new JLabel("Searching...", JLabel.CENTER);
@@ -39,7 +42,7 @@ public class OraclePanel extends JPanel {
 
 	private FalseGod currentlySelectedFG = null, previouslySelectedFG = null;
 
-	private List<LabelImage> images = null;
+	private List<RecommendedDeckLabelImage> recommendedDeckImages = null;
 
 	public OraclePanel() {
 		this.setLayout(new BorderLayout());
@@ -61,16 +64,20 @@ public class OraclePanel extends JPanel {
 		godsPanel.add(godsButtonPanel, BorderLayout.EAST);
 
 		mainPanel1.add(godsPanel, BorderLayout.WEST);
-		godImagePanel.add(godImage);
+		godImagePanel.add(godLabelImage);
 		mainPanel1.add(godImagePanel, BorderLayout.CENTER);
 
-		mainPanel1SouthPanel.setLayout(new BorderLayout());
-		mainPanel2Label.setBorder(BorderFactory.createEmptyBorder(10, 2, 0, 0));
-		mainPanel1SouthPanel.add(mainPanel2Label, BorderLayout.WEST);
+		// mainPanel1SouthPanel.setLayout(new BorderLayout());
+		// mainPanel2Label.setBorder(BorderFactory.createEmptyBorder(10, 2, 0,
+		// 0));
+		// mainPanel1SouthPanel.add(mainPanel2Label, BorderLayout.WEST);
 
-		mainPanel1.add(mainPanel1SouthPanel, BorderLayout.SOUTH);
+		// mainPanel1.add(mainPanel1SouthPanel, BorderLayout.SOUTH);
 
-		mainPanel2.setBorder(BorderFactory.createEtchedBorder());
+		// mainPanel2.setBorder(BorderFactory.createEtchedBorder());
+
+		deckDisplayTabPane.addTab("C-R Deck(s)", recommendedDecksPanel);
+		deckDisplayTabPane.addTab("Custom Deck(s)", customSavedDecksPanel);
 
 		progPanel.setLayout(new BorderLayout());
 		progLabel.setLabelFor(progBar);
@@ -79,7 +86,7 @@ public class OraclePanel extends JPanel {
 		progPanel.add(progBar, BorderLayout.CENTER);
 
 		this.add(mainPanel1, BorderLayout.NORTH);
-		this.add(mainPanel2, BorderLayout.CENTER);
+		this.add(deckDisplayTabPane, BorderLayout.CENTER);
 	}
 
 	public FalseGod getCurrentlySelectedFG() {
@@ -101,61 +108,55 @@ public class OraclePanel extends JPanel {
 		}
 	}
 
-	public void setImages(List<LabelImage> images) {
-		this.images = images;
+	public void setRecommendedDeckImages(List<RecommendedDeckLabelImage> images) {
+		this.recommendedDeckImages = images;
 	}
 
-	public List<LabelImage> getImages() {
-		return this.images;
+	public List<RecommendedDeckLabelImage> getRecommendedDeckImages() {
+		return this.recommendedDeckImages;
 	}
 
 	private void gatherAndDisplayIntel() {
 		// protects from redundant searches and button spam
 		if (!currentlySelectedFG.equals(previouslySelectedFG)) {
-			mainPanel2.removeAll();
+			recommendedDecksPanel.removeAll();
 			progBar.setVisible(true);
-			mainPanel2.add(progPanel);
-			mainPanel2.revalidate();
-			mainPanel2.repaint();
+			recommendedDecksPanel.add(progPanel);
+			recommendedDecksPanel.revalidate();
+			recommendedDecksPanel.repaint();
 
-			SwingWorker<List<LabelImage>, Void> worker = new SwingWorker<List<LabelImage>, Void>() {
+			SwingWorker<List<RecommendedDeckLabelImage>, FalseGodLabelImage> worker = new SwingWorker<List<RecommendedDeckLabelImage>, FalseGodLabelImage>() {
 
 				@Override
-				protected List<LabelImage> doInBackground() throws Exception {
-					List<LabelImage> images = new ArrayList<LabelImage>();
-					images.add(new LabelImage(DownloadPage.getFalseGodDeck(currentlySelectedFG)));
+				protected List<RecommendedDeckLabelImage> doInBackground() throws Exception {
+					List<RecommendedDeckLabelImage> images = new ArrayList<>();
+					publish(new FalseGodLabelImage(DownloadPage.getFalseGodDeckURL(currentlySelectedFG)));
 					List<URL> urls = DownloadPage.getRecommendedDeckURLS(currentlySelectedFG);
 					for (URL url : urls) {
-						images.add(new LabelImage(url));
+						images.add(new RecommendedDeckLabelImage(url));
 					}
 					return images;
 				}
 
 				@Override
+				protected void process(List<FalseGodLabelImage> chunks) {
+					godImagePanel.remove(godLabelImage);
+					godLabelImage = chunks.get(chunks.size() - 1);
+					godImagePanel.add(godLabelImage, BorderLayout.CENTER);
+					godImagePanel.revalidate();
+					godImagePanel.repaint();
+				}
+
+				@Override
 				protected void done() {
 					try {
-						mainPanel2.remove(progPanel);
-						setImages(get());
-						for (int i = 0; i < getImages().size(); i++) {
-							if (i == 0) {
-								godImagePanel.remove(godImage);
-								godImage = images.get(0);
-								godImage.setClickable(false);
-								godImage.setGod(true);
-								godImage.setToolTipText("Powers: 3x Mark, 2x Cards, 2x Draw");
-
-								godImagePanel.add(godImage, BorderLayout.CENTER);
-								godImagePanel.revalidate();
-								godImagePanel.repaint();
-							} else {
-								mainPanel2.add(images.get(i));
-							}
+						recommendedDecksPanel.remove(progPanel);
+						setRecommendedDeckImages(get());
+						for (LabelImage li : get()) {
+							recommendedDecksPanel.add(li);
 						}
-						// remove godImage so it is unaffected by mouse click
-						// events
-						getImages().remove(0);
-						mainPanel2.revalidate();
-						mainPanel2.repaint();
+						recommendedDecksPanel.revalidate();
+						recommendedDecksPanel.repaint();
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					} catch (ExecutionException e) {

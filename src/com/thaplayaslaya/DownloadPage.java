@@ -66,7 +66,7 @@ public class DownloadPage {
 		return null;
 	}
 
-	public static URL getFalseGodDeck(FalseGod god) throws IOException {
+	public static URL getFalseGodDeckURL(FalseGod god) throws IOException {
 
 		URL url = new URL("http://elementscommunity.org/forum/false-gods/here-are-the-decks-of-the-actual-false-gods/");
 		URLConnection con = url.openConnection();

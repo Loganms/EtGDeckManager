@@ -8,9 +8,10 @@ import javax.imageio.ImageIO;
 
 public class Deck {
 
-	private static final String defaultDeckName = "add new deck";
-	public static final Deck DEFAULT = new Deck(defaultDeckName);
+	private static final String DEFAULT_DECK_NAME = "add new deck";
+	public static final Deck DEFAULT = new Deck(DEFAULT_DECK_NAME);
 
+	// For "View Deck" feature, cache deckImage just in case
 	private transient BufferedImage deckImage;
 
 	private String name;

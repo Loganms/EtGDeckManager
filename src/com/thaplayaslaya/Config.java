@@ -12,6 +12,7 @@ public class Config {
 
 	private static final String cfgFile = "cfg.json";
 	private static Case briefcase;
+	private static FGCounterMap counterDecks;
 	private File file;
 	private String json;
 	private Gson gson = DeckManager.gson;
