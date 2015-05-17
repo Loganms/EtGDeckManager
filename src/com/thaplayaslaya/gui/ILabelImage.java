@@ -27,9 +27,8 @@ public interface ILabelImage extends MouseListener {
 	public void mouseReleased(MouseEvent event);
 }
 
-
 class ImageMagnifier extends JWindow {
-	
+
 	private static final long serialVersionUID = 3772686270645875087L;
 	private ImageIcon full;
 	private int ploc = DeckManagerMenuBar.preferenceToIntCode(DeckManager.getDeckManagerGUI().getPreferredDeckImageLocation());

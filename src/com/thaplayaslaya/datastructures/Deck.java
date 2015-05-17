@@ -85,9 +85,8 @@ public class Deck {
 		if (importCode != null && importCode.length() > 1) {
 			cardArray = importCode.split(" ");
 			/*
-			 * Use /deck/ over /cache/ 
-			 * /deck/ is always available 
-			 * /cache/ is only made after /deck/ has been called once.
+			 * Use /deck/ over /cache/ /deck/ is always available /cache/ is
+			 * only made after /deck/ has been called once.
 			 */
 			StringBuilder urlpath = new StringBuilder("http://dek.im/deck/");
 			int i;

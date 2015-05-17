@@ -27,7 +27,7 @@ public class Case {
 	public Map<String, ArrayList<Deck>> getFGCounterMap() {
 		return customFalseGodCounters;
 	}
-	
+
 	public void addDeckBinder(DeckBinder deckBinder) {
 		this.deckBinders.add(deckBinder);
 	}
@@ -64,9 +64,9 @@ public class Case {
 	public void addNewDeckBinder() {
 		new CustomDialog(DeckManager.getDeckManagerGUI(), OperationType.ADD_NEW_DECKBINDER, null);
 	}
-	
+
 	public void initializeNewFGCounterMap() {
-		for(FalseGod fg : FalseGod.values()){
+		for (FalseGod fg : FalseGod.values()) {
 			customFalseGodCounters.put(fg.name(), new ArrayList<Deck>());
 		}
 	}

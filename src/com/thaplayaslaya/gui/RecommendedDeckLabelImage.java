@@ -51,9 +51,13 @@ public class RecommendedDeckLabelImage extends LabelImage {
 	@Override
 	public void mouseClicked(MouseEvent event) {
 		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(this.getDeckCode()), null);
-		for (RecommendedDeckLabelImage li : DeckManager.getDeckManagerGUI().getOraclePanel().getRecommendedDeckImages()) {
-			li.setBorder(BorderFactory.createRaisedBevelBorder());
+
+		OraclePanel op = DeckManager.getDeckManagerGUI().getOraclePanel();
+
+		if (null != op.getCurrentlySelectedDeck()) {
+			op.getCurrentlySelectedDeck().setBorder(BorderFactory.createRaisedBevelBorder());
 		}
 		this.setBorder(BorderFactory.createLoweredBevelBorder());
+		DeckManager.getDeckManagerGUI().getOraclePanel().setCurrentlySelectedDeck(this);
 	}
 }

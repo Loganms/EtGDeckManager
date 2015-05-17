@@ -20,7 +20,9 @@ public class CounterDeckLabelImage extends LabelImage {
 
 	private static final long serialVersionUID = 5301128933866476628L;
 	public static final CounterDeckLabelImage DEFAULT = new CounterDeckLabelImage();
+
 	private String deckCode = null;
+	private Deck deck = null;
 
 	public CounterDeckLabelImage() {
 		super(" + ", SwingConstants.CENTER);
@@ -38,6 +40,7 @@ public class CounterDeckLabelImage extends LabelImage {
 	public CounterDeckLabelImage(Deck deck) {
 		super();
 		try {
+			this.deck = deck;
 			deckCode = deck.getImportCode();
 			BufferedImage temp = deck.getDeckImage();
 			full = new ImageIcon(temp);
@@ -50,6 +53,7 @@ public class CounterDeckLabelImage extends LabelImage {
 			e.printStackTrace();
 		}
 		addMouseListener(this);
+
 		this.setBorder(BorderFactory.createRaisedBevelBorder());
 		setToolTipText("Click to copy import code");
 	}
@@ -58,16 +62,24 @@ public class CounterDeckLabelImage extends LabelImage {
 		return deckCode;
 	}
 
+	public Deck getDeck() {
+		return deck;
+	}
+
 	@Override
 	public void mouseClicked(MouseEvent event) {
 		if (null == deckCode) {
-			new CustomDialog(DeckManager.getDeckManagerGUI(), OperationType.ADD_NEW_FG_COUNTER_DECK, DeckManager.getDeckManagerGUI().getOraclePanel().getCurrentlySelectedFG().name());
+			new CustomDialog(DeckManager.getDeckManagerGUI(), OperationType.ADD_NEW_FG_COUNTER_DECK, DeckManager.getDeckManagerGUI().getOraclePanel()
+					.getCurrentlySelectedFG().name());
 		} else {
 			Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(this.getDeckCode()), null);
-			for (CounterDeckLabelImage li : DeckManager.getDeckManagerGUI().getOraclePanel().getCounterDeckImages()) {
-				li.setBorder(BorderFactory.createRaisedBevelBorder());
+			OraclePanel op = DeckManager.getDeckManagerGUI().getOraclePanel();
+			if (null != op.getCurrentlySelectedDeck()) {
+				op.getCurrentlySelectedDeck().setBorder(BorderFactory.createRaisedBevelBorder());
 			}
 			this.setBorder(BorderFactory.createLoweredBevelBorder());
+			DeckManager.getDeckManagerGUI().getOraclePanel().setCurrentlySelectedDeck(this);
 		}
 	}
+
 }

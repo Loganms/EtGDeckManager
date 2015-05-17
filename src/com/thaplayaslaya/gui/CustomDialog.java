@@ -26,7 +26,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
-import javax.swing.UIManager;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
 import javax.swing.text.Document;
@@ -66,9 +65,7 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 	}
 
 	/**
-	 * Creates the reusable dialog. Supplying an integer value of 0 tells
-	 * CustomDialog we are adding a new deck. Supplying an integer value of 1
-	 * tells CustomDialog we are adding a new deck binder.
+	 * Creates the reusable dialog.
 	 */
 	public CustomDialog(Frame aFrame, OperationType operationType, String extraInfo) {
 		super(aFrame, true);
@@ -132,12 +129,12 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 		default:
 			break;
 		}
-		
+
 		Object[] array;
-		if (!this.typeOfOperation.equals(OperationType.ADD_NEW_FG_COUNTER_DECK)){
-			 array = new Object[]{ msgString1, nameTextField, tabPane };
+		if (!this.typeOfOperation.equals(OperationType.ADD_NEW_FG_COUNTER_DECK)) {
+			array = new Object[] { msgString1, nameTextField, tabPane };
 		} else {
-			array = new Object[]{ msgString1, importCodeTextArea };
+			array = new Object[] { msgString1, importCodeTextArea };
 		}
 
 		// Create an array specifying the number of dialog buttons
@@ -300,7 +297,7 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 						}
 						break;
 					case ADD_NEW_FG_COUNTER_DECK:
-						if (importCodeTextArea.getText().length() > 1){
+						if (importCodeTextArea.getText().length() > 1) {
 							Deck newDeck = new Deck();
 							newDeck.setImportCode(importCodeTextArea.getText());
 							DeckManager.getCase().addFGCounterDeck(getExtraInfo(), newDeck);

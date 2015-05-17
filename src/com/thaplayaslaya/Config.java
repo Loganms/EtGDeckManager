@@ -28,7 +28,7 @@ public class Config {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			briefcase = new Case();				
+			briefcase = new Case();
 			briefcase.initializeNewFGCounterMap();
 
 			((DeckManagerMenuBar) DeckManager.getDeckManagerGUI().getJMenuBar()).getDeckImagesOptions()[DeckManagerMenuBar
