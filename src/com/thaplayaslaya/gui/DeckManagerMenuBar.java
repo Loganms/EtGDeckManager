@@ -305,6 +305,11 @@ public class DeckManagerMenuBar extends JMenuBar {
 				scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 				scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 				scroll.setBorder(BorderFactory.createEmptyBorder());
+				javax.swing.SwingUtilities.invokeLater(new Runnable() {
+					   public void run() { 
+					       scroll.getVerticalScrollBar().setValue(0);
+					   }
+					});
 
 				optionPane = new JOptionPane(scroll, JOptionPane.PLAIN_MESSAGE, JOptionPane.OK_OPTION, null, options, options[0]);
 			} else {
