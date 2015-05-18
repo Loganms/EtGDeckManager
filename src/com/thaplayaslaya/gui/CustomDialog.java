@@ -301,6 +301,7 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 							Deck newDeck = new Deck();
 							newDeck.setImportCode(importCodeTextArea.getText());
 							DeckManager.getCase().addFGCounterDeck(getExtraInfo(), newDeck);
+							DeckManager.getDeckManagerGUI().getOraclePanel().resetCurrentlySelectedDeck();
 							DeckManager.getDeckManagerGUI().getOraclePanel().refreshCounterDecks();
 							exit();
 						} else {

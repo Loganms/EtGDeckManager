@@ -139,6 +139,7 @@ public class OraclePanel extends JPanel {
 			previouslySelectedFG = currentlySelectedFG;
 
 			setCurrentlySelectedFG((FalseGod) godsCB.getSelectedItem());
+			resetCurrentlySelectedDeck();
 			gatherAndDisplayIntel();
 		}
 	}
@@ -242,7 +243,11 @@ public class OraclePanel extends JPanel {
 			try {
 				counterDecksPanel.remove(counterProgPanel);
 				setCounterDeckImages(get());
-				for (LabelImage li : get()) {
+				for (CounterDeckLabelImage li : get()) {
+					if (null != currentlySelectedDeckLabelImage && li.isSameAs((CounterDeckLabelImage) getCurrentlySelectedDeck())) {
+						li.setBorder(CounterDeckLabelImage.DEFAULT_SELECTED_BORDER);
+						setCurrentlySelectedDeck(li);
+					}
 					counterDecksPanel.add(li);
 				}
 				counterDecksPanel.revalidate();
@@ -257,6 +262,7 @@ public class OraclePanel extends JPanel {
 		refreshCounterDeckPanel();
 		CounterDeckGatherer worker = new CounterDeckGatherer();
 		worker.execute();
+
 	}
 
 	private class KeyboardAction extends AbstractAction {
@@ -270,26 +276,44 @@ public class OraclePanel extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			System.out.println("Action is performing: Keyboard Action in OraclePanel");
 			String actionCommand = e.getActionCommand();
 			if (null != currentlySelectedDeckLabelImage && currentlySelectedDeckLabelImage instanceof CounterDeckLabelImage) {
-				System.out.println("CSD is a CounterDeck");
+
+				if (deckDisplayTabPane.getSelectedIndex() != 1)
+					deckDisplayTabPane.setSelectedIndex(1);
+
 				if (actionCommand.equals(DELETE)) {
-					System.out.println("Commmand is DELETE");
-					if (JOptionPane.showConfirmDialog(DeckManager.getDeckManagerGUI(), "Are you sure you want to delete this deck?") == JOptionPane.YES_OPTION) {
-						DeckManagerGUI dmg = DeckManager.getDeckManagerGUI();
+
+					if (JOptionPane.showConfirmDialog(DeckManager.getDeckManagerGUI(), "Are you sure you want to delete the selected deck?") == JOptionPane.YES_OPTION) {
 						DeckManager.getCase().getFGCounterMap().get(currentlySelectedFG.name())
 								.remove(((CounterDeckLabelImage) currentlySelectedDeckLabelImage).getDeck());
-						dmg.getOraclePanel().resetCurrentlySelectedDeck();
+						resetCurrentlySelectedDeck();
 						refreshCounterDecks();
 					}
 				} else if (actionCommand.equals(LEFT_ARROW)) {
-					System.out.println("LEFT_ARROW PRESSED");
+					List<Deck> list = DeckManager.getCase().getFGCounterMap().get((getCurrentlySelectedFG().name()));
+					if (list.size() > 1) {
+						Deck deck = ((CounterDeckLabelImage) currentlySelectedDeckLabelImage).getDeck();
+						int indexOfDeck = list.indexOf(deck);
+						if (indexOfDeck > 0) {
+							list.remove(deck);
+							list.add(indexOfDeck - 1, deck);
+							refreshCounterDecks();
+						}
+					}
 				} else if (actionCommand.equals(RIGHT_ARROW)) {
-					System.out.println("RIGHT_ARROW PRESSED");
+					List<Deck> list = DeckManager.getCase().getFGCounterDeckList(getCurrentlySelectedFG().name());
+					if (list.size() > 1) {
+						Deck deck = ((CounterDeckLabelImage) currentlySelectedDeckLabelImage).getDeck();
+						int indexOfDeck = list.indexOf(deck);
+						if (indexOfDeck < list.size() - 1) {
+							list.remove(deck);
+							list.add(indexOfDeck + 1, deck);
+							refreshCounterDecks();
+						}
+					}
 				}
 			}
 		}
-
 	}
 }

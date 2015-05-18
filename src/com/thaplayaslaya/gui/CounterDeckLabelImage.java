@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 
 import com.thaplayaslaya.DeckManager;
 import com.thaplayaslaya.datastructures.Deck;
@@ -20,6 +21,8 @@ public class CounterDeckLabelImage extends LabelImage {
 
 	private static final long serialVersionUID = 5301128933866476628L;
 	public static final CounterDeckLabelImage DEFAULT = new CounterDeckLabelImage();
+	public static final Border DEFAULT_BORDER = BorderFactory.createRaisedBevelBorder();
+	public static final Border DEFAULT_SELECTED_BORDER = BorderFactory.createLoweredBevelBorder();
 
 	private String deckCode = null;
 	private Deck deck = null;
@@ -33,7 +36,7 @@ public class CounterDeckLabelImage extends LabelImage {
 		setBackground(Color.GRAY);
 		setForeground(Color.LIGHT_GRAY);
 		addMouseListener(this);
-		setBorder(BorderFactory.createRaisedBevelBorder());
+		setBorder(DEFAULT_BORDER);
 		setToolTipText("Click to add a new deck");
 	}
 
@@ -54,7 +57,7 @@ public class CounterDeckLabelImage extends LabelImage {
 		}
 		addMouseListener(this);
 
-		this.setBorder(BorderFactory.createRaisedBevelBorder());
+		this.setBorder(DEFAULT_BORDER);
 		setToolTipText("Click to copy import code");
 	}
 
@@ -75,11 +78,22 @@ public class CounterDeckLabelImage extends LabelImage {
 			Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(this.getDeckCode()), null);
 			OraclePanel op = DeckManager.getDeckManagerGUI().getOraclePanel();
 			if (null != op.getCurrentlySelectedDeck()) {
-				op.getCurrentlySelectedDeck().setBorder(BorderFactory.createRaisedBevelBorder());
+				op.getCurrentlySelectedDeck().setBorder(DEFAULT_BORDER);
 			}
-			this.setBorder(BorderFactory.createLoweredBevelBorder());
+			this.setBorder(DEFAULT_SELECTED_BORDER);
 			DeckManager.getDeckManagerGUI().getOraclePanel().setCurrentlySelectedDeck(this);
 		}
+	}
+	
+	public boolean isSameAs(CounterDeckLabelImage cdli) {
+		if(null != cdli.getDeck() && cdli.getDeck().equals(getDeck())){
+			return true;
+		}
+		return false;
+	}
+	
+	public String toString() {
+		return this.getDeckCode();
 	}
 
 }
