@@ -6,7 +6,9 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Point;
 import java.awt.Toolkit;
+import java.awt.Window;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -146,15 +148,13 @@ public class DeckManagerGUI extends JFrame {
 			if (currentlySelectedDeck != null) {
 				if (e.getActionCommand().equals("Copy Code")) {
 					Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(currentlySelectedDeck.getImportCode()), null);
-					System.out.println("Frame is " + DeckManager.getDeckManagerGUI().getWidth() + "x" + DeckManager.getDeckManagerGUI().getHeight());
-					System.out.println("Content is " + DeckManager.getDeckManagerGUI().getContentPane().getWidth() + "x"
-							+ DeckManager.getDeckManagerGUI().getContentPane().getHeight());
 				} else if (e.getActionCommand().equals("View Deck")) {
 					BufferedImage img = currentlySelectedDeck.getDeckImage();
 					if (img != null) {
 						JFrame frame = new JFrame(currentlySelectedDeck.getName());
 						frame.getContentPane().add(new JLabel(new ImageIcon(img)));
 						frame.pack();
+						frame.setLocation(getSmartExternalWindowLocation(frame));
 						frame.setVisible(true);
 						frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 					} else {
@@ -357,5 +357,34 @@ public class DeckManagerGUI extends JFrame {
 
 	public void setPreferredDeckImageLocationMod(String preferredDeckImageLocationMod) {
 		this.preferredDeckImageLocationMod = preferredDeckImageLocationMod;
+	}
+	
+	public Point getSmartExternalWindowLocation(Window windowToBeDisplayed) {
+		int ploc = DeckManagerMenuBar.preferenceToIntCode(getPreferredDeckImageLocation());
+		int pmod = DeckManagerMenuBar.preferenceToIntCode(getPreferredDeckImageLocationMod()); 
+		Point loc = getLocation();
+		if (ploc == DeckManagerMenuBar.TOP) {
+			loc.y -= windowToBeDisplayed.getHeight();
+		} else if (ploc == DeckManagerMenuBar.BOTTOM) {
+			loc.y += getHeight();
+		} else if (ploc == DeckManagerMenuBar.LEFT) {
+			loc.x -= windowToBeDisplayed.getWidth();
+		} else if (ploc == DeckManagerMenuBar.RIGHT) {
+			loc.x += getWidth();
+		}
+
+		if (pmod == DeckManagerMenuBar.CENTER) {
+			if (ploc == DeckManagerMenuBar.TOP || ploc == DeckManagerMenuBar.BOTTOM) {
+				loc.x = loc.x + (getWidth() / 2) - (windowToBeDisplayed.getWidth() / 2);
+			} else if (ploc == DeckManagerMenuBar.LEFT || ploc == DeckManagerMenuBar.RIGHT) {
+				loc.y = loc.y + getHeight() / 2 - windowToBeDisplayed.getHeight() / 2;
+			}
+		} else if (pmod == DeckManagerMenuBar.FLUSH_RIGHT) {
+			loc.x = loc.x + getWidth() - windowToBeDisplayed.getWidth();
+		} else if (pmod == DeckManagerMenuBar.FLUSH_BOTTOM) {
+			loc.y = loc.y + getHeight() - windowToBeDisplayed.getHeight();
+		}
+		
+		return loc;
 	}
 }

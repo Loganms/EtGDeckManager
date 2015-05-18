@@ -165,20 +165,26 @@ public class DeckManagerMenuBar extends JMenuBar {
 
 				JLabel label2 = new JLabel("Oracle", SwingConstants.LEFT);
 				JTextArea text2 = new JTextArea(
-						"     Every day, the Oracle predicts the next False God you will encounter. To make the most of this information, navigate to the Oracle tab. On the Oracle tab, find the name of the False God that the oracle predicted and click the \"Go\" button. Alternatively, you can begin typing the name of the False God into the search box which will auto-complete the name for you.\n\n     Within a couple seconds, depending on your Internet connection, you will see various thumbnail images of decks pop up. Hover over any of the decks to see a complete image. To the right of the search box is the deck that the False God will use against you. Realize that all False God decks contain twice as many cards as are shown in the image. In addition, False Gods fight with a 3x Mark and draw two cards per turn.\n\n     Any other decks listed in the lower portion of the Oracle tab are community-recommended decks: the same ones you will find on the community forums. Each False God has at least one recommended deck. Once you find a suitable deck, click its thumbnail image to copy the import code to your system clipboard.",
+						"     Every day, the Oracle predicts the next False God you will encounter. To make the most of this information, navigate to the Oracle tab. On the Oracle tab, find the name of the False God that the oracle predicted and click the \"Go\" button. Alternatively, you can begin typing the name of the False God into the search box which will auto-complete the name for you.\n\n     Within a couple seconds, depending on your Internet connection, you will see various thumbnail images of decks pop up. Hover over any of the decks to see a complete image. To the right of the search box is the deck that the False God will use against you. Realize that all False God decks contain twice as many cards as are shown in the image. In addition, False Gods fight with a 3x Mark and draw two cards per turn.\n\n     In the lower portion of the Oracle area you will see two tabs, one labeled \"Community Deck(s)\" and another labeled \"Custom Deck(s)\". All decks in the Community section come straight from the community forums. Each False God has at least one community-recommended deck. Once you find a suitable deck, click its thumbnail image to copy the import code to your system clipboard.\n\n     If there is a deck that you enjoy using against a specific False God, you can save it into the \"Custom Deck(s)\" tab by clicking on the plus(+) thumbnail. In order to delete a custom deck you have saved, select the deck by clicking on it and press the delete key on your keyboard. You can also change to order of your custom saved decks by selecting one of them and using the left and right arrow keys.",
 						12, 30);
 				dressTextArea(text2);
 				Component[] comps = new Component[] { label1, text1, label2, text2 };
 
 				new InformationWindow(helpMenuNames[0], comps, true);
 			} else if (button.equals(helpMenuNames[1])) {
+				JLabel deckManager = new JLabel(" Deck Manager Shortcuts ", SwingConstants.CENTER);
+				deckManager.setBorder(BorderFactory.createRaisedBevelBorder());
 				ShortcutDescription moveDeckBinder = new ShortcutDescription("Move Deck Binder UP/DOWN", "A deck must be selected",
-						"Ctrl + UP/DOWN Arrow");
+						" Ctrl + UP/DOWN Arrow ");
 				ShortcutDescription moveDeck = new ShortcutDescription("Move Deck UP/DOWN", "A deck must be selected", "Shft + UP/DOWN Arrow");
 				ShortcutDescription createNewDeckBinder = new ShortcutDescription("Create New Deck Binder", null, "Ctrl + B");
 				ShortcutDescription createNewDeck = new ShortcutDescription("Create New Deck Binder", "A deck must be selected", "Ctrl + D");
+				JLabel oracle = new JLabel(" Oracle Shortcuts ", SwingConstants.CENTER);
+				oracle.setBorder(BorderFactory.createRaisedBevelBorder());
+				ShortcutDescription deleteCounterDeck = new ShortcutDescription("Delete Custom Deck", "A custom deck must be selected", "DELETE Key");
+				ShortcutDescription moveCounterDeck = new ShortcutDescription("Move Custom Deck LEFT/RIGHT", "A custom deck must be selected", "LEFT/RIGHT Arrow");
 
-				Component[] comps = new Component[] { moveDeckBinder, moveDeck, createNewDeckBinder, createNewDeck };
+				Component[] comps = new Component[] {deckManager, moveDeckBinder, moveDeck, createNewDeckBinder, createNewDeck, oracle, deleteCounterDeck, moveCounterDeck };
 				new InformationWindow(helpMenuNames[1], comps, false);
 			} else if (button.equals(helpMenuNames[2])) {
 				JLabel label1 = new JLabel("EtG Deck Manager is an Open Source Project");

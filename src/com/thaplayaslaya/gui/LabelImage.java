@@ -6,8 +6,6 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-import com.thaplayaslaya.DeckManager;
-
 public class LabelImage extends JLabel implements ILabelImage {
 
 	private static final long serialVersionUID = -7289961803730609648L;
@@ -45,7 +43,7 @@ public class LabelImage extends JLabel implements ILabelImage {
 	@Override
 	public void mouseEntered(MouseEvent event) {
 		if (null != full) {
-			im = new ImageMagnifier(full, DeckManager.getDeckManagerGUI());
+			im = new ImageMagnifier(full);
 		}
 	}
 

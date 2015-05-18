@@ -80,9 +80,11 @@ public class OraclePanel extends JPanel {
 		godImagePanel.add(godLabelImage);
 		mainPanel1.add(godImagePanel, BorderLayout.CENTER);
 
-		deckDisplayTabPane.addTab("C-R Deck(s)", recommendedDecksPanel);
-		deckDisplayTabPane.addTab("Custom Deck(s)", counterDecksPanel);
-
+		deckDisplayTabPane.addTab("Community Deck(s)", null, recommendedDecksPanel, "Community-recommended decks");
+		deckDisplayTabPane.setMnemonicAt(deckDisplayTabPane.getTabCount() - 1, KeyEvent.VK_C);
+		deckDisplayTabPane.addTab("Custom Deck(s)", null, counterDecksPanel, "Personal False God counters");
+		deckDisplayTabPane.setMnemonicAt(deckDisplayTabPane.getTabCount() - 1, KeyEvent.VK_U);
+		
 		initProg(recommendedProgPanel, recommendedProgLabel, recommendedProgBar);
 		initProg(counterProgPanel, counterProgLabel, counterProgBar);
 
