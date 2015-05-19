@@ -6,6 +6,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import com.google.gson.Gson;
 import com.thaplayaslaya.datastructures.Case;
 import com.thaplayaslaya.datastructures.DeckBinder;
@@ -22,7 +25,10 @@ public class Config {
 	public Config() {
 		file = new File(cfgFile);
 		if (!file.isFile()) {
+			
+			JOptionPane.showMessageDialog(new JFrame(), "No cfg.json file can be found.\n EtG Deck Manager will create a new one.");
 			System.out.println("no file");
+			
 			try {
 				file.createNewFile();
 			} catch (IOException e) {
@@ -53,7 +59,11 @@ public class Config {
 			briefcase = gson.fromJson(br, Case.class);
 
 			if (null == briefcase) {
+				JOptionPane.showMessageDialog(new JFrame(), "Your cfg.json file is probably empty. EtG Deck Manager will attemp to populate the file now.\nIf you think this is an error do not click OK.\nSave a copy of your cfg.json file outside of this program's directory and contact the creator of this program.\nOnce a copy of the cfg.json file is created, feel free to continue.", "Error", JOptionPane.ERROR_MESSAGE);
 				briefcase = new Case();
+			}
+			if (briefcase.getFGCounterMap().isEmpty()){
+				JOptionPane.showMessageDialog(new JFrame(), "Your save data resulted in an empty field.\nNo custom-saved False God counters could be acquired.\nThis is likely due to updating from a version below v1.0.2\n The program will now attempt to fix the issue.", "Error", JOptionPane.ERROR_MESSAGE);
 				briefcase.initializeNewFGCounterMap();
 			}
 

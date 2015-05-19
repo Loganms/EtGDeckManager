@@ -287,6 +287,9 @@ public class OraclePanel extends JPanel {
 				if (actionCommand.equals(DELETE)) {
 
 					if (JOptionPane.showConfirmDialog(DeckManager.getDeckManagerGUI(), "Are you sure you want to delete the selected deck?") == JOptionPane.YES_OPTION) {
+						if(null != currentlySelectedDeckLabelImage.im){
+							currentlySelectedDeckLabelImage.im.dispose();
+						}
 						DeckManager.getCase().getFGCounterMap().get(currentlySelectedFG.name())
 								.remove(((CounterDeckLabelImage) currentlySelectedDeckLabelImage).getDeck());
 						resetCurrentlySelectedDeck();

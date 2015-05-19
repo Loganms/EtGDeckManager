@@ -25,6 +25,9 @@ public class Case {
 	}
 
 	public Map<String, ArrayList<Deck>> getFGCounterMap() {
+		if(customFalseGodCounters.isEmpty()){
+			initializeNewFGCounterMap();
+		}
 		return customFalseGodCounters;
 	}
 
