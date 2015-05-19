@@ -84,7 +84,7 @@ public class OraclePanel extends JPanel {
 		deckDisplayTabPane.setMnemonicAt(deckDisplayTabPane.getTabCount() - 1, KeyEvent.VK_C);
 		deckDisplayTabPane.addTab("Custom Deck(s)", null, counterDecksPanel, "Personal False God counters");
 		deckDisplayTabPane.setMnemonicAt(deckDisplayTabPane.getTabCount() - 1, KeyEvent.VK_U);
-		
+
 		initProg(recommendedProgPanel, recommendedProgLabel, recommendedProgBar);
 		initProg(counterProgPanel, counterProgLabel, counterProgBar);
 
@@ -287,7 +287,7 @@ public class OraclePanel extends JPanel {
 				if (actionCommand.equals(DELETE)) {
 
 					if (JOptionPane.showConfirmDialog(DeckManager.getDeckManagerGUI(), "Are you sure you want to delete the selected deck?") == JOptionPane.YES_OPTION) {
-						if(null != currentlySelectedDeckLabelImage.im){
+						if (null != currentlySelectedDeckLabelImage.im) {
 							currentlySelectedDeckLabelImage.im.dispose();
 						}
 						DeckManager.getCase().getFGCounterMap().get(currentlySelectedFG.name())

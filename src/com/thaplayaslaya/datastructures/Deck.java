@@ -179,6 +179,7 @@ public class Deck {
 		}
 	}
 
+	@Override
 	public String toString() {
 		return this.name;
 	}

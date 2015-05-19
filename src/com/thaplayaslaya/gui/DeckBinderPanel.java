@@ -1,6 +1,7 @@
 package com.thaplayaslaya.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -65,8 +66,8 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 		deleteButton.addActionListener(this);
 
 		JPanel renameButtonPanel = new JPanel();
-		renameButtonPanel.add(renameButton, JPanel.RIGHT_ALIGNMENT);
-		renameButtonPanel.add(deleteButton, JPanel.RIGHT_ALIGNMENT);
+		renameButtonPanel.add(renameButton, Component.RIGHT_ALIGNMENT);
+		renameButtonPanel.add(deleteButton, Component.RIGHT_ALIGNMENT);
 
 		northPanel.setLayout(new BorderLayout());
 		northPanel.add(dBName, BorderLayout.WEST);
@@ -107,6 +108,7 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 		}
 	}
 
+	@Override
 	public void setName(String name) {
 		this.name = name;
 		dBName.setName(name);
@@ -114,6 +116,7 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 		comboBox.setName(name);
 	}
 
+	@Override
 	public String getName() {
 		return this.name;
 	}

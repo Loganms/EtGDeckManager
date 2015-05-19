@@ -47,11 +47,13 @@ public class DeckBinderComboBox<Object> extends JComboBox<Object> {
 		install();
 
 		mouseListener = new MouseAdapter() {
+			@Override
 			public void mouseEntered(MouseEvent e) {
 				enterTimer.start();
 				isMouseInside = true;
 			}
 
+			@Override
 			public void mouseExited(MouseEvent e) {
 				enterTimer.stop();
 

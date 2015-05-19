@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -23,6 +24,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.KeyStroke;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.text.SimpleAttributeSet;
@@ -63,7 +65,7 @@ public class DeckManagerMenuBar extends JMenuBar {
 		newMenu.setMnemonic(KeyEvent.VK_N);
 		newDeckBinderOption = new JMenuItem("Deck Binder");
 		newDeckBinderOption.setMnemonic(KeyEvent.VK_B);
-		newDeckBinderOption.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B, KeyEvent.CTRL_DOWN_MASK));
+		newDeckBinderOption.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B, InputEvent.CTRL_DOWN_MASK));
 		newDeckBinderOption.setActionCommand("Deck Binder");
 		newDeckBinderOption.addActionListener(menuActionListener);
 		newMenu.add(newDeckBinderOption);
@@ -182,9 +184,18 @@ public class DeckManagerMenuBar extends JMenuBar {
 				JLabel oracle = new JLabel(" Oracle Shortcuts ", SwingConstants.CENTER);
 				oracle.setBorder(BorderFactory.createRaisedBevelBorder());
 				ShortcutDescription deleteCounterDeck = new ShortcutDescription("Delete Custom Deck", "A custom deck must be selected", "DELETE Key");
-				ShortcutDescription moveCounterDeck = new ShortcutDescription("Move Custom Deck LEFT/RIGHT", "A custom deck must be selected", "LEFT/RIGHT Arrow");
+				ShortcutDescription moveCounterDeck = new ShortcutDescription("Move Custom Deck LEFT/RIGHT", "A custom deck must be selected",
+						"LEFT/RIGHT Arrow");
 
-				Component[] comps = new Component[] {deckManager, moveDeckBinder, moveDeck, createNewDeckBinder, createNewDeck, oracle, deleteCounterDeck, moveCounterDeck };
+				Component[] comps = new Component[] {
+						deckManager,
+						moveDeckBinder,
+						moveDeck,
+						createNewDeckBinder,
+						createNewDeck,
+						oracle,
+						deleteCounterDeck,
+						moveCounterDeck };
 				new InformationWindow(helpMenuNames[1], comps, false);
 			} else if (button.equals(helpMenuNames[2])) {
 				JLabel label1 = new JLabel("EtG Deck Manager is an Open Source Project");
@@ -302,14 +313,15 @@ public class DeckManagerMenuBar extends JMenuBar {
 				mainPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 10));
 
 				scroll = new JScrollPane(mainPanel);
-				scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-				scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+				scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+				scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 				scroll.setBorder(BorderFactory.createEmptyBorder());
 				javax.swing.SwingUtilities.invokeLater(new Runnable() {
-					   public void run() { 
-					       scroll.getVerticalScrollBar().setValue(0);
-					   }
-					});
+					@Override
+					public void run() {
+						scroll.getVerticalScrollBar().setValue(0);
+					}
+				});
 
 				optionPane = new JOptionPane(scroll, JOptionPane.PLAIN_MESSAGE, JOptionPane.OK_OPTION, null, options, options[0]);
 			} else {
@@ -410,6 +422,7 @@ public class DeckManagerMenuBar extends JMenuBar {
 			return this.code;
 		}
 
+		@Override
 		public String toString() {
 			return this.text;
 		}

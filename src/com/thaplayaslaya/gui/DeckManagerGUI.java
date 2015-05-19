@@ -35,6 +35,9 @@ import javax.swing.JRootPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.KeyStroke;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
 
 import com.thaplayaslaya.DeckManager;
 import com.thaplayaslaya.datastructures.Deck;
@@ -98,7 +101,7 @@ public class DeckManagerGUI extends JFrame {
 		JPanel rightPanel = new JPanel();
 		JPanel innerRightPanel = new JPanel();
 
-		JLabel rightPrompt = new JLabel("Currently Selected Deck", JLabel.CENTER);
+		JLabel rightPrompt = new JLabel("Currently Selected Deck", SwingConstants.CENTER);
 
 		String[] rightPanelButtonsToolTips = {
 				"Copy this deck's import code to your clipboard",
@@ -156,7 +159,7 @@ public class DeckManagerGUI extends JFrame {
 						frame.pack();
 						frame.setLocation(getSmartExternalWindowLocation(frame));
 						frame.setVisible(true);
-						frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+						frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 					} else {
 						JOptionPane.showMessageDialog(DeckManagerGUI.this,
 								"A deck image could not be created from " + currentlySelectedDeck.getName() + "'s import code.", "Error",
@@ -240,7 +243,7 @@ public class DeckManagerGUI extends JFrame {
 		menuBar = new DeckManagerMenuBar();
 		this.setJMenuBar(menuBar);
 
-		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
 		this.addWindowListener(new WindowAdapter() {
 			@Override
@@ -278,7 +281,7 @@ public class DeckManagerGUI extends JFrame {
 		leftPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 		leftPanel.setLayout(new BorderLayout());
 		JScrollPane scroll = new JScrollPane(casePanel);
-		scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scroll.setBorder(BorderFactory.createEmptyBorder());
 		leftPanel.add(scroll, BorderLayout.CENTER);
 		centerPanel.add(leftPanel);
@@ -358,10 +361,10 @@ public class DeckManagerGUI extends JFrame {
 	public void setPreferredDeckImageLocationMod(String preferredDeckImageLocationMod) {
 		this.preferredDeckImageLocationMod = preferredDeckImageLocationMod;
 	}
-	
+
 	public Point getSmartExternalWindowLocation(Window windowToBeDisplayed) {
 		int ploc = DeckManagerMenuBar.preferenceToIntCode(getPreferredDeckImageLocation());
-		int pmod = DeckManagerMenuBar.preferenceToIntCode(getPreferredDeckImageLocationMod()); 
+		int pmod = DeckManagerMenuBar.preferenceToIntCode(getPreferredDeckImageLocationMod());
 		Point loc = getLocation();
 		if (ploc == DeckManagerMenuBar.TOP) {
 			loc.y -= windowToBeDisplayed.getHeight();
@@ -384,7 +387,7 @@ public class DeckManagerGUI extends JFrame {
 		} else if (pmod == DeckManagerMenuBar.FLUSH_BOTTOM) {
 			loc.y = loc.y + getHeight() - windowToBeDisplayed.getHeight();
 		}
-		
+
 		return loc;
 	}
 }

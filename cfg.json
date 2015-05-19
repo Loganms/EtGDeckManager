@@ -4,24 +4,6 @@
   "preferredDeckImageLocationMod": "CENTER",
   "deckBinders": [
     {
-      "name": "G/P Arena",
-      "decks": [
-        {
-          "name": "Pestal 101",
-          "importCode": "7t6 7t6 7t6 7t6 7t6 7t6 7ta 7ta 7td 7td 7um 7um 7um 7um 7um 7um 7um 7um 7um 7um 808 808 808 808 80i 80i 80i 80i 80i 80i 8pu"
-        },
-        {
-          "name": "Chaos Wyrms",
-          "importCode": "6u2 6u2 6u2 6u2 6u2 6u2 7ms 7ms 7ms 7ms 7ms 7ms 7mt 7mt 7mt 7mt 7mt 7mt 7mu 7mu 7mu 7mu 7mu 7mu 7nq 7nq 7nq 7nq 7nq 7nq 8pj",
-          "notes": ""
-        },
-        {
-          "name": "Swallow",
-          "importCode": "744 744 744 744 744 744 744 744 744 74b 74b 74b 74b 74b 74d 74d 752 752 752 752 75m 75m 75m 7gq 7gq 7h0 7h0 7hi 7hi 7hi 8pp"
-        }
-      ]
-    },
-    {
       "name": "Gods",
       "decks": [
         {
@@ -34,8 +16,7 @@
         },
         {
           "name": "PDials",
-          "importCode": "52q 53e 5m6 5m6 710 710 710 710 710 710 718 718 718 718 718 718 71a 71a 71u 71u 71u 71u 71u 72i 72i 72i 7km 7km 7q9 7q9 7q9 7q9 7q9 7q9 8pq",
-          "notes": ""
+          "importCode": "710 710 710 710 718 718 718 718 718 718 71a 71a 71u 71u 71u 71u 71u 71u 72i 72i 72i 7km 7km 7km 7q9 7q9 7q9 7q9 7q9 7q9 8pq"
         },
         {
           "name": "Perpetual Light",
@@ -48,56 +29,23 @@
       ]
     },
     {
-      "name": "PVP Tourny",
+      "name": "G/P Arena",
       "decks": [
         {
-          "name": "Adrenastaves Air",
-          "importCode": "5bs 5bs 5bs 5bs 5bs 5bs 5bs 5bs 5bs 5bs 5c5 5c5 5c5 5c5 5c7 5c7 5c7 5c7 5c9 5od 5oe 5of 5oi 5oi 5oi 5oi 5oi 5oi 5oj 5ok 8pr",
-          "notes": ""
+          "name": "Pestal 101",
+          "importCode": "7t6 7t6 7t6 7t6 7t6 7t6 7ta 7ta 7td 7td 7um 7um 7um 7um 7um 7um 7um 7um 7um 7um 808 808 808 808 80i 80i 80i 80i 80i 80i 8pu"
         },
         {
-          "name": "MonoFire",
-          "importCode": "5f0 5f0 5f0 5f0 5f0 5f0 5f0 5f0 5f0 5f0 5f0 5f0 5f1 5f2 5f3 5f3 5f4 5f5 5f6 5f6 5f7 5f7 5fa 5fa 5fb 5fb 5fc 5fc 5fc 5fe 8pm",
-          "notes": ""
+          "name": "Chaos Wyrms",
+          "importCode": "6u2 6u2 6u2 6u2 6u2 6u2 7ms 7ms 7ms 7ms 7ms 7ms 7mt 7mt 7mt 7mt 7mt 7mt 7mu 7mu 7mu 7mu 7mu 7mu 7nq 7nq 7nq 7nq 7nq 7nq 8pj"
         },
         {
-          "name": "FFQ Air",
-          "importCode": "5bv 5bv 5bv 5c6 5c6 5c6 5c6 5cg 5cg 5de 5de 5de 5de 5de 5de 5de 5od 5oe 5of 5og 5og 5oj 5oj 5oj 5oj 5oj 5oj 5ok 5on 5on 5on 5on 8pr",
-          "notes": ""
+          "name": "PDials",
+          "importCode": "710 710 710 710 718 718 718 718 718 718 71a 71a 71u 71u 71u 71u 71u 71u 72i 72i 72i 7km 7km 7km 7q9 7q9 7q9 7q9 7q9 7q9 8pq"
         },
         {
-          "name": "Gargoyle Dark",
-          "importCode": "5uk 5uk 5uk 5uk 5uk 5uk 5uk 5uk 5uk 5uk 5uk 5ul 5un 5uo 5up 5up 5uq 5ur 5ut 5uu 5uu 5uu 5uu 5uv 5uv 5uv 5uv 5uv 5uv 5v0 8pm",
-          "notes": ""
-        },
-        {
-          "name": "Accelergio Gravity",
-          "importCode": "55k 55k 55k 55k 55k 55k 55k 55k 55k 55k 55k 55k 55l 55l 55l 55m 55m 55m 55m 55n 55o 55r 55u 560 562 562 562 562 562 563 8pl",
-          "notes": ""
-        },
-        {
-          "name": "NT Water",
-          "importCode": "5i4 5i4 5i4 5i4 5i4 5i4 5i4 5i4 5i4 5i4 5i4 5i4 5i4 5i4 5i4 5i4 5i4 5i4 5i5 5i6 5id 5ie 5if 5ig 5ig 5ig 5ig 5ig 5ii 5ij 8pp",
-          "notes": ""
-        },
-        {
-          "name": "Aether plain",
-          "importCode": "61o 61o 61o 61o 61o 61o 61o 61o 61o 61o 61o 61o 61o 61o 61o 61o 61p 61q 61q 61s 61u 61v 61v 61v 61v 61v 61v 620 625 626 8pu",
-          "notes": ""
-        }
-      ]
-    },
-    {
-      "name": "To Try Later",
-      "decks": [
-        {
-          "name": "iancudorinmarian sig deck",
-          "importCode": "4sj 4vg 4vg 500 6ts 6ts 6ts 6ts 6ts 6ts 6u3 6u3 6u3 6u3 6u3 6u3 6u6 6u6 6uq 6uq 6uq 6uq 6uq 6uq 6ve 6ve 6ve 6ve 6ve 6ve 8pj",
-          "notes": ""
-        },
-        {
-          "name": "SoSeDBH",
-          "importCode": "6qq 6qq 6qq 6qq 6qq 6u2 6u2 6u2 6u2 6u3 6u3 6u3 6u3 6u5 6u5 6u5 6uq 6uq 6uq 6uq 6uq 6uq 713 74f 74f 77g 7ae 7dq 7gm 7mu 80d 8pj"
+          "name": "Swallow",
+          "importCode": "744 744 744 744 744 744 744 744 744 74b 74b 74b 74b 74b 74d 74d 752 752 752 752 75m 75m 75m 7gq 7gq 7h0 7h0 7hi 7hi 7hi 8pp"
         }
       ]
     }

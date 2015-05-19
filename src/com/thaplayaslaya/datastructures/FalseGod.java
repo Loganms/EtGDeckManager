@@ -12,6 +12,7 @@ public enum FalseGod {
 		this.prettyName = name;
 	}
 
+	@Override
 	public String toString() {
 		return prettyName;
 	}

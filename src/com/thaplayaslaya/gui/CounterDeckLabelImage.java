@@ -84,14 +84,15 @@ public class CounterDeckLabelImage extends LabelImage {
 			DeckManager.getDeckManagerGUI().getOraclePanel().setCurrentlySelectedDeck(this);
 		}
 	}
-	
+
 	public boolean isSameAs(CounterDeckLabelImage cdli) {
-		if(null != cdli.getDeck() && cdli.getDeck().equals(getDeck())){
+		if (null != cdli.getDeck() && cdli.getDeck().equals(getDeck())) {
 			return true;
 		}
 		return false;
 	}
-	
+
+	@Override
 	public String toString() {
 		return this.getDeckCode();
 	}
