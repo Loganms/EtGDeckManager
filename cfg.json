@@ -51,7 +51,14 @@
     }
   ],
   "customFalseGodCounters": {
-    "AKEBONO": [],
+    "AKEBONO": [
+      {
+        "importCode": "6qq 6qq 6qq 6qq 6qq 6qq 6qq 74a 7dr 7dr 7jq 7la 7la 7la 7n9 7q5 7q5 7q5 7q5 7q5 7ri 7ri 7ri 7ri 80d 80d 8pu"
+      },
+      {
+        "importCode": "7t6 7t6 7t6 7t6 7t6 7t6 7ta 7ta 7td 7td 7um 7um 7um 7um 7um 7um 7um 7um 7um 7um 808 808 808 808 80i 80i 80i 80i 80i 80i 8pu"
+      }
+    ],
     "GEMINI": [],
     "MORTE": [],
     "OCTANE": [],

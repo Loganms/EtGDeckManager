@@ -126,15 +126,26 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 			importCodeTextArea.setMinimumSize(new Dimension(300, 100));
 			importCodeTextArea.setBorder(BorderFactory.createEtchedBorder());
 			break;
+		case EDIT_FG_COUNTER_DECK:
+			setTitle("Edit Custom Counter");
+			msgString1 = "Edit the Counter Deck's import code.";
+			undoManager = new UndoManager();
+			importCodeTextArea = new JTextArea(7, 20);
+			initTextArea(importCodeTextArea);
+			importCodeTextArea.setMinimumSize(new Dimension(300, 100));
+			importCodeTextArea.setBorder(BorderFactory.createEtchedBorder());
+			importCodeTextArea.setText(((CounterDeckLabelImage)DeckManager.getDeckManagerGUI().getOraclePanel().getCurrentlySelectedDeck()).getDeckCode());
+			importCodeTextArea.selectAll();
+			break;
 		default:
 			break;
 		}
 
 		Object[] array;
-		if (!this.typeOfOperation.equals(OperationType.ADD_NEW_FG_COUNTER_DECK)) {
-			array = new Object[] { msgString1, nameTextField, tabPane };
-		} else {
+		if (typeOfOperation.equals(OperationType.ADD_NEW_FG_COUNTER_DECK) || typeOfOperation.equals(OperationType.EDIT_FG_COUNTER_DECK)) {
 			array = new Object[] { msgString1, importCodeTextArea };
+		} else {
+			array = new Object[] { msgString1, nameTextField, tabPane };
 		}
 
 		// Create an array specifying the number of dialog buttons
@@ -212,7 +223,7 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 			boolean nameIsSame;
 
 			if (btnString1.equals(value)) {
-				if (typedText.length() > 0 || getTypeOfOperation().equals(OperationType.ADD_NEW_FG_COUNTER_DECK)) {
+				if (typedText.length() > 0 || getTypeOfOperation().equals(OperationType.ADD_NEW_FG_COUNTER_DECK) || getTypeOfOperation().equals(OperationType.EDIT_FG_COUNTER_DECK)) {
 					switch (getTypeOfOperation()) {
 					case ADD_NEW_DECK:
 						DeckBinder db = DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder();
@@ -304,6 +315,18 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 							DeckManager.getDeckManagerGUI().getOraclePanel().resetCurrentlySelectedDeck();
 							DeckManager.getDeckManagerGUI().getOraclePanel().refreshCounterDecks();
 							exit();
+						} else {
+							JOptionPane.showMessageDialog(this, "Sorry, \"" + importCodeTextArea.getText() + "\" is not an import code.\n"
+									+ "Please make sure you input the code correctly.", "Try again", JOptionPane.ERROR_MESSAGE);
+							importCodeTextArea.requestFocusInWindow();
+						}
+						break;
+					case EDIT_FG_COUNTER_DECK:
+						if (importCodeTextArea.getText().length() > 1) {
+						Deck d = ((CounterDeckLabelImage) DeckManager.getDeckManagerGUI().getOraclePanel().getCurrentlySelectedDeck()).getDeck();
+						d.setImportCode(importCodeTextArea.getText());
+						DeckManager.getDeckManagerGUI().getOraclePanel().refreshCounterDecks();
+						exit();
 						} else {
 							JOptionPane.showMessageDialog(this, "Sorry, \"" + importCodeTextArea.getText() + "\" is not an import code.\n"
 									+ "Please make sure you input the code correctly.", "Try again", JOptionPane.ERROR_MESSAGE);

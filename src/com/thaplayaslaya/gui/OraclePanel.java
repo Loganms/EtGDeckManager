@@ -3,6 +3,7 @@ package com.thaplayaslaya.gui;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.net.URL;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.concurrent.ExecutionException;
 import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.InputMap;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -94,8 +96,8 @@ public class OraclePanel extends JPanel {
 		InputMap inMap = getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
 
 		inMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0), DELETE);
-		inMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), LEFT_ARROW);
-		inMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), RIGHT_ARROW);
+		inMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, InputEvent.CTRL_DOWN_MASK), LEFT_ARROW);
+		inMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, InputEvent.CTRL_DOWN_MASK), RIGHT_ARROW);
 
 		getActionMap().put(DELETE, new KeyboardAction(DELETE));
 		getActionMap().put(LEFT_ARROW, new KeyboardAction(LEFT_ARROW));
@@ -261,6 +263,7 @@ public class OraclePanel extends JPanel {
 	}
 
 	public void refreshCounterDecks() {
+		ImageMagnifier.cleanInstance();
 		refreshCounterDeckPanel();
 		CounterDeckGatherer worker = new CounterDeckGatherer();
 		worker.execute();
@@ -285,11 +288,8 @@ public class OraclePanel extends JPanel {
 					deckDisplayTabPane.setSelectedIndex(1);
 
 				if (actionCommand.equals(DELETE)) {
-
+					ImageMagnifier.getInstance(new ImageIcon(((CounterDeckLabelImage) currentlySelectedDeckLabelImage).getDeck().getDeckImage()));
 					if (JOptionPane.showConfirmDialog(DeckManager.getDeckManagerGUI(), "Are you sure you want to delete the selected deck?") == JOptionPane.YES_OPTION) {
-						if (null != currentlySelectedDeckLabelImage.im) {
-							currentlySelectedDeckLabelImage.im.dispose();
-						}
 						DeckManager.getCase().getFGCounterMap().get(currentlySelectedFG.name())
 								.remove(((CounterDeckLabelImage) currentlySelectedDeckLabelImage).getDeck());
 						resetCurrentlySelectedDeck();

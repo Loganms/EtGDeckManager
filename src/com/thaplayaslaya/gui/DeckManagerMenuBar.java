@@ -2,6 +2,7 @@ package com.thaplayaslaya.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
@@ -32,6 +33,7 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
 import com.thaplayaslaya.DeckManager;
+import com.thaplayaslaya.datastructures.OperationType;
 
 @SuppressWarnings("serial")
 public class DeckManagerMenuBar extends JMenuBar {
@@ -39,8 +41,8 @@ public class DeckManagerMenuBar extends JMenuBar {
 	public static final int TOP = 0, BOTTOM = 1, LEFT = 2, RIGHT = 3, CENTER = 4, FLUSH_TOP = 5, FLUSH_BOTTOM = 6, FLUSH_LEFT = 7, FLUSH_RIGHT = 8;
 
 	private JMenu fileMenu;
-	private JMenu newMenu;
-	private JMenuItem newDeckBinderOption;
+	private JMenu newMenu, editMenu;
+	private JMenuItem newDeckBinderOption, selectedDeckOption;
 	private MenuActionListener menuActionListener = new MenuActionListener();
 
 	private JMenu viewMenu;
@@ -70,6 +72,14 @@ public class DeckManagerMenuBar extends JMenuBar {
 		newDeckBinderOption.addActionListener(menuActionListener);
 		newMenu.add(newDeckBinderOption);
 		fileMenu.add(newMenu);
+		editMenu = new JMenu("Edit");
+		editMenu.setMnemonic(KeyEvent.VK_E);
+		selectedDeckOption = new JMenuItem("Selected Deck");
+		selectedDeckOption.setMnemonic(KeyEvent.VK_S);
+		selectedDeckOption.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, InputEvent.CTRL_DOWN_MASK));
+		selectedDeckOption.setActionCommand("Selected Deck");
+		selectedDeckOption.addActionListener(menuActionListener);
+		newMenu.add(selectedDeckOption);
 
 		viewMenu = new JMenu("View");
 		deckImagesMenu = new JMenu("Deck Images");
@@ -158,6 +168,15 @@ public class DeckManagerMenuBar extends JMenuBar {
 			String button = e.getActionCommand();
 			if (button.equals("Deck Binder")) {
 				DeckManager.cfg.getCase().addNewDeckBinder();
+			} else if (button.equals("Selected Deck")) {
+				DeckManagerGUI dmgui = DeckManager.getDeckManagerGUI();
+				if (dmgui.getOraclePanel().isShowing()) {
+					if (dmgui.getOraclePanel().getCurrentlySelectedDeck() instanceof CounterDeckLabelImage) {
+						new CustomDialog(DeckManager.getDeckManagerGUI(), OperationType.EDIT_FG_COUNTER_DECK, null);
+					}
+				} else {
+					new CustomDialog(DeckManager.getDeckManagerGUI(), OperationType.EDIT_DECK, null);
+				}
 			} else if (button.equals(helpMenuNames[0])) {
 				JLabel label1 = new JLabel("Deck Manager", SwingConstants.LEFT);
 				JTextArea text1 = new JTextArea(
@@ -176,27 +195,31 @@ public class DeckManagerMenuBar extends JMenuBar {
 			} else if (button.equals(helpMenuNames[1])) {
 				JLabel deckManager = new JLabel(" Deck Manager Shortcuts ", SwingConstants.CENTER);
 				deckManager.setBorder(BorderFactory.createRaisedBevelBorder());
+				ShortcutDescription editDeck = new ShortcutDescription("Edit Deck", "A deck must be selected", "Ctrl + E");
 				ShortcutDescription moveDeckBinder = new ShortcutDescription("Move Deck Binder UP/DOWN", "A deck must be selected",
-						" Ctrl + UP/DOWN Arrow ");
+						"Ctrl + UP/DOWN Arrow");
 				ShortcutDescription moveDeck = new ShortcutDescription("Move Deck UP/DOWN", "A deck must be selected", "Shft + UP/DOWN Arrow");
 				ShortcutDescription createNewDeckBinder = new ShortcutDescription("Create New Deck Binder", null, "Ctrl + B");
 				ShortcutDescription createNewDeck = new ShortcutDescription("Create New Deck Binder", "A deck must be selected", "Ctrl + D");
 				JLabel oracle = new JLabel(" Oracle Shortcuts ", SwingConstants.CENTER);
 				oracle.setBorder(BorderFactory.createRaisedBevelBorder());
-				ShortcutDescription deleteCounterDeck = new ShortcutDescription("Delete Custom Deck", "A custom deck must be selected", "DELETE Key");
+				ShortcutDescription editCounterDeck = new ShortcutDescription("Edit Custom Deck", "A custom deck must be selected", "Ctrl + E");
 				ShortcutDescription moveCounterDeck = new ShortcutDescription("Move Custom Deck LEFT/RIGHT", "A custom deck must be selected",
-						"LEFT/RIGHT Arrow");
+						"Ctrl + LEFT/RIGHT Arrow");
+				ShortcutDescription deleteCounterDeck = new ShortcutDescription("Delete Custom Deck", "A custom deck must be selected", "DELETE Key");
 
 				Component[] comps = new Component[] {
 						deckManager,
+						editDeck,
 						moveDeckBinder,
 						moveDeck,
 						createNewDeckBinder,
 						createNewDeck,
 						oracle,
-						deleteCounterDeck,
-						moveCounterDeck };
-				new InformationWindow(helpMenuNames[1], comps, false);
+						editCounterDeck,
+						moveCounterDeck,
+						deleteCounterDeck };
+				new InformationWindow(helpMenuNames[1], comps, true);
 			} else if (button.equals(helpMenuNames[2])) {
 				JLabel label1 = new JLabel("EtG Deck Manager is an Open Source Project");
 				JLabel label2 = new JLabel("All Source Code is Available at:");
@@ -310,6 +333,7 @@ public class DeckManagerMenuBar extends JMenuBar {
 				mainPanel.add(panel);
 			}
 			if (needsScrollPanel) {
+
 				mainPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 10));
 
 				scroll = new JScrollPane(mainPanel);
@@ -332,6 +356,9 @@ public class DeckManagerMenuBar extends JMenuBar {
 
 			setContentPane(optionPane);
 			pack();
+			if (needsScrollPanel) {
+				setSize(new Dimension(getWidth(), 440));
+			}
 			setLocationRelativeTo(DeckManager.getDeckManagerGUI());
 			setVisible(true);
 		}

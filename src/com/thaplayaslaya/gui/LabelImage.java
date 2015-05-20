@@ -43,13 +43,16 @@ public class LabelImage extends JLabel implements ILabelImage {
 	@Override
 	public void mouseEntered(MouseEvent event) {
 		if (null != full) {
-			im = new ImageMagnifier(full);
+			im = ImageMagnifier.getInstance(full);
+			if (null != im) {
+				im.repaint();
+			}
 		}
 	}
 
 	@Override
 	public void mouseExited(MouseEvent event) {
-		if (null != im) {
+		if (null != im){
 			im.dispose();
 		}
 	}
