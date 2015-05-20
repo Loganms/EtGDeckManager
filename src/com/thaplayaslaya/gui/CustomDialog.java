@@ -426,6 +426,7 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 				db.getDeckBinderPanel().revalidate();
 			}
 		}
+		ImageMagnifier.cleanInstance();
 		exit();
 	}
 

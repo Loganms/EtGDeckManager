@@ -13,6 +13,7 @@ import java.beans.PropertyChangeListener;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -79,7 +80,8 @@ public class DeckManagerMenuBar extends JMenuBar {
 		selectedDeckOption.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, InputEvent.CTRL_DOWN_MASK));
 		selectedDeckOption.setActionCommand("Selected Deck");
 		selectedDeckOption.addActionListener(menuActionListener);
-		newMenu.add(selectedDeckOption);
+		editMenu.add(selectedDeckOption);
+		fileMenu.add(editMenu);
 
 		viewMenu = new JMenu("View");
 		deckImagesMenu = new JMenu("Deck Images");
@@ -172,10 +174,15 @@ public class DeckManagerMenuBar extends JMenuBar {
 				DeckManagerGUI dmgui = DeckManager.getDeckManagerGUI();
 				if (dmgui.getOraclePanel().isShowing()) {
 					if (dmgui.getOraclePanel().getCurrentlySelectedDeck() instanceof CounterDeckLabelImage) {
+						ImageMagnifier.getInstance(new ImageIcon(((CounterDeckLabelImage) dmgui.getOraclePanel().getCurrentlySelectedDeck()).getDeck().getDeckImage()));
 						new CustomDialog(DeckManager.getDeckManagerGUI(), OperationType.EDIT_FG_COUNTER_DECK, null);
 					}
 				} else {
-					new CustomDialog(DeckManager.getDeckManagerGUI(), OperationType.EDIT_DECK, null);
+					if (null != dmgui.getCurrentlySelectedDeck()) {
+						new CustomDialog(dmgui, OperationType.EDIT_DECK, null);
+					} else {
+						JOptionPane.showMessageDialog(dmgui, "Please choose a deck first.", "Try again", JOptionPane.ERROR_MESSAGE);
+					}
 				}
 			} else if (button.equals(helpMenuNames[0])) {
 				JLabel label1 = new JLabel("Deck Manager", SwingConstants.LEFT);
