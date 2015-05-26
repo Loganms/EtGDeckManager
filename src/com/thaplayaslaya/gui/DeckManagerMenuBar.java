@@ -43,7 +43,7 @@ public class DeckManagerMenuBar extends JMenuBar {
 
 	private JMenu fileMenu;
 	private JMenu newMenu, editMenu;
-	private JMenuItem newDeckBinderOption, selectedDeckOption;
+	private JMenuItem newDeckBinderOption, selectedDeckOption, exportOption;
 	private MenuActionListener menuActionListener = new MenuActionListener();
 
 	private JMenu viewMenu;
@@ -82,6 +82,13 @@ public class DeckManagerMenuBar extends JMenuBar {
 		selectedDeckOption.addActionListener(menuActionListener);
 		editMenu.add(selectedDeckOption);
 		fileMenu.add(editMenu);
+
+		exportOption = new JMenuItem("Export");
+		exportOption.setMnemonic(KeyEvent.VK_X);
+		exportOption.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.CTRL_DOWN_MASK));
+		exportOption.setActionCommand("Export");
+		exportOption.addActionListener(menuActionListener);
+		fileMenu.add(exportOption);
 
 		viewMenu = new JMenu("View");
 		deckImagesMenu = new JMenu("Deck Images");
@@ -174,7 +181,8 @@ public class DeckManagerMenuBar extends JMenuBar {
 				DeckManagerGUI dmgui = DeckManager.getDeckManagerGUI();
 				if (dmgui.getOraclePanel().isShowing()) {
 					if (dmgui.getOraclePanel().getCurrentlySelectedDeck() instanceof CounterDeckLabelImage) {
-						ImageMagnifier.getInstance(new ImageIcon(((CounterDeckLabelImage) dmgui.getOraclePanel().getCurrentlySelectedDeck()).getDeck().getDeckImage()));
+						ImageMagnifier.getInstance(new ImageIcon(((CounterDeckLabelImage) dmgui.getOraclePanel().getCurrentlySelectedDeck())
+								.getDeck().getDeckImage()));
 						new CustomDialog(DeckManager.getDeckManagerGUI(), OperationType.EDIT_FG_COUNTER_DECK, null);
 					}
 				} else {
@@ -183,6 +191,22 @@ public class DeckManagerMenuBar extends JMenuBar {
 					} else {
 						JOptionPane.showMessageDialog(dmgui, "Please choose a deck first.", "Try again", JOptionPane.ERROR_MESSAGE);
 					}
+				}
+			} else if (button.equals("Export")) {
+				Object[] options = { "Entire Case", "Single Deck Binder", "Cancel" };
+				int n = JOptionPane.showOptionDialog(DeckManager.getDeckManagerGUI(), "What do you want to export?", "Export",
+						JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+				switch (n) {
+				case 0:
+					// TODO: link to CaseExportDialog
+					break;
+				case 1:
+					new DeckBinderExportDialog();
+					break;
+				case 2:
+					break;
+				default:
+					break;
 				}
 			} else if (button.equals(helpMenuNames[0])) {
 				JLabel label1 = new JLabel("Deck Manager", SwingConstants.LEFT);
