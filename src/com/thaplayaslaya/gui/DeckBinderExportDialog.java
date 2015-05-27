@@ -1,39 +1,42 @@
 package com.thaplayaslaya.gui;
 
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
-import javax.swing.AbstractAction;
+import javax.swing.AbstractListModel;
+import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 
 import com.thaplayaslaya.DeckManager;
+import com.thaplayaslaya.Export;
 import com.thaplayaslaya.datastructures.Deck;
 import com.thaplayaslaya.datastructures.DeckBinder;
 
 public class DeckBinderExportDialog extends JDialog {
 
-	private static final long serialVersionUID = -1407390593752373486L;
-	private javax.swing.ButtonGroup buttonGroup1;
-	private javax.swing.ButtonGroup buttonGroup2;
+	private static final long serialVersionUID = -4516632183346923306L;
 	private javax.swing.JButton jButton1;
 	private javax.swing.JButton jButton2;
 	private javax.swing.JCheckBox jCheckBox1;
+	private javax.swing.JCheckBox jCheckBox2;
+	private javax.swing.JCheckBox jCheckBox3;
 	private javax.swing.JComboBox<DeckBinder> jComboBox1;
 	private javax.swing.JLabel jLabel1;
-	private javax.swing.JLabel jLabel2;
-	private javax.swing.JLabel jLabel3;
-	private javax.swing.JLabel jLabel4;
 	private javax.swing.JList<Deck> jList1;
 	private javax.swing.JPanel jPanel1;
-	private javax.swing.JRadioButton jRadioButton1;
-	private javax.swing.JRadioButton jRadioButton2;
-	private javax.swing.JRadioButton jRadioButton3;
-	private javax.swing.JRadioButton jRadioButton4;
+	private javax.swing.JPanel jPanel2;
+	private javax.swing.JPanel jPanel3;
+	private javax.swing.JPanel jPanel4;
 	private javax.swing.JScrollPane jScrollPane1;
 
 	public DeckBinderExportDialog() {
 		super(DeckManager.getDeckManagerGUI(), "Export", true);
 		initComponents();
-		
+		setLocationRelativeTo(DeckManager.getDeckManagerGUI());
 		setVisible(true);
 	}
 
@@ -45,36 +48,116 @@ public class DeckBinderExportDialog extends JDialog {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void initComponents() {
 
-		buttonGroup1 = new javax.swing.ButtonGroup();
-		buttonGroup2 = new javax.swing.ButtonGroup();
-		jComboBox1 = new javax.swing.JComboBox<>();
-		jLabel1 = new javax.swing.JLabel();
-		jLabel2 = new javax.swing.JLabel();
-		jScrollPane1 = new javax.swing.JScrollPane();
-		jList1 = new javax.swing.JList<>();
-		jLabel3 = new javax.swing.JLabel();
-		jRadioButton1 = new javax.swing.JRadioButton();
-		jRadioButton2 = new javax.swing.JRadioButton();
-		jLabel4 = new javax.swing.JLabel();
-		jRadioButton3 = new javax.swing.JRadioButton();
-		jRadioButton4 = new javax.swing.JRadioButton();
-		jCheckBox1 = new javax.swing.JCheckBox();
+		jPanel2 = new javax.swing.JPanel();
 		jPanel1 = new javax.swing.JPanel();
 		jButton2 = new javax.swing.JButton();
 		jButton1 = new javax.swing.JButton();
+		jPanel3 = new javax.swing.JPanel();
+		jCheckBox3 = new javax.swing.JCheckBox();
+		jCheckBox2 = new javax.swing.JCheckBox();
+		jPanel4 = new javax.swing.JPanel();
+		jCheckBox1 = new javax.swing.JCheckBox();
+		jScrollPane1 = new javax.swing.JScrollPane();
+		jList1 = new javax.swing.JList();
+		jComboBox1 = new javax.swing.JComboBox();
+		jLabel1 = new javax.swing.JLabel();
 
-		
-		addWindowListener(new java.awt.event.WindowAdapter() {
-			public void windowOpened(java.awt.event.WindowEvent evt) {
-				formWindowOpened(evt);
+		javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+		jPanel2.setLayout(jPanel2Layout);
+		jPanel2Layout
+				.setHorizontalGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 100, Short.MAX_VALUE));
+		jPanel2Layout.setVerticalGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 100, Short.MAX_VALUE));
+
+		setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+		setTitle("Export");
+
+		jButton2.setText("Cancel");
+		jButton2.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+			
+		});
+
+		jButton1.setText("Export");
+		jButton1.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String s = Export.exportDeckBinder(jComboBox1.getSelectedItem().toString(), jList1.getSelectedValuesList(), jCheckBox2.isSelected(), jCheckBox3.isSelected());
+				Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(s), null);
+			}
+			
+		});
+
+		javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+		jPanel1.setLayout(jPanel1Layout);
+		jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
+				jPanel1Layout.createSequentialGroup().addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE).addComponent(jButton1)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jButton2).addGap(4, 4, 4)));
+
+		jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] { jButton1, jButton2 });
+
+		jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
+				jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(jButton1).addComponent(jButton2)));
+
+		jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Misc Settings"));
+
+		jCheckBox3.setText("Surround with Spoiler Tags");
+
+		jCheckBox2.setText("Include Deck Notes");
+
+		javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+		jPanel3.setLayout(jPanel3Layout);
+		jPanel3Layout.setHorizontalGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
+				jPanel3Layout
+						.createSequentialGroup()
+						.addContainerGap()
+						.addGroup(
+								jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(jCheckBox2)
+										.addComponent(jCheckBox3)).addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+		jPanel3Layout.setVerticalGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
+				jPanel3Layout.createSequentialGroup().addComponent(jCheckBox2).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+						.addComponent(jCheckBox3).addContainerGap()));
+
+		jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Content Settings"));
+
+		jCheckBox1.setText("Export All Decks");
+		jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				actionHandler(evt);
 			}
 		});
 
 		jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(DeckManager.getCase().getDeckBinders().toArray()));
+		jComboBox1.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if (e.getStateChange() == ItemEvent.SELECTED) {
+					final DeckBinder db = (DeckBinder) e.getItem();
+					jList1.setModel(new AbstractListModel() {
 
-		jLabel1.setText("Select a deck binder to export");
+						private static final long serialVersionUID = 3783339179630942179L;
+						Object[] decks = db.getDecks().toArray();
 
-		jLabel2.setText("Select which decks to export");
+						@Override
+						public int getSize() {
+							return decks.length;
+						}
+
+						@Override
+						public Object getElementAt(int i) {
+							return decks[i];
+						}
+					});
+					if (jCheckBox1.isSelected()){
+						jList1.setSelectionInterval(0, jList1.getModel().getSize() - 1);
+					}
+					pack();
+				}
+			}
+		});
 
 		jList1.setModel(new javax.swing.AbstractListModel() {
 			private static final long serialVersionUID = 6714572148047594046L;
@@ -89,117 +172,72 @@ public class DeckBinderExportDialog extends JDialog {
 			}
 		});
 		jList1.setLayoutOrientation(javax.swing.JList.VERTICAL_WRAP);
-		jList1.setVisibleRowCount(-1);
+		jList1.setVisibleRowCount(3);
 		jScrollPane1.setViewportView(jList1);
 
-		jLabel3.setText("Include notes in export?");
+		jLabel1.setText("Deck Binder:");
 
-		buttonGroup1.add(jRadioButton1);
-		jRadioButton1.setText("Yes");
-
-		buttonGroup1.add(jRadioButton2);
-		jRadioButton2.setText("No");
-
-		jLabel4.setText("Wrap in spoiler tags?");
-
-		buttonGroup2.add(jRadioButton3);
-		jRadioButton3.setText("Yes");
-
-		buttonGroup2.add(jRadioButton4);
-		jRadioButton4.setText("No");
-
-		jCheckBox1.setText("Select All");
-
-		jButton2.setText("Cancel");
-		jButton2.addActionListener(new AbstractAction() {
-
-			private static final long serialVersionUID = 8268365496529927606L;
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				pack();
-			}
-
-		});
-
-		jButton1.setText("Export");
-
-		javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-		jPanel1.setLayout(jPanel1Layout);
-		jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-				jPanel1Layout.createSequentialGroup().addGap(3, 3, 3).addComponent(jButton1)
-						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(jButton2).addGap(4, 4, 4)));
-
-		jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] { jButton1, jButton2 });
-
-		jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-				jPanel1Layout
+		javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+		jPanel4.setLayout(jPanel4Layout);
+		jPanel4Layout.setHorizontalGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
+				jPanel4Layout
 						.createSequentialGroup()
-						.addGap(10, 10, 10)
+						.addContainerGap()
 						.addGroup(
-								jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(jButton1)
-										.addComponent(jButton2)).addContainerGap(12, Short.MAX_VALUE)));
+								jPanel4Layout
+										.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+										.addComponent(jScrollPane1)
+										.addGroup(jPanel4Layout.createSequentialGroup().addComponent(jCheckBox1).addGap(0, 0, Short.MAX_VALUE))
+										.addGroup(
+												jPanel4Layout.createSequentialGroup().addComponent(jLabel1)
+														.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+														.addComponent(jComboBox1, 0, 81, Short.MAX_VALUE))).addContainerGap()));
+		jPanel4Layout.setVerticalGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
+				javax.swing.GroupLayout.Alignment.TRAILING,
+				jPanel4Layout
+						.createSequentialGroup()
+						.addContainerGap()
+						.addGroup(
+								jPanel4Layout
+										.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+										.addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
+												javax.swing.GroupLayout.PREFERRED_SIZE).addComponent(jLabel1))
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jCheckBox1)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED).addComponent(jScrollPane1).addContainerGap()));
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
 		layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
 				layout.createSequentialGroup()
-						.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addContainerGap()
 						.addGroup(
-								layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-										.addComponent(jLabel4)
-										.addGroup(
-												layout.createSequentialGroup().addComponent(jRadioButton3)
-														.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-														.addComponent(jRadioButton4))
-										.addComponent(jLabel2)
-										.addComponent(jLabel3)
-										.addGroup(
-												layout.createSequentialGroup().addComponent(jRadioButton1)
-														.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-														.addComponent(jRadioButton2))
-										.addComponent(jCheckBox1)
-										.addComponent(jScrollPane1)
-										.addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
+								layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+										.addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
 												Short.MAX_VALUE)
-										.addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-												Short.MAX_VALUE).addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-						.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+										.addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
+												Short.MAX_VALUE)
+										.addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE,
+												javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)).addContainerGap()));
 		layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
 				layout.createSequentialGroup()
-						.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(jLabel1)
+						.addContainerGap()
+						.addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-						.addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
+						.addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
 								javax.swing.GroupLayout.PREFERRED_SIZE)
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-						.addComponent(jLabel2)
-						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-						.addComponent(jCheckBox1)
-						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-						.addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-						.addComponent(jLabel3)
-						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-						.addGroup(
-								layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(jRadioButton1)
-										.addComponent(jRadioButton2))
-						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-						.addComponent(jLabel4)
-						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-						.addGroup(
-								layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(jRadioButton3)
-										.addComponent(jRadioButton4))
-						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 						.addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-								javax.swing.GroupLayout.PREFERRED_SIZE)));
+								javax.swing.GroupLayout.PREFERRED_SIZE).addContainerGap()));
+
 		pack();
 	}
 
-	private void formWindowOpened(java.awt.event.WindowEvent evt) {	
-		pack();
-		setLocationRelativeTo(DeckManager.getDeckManagerGUI());
+	private void actionHandler(java.awt.event.ActionEvent evt) {
+		if (((JCheckBox) evt.getSource()).isSelected()) {
+			jList1.setSelectionInterval(0, jList1.getModel().getSize() - 1);
+			jList1.setEnabled(false);
+		} else {
+			jList1.setEnabled(true);
+		}
 	}
-
 }
