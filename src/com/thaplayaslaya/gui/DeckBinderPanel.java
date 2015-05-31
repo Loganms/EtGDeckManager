@@ -1,9 +1,6 @@
 package com.thaplayaslaya.gui;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -14,7 +11,6 @@ import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 
 import javax.swing.AbstractAction;
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -27,14 +23,13 @@ import com.thaplayaslaya.datastructures.Deck;
 import com.thaplayaslaya.datastructures.OperationType;
 
 public class DeckBinderPanel extends JPanel implements ActionListener {
-
+	
+	public static final int MAX_HORIZONTAL = 200;
 	private static final long serialVersionUID = -1215607079828446786L;
-	private static final Dimension MAXIMUM_SIZE = new Dimension(120, 40 + 20);
 	private String name = "[Default Name]", upArrow = "UpArrow", downArrow = "DownArrow";
 	private JLabel dBName = new JLabel(this.name, JLabel.LEFT);
 	private JComboBox<Deck> comboBox = new DeckBinderComboBox<Deck>();
 	private JButton renameButton = new JButton(OperationType.RENAME_DECKBINDER.getText()), deleteButton = new JButton("D");
-	private JPanel northPanel = new JPanel();
 	private ItemChangeListener itemChangeListener = new ItemChangeListener();
 	private cBFocusListener focusListener = new cBFocusListener();
 	private boolean hasListenersEnabled = false;
@@ -49,36 +44,45 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 	}
 
 	private void init() {
-		this.setLayout(new BorderLayout());
+		comboBox.setToolTipText("Move (Shft+UP/DOWN)");
 
-		dBName.setBorder(BorderFactory.createEmptyBorder(10, 0, 5, 0));
-		dBName.setPreferredSize(new Dimension(80, 10));
-		dBName.setToolTipText("Move (Ctrl+UP/DOWN)");
-
-		renameButton.setFont(new Font(Font.DIALOG, Font.PLAIN, 10));
+		renameButton.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
 		renameButton.setMargin(new java.awt.Insets(0, 2, 0, 2));
 		renameButton.setToolTipText("Rename Deck Binder");
 		renameButton.addActionListener(this);
 
-		deleteButton.setFont(new Font(Font.DIALOG, Font.PLAIN, 10));
+		deleteButton.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
 		deleteButton.setMargin(new java.awt.Insets(0, 2, 0, 2));
 		deleteButton.setToolTipText("Delete Deck Binder");
 		deleteButton.addActionListener(this);
-
-		JPanel renameButtonPanel = new JPanel();
-		renameButtonPanel.add(renameButton, Component.RIGHT_ALIGNMENT);
-		renameButtonPanel.add(deleteButton, Component.RIGHT_ALIGNMENT);
-
-		northPanel.setLayout(new BorderLayout());
-		northPanel.add(dBName, BorderLayout.WEST);
-		northPanel.add(renameButtonPanel, BorderLayout.EAST);
-		this.add(northPanel, BorderLayout.NORTH);
-
-		this.setBorder(BorderFactory.createEmptyBorder(0, 0, 5, 0));
-		comboBox.setToolTipText("Move (Shft+UP/DOWN)");
-
-		this.add(comboBox, BorderLayout.CENTER);
-		this.setMaximumSize(MAXIMUM_SIZE);
+		
+		dBName.setToolTipText("Move (Ctrl+UP/DOWN)");
+		
+		
+		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+		this.setLayout(layout);
+		layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
+				layout.createSequentialGroup()
+						.addContainerGap()
+						.addGroup(
+								layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+										.addGroup(
+												layout.createSequentialGroup()
+														.addComponent(dBName, 50,
+																javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE).addGap(20, 20, 20)
+														.addComponent(renameButton)
+														.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+														.addComponent(deleteButton))
+										.addComponent(comboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)).addContainerGap()));
+		layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
+				layout.createSequentialGroup()
+						.addGroup(
+								layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(dBName)
+										.addComponent(renameButton).addComponent(deleteButton))
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(comboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
+								javax.swing.GroupLayout.PREFERRED_SIZE)));
+		
 		DeckManager.getDeckManagerGUI().getDeckBinderPanels().add(this);
 	}
 
@@ -205,5 +209,16 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 				dmg.getCasePanel().revalidate();
 			}
 		}
+	}
+	
+	@Override
+	public Dimension getPreferredSize() {
+		return new Dimension(30 + dBName.getSize().width + renameButton.getSize().width*2, 
+				6 + renameButton.getSize().height + comboBox.getSize().height);
+	}
+	
+	@Override
+	public Dimension getMaximumSize(){
+		return new Dimension(MAX_HORIZONTAL, Short.MAX_VALUE);
 	}
 }

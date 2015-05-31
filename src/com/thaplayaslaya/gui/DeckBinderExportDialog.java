@@ -72,24 +72,25 @@ public class DeckBinderExportDialog extends JDialog {
 		setTitle("Export");
 
 		jButton2.setText("Cancel");
-		jButton2.addActionListener(new ActionListener(){
+		jButton2.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 			}
-			
+
 		});
 
 		jButton1.setText("Export");
-		jButton1.addActionListener(new ActionListener(){
+		jButton1.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String s = Export.exportDeckBinder(jComboBox1.getSelectedItem().toString(), jList1.getSelectedValuesList(), jCheckBox2.isSelected(), jCheckBox3.isSelected());
+				String s = Export.exportDeckBinder(jComboBox1.getSelectedItem().toString(), jList1.getSelectedValuesList(), jCheckBox2.isSelected(),
+						jCheckBox3.isSelected());
 				Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(s), null);
 			}
-			
+
 		});
 
 		javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -151,7 +152,7 @@ public class DeckBinderExportDialog extends JDialog {
 							return decks[i];
 						}
 					});
-					if (jCheckBox1.isSelected()){
+					if (jCheckBox1.isSelected()) {
 						jList1.setSelectionInterval(0, jList1.getModel().getSize() - 1);
 					}
 					pack();

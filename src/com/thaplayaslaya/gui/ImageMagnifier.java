@@ -19,7 +19,7 @@ class ImageMagnifier extends JWindow {
 	private ImageMagnifier() {
 		contentPane = getContentPane();
 		setFocusableWindowState(false);
-		
+
 	}
 
 	public static ImageMagnifier getInstance(ImageIcon imageFile) {
@@ -34,15 +34,15 @@ class ImageMagnifier extends JWindow {
 			return instance;
 		}
 	}
-	
+
 	private static void readyInstance(ImageIcon imageFile) {
 		label = new JLabel(imageFile);
 		contentPane.add(label);
-		
+
 		instance.setLocation(DeckManager.getDeckManagerGUI().getSmartExternalWindowLocation(instance));
 		instance.setVisible(true);
 	}
-	
+
 	public static void cleanInstance() {
 		if (null != instance) {
 			instance.dispose();

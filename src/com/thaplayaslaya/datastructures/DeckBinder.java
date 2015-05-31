@@ -99,8 +99,12 @@ public class DeckBinder {
 		DeckManager.getDeckManagerGUI().removeDeckBinderPanel(deckBinder.dBP);
 		deckBinder = null;
 	}
-	
-	public String toString(){
+
+	public String toString() {
 		return name;
+	}
+
+	public DeckBinderPanel getDBP() {
+		return dBP;
 	}
 }

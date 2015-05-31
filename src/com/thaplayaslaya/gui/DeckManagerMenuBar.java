@@ -201,12 +201,13 @@ public class DeckManagerMenuBar extends JMenuBar {
 					// TODO: link to CaseExportDialog
 					break;
 				case 1:
-					if(DeckManager.getCase().getDeckBinders().isEmpty()){
-						JOptionPane.showMessageDialog(DeckManager.getDeckManagerGUI(), "No Deck Binders available to export.\nCreate a new Deck Binder and try again.", "Error", JOptionPane.OK_OPTION);
+					if (DeckManager.getCase().getDeckBinders().isEmpty()) {
+						JOptionPane.showMessageDialog(DeckManager.getDeckManagerGUI(),
+								"No Deck Binders available to export.\nCreate a new Deck Binder and try again.", "Error", JOptionPane.OK_OPTION);
 					} else {
 						new DeckBinderExportDialog();
 					}
-					
+
 					break;
 				case 2:
 					break;

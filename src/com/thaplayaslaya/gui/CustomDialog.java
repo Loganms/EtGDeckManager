@@ -134,7 +134,8 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 			initTextArea(importCodeTextArea);
 			importCodeTextArea.setMinimumSize(new Dimension(300, 100));
 			importCodeTextArea.setBorder(BorderFactory.createEtchedBorder());
-			importCodeTextArea.setText(((CounterDeckLabelImage)DeckManager.getDeckManagerGUI().getOraclePanel().getCurrentlySelectedDeck()).getDeckCode());
+			importCodeTextArea.setText(((CounterDeckLabelImage) DeckManager.getDeckManagerGUI().getOraclePanel().getCurrentlySelectedDeck())
+					.getDeckCode());
 			importCodeTextArea.selectAll();
 			break;
 		default:
@@ -223,7 +224,8 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 			boolean nameIsSame;
 
 			if (btnString1.equals(value)) {
-				if (typedText.length() > 0 || getTypeOfOperation().equals(OperationType.ADD_NEW_FG_COUNTER_DECK) || getTypeOfOperation().equals(OperationType.EDIT_FG_COUNTER_DECK)) {
+				if (typedText.length() > 0 || getTypeOfOperation().equals(OperationType.ADD_NEW_FG_COUNTER_DECK)
+						|| getTypeOfOperation().equals(OperationType.EDIT_FG_COUNTER_DECK)) {
 					switch (getTypeOfOperation()) {
 					case ADD_NEW_DECK:
 						DeckBinder db = DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder();
@@ -323,10 +325,10 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 						break;
 					case EDIT_FG_COUNTER_DECK:
 						if (importCodeTextArea.getText().length() > 1) {
-						Deck d = ((CounterDeckLabelImage) DeckManager.getDeckManagerGUI().getOraclePanel().getCurrentlySelectedDeck()).getDeck();
-						d.setImportCode(importCodeTextArea.getText());
-						DeckManager.getDeckManagerGUI().getOraclePanel().refreshCounterDecks();
-						exit();
+							Deck d = ((CounterDeckLabelImage) DeckManager.getDeckManagerGUI().getOraclePanel().getCurrentlySelectedDeck()).getDeck();
+							d.setImportCode(importCodeTextArea.getText());
+							DeckManager.getDeckManagerGUI().getOraclePanel().refreshCounterDecks();
+							exit();
 						} else {
 							JOptionPane.showMessageDialog(this, "Sorry, \"" + importCodeTextArea.getText() + "\" is not an import code.\n"
 									+ "Please make sure you input the code correctly.", "Try again", JOptionPane.ERROR_MESSAGE);

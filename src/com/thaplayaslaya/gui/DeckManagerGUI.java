@@ -1,11 +1,12 @@
 package com.thaplayaslaya.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.LayoutManager;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.Window;
@@ -22,7 +23,6 @@ import java.util.LinkedList;
 
 import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.InputMap;
 import javax.swing.JButton;
@@ -60,7 +60,8 @@ public class DeckManagerGUI extends JFrame {
 
 	private JTabbedPane tabbedPane = new JTabbedPane();
 
-	private JPanel leftPanel = new JPanel();
+	private JPanel rightPanel;
+	//private JPanel leftPanel = new JPanel();
 	private JPanel casePanel = new JPanel();
 	private JPanel centerPanel = new JPanel();
 	private JPanel promptPanel = new JPanel();
@@ -95,10 +96,10 @@ public class DeckManagerGUI extends JFrame {
 	}
 
 	private void setCenter() {
-		centerPanel.setLayout(new GridLayout(1, 2));
+		centerPanel.setLayout(new BorderLayout());
 		setCase();
 
-		JPanel rightPanel = new JPanel();
+		rightPanel = new JPanel();
 		JPanel innerRightPanel = new JPanel();
 
 		JLabel rightPrompt = new JLabel("Currently Selected Deck", SwingConstants.CENTER);
@@ -110,7 +111,6 @@ public class DeckManagerGUI extends JFrame {
 				"Delete this deck" };
 
 		rightPanel.setLayout(new BorderLayout());
-		rightPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 		innerRightPanel.setLayout(new BorderLayout());
 		innerRightPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		promptPanel.setLayout(new BorderLayout());
@@ -129,7 +129,7 @@ public class DeckManagerGUI extends JFrame {
 
 		innerRightPanel.add(buttonsPanel, BorderLayout.CENTER);
 		rightPanel.add(innerRightPanel);
-		centerPanel.add(rightPanel);
+		centerPanel.add(rightPanel, BorderLayout.EAST);
 		tabbedPane.addTab("Deck Manager", null, centerPanel, "Save Organize Edit");
 		tabbedPane.setMnemonicAt(tabbedPane.getTabCount() - 1, KeyEvent.VK_M);
 		tabbedPane.addTab("Oracle", null, oraclePanel, "Prediction Help");
@@ -150,6 +150,10 @@ public class DeckManagerGUI extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			if (currentlySelectedDeck != null) {
 				if (e.getActionCommand().equals("Copy Code")) {
+					System.out.println("MIN " + casePanel.getMinimumSize());
+					System.out.println("PREF " + casePanel.getPreferredSize());
+					System.out.println("MAX " + casePanel.getMaximumSize());
+					System.out.println("ACT " + casePanel.getSize());
 					Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(currentlySelectedDeck.getImportCode()), null);
 				} else if (e.getActionCommand().equals("View Deck")) {
 					BufferedImage img = currentlySelectedDeck.getDeckImage();
@@ -273,18 +277,20 @@ public class DeckManagerGUI extends JFrame {
 	}
 
 	public void setCase() {
-		casePanel.setLayout(new BoxLayout(casePanel, BoxLayout.Y_AXIS));
+		LayoutManager vfl = new WrapLayout();
+		((WrapLayout) vfl).setHgap(0);
+		((WrapLayout) vfl).setVgap(8);
+		((WrapLayout) vfl).setAlignment(FlowLayout.LEFT);
+		((WrapLayout) vfl).setMaximizeHorizontalDimension(true);
+		casePanel.setLayout(vfl);
+		
 		for (DeckBinderPanel dbp : getDeckBinderPanels()) {
 			casePanel.add(dbp);
 		}
-
-		leftPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-		leftPanel.setLayout(new BorderLayout());
+		
 		JScrollPane scroll = new JScrollPane(casePanel);
 		scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scroll.setBorder(BorderFactory.createEmptyBorder());
-		leftPanel.add(scroll, BorderLayout.CENTER);
-		centerPanel.add(leftPanel);
+		centerPanel.add(scroll, BorderLayout.CENTER);
 	}
 
 	public LinkedList<DeckBinderPanel> getDeckBinderPanels() {
