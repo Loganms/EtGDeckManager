@@ -6,7 +6,6 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.LayoutManager;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.Window;
@@ -61,7 +60,7 @@ public class DeckManagerGUI extends JFrame {
 	private JTabbedPane tabbedPane = new JTabbedPane();
 
 	private JPanel rightPanel;
-	//private JPanel leftPanel = new JPanel();
+	// private JPanel leftPanel = new JPanel();
 	private JPanel casePanel = new JPanel();
 	private JPanel centerPanel = new JPanel();
 	private JPanel promptPanel = new JPanel();
@@ -277,17 +276,17 @@ public class DeckManagerGUI extends JFrame {
 	}
 
 	public void setCase() {
-		LayoutManager vfl = new WrapLayout();
-		((WrapLayout) vfl).setHgap(0);
-		((WrapLayout) vfl).setVgap(8);
-		((WrapLayout) vfl).setAlignment(FlowLayout.LEFT);
-		((WrapLayout) vfl).setMaximizeHorizontalDimension(true);
-		casePanel.setLayout(vfl);
-		
+		WrapLayout wrap = new WrapLayout();
+		wrap.setHgap(0);
+		wrap.setVgap(7);
+		wrap.setAlignment(FlowLayout.LEFT);
+		wrap.setMaximizeHorizontalDimension(true);
+		casePanel.setLayout(wrap);
+
 		for (DeckBinderPanel dbp : getDeckBinderPanels()) {
 			casePanel.add(dbp);
 		}
-		
+
 		JScrollPane scroll = new JScrollPane(casePanel);
 		scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		centerPanel.add(scroll, BorderLayout.CENTER);

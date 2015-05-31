@@ -23,7 +23,7 @@ import com.thaplayaslaya.datastructures.Deck;
 import com.thaplayaslaya.datastructures.OperationType;
 
 public class DeckBinderPanel extends JPanel implements ActionListener {
-	
+
 	public static final int MAX_HORIZONTAL = 200;
 	private static final long serialVersionUID = -1215607079828446786L;
 	private String name = "[Default Name]", upArrow = "UpArrow", downArrow = "DownArrow";
@@ -55,10 +55,9 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 		deleteButton.setMargin(new java.awt.Insets(0, 2, 0, 2));
 		deleteButton.setToolTipText("Delete Deck Binder");
 		deleteButton.addActionListener(this);
-		
+
 		dBName.setToolTipText("Move (Ctrl+UP/DOWN)");
-		
-		
+
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
 		this.setLayout(layout);
 		layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
@@ -68,9 +67,8 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 								layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 										.addGroup(
 												layout.createSequentialGroup()
-														.addComponent(dBName, 50,
-																javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE).addGap(20, 20, 20)
-														.addComponent(renameButton)
+														.addComponent(dBName, 50, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+														.addGap(20, 20, 20).addComponent(renameButton)
 														.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 														.addComponent(deleteButton))
 										.addComponent(comboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)).addContainerGap()));
@@ -82,7 +80,7 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(comboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
 								javax.swing.GroupLayout.PREFERRED_SIZE)));
-		
+
 		DeckManager.getDeckManagerGUI().getDeckBinderPanels().add(this);
 	}
 
@@ -210,15 +208,15 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 			}
 		}
 	}
-	
+
 	@Override
 	public Dimension getPreferredSize() {
-		return new Dimension(30 + dBName.getSize().width + renameButton.getSize().width*2, 
-				6 + renameButton.getSize().height + comboBox.getSize().height);
+		return new Dimension(30 + dBName.getSize().width + renameButton.getSize().width * 2, 6 + renameButton.getSize().height
+				+ comboBox.getSize().height);
 	}
-	
+
 	@Override
-	public Dimension getMaximumSize(){
+	public Dimension getMaximumSize() {
 		return new Dimension(MAX_HORIZONTAL, Short.MAX_VALUE);
 	}
 }

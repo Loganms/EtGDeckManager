@@ -10,14 +10,14 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 
 /**
- * FlowLayout subclass that fully supports wrapping of components.
- * Taken from <https://tips4java.wordpress.com/2008/11/06/wrap-layout/>
- * Modified to include option to maximize horizontal dimension
+ * FlowLayout subclass that fully supports wrapping of components. Taken from
+ * <https://tips4java.wordpress.com/2008/11/06/wrap-layout/> Modified to include
+ * option to maximize horizontal dimension
  */
 public class WrapLayout extends FlowLayout {
 
 	private static final long serialVersionUID = -535249657304983386L;
-	//private Dimension preferredLayoutSize;
+	// private Dimension preferredLayoutSize;
 	private boolean maximizeHorizontalDimension = false;
 
 	public void setMaximizeHorizontalDimension(boolean max) {
@@ -163,6 +163,7 @@ public class WrapLayout extends FlowLayout {
 	 * @see Container
 	 * @see java.awt.Container#doLayout
 	 */
+	@Override
 	public void layoutContainer(Container target) {
 		synchronized (target.getTreeLock()) {
 			Insets insets = target.getInsets();
@@ -186,7 +187,8 @@ public class WrapLayout extends FlowLayout {
 				Component m = target.getComponent(i);
 				if (m.isVisible()) {
 					Dimension d = m.getPreferredSize();
-					if (maximizeHorizontalDimension) d.width = Math.min(m.getMaximumSize().width, maxwidth);
+					if (maximizeHorizontalDimension)
+						d.width = Math.min(m.getMaximumSize().width, maxwidth);
 
 					m.setSize(d.width, d.height);
 
@@ -279,10 +281,10 @@ public class WrapLayout extends FlowLayout {
 			// When the container width = 0, the preferred width of the
 			// container
 			// has not yet been calculated so lets ask for the maximum.
-			
+
 			int targetWidth = target.getSize().width;
-			//something happens when targetWidth == 360;
-			
+			// something happens when targetWidth == 360;
+
 			System.out.println(targetWidth);
 			if (targetWidth == 0)
 				targetWidth = Integer.MAX_VALUE;
@@ -306,7 +308,8 @@ public class WrapLayout extends FlowLayout {
 
 				if (m.isVisible()) {
 					Dimension d = preferred ? m.getPreferredSize() : m.getMinimumSize();
-					if (maximizeHorizontalDimension) d.width = Math.min(m.getMaximumSize().width, maxWidth);
+					if (maximizeHorizontalDimension)
+						d.width = Math.min(m.getMaximumSize().width, maxWidth);
 					// Can't add the component to current row. Start a new row.
 
 					if (rowWidth + d.width > maxWidth) {
@@ -345,7 +348,9 @@ public class WrapLayout extends FlowLayout {
 			return dim;
 		}
 	}
-int rowcount = 0;
+
+	int rowcount = 0;
+
 	/*
 	 * A new row has been completed. Use the dimensions of this row to update
 	 * the preferred size for the container.
@@ -357,7 +362,7 @@ int rowcount = 0;
 	 * @param rowHeight the height of the row to add
 	 */
 	private void addRow(Dimension dim, int rowWidth, int rowHeight) {
-		
+
 		System.out.println("New Row Being Added: " + rowcount++);
 		dim.width = Math.max(dim.width, rowWidth);
 

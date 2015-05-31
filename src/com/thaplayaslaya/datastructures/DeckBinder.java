@@ -100,6 +100,7 @@ public class DeckBinder {
 		deckBinder = null;
 	}
 
+	@Override
 	public String toString() {
 		return name;
 	}

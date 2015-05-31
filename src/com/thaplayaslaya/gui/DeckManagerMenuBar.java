@@ -193,12 +193,18 @@ public class DeckManagerMenuBar extends JMenuBar {
 					}
 				}
 			} else if (button.equals("Export")) {
+				// { 0, 1, 2}
 				Object[] options = { "Entire Case", "Single Deck Binder", "Cancel" };
-				int n = JOptionPane.showOptionDialog(DeckManager.getDeckManagerGUI(), "What do you want to export?", "Export",
-						JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-				switch (n) {
+				// switch on the outcome
+				switch (JOptionPane.showOptionDialog(DeckManager.getDeckManagerGUI(), "What do you want to export?", "Export",
+						JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0])) {
 				case 0:
-					// TODO: link to CaseExportDialog
+					if (DeckManager.getCase().getDeckBinders().isEmpty()) {
+						JOptionPane.showMessageDialog(DeckManager.getDeckManagerGUI(),
+								"The Case contains no Deck Binders.\nCreate a new Deck Binder and try again.", "Error", JOptionPane.OK_OPTION);
+					} else {
+						new CaseExportDialog();
+					}
 					break;
 				case 1:
 					if (DeckManager.getCase().getDeckBinders().isEmpty()) {

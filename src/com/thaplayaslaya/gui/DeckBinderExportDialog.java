@@ -127,6 +127,7 @@ public class DeckBinderExportDialog extends JDialog {
 
 		jCheckBox1.setText("Export All Decks");
 		jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				actionHandler(evt);
 			}
@@ -134,6 +135,7 @@ public class DeckBinderExportDialog extends JDialog {
 
 		jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(DeckManager.getCase().getDeckBinders().toArray()));
 		jComboBox1.addItemListener(new ItemListener() {
+			@Override
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
 					final DeckBinder db = (DeckBinder) e.getItem();
@@ -164,10 +166,12 @@ public class DeckBinderExportDialog extends JDialog {
 			private static final long serialVersionUID = 6714572148047594046L;
 			Object[] decks = ((DeckBinder) jComboBox1.getSelectedItem()).getDecks().toArray();
 
+			@Override
 			public int getSize() {
 				return decks.length;
 			}
 
+			@Override
 			public Object getElementAt(int i) {
 				return decks[i];
 			}
