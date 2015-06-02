@@ -285,7 +285,6 @@ public class WrapLayout extends FlowLayout {
 			int targetWidth = target.getSize().width;
 			// something happens when targetWidth == 360;
 
-			System.out.println(targetWidth);
 			if (targetWidth == 0)
 				targetWidth = Integer.MAX_VALUE;
 
@@ -344,7 +343,6 @@ public class WrapLayout extends FlowLayout {
 			if (scrollPane != null && target.isValid()) {
 				dim.width -= (hgap + 1);
 			}
-			System.out.println(dim);
 			return dim;
 		}
 	}
@@ -363,7 +361,6 @@ public class WrapLayout extends FlowLayout {
 	 */
 	private void addRow(Dimension dim, int rowWidth, int rowHeight) {
 
-		System.out.println("New Row Being Added: " + rowcount++);
 		dim.width = Math.max(dim.width, rowWidth);
 
 		if (dim.height > 0) {

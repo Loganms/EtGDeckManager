@@ -57,10 +57,9 @@ public class DeckManagerGUI extends JFrame {
 
 	private DeckManagerMenuBar menuBar;
 
-	private JTabbedPane tabbedPane = new JTabbedPane();
+	public JTabbedPane tabbedPane = new JTabbedPane();
 
-	private JPanel rightPanel;
-	// private JPanel leftPanel = new JPanel();
+	public JPanel rightPanel;
 	private JPanel casePanel = new JPanel();
 	private JPanel centerPanel = new JPanel();
 	private JPanel promptPanel = new JPanel();
@@ -149,10 +148,6 @@ public class DeckManagerGUI extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			if (currentlySelectedDeck != null) {
 				if (e.getActionCommand().equals("Copy Code")) {
-					System.out.println("MIN " + casePanel.getMinimumSize());
-					System.out.println("PREF " + casePanel.getPreferredSize());
-					System.out.println("MAX " + casePanel.getMaximumSize());
-					System.out.println("ACT " + casePanel.getSize());
 					Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(currentlySelectedDeck.getImportCode()), null);
 				} else if (e.getActionCommand().equals("View Deck")) {
 					BufferedImage img = currentlySelectedDeck.getDeckImage();
@@ -276,6 +271,7 @@ public class DeckManagerGUI extends JFrame {
 	}
 
 	public void setCase() {
+		casePanel.setBorder(BorderFactory.createEmptyBorder(2, 0, 0, 0));
 		WrapLayout wrap = new WrapLayout();
 		wrap.setHgap(0);
 		wrap.setVgap(7);

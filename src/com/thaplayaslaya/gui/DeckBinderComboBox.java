@@ -29,6 +29,7 @@ import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 import javax.swing.plaf.basic.ComboPopup;
 
+import com.thaplayaslaya.DeckManager;
 import com.thaplayaslaya.datastructures.Deck;
 
 @SuppressWarnings({ "serial", "hiding" })
@@ -133,7 +134,19 @@ public class DeckBinderComboBox<Object> extends JComboBox<Object> {
 		private static final Color BACKGROUND_COLOR_LIGHT = new Color(226, 233, 239);
 		private static final Color BACKGROUND_COLOR_DARK = new Color(199, 213, 224);
 		private static final Color TEXT_COLOR = new Color(48, 69, 90);
+		private static Point pointer = null;
 		private static final JPanel contentPane = new JPanel() {
+
+			@Override
+			public Dimension getMaximumSize() {
+				DeckManagerGUI dmgui = DeckManager.getDeckManagerGUI();
+				Point p = dmgui.getDeckBinderPanels().get(0).getComboBox().getLocationOnScreen();
+				p.x += dmgui.getDeckBinderPanels().get(0).getComboBox().getSize().width;
+				p.x = dmgui.getLocationOnScreen().x + dmgui.getWidth() - dmgui.getInsets().right - p.x;
+
+				return (new Dimension(p.x, dmgui.rightPanel.getSize().height));
+			}
+
 			@Override
 			protected void paintComponent(Graphics g) {
 				Graphics2D g2d = (Graphics2D) g;
@@ -141,8 +154,17 @@ public class DeckBinderComboBox<Object> extends JComboBox<Object> {
 				GradientPaint gp = new GradientPaint(0, 0, BACKGROUND_COLOR_LIGHT, 0, getHeight(), BACKGROUND_COLOR_DARK);
 				g2d.setPaint(gp);
 
-				int[] x = new int[] { 0, getWidth() - 1, getWidth() - 1, 7, 7 };
-				int[] y = new int[] { 0, 0, getHeight() - 1, getHeight() - 1, 7 };
+				int[] x = new int[] { 7, getWidth() - 1, getWidth() - 1, 7, 7, 7, 7 };
+				int[] y = new int[] { 0, 0, getHeight() - 1, getHeight() - 1, 0, 0, 0 };
+
+				if (null != pointer && pointer.y < getSize().height - 14) {
+					x[4] = 7;
+					y[4] = pointer.y + 7 * 2;
+					x[5] = 0;
+					y[5] = pointer.y + 7;
+					x[6] = 7;
+					y[6] = pointer.y;
+				}
 
 				g2d.drawPolygon(x, y, x.length);
 				g2d.fillPolygon(x, y, x.length);
@@ -155,26 +177,39 @@ public class DeckBinderComboBox<Object> extends JComboBox<Object> {
 				Graphics2D g2d = (Graphics2D) g;
 				g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 				g2d.setPaint(TEXT_COLOR);
-				int[] x = new int[] { 0, getWidth() - 1, getWidth() - 1, 7, 7 };
-				int[] y = new int[] { 0, 0, getHeight() - 1, getHeight() - 1, 7 };
+
+				int[] x = new int[] { 7, getWidth() - 1, getWidth() - 1, 7, 7, 7, 7 };
+				int[] y = new int[] { 0, 0, getHeight() - 1, getHeight() - 1, 0, 0, 0 };
+
+				if (null != pointer && pointer.y < getSize().height - 14) {
+					x[4] = 7;
+					y[4] = pointer.y + 7 * 2;
+					x[5] = 0;
+					y[5] = pointer.y + 7;
+					x[6] = 7;
+					y[6] = pointer.y;
+				}
+
 				g2d.drawPolygon(x, y, x.length);
 				super.paintBorder(g);
 			}
 		};
 
-		// TODO: Should adjust this later to be smart
-		public static final Dimension SIZE = new Dimension(209, 140);
 		private static final NoteWindow instance = new NoteWindow();
 
 		private NoteWindow() {
 			setBackground(new Color(0, 255, 0, 0));
 			contentPane.setOpaque(false);
-			contentPane.setMaximumSize(SIZE);
 			contentPane.setBorder(BorderFactory.createEmptyBorder(5, 17, 5, 10));
 			contentPane.setLayout(new BorderLayout());
 			setContentPane(contentPane);
-			setSize(SIZE);
 			setFocusableWindowState(false);
+
+			notes = new JTextArea();
+			notes.setOpaque(false);
+			notes.setForeground(TEXT_COLOR);
+			notes.setLineWrap(true);
+			notes.setWrapStyleWord(true);
 		}
 
 		public static NoteWindow getInstance(String newNotes, Point point) {
@@ -183,36 +218,57 @@ public class DeckBinderComboBox<Object> extends JComboBox<Object> {
 				return null;
 			}
 
-			if (null == notes) {
-				notes = new JTextArea();
-				notes.setOpaque(false);
-				notes.setForeground(TEXT_COLOR);
-				notes.setLineWrap(true);
-				notes.setWrapStyleWord(true);
-				// notes.setMaximumSize(SIZE);
-
-				readyInstance(newNotes, point);
-
-				return instance;
-			} else {
-				// removing notes is super important for getting current notes
-				contentPane.remove(notes);
-				readyInstance(newNotes, point);
-				return instance;
-			}
+			// removing notes is super important for getting current notes
+			contentPane.remove(notes);
+			readyInstance(newNotes, point);
+			return instance;
 		}
 
 		private static void readyInstance(String newNotes, Point point) {
 			notes.setText(newNotes);
 			contentPane.add(notes, BorderLayout.CENTER);
-			instance.setLocation(point);
-			instance.setVisible(true);
 			instance.pack();
 
+			DeckManagerGUI dmgui = DeckManager.getDeckManagerGUI();
+
+			if (getExtremeY() - point.y < contentPane.getPreferredSize().height) {
+				System.out.println("Notes taller than available space.");
+				if (contentPane.getPreferredSize().height < dmgui.rightPanel.getHeight()) {
+					System.out.println("Notes will fit if moved up, moving up.");
+					instance.setLocation(new Point(point.x, point.y - ((point.y + contentPane.getPreferredSize().height) - getExtremeY())));
+				} else {
+					System.out.println("all can't fit. Doing best possible");
+					instance.setLocation(new Point(point.x, dmgui.rightPanel.getLocationOnScreen().y));
+				}
+
+			} else {
+				instance.setLocation(point);
+			}
+
+			int prefx = getExtremeX() - point.x;
+			int prefy = (contentPane.getPreferredSize().height <= contentPane.getMaximumSize().height) ? contentPane.getPreferredSize().height
+					: contentPane.getMaximumSize().height;
+			instance.setPreferredSize(new Dimension(prefx, prefy));
+
+			pointer = (Point) point.clone();
+			SwingUtilities.convertPointFromScreen(pointer, contentPane);
+
+			instance.pack();
+			instance.setVisible(true);
 		}
 
 		public void setNotes(String newNotes) {
 			notes.setText(newNotes);
+		}
+
+		public static int getExtremeX() {
+			DeckManagerGUI dmgui = DeckManager.getDeckManagerGUI();
+			return dmgui.getLocationOnScreen().x + dmgui.getWidth() - dmgui.getInsets().right;
+		}
+
+		public static int getExtremeY() {
+			DeckManagerGUI dmgui = DeckManager.getDeckManagerGUI();
+			return dmgui.getLocationOnScreen().y + dmgui.getHeight() - dmgui.getInsets().bottom;
 		}
 	}
 

@@ -35,11 +35,13 @@
       "decks": [
         {
           "name": "Pestal 101",
-          "importCode": "7t6 7t6 7t6 7t6 7t6 7t6 7ta 7ta 7td 7td 7um 7um 7um 7um 7um 7um 7um 7um 7um 7um 808 808 808 808 80i 80i 80i 80i 80i 80i 8pu"
+          "importCode": "7t6 7t6 7t6 7t6 7t6 7t6 7ta 7ta 7td 7td 7um 7um 7um 7um 7um 7um 7um 7um 7um 7um 808 808 808 808 80i 80i 80i 80i 80i 80i 8pu",
+          "notes": "no 7t6 7t6 7t6 7t6 7t6 7t6 7ta 7ta 7td 7td 7um 7um 7um 7um 7um 7um 7um 7um 7um 7um 808 808 808 808 80i 80i 80i 80i 80i 80i 8pu no"
         },
         {
           "name": "Chaos Wyrms",
-          "importCode": "6u2 6u2 6u2 6u2 6u2 6u2 7ms 7ms 7ms 7ms 7ms 7ms 7mt 7mt 7mt 7mt 7mt 7mt 7mu 7mu 7mu 7mu 7mu 7mu 7nq 7nq 7nq 7nq 7nq 7nq 8pj"
+          "importCode": "6u2 6u2 6u2 6u2 6u2 6u2 7ms 7ms 7ms 7ms 7ms 7ms 7mt 7mt 7mt 7mt 7mt 7mt 7mu 7mu 7mu 7mu 7mu 7mu 7nq 7nq 7nq 7nq 7nq 7nq 8pj",
+          "notes": "6u2 6u2 6u2 6u2 6u2 6u2 7ms 7ms 7ms 7ms 7ms 7ms 7mt 7mt 7mt 7mt 7mt 7mt 7mu 7mu 7mu 7mu 7mu 7mu 7nq 7nq 7nq 7nq 7nq 7nq 8pj ? 6u2 6u2 6u2 6u2 6u2 6u2 7ms 7ms 7ms 7ms 7ms 7ms 7mt 7mt 7mt 7mt 7mt 7mt 7mu 7mu 7mu 7mu 7mu 7mu 7nq 7nq 7nq 7nq 7nq 7nq 8pj ? 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5"
         },
         {
           "name": "PDials",
@@ -52,12 +54,19 @@
       ]
     },
     {
-      "name": "gae",
-      "decks": []
-    },
-    {
-      "name": "new1",
-      "decks": []
+      "name": "ds",
+      "decks": [
+        {
+          "name": "deck1",
+          "importCode": "6qq",
+          "notes": "Solved it - I found someone elses thread, which said to use UIManager.put(\"TabbedPane.contentBorderInsets\", new Insets(0, 0, 0, 0));abbedPane.contentBorderInsets\", new Insets(0, 0, 0, 0));"
+        },
+        {
+          "name": "deck2",
+          "importCode": "556",
+          "notes": "non on non but not on nonon"
+        }
+      ]
     }
   ],
   "customFalseGodCounters": {
