@@ -253,12 +253,10 @@ public class DeckManagerGUI extends JFrame {
 		JRootPane p = this.getRootPane();
 		p.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, InputEvent.CTRL_DOWN_MASK), upArrow);
 		p.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, InputEvent.CTRL_DOWN_MASK), downArrow);
-		p.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_B, InputEvent.CTRL_DOWN_MASK), newBinder);
 		p.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_D, InputEvent.CTRL_DOWN_MASK), newDeck);
 
 		p.getActionMap().put(upArrow, new HotkeyAction(upArrow));
 		p.getActionMap().put(downArrow, new HotkeyAction(downArrow));
-		p.getActionMap().put(newBinder, new HotkeyAction(newBinder));
 		p.getActionMap().put(newDeck, new HotkeyAction(newDeck));
 	}
 

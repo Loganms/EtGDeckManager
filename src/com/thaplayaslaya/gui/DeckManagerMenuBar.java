@@ -44,7 +44,8 @@ public class DeckManagerMenuBar extends JMenuBar {
 	private JMenu fileMenu;
 	private JMenu newMenu, editMenu;
 	private JMenuItem newDeckBinderOption, selectedDeckOption, exportOption;
-	private MenuActionListener menuActionListener = new MenuActionListener();
+	private MenuActionListener menuActionListener;
+	private String newDeckBinderOptionLabel = "Deck Binder";
 
 	private JMenu viewMenu;
 	private JMenu deckImagesMenu;
@@ -61,24 +62,30 @@ public class DeckManagerMenuBar extends JMenuBar {
 	boolean isSetup = true;
 
 	public DeckManagerMenuBar() {
+		menuActionListener = new MenuActionListener();
+
 		fileMenu = new JMenu("File");
 		fileMenu.setMnemonic(KeyEvent.VK_F);
 
 		newMenu = new JMenu("New");
 		newMenu.setMnemonic(KeyEvent.VK_N);
-		newDeckBinderOption = new JMenuItem("Deck Binder");
+
+		newDeckBinderOption = new JMenuItem(newDeckBinderOptionLabel);
 		newDeckBinderOption.setMnemonic(KeyEvent.VK_B);
 		newDeckBinderOption.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B, InputEvent.CTRL_DOWN_MASK));
-		newDeckBinderOption.setActionCommand("Deck Binder");
+		newDeckBinderOption.setActionCommand(newDeckBinderOptionLabel);
+
 		newDeckBinderOption.addActionListener(menuActionListener);
 		newMenu.add(newDeckBinderOption);
 		fileMenu.add(newMenu);
 		editMenu = new JMenu("Edit");
 		editMenu.setMnemonic(KeyEvent.VK_E);
+
 		selectedDeckOption = new JMenuItem("Selected Deck");
 		selectedDeckOption.setMnemonic(KeyEvent.VK_S);
 		selectedDeckOption.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, InputEvent.CTRL_DOWN_MASK));
 		selectedDeckOption.setActionCommand("Selected Deck");
+
 		selectedDeckOption.addActionListener(menuActionListener);
 		editMenu.add(selectedDeckOption);
 		fileMenu.add(editMenu);
@@ -175,7 +182,8 @@ public class DeckManagerMenuBar extends JMenuBar {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String button = e.getActionCommand();
-			if (button.equals("Deck Binder")) {
+			System.out.println(button);
+			if (button.equals(newDeckBinderOptionLabel)) {
 				DeckManager.cfg.getCase().addNewDeckBinder();
 			} else if (button.equals("Selected Deck")) {
 				DeckManagerGUI dmgui = DeckManager.getDeckManagerGUI();

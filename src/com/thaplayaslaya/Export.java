@@ -43,9 +43,10 @@ public class Export {
 		}
 
 		if (includeCredits)
+			text += "[size=8pt]" + credits + "[/size]";
 
-			if (spoiler)
-				text = "[spoiler]".concat(text).concat("[/spoiler]");
+		if (spoiler)
+			text = "[spoiler]".concat(text).concat("[/spoiler]");
 
 		return text;
 	}
