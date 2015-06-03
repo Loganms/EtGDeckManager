@@ -47,8 +47,7 @@ public class DeckManagerGUI extends JFrame {
 
 	private static final long serialVersionUID = 3686286211660935696L;
 	private static final Dimension MINIMUM_CONTENT_SIZE = new Dimension(364, 214);
-	private static final String windowName = "EtG Deck Manager", upArrow = "UpArrow", downArrow = "DownArrow", newDeck = "newDeck",
-			newBinder = "newBinder";
+	private static final String windowName = "EtG Deck Manager", upArrow = "UpArrow", downArrow = "DownArrow", newDeck = "newDeck";
 	private static final JButton[] rightPanelButtons = {
 			new JButton("Copy Code"),
 			new JButton("View Deck"),
@@ -221,8 +220,6 @@ public class DeckManagerGUI extends JFrame {
 				} else if (actionCommand.equals(newDeck)) {
 					DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder().addNewDeck();
 				}
-			} else if (actionCommand.equals(newBinder)) {
-				DeckManager.cfg.getCase().addNewDeckBinder();
 			} else {
 				System.out.println("HotkeyAction fails.");
 			}
