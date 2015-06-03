@@ -68,6 +68,7 @@ public class DeckManagerGUI extends JFrame {
 
 	private Deck currentlySelectedDeck;
 	private DeckBinder currentlySelectedDeckBinder;
+	private JLabel rightPromptLabel;
 	private JLabel currentlySelectedDeckLabel = new JLabel(NO_DECK_SELECTED, JLabel.CENTER);
 	private LinkedList<DeckBinderPanel> deckBinderPanels = new LinkedList<DeckBinderPanel>();
 
@@ -99,7 +100,7 @@ public class DeckManagerGUI extends JFrame {
 		rightPanel = new JPanel();
 		JPanel innerRightPanel = new JPanel();
 
-		JLabel rightPrompt = new JLabel("Currently Selected Deck", SwingConstants.CENTER);
+		rightPromptLabel = new JLabel("Currently Selected Deck", SwingConstants.CENTER);
 
 		String[] rightPanelButtonsToolTips = {
 				"Copy this deck's import code to your clipboard",
@@ -111,7 +112,8 @@ public class DeckManagerGUI extends JFrame {
 		innerRightPanel.setLayout(new BorderLayout());
 		innerRightPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		promptPanel.setLayout(new BorderLayout());
-		promptPanel.add(rightPrompt, BorderLayout.NORTH);
+		promptPanel.add(rightPromptLabel, BorderLayout.NORTH);
+		
 		promptPanel.add(currentlySelectedDeckLabel, BorderLayout.SOUTH);
 		innerRightPanel.add(promptPanel, BorderLayout.NORTH);
 
@@ -321,6 +323,8 @@ public class DeckManagerGUI extends JFrame {
 		if (deck != null && !deck.equals(Deck.DEFAULT)) {
 			currentlySelectedDeck = deck;
 			currentlySelectedDeckLabel.setText(deck.getName());
+			//TODO: I am setting the preferredSize. Oh no!
+			currentlySelectedDeckLabel.setPreferredSize(rightPromptLabel.getSize());
 			promptPanel.revalidate();
 		} else {
 			currentlySelectedDeck = null;
