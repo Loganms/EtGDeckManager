@@ -58,7 +58,7 @@ public class DeckBinderComboBox<Object> extends JComboBox<Object> {
 			public void mouseExited(MouseEvent e) {
 				enterTimer.stop();
 
-				NoteWindow.instance.dispose();
+				NoteWindow.instance.setVisible(false);
 				isMouseInside = false;
 			}
 		};
@@ -70,7 +70,7 @@ public class DeckBinderComboBox<Object> extends JComboBox<Object> {
 			public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
 				enterTimer.stop();
 
-				NoteWindow.instance.dispose();
+				NoteWindow.instance.setVisible(false);
 				isMouseInside = false;
 			}
 
@@ -131,20 +131,33 @@ public class DeckBinderComboBox<Object> extends JComboBox<Object> {
 
 	static class NoteWindow extends JWindow {
 		private static JTextArea notes;
+		private static final int BORDERGAP_TOP_AND_BOTTOM = 5;
+		private static final int BORDERGAP_LEFT = 17;
+		private static final int BORDERGAP_RIGHT = 10;
 		private static final Color BACKGROUND_COLOR_LIGHT = new Color(226, 233, 239);
 		private static final Color BACKGROUND_COLOR_DARK = new Color(199, 213, 224);
 		private static final Color TEXT_COLOR = new Color(48, 69, 90);
+		private static Point pointOnScreen = null;
 		private static Point pointer = null;
 		private static final JPanel contentPane = new JPanel() {
 
 			@Override
+			public Dimension getPreferredSize() {
+				System.out.println("Pref size is: " + super.getPreferredSize());
+				Dimension d = super.getPreferredSize();
+				// The "+2" is just error correction. Feel free to adjust.
+				d.width -= (BORDERGAP_LEFT + BORDERGAP_RIGHT) / 2 + 2;
+				d.height = (d.height > getMaximumSize().height) ? getMaximumSize().height : d.height;
+				return d;
+
+			}
+
+			@Override
 			public Dimension getMaximumSize() {
 				DeckManagerGUI dmgui = DeckManager.getDeckManagerGUI();
-				Point p = dmgui.getDeckBinderPanels().get(0).getComboBox().getLocationOnScreen();
-				p.x += dmgui.getDeckBinderPanels().get(0).getComboBox().getSize().width;
-				p.x = dmgui.getLocationOnScreen().x + dmgui.getWidth() - dmgui.getInsets().right - p.x;
-
-				return (new Dimension(p.x, dmgui.rightPanel.getSize().height));
+				int p = pointOnScreen.x;
+				p = dmgui.getLocationOnScreen().x + dmgui.getWidth() - dmgui.getInsets().right - p;
+				return (new Dimension(p, dmgui.rightPanel.getSize().height));
 			}
 
 			@Override
@@ -200,7 +213,8 @@ public class DeckBinderComboBox<Object> extends JComboBox<Object> {
 		private NoteWindow() {
 			setBackground(new Color(0, 255, 0, 0));
 			contentPane.setOpaque(false);
-			contentPane.setBorder(BorderFactory.createEmptyBorder(5, 17, 5, 10));
+			contentPane.setBorder(BorderFactory
+					.createEmptyBorder(BORDERGAP_TOP_AND_BOTTOM, BORDERGAP_LEFT, BORDERGAP_TOP_AND_BOTTOM, BORDERGAP_RIGHT));
 			contentPane.setLayout(new BorderLayout());
 			setContentPane(contentPane);
 			setFocusableWindowState(false);
@@ -218,14 +232,14 @@ public class DeckBinderComboBox<Object> extends JComboBox<Object> {
 				return null;
 			}
 
-			// removing notes is super important for getting current notes
-			contentPane.remove(notes);
 			readyInstance(newNotes, point);
 			return instance;
 		}
 
 		private static void readyInstance(String newNotes, Point point) {
+			pointOnScreen = (Point) point.clone();
 			notes.setText(newNotes);
+			notes.setSize(getExtremeX() - point.x, 1);
 			contentPane.add(notes, BorderLayout.CENTER);
 			instance.pack();
 
@@ -244,11 +258,6 @@ public class DeckBinderComboBox<Object> extends JComboBox<Object> {
 			} else {
 				instance.setLocation(point);
 			}
-
-			int prefx = getExtremeX() - point.x;
-			int prefy = (contentPane.getPreferredSize().height <= contentPane.getMaximumSize().height) ? contentPane.getPreferredSize().height
-					: contentPane.getMaximumSize().height;
-			instance.setPreferredSize(new Dimension(prefx, prefy));
 
 			pointer = (Point) point.clone();
 			SwingUtilities.convertPointFromScreen(pointer, contentPane);
