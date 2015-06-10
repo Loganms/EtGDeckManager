@@ -9,6 +9,7 @@ import com.thaplayaslaya.gui.DeckBinderPanel;
 public class DeckBinder {
 
 	private String name;
+	private Style style = new Style();
 	private transient DeckBinderPanel dBP;
 	private ArrayList<Deck> decks = new ArrayList<Deck>();
 
@@ -24,13 +25,13 @@ public class DeckBinder {
 		DeckManager.getDeckManagerGUI().setCurrentlySelectedDeck(null);
 		DeckManager.cfg.getCase().addDeckBinder(this);
 
-		dBP = new DeckBinderPanel(this.name);
+		dBP = new DeckBinderPanel(this.name, this.style);
 		finalizeDBSetup();
 	}
 
 	// called once Config has populated Case completely with JSON data.
 	public void setDBP() {
-		dBP = new DeckBinderPanel(this.name);
+		dBP = new DeckBinderPanel(this.name, this.style);
 
 		for (Deck d : decks) {
 			dBP.getComboBox().addItem(d);
@@ -62,6 +63,14 @@ public class DeckBinder {
 
 	public String getName() {
 		return name;
+	}
+
+	public Style getStyle() {
+		return style;
+	}
+
+	public void setStyle(Style style) {
+		this.style = style;
 	}
 
 	public Deck getDeck(String name) {

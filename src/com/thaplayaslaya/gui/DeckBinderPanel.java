@@ -1,6 +1,7 @@
 package com.thaplayaslaya.gui;
 
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -9,6 +10,8 @@ import java.awt.event.InputEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
+import java.awt.font.TextAttribute;
+import java.util.Map;
 
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
@@ -20,6 +23,8 @@ import javax.swing.KeyStroke;
 
 import com.thaplayaslaya.DeckManager;
 import com.thaplayaslaya.datastructures.Deck;
+import com.thaplayaslaya.datastructures.DeckBinder;
+import com.thaplayaslaya.datastructures.Style;
 
 public class DeckBinderPanel extends JPanel implements ActionListener {
 
@@ -36,25 +41,48 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 	public DeckBinderPanel() {
 		init(true);
 	}
-
+	
+	//Only used for creating a dummy Deck Binder Panel
 	private DeckBinderPanel(DeckBinderPanel dbp) {
 		init(false);
 		setName(dbp.getName());
-		for (Deck d : DeckManager.getCase().getDeckBinder(dbp.getName()).getDecks()){
+		DeckBinder db = DeckManager.getCase().getDeckBinder(dbp.getName());
+		for (Deck d : db.getDecks()){
 			getComboBox().addItem(d);
+		}
+		if (null != db.getStyle()){
+			applyStyle(db.getStyle());
 		}
 	}
 
-	public DeckBinderPanel(String name) {
+	public DeckBinderPanel(String name, Style style) {
 		init(true);
+		if (null != style){
+			applyStyle(style);
+		}
 		setName(name);
 	}
 
+	private void applyStyle(Style style) {
+		dBName.setOpaque(true);
+		dBName.setForeground(style.getForegroundColor());
+		dBName.setBackground(style.getBackgroundColor());
+		Font font = new Font(dBName.getFont().getFamily(), (style.isBold() ? Font.BOLD : 0) | (style.isItalic() ? Font.ITALIC : 0), dBName.getFont().getSize());
+		@SuppressWarnings("unchecked")
+		Map <TextAttribute, Object>attributes = (Map<TextAttribute, Object>) font.getAttributes();
+		if(style.isUnderline()){
+			attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+		}
+		if(style.isStrikethrough()){
+			attributes.put(TextAttribute.STRIKETHROUGH, TextAttribute.STRIKETHROUGH_ON);
+		}
+	}
+
 	private void init(Boolean isFunctional) {
-		renameButton.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+		renameButton.setFont(new Font("Dialog", 0, 10)); // NOI18N
 		renameButton.setMargin(new java.awt.Insets(0, 2, 0, 2));
 
-		deleteButton.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+		deleteButton.setFont(new Font("Dialog", 0, 10)); // NOI18N
 		deleteButton.setMargin(new java.awt.Insets(0, 2, 0, 2));
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -132,6 +160,10 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 	@Override
 	public String getName() {
 		return this.name;
+	}
+
+	public JLabel getdBName() {
+		return dBName;
 	}
 
 	public JComboBox<Deck> getComboBox() {

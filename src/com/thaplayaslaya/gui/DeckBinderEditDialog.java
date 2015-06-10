@@ -1,10 +1,13 @@
 package com.thaplayaslaya.gui;
 
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.font.TextAttribute;
 import java.util.Map;
 
 import javax.swing.JDialog;
+import javax.swing.JToggleButton;
 
 import com.thaplayaslaya.DeckManager;
 import com.thaplayaslaya.datastructures.Deck;
@@ -37,6 +40,7 @@ public class DeckBinderEditDialog extends JDialog {
 	private javax.swing.JPanel previewPanel;
 	private javax.swing.JToggleButton strikethroughToggle;
 	private javax.swing.JToggleButton underlineToggle;
+	private FontEffectActionListener fontEffectActionListener;
 
 	public DeckBinderEditDialog(DeckBinder deckBinder) {
 		super(DeckManager.getDeckManagerGUI(), "Edit Deck Binder", true);
@@ -77,6 +81,7 @@ public class DeckBinderEditDialog extends JDialog {
 		strikethroughToggle = new javax.swing.JToggleButton();
 		doneButton = new javax.swing.JButton();
 		cancelButton = new javax.swing.JButton();
+		fontEffectActionListener = new FontEffectActionListener();
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -85,8 +90,11 @@ public class DeckBinderEditDialog extends JDialog {
 		javax.swing.GroupLayout previewPanelLayout = new javax.swing.GroupLayout(previewPanel);
 		previewPanel.setLayout(previewPanelLayout);
 		previewPanelLayout.setHorizontalGroup(previewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-				previewPanelLayout.createSequentialGroup().addContainerGap()
-						.addComponent(deckBinderPanel1, deckBinderPanel1.getPreferredSize().width, deckBinderPanel1.getMaximumSize().width, Short.MAX_VALUE).addContainerGap()));
+				previewPanelLayout
+						.createSequentialGroup()
+						.addContainerGap()
+						.addComponent(deckBinderPanel1, deckBinderPanel1.getPreferredSize().width, deckBinderPanel1.getMaximumSize().width,
+								Short.MAX_VALUE).addContainerGap()));
 		previewPanelLayout.setVerticalGroup(previewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
 				previewPanelLayout
 						.createSequentialGroup()
@@ -99,11 +107,6 @@ public class DeckBinderEditDialog extends JDialog {
 		foregroundColorButton.setText("Foreground Color");
 
 		backgroundColorButton.setText("Background Color");
-		backgroundColorButton.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				backgroundColorButtonActionPerformed(evt);
-			}
-		});
 
 		defaultButton.setText("Default");
 
@@ -154,26 +157,25 @@ public class DeckBinderEditDialog extends JDialog {
 
 		boldToggle.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 		boldToggle.setText("B");
+		boldToggle.addActionListener(fontEffectActionListener);
 
 		italicToggle.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
 		italicToggle.setText("I");
+		italicToggle.addActionListener(fontEffectActionListener);
 
 		underlineToggle.setText("U");
 		Font font = new java.awt.Font("Tahoma", 0, 11);
 		Map attributes = font.getAttributes();
 		attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
 		underlineToggle.setFont(new Font(attributes));
-		
+		underlineToggle.addActionListener(fontEffectActionListener);
+
 		strikethroughToggle.setText("abc");
 		Font font1 = new java.awt.Font("Tahoma", 0, 11);
 		Map attributes1 = font1.getAttributes();
 		attributes1.put(TextAttribute.STRIKETHROUGH, TextAttribute.STRIKETHROUGH_ON);
 		strikethroughToggle.setFont(new Font(attributes1));
-		strikethroughToggle.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				strikethroughToggleActionPerformed(evt);
-			}
-		});
+		strikethroughToggle.addActionListener(fontEffectActionListener);
 
 		jList1.setModel(new javax.swing.AbstractListModel() {
 			private static final long serialVersionUID = -7048048338606549905L;
@@ -193,11 +195,6 @@ public class DeckBinderEditDialog extends JDialog {
 		jListLabel.setText("Deck Order:");
 
 		moveUpButton.setText("Move Up");
-		moveUpButton.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				moveUpButtonActionPerformed(evt);
-			}
-		});
 
 		moveDownButton.setText("Move Down");
 
@@ -290,11 +287,6 @@ public class DeckBinderEditDialog extends JDialog {
 										javax.swing.GroupLayout.PREFERRED_SIZE).addContainerGap()));
 
 		doneButton.setText("Done");
-		doneButton.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				doneButtonActionPerformed(evt);
-			}
-		});
 
 		cancelButton.setText("Cancel");
 
@@ -352,19 +344,47 @@ public class DeckBinderEditDialog extends JDialog {
 		previewPanel.revalidate();
 	}
 
-	private void backgroundColorButtonActionPerformed(java.awt.event.ActionEvent evt) {
-		// TODO add your handling code here:
+	private class FontEffectActionListener implements ActionListener {
+
+		@SuppressWarnings({ "rawtypes", "unchecked" })
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			JToggleButton btn = (JToggleButton) e.getSource();
+			boolean activate = btn.getModel().isSelected();
+			Font f = deckBinderPanel1.getdBName().getFont();
+			switch (btn.getText()) {
+			case "B":
+				deckBinderPanel1.getdBName().setFont(f.deriveFont(f.getStyle() ^ Font.BOLD));
+				break;
+			case "I":
+				deckBinderPanel1.getdBName().setFont(f.deriveFont(f.getStyle() ^ Font.ITALIC));
+				break;
+			case "U":
+				Map attributes = f.getAttributes();
+				if(activate){
+					attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+					
+				} else {
+					attributes.put(TextAttribute.UNDERLINE, -1);
+				}
+				deckBinderPanel1.getdBName().setFont(f.deriveFont(attributes));
+				break;
+			case "abc":
+				Map attributes1 = f.getAttributes();
+				if(activate){
+					attributes1.put(TextAttribute.STRIKETHROUGH, TextAttribute.STRIKETHROUGH_ON);
+					
+				} else {
+					attributes1.put(TextAttribute.STRIKETHROUGH, -1);
+				}
+				deckBinderPanel1.getdBName().setFont(f.deriveFont(attributes1));
+				break;
+			default:
+				break;
+			}
+
+		}
+
 	}
 
-	private void doneButtonActionPerformed(java.awt.event.ActionEvent evt) {
-		// TODO add your handling code here:
-	}
-
-	private void moveUpButtonActionPerformed(java.awt.event.ActionEvent evt) {
-		// TODO add your handling code here:
-	}
-
-	private void strikethroughToggleActionPerformed(java.awt.event.ActionEvent evt) {
-		// TODO add your handling code here:
-	}
 }

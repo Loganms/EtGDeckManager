@@ -5,6 +5,20 @@
   "deckBinders": [
     {
       "name": "Gods",
+      "style": {
+        "foregroundColor": {
+          "value": -13421773,
+          "falpha": 0.0
+        },
+        "backgroundColor": {
+          "value": -1118482,
+          "falpha": 0.0
+        },
+        "isBold": false,
+        "isItalic": false,
+        "isUnderline": false,
+        "isStrikethrough": false
+      },
       "decks": [
         {
           "name": "NOT FG OTK",
@@ -32,6 +46,20 @@
     },
     {
       "name": "G/P Arena",
+      "style": {
+        "foregroundColor": {
+          "value": -13421773,
+          "falpha": 0.0
+        },
+        "backgroundColor": {
+          "value": -1118482,
+          "falpha": 0.0
+        },
+        "isBold": false,
+        "isItalic": false,
+        "isUnderline": false,
+        "isStrikethrough": false
+      },
       "decks": [
         {
           "name": "Pestal 101",
@@ -55,6 +83,20 @@
     },
     {
       "name": "ds",
+      "style": {
+        "foregroundColor": {
+          "value": -13421773,
+          "falpha": 0.0
+        },
+        "backgroundColor": {
+          "value": -1118482,
+          "falpha": 0.0
+        },
+        "isBold": false,
+        "isItalic": false,
+        "isUnderline": false,
+        "isStrikethrough": false
+      },
       "decks": [
         {
           "name": "deck1deck2deck3deck4deck5",
