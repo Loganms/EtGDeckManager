@@ -73,10 +73,6 @@ public class DeckBinder {
 		return null;
 	}
 
-	public DeckBinderPanel getDeckBinderPanel() {
-		return dBP;
-	}
-
 	public ArrayList<Deck> getDecks() {
 		return decks;
 	}
@@ -105,6 +101,12 @@ public class DeckBinder {
 		return name;
 	}
 
+	//Functions do the same thing
+	//TODO: Consolidate later.
+	public DeckBinderPanel getDeckBinderPanel() {
+		return dBP;
+	}
+	
 	public DeckBinderPanel getDBP() {
 		return dBP;
 	}

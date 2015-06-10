@@ -20,7 +20,6 @@ import javax.swing.KeyStroke;
 
 import com.thaplayaslaya.DeckManager;
 import com.thaplayaslaya.datastructures.Deck;
-import com.thaplayaslaya.datastructures.OperationType;
 
 public class DeckBinderPanel extends JPanel implements ActionListener {
 
@@ -29,34 +28,34 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 	private String name = "[Default Name]", upArrow = "UpArrow", downArrow = "DownArrow";
 	private JLabel dBName = new JLabel(this.name, JLabel.LEFT);
 	private JComboBox<Deck> comboBox = new DeckBinderComboBox<Deck>();
-	private JButton renameButton = new JButton(OperationType.RENAME_DECKBINDER.getText()), deleteButton = new JButton("D");
+	private JButton renameButton = new JButton("E"), deleteButton = new JButton("D");
 	private ItemChangeListener itemChangeListener = new ItemChangeListener();
 	private cBFocusListener focusListener = new cBFocusListener();
 	private boolean hasListenersEnabled = false;
 
 	public DeckBinderPanel() {
-		init();
+		init(true);
+	}
+
+	private DeckBinderPanel(DeckBinderPanel dbp) {
+		init(false);
+		setName(dbp.getName());
+		for (Deck d : DeckManager.getCase().getDeckBinder(dbp.getName()).getDecks()){
+			getComboBox().addItem(d);
+		}
 	}
 
 	public DeckBinderPanel(String name) {
-		init();
+		init(true);
 		setName(name);
 	}
 
-	private void init() {
-		comboBox.setToolTipText("Move (Shft+UP/DOWN)");
-
+	private void init(Boolean isFunctional) {
 		renameButton.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
 		renameButton.setMargin(new java.awt.Insets(0, 2, 0, 2));
-		renameButton.setToolTipText("Rename Deck Binder");
-		renameButton.addActionListener(this);
 
 		deleteButton.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
 		deleteButton.setMargin(new java.awt.Insets(0, 2, 0, 2));
-		deleteButton.setToolTipText("Delete Deck Binder");
-		deleteButton.addActionListener(this);
-
-		dBName.setToolTipText("Move (Ctrl+UP/DOWN)");
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
 		this.setLayout(layout);
@@ -80,8 +79,20 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(comboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
 								javax.swing.GroupLayout.PREFERRED_SIZE)));
+		
+		if (isFunctional) {
+			comboBox.setToolTipText("Move (Shft+UP/DOWN)");
 
-		DeckManager.getDeckManagerGUI().getDeckBinderPanels().add(this);
+			renameButton.setToolTipText("Rename Deck Binder");
+			renameButton.addActionListener(this);
+
+			deleteButton.setToolTipText("Delete Deck Binder");
+			deleteButton.addActionListener(this);
+
+			dBName.setToolTipText("Move (Ctrl+UP/DOWN)");
+
+			DeckManager.getDeckManagerGUI().getDeckBinderPanels().add(this);
+		}
 	}
 
 	public void setListeners() {
@@ -125,6 +136,11 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 
 	public JComboBox<Deck> getComboBox() {
 		return comboBox;
+	}
+
+	public DeckBinderPanel getCopyAsReference() {
+		DeckBinderPanel copy = new DeckBinderPanel(this);
+		return copy;
 	}
 
 	private class VertArrowAction extends AbstractAction {
@@ -195,16 +211,18 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getActionCommand().equals(OperationType.RENAME_DECKBINDER.getText())) {
-			new CustomDialog(DeckManager.getDeckManagerGUI(), OperationType.RENAME_DECKBINDER, this.name);
-		} else if (e.getActionCommand().equals("D")) {
-			if (JOptionPane.showConfirmDialog(DeckManager.getDeckManagerGUI(), "Are you sure you want to delete this deck binder?") == JOptionPane.YES_OPTION) {
-				DeckManagerGUI dmg = DeckManager.getDeckManagerGUI();
-				if (DeckManager.getCase().getDeckBinder(this.name).getDecks().contains(dmg.getCurrentlySelectedDeck())) {
-					dmg.setCurrentlySelectedDeck(null);
+		if (hasListenersEnabled) {
+			if (e.getActionCommand().equals("E")) {
+				new DeckBinderEditDialog(DeckManager.getCase().getDeckBinder(dBName.getText()));
+			} else if (e.getActionCommand().equals("D")) {
+				if (JOptionPane.showConfirmDialog(DeckManager.getDeckManagerGUI(), "Are you sure you want to delete this deck binder?") == JOptionPane.YES_OPTION) {
+					DeckManagerGUI dmg = DeckManager.getDeckManagerGUI();
+					if (DeckManager.getCase().getDeckBinder(this.name).getDecks().contains(dmg.getCurrentlySelectedDeck())) {
+						dmg.setCurrentlySelectedDeck(null);
+					}
+					DeckManager.getCase().removeDeckBinder(DeckManager.getCase().getDeckBinder(this.name));
+					dmg.getCasePanel().revalidate();
 				}
-				DeckManager.getCase().removeDeckBinder(DeckManager.getCase().getDeckBinder(this.name));
-				dmg.getCasePanel().revalidate();
 			}
 		}
 	}
