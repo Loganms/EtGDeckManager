@@ -15,8 +15,7 @@ import com.thaplayaslaya.gui.DeckManagerMenuBar.Orientation;
 
 public class Case {
 
-	@SuppressWarnings("unused")
-	private String VERSION_ID = DeckManager.VERSION_ID;
+	public String VERSION_ID = DeckManager.VERSION_ID;
 	private String preferredDeckImageLocation;
 	private String preferredDeckImageLocationMod;
 	private ArrayList<DeckBinder> deckBinders = new ArrayList<DeckBinder>();
