@@ -110,8 +110,9 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 		case EDIT_DECK:
 			setTitle("Edit Deck");
 			msgString1 = "Edit this deck's name.";
-			// msgString2 = "Edit this deck's import code.";
 			Deck d = DeckManager.getDeckManagerGUI().getCurrentlySelectedDeck();
+			// TODO: setting text after undomanager is installed
+			// creates the opportunity to undo the setText() method.
 			importCodeTextArea.setText(d.getImportCode());
 			deckNotesTextArea.setText(d.getNotes());
 			nameTextField.setText(d.getName());

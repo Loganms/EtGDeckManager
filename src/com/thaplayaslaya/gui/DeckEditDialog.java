@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.font.TextAttribute;
 import java.util.Map;
@@ -74,8 +75,8 @@ public class DeckEditDialog extends JDialog {
 		this.originalDeck = deck;
 		this.newDeck = deck.clone();
 		initComponents();
-
 		setLocation(DeckManager.getDeckManagerGUI().getSmartExternalWindowLocation(this));
+		jTextField1.selectAll();
 		setVisible(true);
 	}
 
@@ -115,18 +116,17 @@ public class DeckEditDialog extends JDialog {
 		deckNotesTextArea = new JTextArea();
 
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-
+		
+		importCodeTextArea.setText(newDeck.getImportCode());
+		deckNotesTextArea.setText(newDeck.getNotes());
+		
 		initTextArea(importCodeTextArea);
-		importCodeTextArea.setMinimumSize(new Dimension(300, 100));
 		tabPane.addTab("Code", importCodeTextArea);
 
 		initTextArea(deckNotesTextArea);
 		JScrollPane scroll = new JScrollPane(deckNotesTextArea);
 		scroll.setBorder(BorderFactory.createEmptyBorder());
 		tabPane.addTab("Notes", scroll);
-
-		importCodeTextArea.setText(newDeck.getImportCode());
-		deckNotesTextArea.setText(newDeck.getNotes());
 
 		appearancePanel.setBorder(BorderFactory.createTitledBorder("Appearance"));
 
@@ -168,7 +168,8 @@ public class DeckEditDialog extends JDialog {
 		previewPanel.setLayout(new java.awt.GridBagLayout());
 
 		jLabel1.setHorizontalAlignment(SwingConstants.CENTER);
-		jLabel1.setText("Default Name");
+		jLabel1.setOpaque(true);
+		jLabel1.setText(newDeck.getName());
 
 		GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
 		jPanel1.setLayout(jPanel1Layout);
@@ -188,6 +189,9 @@ public class DeckEditDialog extends JDialog {
 
 		jTextField1.setText(newDeck.getName());
 
+		if (newDeck.getStyle().isBold()) {
+			boldToggle.setSelected(true);
+		}
 		boldToggle.setFont(UIManager.getFont("Button.font").deriveFont(Font.BOLD));
 		boldToggle.setText("B");
 		boldToggle.addActionListener(fontEffectActionListener);
@@ -220,13 +224,18 @@ public class DeckEditDialog extends JDialog {
 		strikethroughToggle.addActionListener(fontEffectActionListener);
 
 		doneButton.setText("Done");
-		doneButton.addActionListener(new java.awt.event.ActionListener() {
+		doneButton.addActionListener(new ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				// TODO: reconcile changes
 			}
 		});
 
 		cancelButton.setText("Cancel");
+		cancelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				dispose();
+			}
+		});
 
 		GroupLayout deckBinderSettingsPanelLayout = new GroupLayout(deckBinderSettingsPanel);
 		deckBinderSettingsPanel.setLayout(deckBinderSettingsPanelLayout);

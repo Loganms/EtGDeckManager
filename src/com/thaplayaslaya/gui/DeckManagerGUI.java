@@ -86,6 +86,7 @@ public class DeckManagerGUI extends JFrame {
 		this.revalidate();
 		this.pack();
 		this.setVisible(true);
+		//TODO: Worry about this later
 		int minFrameX = MINIMUM_CONTENT_SIZE.width + getInsets().left + getInsets().right;
 		int minFrameY = MINIMUM_CONTENT_SIZE.height + getInsets().top + getInsets().bottom + menuBar.getHeight();
 		this.setMinimumSize(new Dimension(minFrameX, minFrameY));
@@ -165,7 +166,8 @@ public class DeckManagerGUI extends JFrame {
 								JOptionPane.ERROR_MESSAGE);
 					}
 				} else if (e.getActionCommand().equals(OperationType.EDIT_DECK.getText())) {
-					new CustomDialog(DeckManagerGUI.this, OperationType.EDIT_DECK, null);
+					//new CustomDialog(DeckManagerGUI.this, OperationType.EDIT_DECK, null);
+					new DeckEditDialog(currentlySelectedDeck);
 				}
 
 				else if (e.getActionCommand().equals("Delete")) {

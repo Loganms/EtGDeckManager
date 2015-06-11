@@ -29,6 +29,7 @@ import com.thaplayaslaya.datastructures.Style;
 public class DeckBinderPanel extends JPanel implements ActionListener {
 
 	public static final int MAX_HORIZONTAL = 200;
+	public static final int MIN_HORIZONTAL = 60;
 	private static final long serialVersionUID = -1215607079828446786L;
 	private String name = "[Default Name]", upArrow = "UpArrow", downArrow = "DownArrow";
 	private JLabel dBName = new JLabel(this.name, JLabel.LEFT);
