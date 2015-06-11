@@ -6,18 +6,10 @@
     {
       "name": "G/P Arena",
       "style": {
-        "foregroundColor": {
-          "value": -16763956,
-          "falpha": 0.0
-        },
-        "backgroundColor": {
-          "value": -3355648,
-          "falpha": 0.0
-        },
         "isBold": true,
-        "isItalic": true,
-        "isUnderline": true,
-        "isStrikethrough": true
+        "isItalic": false,
+        "isUnderline": false,
+        "isStrikethrough": false
       },
       "decks": [
         {
