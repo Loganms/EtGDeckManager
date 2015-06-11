@@ -253,7 +253,6 @@ public class DeckBinderEditDialog extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				originalDeckBinder.setName(jTextField1.getText());
 				originalDeckBinder.setStyle(newDeckBinder.getStyle());
-				// originalDeckBinder.setDecks(newDeckBinder.getDecks());
 				originalDeckBinder.setDecks(listmodel1);
 				dispose();
 			}

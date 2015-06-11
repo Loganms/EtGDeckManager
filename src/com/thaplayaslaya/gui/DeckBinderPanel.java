@@ -53,6 +53,7 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 		if (null != db.getStyle()) {
 			applyStyle(db.getStyle());
 		}
+		((DeckBinderComboBox<Deck>)comboBox).disableNoteWindows();
 	}
 
 	public DeckBinderPanel(String name, Style style) {
@@ -113,7 +114,7 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 		if (isFunctional) {
 			comboBox.setToolTipText("Move (Shft+UP/DOWN)");
 
-			renameButton.setToolTipText("Rename Deck Binder");
+			renameButton.setToolTipText("Edit Deck Binder");
 			renameButton.addActionListener(this);
 
 			deleteButton.setToolTipText("Delete Deck Binder");

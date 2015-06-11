@@ -19,7 +19,7 @@ EtGDeckManager comes with a default cfg.JSON file but is not required. Any chang
 
 
 
-Hovering over any of the buttons or components will give a short description of their feature. The buttons labeled "R" and "D" to the right of the deck binder's name refer to renaming and deleting that specific deck binder. Deleting a deck binder means deleting all deck information stored within that deck binder. All of the buttons on the right half of the Deck Manager tab represent options relating to the currently selected deck, which can be seen in the upper-right corner. For example, the "Copy Code" button will copy the currently selected deck's import code into your system's clipboard, making it available to paste into Elements the Game.
+Hovering over any of the buttons or components will give a short description of their feature. The buttons labeled "E" and "D" to the right of the deck binder's name refer to editing and deleting that specific deck binder. Deleting a deck binder means deleting all deck information stored within that deck binder. All of the buttons on the right half of the Deck Manager tab represent options relating to the currently selected deck, which can be seen in the upper-right corner. For example, the "Copy Code" button will copy the currently selected deck's import code into your system's clipboard, making it available to paste into Elements the Game.
 
 
 

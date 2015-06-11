@@ -128,6 +128,10 @@ public class DeckBinderComboBox<Object> extends JComboBox<Object> {
 		return popup.getList();
 
 	}
+	
+	public void disableNoteWindows() {
+		uninstall();
+	}
 
 	static class NoteWindow extends JWindow {
 		private static JTextArea notes;
