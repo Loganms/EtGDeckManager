@@ -6,9 +6,7 @@ public class Update {
 	}
 
 	public static void updateFrom(String ver) {
-		//TODO: everything
+		// TODO: everything
 	}
-	
-	
 
 }

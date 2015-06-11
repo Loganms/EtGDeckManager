@@ -68,15 +68,12 @@ public class Config {
 			}
 
 			if (null == briefcase.VERSION_ID || !briefcase.VERSION_ID.equals(DeckManager.VERSION_ID)) {
-				JOptionPane
-				.showMessageDialog(
-						new JFrame(),
-						"The version of your save data does not match the version of your Deck Manager.\n" +
-						"You will now be updated from " + briefcase.VERSION_ID + " to " + DeckManager.VERSION_ID + ".",
-						"Deck Manager Update", JOptionPane.INFORMATION_MESSAGE);
-				//TODO: Don't forget to work on this later
+				JOptionPane.showMessageDialog(new JFrame(), "The version of your save data does not match the version of your Deck Manager.\n"
+						+ "You will now be updated from " + briefcase.VERSION_ID + " to " + DeckManager.VERSION_ID + ".", "Deck Manager Update",
+						JOptionPane.INFORMATION_MESSAGE);
+				// TODO: Don't forget to work on this later
 				Update.updateFrom(briefcase.VERSION_ID);
-				
+
 			}
 
 			for (DeckBinder db : briefcase.getDeckBinders()) {

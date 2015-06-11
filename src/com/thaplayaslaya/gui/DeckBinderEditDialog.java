@@ -1,5 +1,6 @@
 package com.thaplayaslaya.gui;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,6 +11,7 @@ import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -58,6 +60,7 @@ public class DeckBinderEditDialog extends JDialog {
 	private JToggleButton underlineToggle;
 	private FontEffectActionListener fontEffectActionListener;
 	private ListOrderActionListener listOrderActionListener;
+	private AppearanceActionListener appearanceActionListener;
 
 	public DeckBinderEditDialog(DeckBinder deckBinder) {
 		super(DeckManager.getDeckManagerGUI(), "Edit Deck Binder", true);
@@ -100,6 +103,7 @@ public class DeckBinderEditDialog extends JDialog {
 		cancelButton = new JButton();
 		fontEffectActionListener = new FontEffectActionListener();
 		listOrderActionListener = new ListOrderActionListener();
+		appearanceActionListener = new AppearanceActionListener();
 
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -121,10 +125,13 @@ public class DeckBinderEditDialog extends JDialog {
 		appearancePanel.setBorder(BorderFactory.createTitledBorder("Appearance"));
 
 		foregroundColorButton.setText("Foreground Color");
+		foregroundColorButton.addActionListener(appearanceActionListener);
 
 		backgroundColorButton.setText("Background Color");
+		backgroundColorButton.addActionListener(appearanceActionListener);
 
 		defaultButton.setText("Default");
+		defaultButton.addActionListener(appearanceActionListener);
 
 		GroupLayout jPanel2Layout = new GroupLayout(jPanel2);
 		jPanel2.setLayout(jPanel2Layout);
@@ -184,14 +191,23 @@ public class DeckBinderEditDialog extends JDialog {
 			}
 		});
 
+		if (newDeckBinder.getStyle().isBold()) {
+			boldToggle.setSelected(true);
+		}
 		boldToggle.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 		boldToggle.setText("B");
 		boldToggle.addActionListener(fontEffectActionListener);
 
+		if (newDeckBinder.getStyle().isItalic()) {
+			italicToggle.setSelected(true);
+		}
 		italicToggle.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
 		italicToggle.setText("I");
 		italicToggle.addActionListener(fontEffectActionListener);
 
+		if (newDeckBinder.getStyle().isUnderline()) {
+			underlineToggle.setSelected(true);
+		}
 		underlineToggle.setText("U");
 		Font font = new java.awt.Font("Tahoma", 0, 11);
 		Map attributes = font.getAttributes();
@@ -199,6 +215,9 @@ public class DeckBinderEditDialog extends JDialog {
 		underlineToggle.setFont(new Font(attributes));
 		underlineToggle.addActionListener(fontEffectActionListener);
 
+		if (newDeckBinder.getStyle().isStrikethrough()) {
+			strikethroughToggle.setSelected(true);
+		}
 		strikethroughToggle.setText("abc");
 		Font font1 = new java.awt.Font("Tahoma", 0, 11);
 		Map attributes1 = font1.getAttributes();
@@ -206,7 +225,8 @@ public class DeckBinderEditDialog extends JDialog {
 		strikethroughToggle.setFont(new Font(attributes1));
 		strikethroughToggle.addActionListener(fontEffectActionListener);
 
-		// DefaultComboBoxModel so it can be used as a ListModel and sync the two up.
+		// DefaultComboBoxModel so it can be used as a ListModel and sync the
+		// two up.
 		listmodel1 = new DefaultComboBoxModel();
 
 		jList1 = new JList(listmodel1);
@@ -227,8 +247,23 @@ public class DeckBinderEditDialog extends JDialog {
 		moveDownButton.addActionListener(listOrderActionListener);
 
 		doneButton.setText("Done");
+		cancelButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO: Synchronize changes to newDeckBinder with
+				// originalDeckBinder
+			}
+		});
 
 		cancelButton.setText("Cancel");
+		cancelButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 
 		GroupLayout jPanel4Layout = new GroupLayout(jPanel4);
 		jPanel4.setLayout(jPanel4Layout);
@@ -419,4 +454,32 @@ public class DeckBinderEditDialog extends JDialog {
 		}
 	}
 
+	private class AppearanceActionListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String cmd = e.getActionCommand();
+			JLabel label = deckBinderPanel1.getdBName();
+
+			if (cmd.equals("Foreground Color")) {
+				Color color = JColorChooser.showDialog(DeckBinderEditDialog.this, "Choose Foreground Color", label.getForeground());
+				if (null != color) {
+					label.setForeground(color);
+					newDeckBinder.getStyle().setForegroundColor(color);
+				}
+
+			} else if (cmd.equals("Background Color")) {
+				Color color = JColorChooser.showDialog(DeckBinderEditDialog.this, "Choose Background Color", label.getBackground());
+				if (null != color) {
+					label.setBackground(color);
+					newDeckBinder.getStyle().setBackgroundColor(color);
+				}
+			} else if (cmd.equals("Default")) {
+				label.setForeground(null);
+				label.setBackground(null);
+				newDeckBinder.getStyle().setForegroundColor(null);
+				newDeckBinder.getStyle().setBackgroundColor(null);
+			}
+		}
+	}
 }

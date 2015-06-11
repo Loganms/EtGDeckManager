@@ -41,23 +41,23 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 	public DeckBinderPanel() {
 		init(true);
 	}
-	
+
 	// Copy Constructor + non-Functioning
 	protected DeckBinderPanel(DeckBinderPanel dbp) {
 		init(false);
 		setName(dbp.getName());
 		DeckBinder db = DeckManager.getCase().getDeckBinder(dbp.getName());
-		for (Deck d : db.getDecks()){
+		for (Deck d : db.getDecks()) {
 			getComboBox().addItem(d);
 		}
-		if (null != db.getStyle()){
+		if (null != db.getStyle()) {
 			applyStyle(db.getStyle());
 		}
 	}
 
 	public DeckBinderPanel(String name, Style style) {
 		init(true);
-		if (null != style){
+		if (null != style) {
 			applyStyle(style);
 		}
 		setName(name);
@@ -67,13 +67,14 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 		dBName.setOpaque(true);
 		dBName.setForeground(style.getForegroundColor());
 		dBName.setBackground(style.getBackgroundColor());
-		Font font = new Font(dBName.getFont().getFamily(), (style.isBold() ? Font.BOLD : 0) | (style.isItalic() ? Font.ITALIC : 0), dBName.getFont().getSize());
+		Font font = new Font(dBName.getFont().getFamily(), (style.isBold() ? Font.BOLD : 0) | (style.isItalic() ? Font.ITALIC : 0), dBName.getFont()
+				.getSize());
 		@SuppressWarnings("unchecked")
-		Map <TextAttribute, Object>attributes = (Map<TextAttribute, Object>) font.getAttributes();
-		if(style.isUnderline()){
+		Map<TextAttribute, Object> attributes = (Map<TextAttribute, Object>) font.getAttributes();
+		if (style.isUnderline()) {
 			attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
 		}
-		if(style.isStrikethrough()){
+		if (style.isStrikethrough()) {
 			attributes.put(TextAttribute.STRIKETHROUGH, TextAttribute.STRIKETHROUGH_ON);
 		}
 	}
@@ -107,7 +108,7 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(comboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
 								javax.swing.GroupLayout.PREFERRED_SIZE)));
-		
+
 		if (isFunctional) {
 			comboBox.setToolTipText("Move (Shft+UP/DOWN)");
 
@@ -253,9 +254,9 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 			}
 		}
 	}
-	
+
 	// Returns non-functioning copy of DBP
-	public DeckBinderPanel copy(){
+	public DeckBinderPanel copy() {
 		return new DeckBinderPanel(this);
 	}
 

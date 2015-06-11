@@ -24,7 +24,7 @@ public class Style {
 		this.foregroundColor = foregroundColor;
 		this.backgroundColor = backgroundColor;
 	}
-	
+
 	public Style(Color foregroundColor, Color backgroundColor, boolean isBold) {
 		this.foregroundColor = foregroundColor;
 		this.backgroundColor = backgroundColor;

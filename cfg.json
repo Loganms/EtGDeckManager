@@ -14,7 +14,7 @@
           "value": -1118482,
           "falpha": 0.0
         },
-        "isBold": false,
+        "isBold": true,
         "isItalic": false,
         "isUnderline": false,
         "isStrikethrough": false
@@ -55,7 +55,7 @@
           "value": -1118482,
           "falpha": 0.0
         },
-        "isBold": false,
+        "isBold": true,
         "isItalic": false,
         "isUnderline": false,
         "isStrikethrough": false
@@ -92,7 +92,7 @@
           "value": -1118482,
           "falpha": 0.0
         },
-        "isBold": false,
+        "isBold": true,
         "isItalic": false,
         "isUnderline": false,
         "isStrikethrough": false
@@ -107,6 +107,26 @@
           "name": "deck2",
           "importCode": "556",
           "notes": "non on non but not on nonon"
+        },
+        {
+          "name": "monsterbowl",
+          "importCode": "",
+          "notes": ""
+        },
+        {
+          "name": "delta force go",
+          "importCode": "",
+          "notes": ""
+        },
+        {
+          "name": "ram dram mic cram flam",
+          "importCode": "",
+          "notes": ""
+        },
+        {
+          "name": "can you even see me?",
+          "importCode": "",
+          "notes": ""
         }
       ]
     }

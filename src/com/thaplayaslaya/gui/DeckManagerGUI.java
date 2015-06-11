@@ -113,7 +113,7 @@ public class DeckManagerGUI extends JFrame {
 		innerRightPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		promptPanel.setLayout(new BorderLayout());
 		promptPanel.add(rightPromptLabel, BorderLayout.NORTH);
-		
+
 		promptPanel.add(currentlySelectedDeckLabel, BorderLayout.SOUTH);
 		innerRightPanel.add(promptPanel, BorderLayout.NORTH);
 
@@ -323,7 +323,7 @@ public class DeckManagerGUI extends JFrame {
 		if (deck != null && !deck.equals(Deck.DEFAULT)) {
 			currentlySelectedDeck = deck;
 			currentlySelectedDeckLabel.setText(deck.getName());
-			//TODO: I am setting the preferredSize. Oh no!
+			// TODO: I am setting the preferredSize. Oh no!
 			currentlySelectedDeckLabel.setPreferredSize(rightPromptLabel.getSize());
 			promptPanel.revalidate();
 		} else {

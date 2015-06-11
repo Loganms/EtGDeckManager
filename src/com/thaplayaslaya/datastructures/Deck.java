@@ -20,7 +20,7 @@ public class Deck {
 
 	public Deck() {
 	}
-	
+
 	// Copy constructor
 	protected Deck(Deck d) {
 		this.name = d.name;
@@ -190,7 +190,7 @@ public class Deck {
 	public Deck clone() {
 		return new Deck(this);
 	}
-	
+
 	@Override
 	public String toString() {
 		return this.name;
