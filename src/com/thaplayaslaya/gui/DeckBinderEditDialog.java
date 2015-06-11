@@ -247,12 +247,15 @@ public class DeckBinderEditDialog extends JDialog {
 		moveDownButton.addActionListener(listOrderActionListener);
 
 		doneButton.setText("Done");
-		cancelButton.addActionListener(new ActionListener() {
+		doneButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO: Synchronize changes to newDeckBinder with
-				// originalDeckBinder
+				originalDeckBinder.setName(jTextField1.getText());
+				originalDeckBinder.setStyle(newDeckBinder.getStyle());
+				// originalDeckBinder.setDecks(newDeckBinder.getDecks());
+				originalDeckBinder.setDecks(listmodel1);
+				dispose();
 			}
 		});
 
@@ -395,32 +398,37 @@ public class DeckBinderEditDialog extends JDialog {
 			JToggleButton btn = (JToggleButton) e.getSource();
 			boolean activate = btn.getModel().isSelected();
 			Font f = deckBinderPanel1.getdBName().getFont();
+			JLabel label = deckBinderPanel1.getdBName();
 			switch (btn.getText()) {
 			case "B":
-				deckBinderPanel1.getdBName().setFont(f.deriveFont(f.getStyle() ^ Font.BOLD));
+				label.setFont(f.deriveFont(f.getStyle() ^ Font.BOLD));
+				newDeckBinder.getStyle().setBold(label.getFont().isBold());
 				break;
 			case "I":
-				deckBinderPanel1.getdBName().setFont(f.deriveFont(f.getStyle() ^ Font.ITALIC));
+				label.setFont(f.deriveFont(f.getStyle() ^ Font.ITALIC));
+				newDeckBinder.getStyle().setItalic(label.getFont().isItalic());
 				break;
 			case "U":
 				Map attributes = f.getAttributes();
 				if (activate) {
 					attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
-
+					newDeckBinder.getStyle().setUnderline(true);
 				} else {
 					attributes.put(TextAttribute.UNDERLINE, -1);
+					newDeckBinder.getStyle().setUnderline(false);
 				}
-				deckBinderPanel1.getdBName().setFont(f.deriveFont(attributes));
+				label.setFont(f.deriveFont(attributes));
 				break;
 			case "abc":
 				Map attributes1 = f.getAttributes();
 				if (activate) {
 					attributes1.put(TextAttribute.STRIKETHROUGH, TextAttribute.STRIKETHROUGH_ON);
-
+					newDeckBinder.getStyle().setStrikethrough(true);
 				} else {
 					attributes1.put(TextAttribute.STRIKETHROUGH, -1);
+					newDeckBinder.getStyle().setStrikethrough(false);
 				}
-				deckBinderPanel1.getdBName().setFont(f.deriveFont(attributes1));
+				label.setFont(f.deriveFont(attributes1));
 				break;
 			default:
 				break;

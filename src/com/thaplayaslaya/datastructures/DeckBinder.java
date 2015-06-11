@@ -2,6 +2,8 @@ package com.thaplayaslaya.datastructures;
 
 import java.util.ArrayList;
 
+import javax.swing.DefaultComboBoxModel;
+
 import com.thaplayaslaya.DeckManager;
 import com.thaplayaslaya.gui.CustomDialog;
 import com.thaplayaslaya.gui.DeckBinderPanel;
@@ -32,6 +34,7 @@ public class DeckBinder {
 	// Copy Constructor
 	protected DeckBinder(DeckBinder db) {
 		this.name = db.getName();
+		this.style = db.getStyle();
 		for (Deck d : db.getDecks()) {
 			this.decks.add(d.clone());
 		}
@@ -80,6 +83,7 @@ public class DeckBinder {
 
 	public void setStyle(Style style) {
 		this.style = style;
+		this.dBP.applyStyle(this.style);
 	}
 
 	public Deck getDeck(String name) {
@@ -93,6 +97,17 @@ public class DeckBinder {
 
 	public ArrayList<Deck> getDecks() {
 		return decks;
+	}
+
+	public void setDecks(DefaultComboBoxModel<Deck> model) {
+		this.decks = new ArrayList<Deck>();
+		for (int i = 0; i < model.getSize(); i++) {
+			this.decks.add(model.getElementAt(i));
+		}
+		dBP.disableListeners();
+		this.dBP.getComboBox().setModel(model);
+		dBP.getComboBox().addItem(Deck.DEFAULT);
+		dBP.enableListeners();
 	}
 
 	public boolean containsDeck(String name) {

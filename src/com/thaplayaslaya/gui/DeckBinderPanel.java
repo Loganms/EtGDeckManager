@@ -63,7 +63,7 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 		setName(name);
 	}
 
-	private void applyStyle(Style style) {
+	public void applyStyle(Style style) {
 		dBName.setOpaque(true);
 		dBName.setForeground(style.getForegroundColor());
 		dBName.setBackground(style.getBackgroundColor());
@@ -77,6 +77,7 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 		if (style.isStrikethrough()) {
 			attributes.put(TextAttribute.STRIKETHROUGH, TextAttribute.STRIKETHROUGH_ON);
 		}
+		dBName.setFont(new Font(attributes));
 	}
 
 	private void init(Boolean isFunctional) {
