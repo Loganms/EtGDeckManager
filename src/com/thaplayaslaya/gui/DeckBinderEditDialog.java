@@ -1,6 +1,5 @@
 package com.thaplayaslaya.gui;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,7 +10,6 @@ import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
-import javax.swing.JColorChooser;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -21,6 +19,7 @@ import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.swing.LayoutStyle;
 import javax.swing.ListSelectionModel;
+import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -68,7 +67,7 @@ public class DeckBinderEditDialog extends JDialog {
 		this.newDeckBinder = originalDeckBinder.copy();
 		this.deckBinderPanel1 = newDeckBinder.getDBP();
 		initComponents();
-		setLocationRelativeTo(DeckManager.getDeckManagerGUI());
+		setLocation(DeckManager.getDeckManagerGUI().getSmartExternalWindowLocation(this));
 		setVisible(true);
 	}
 
@@ -101,9 +100,10 @@ public class DeckBinderEditDialog extends JDialog {
 		strikethroughToggle = new JToggleButton();
 		doneButton = new JButton();
 		cancelButton = new JButton();
-		fontEffectActionListener = new FontEffectActionListener();
+
+		fontEffectActionListener = new FontEffectActionListener(deckBinderPanel1.getdBName(), newDeckBinder);
 		listOrderActionListener = new ListOrderActionListener();
-		appearanceActionListener = new AppearanceActionListener();
+		appearanceActionListener = new AppearanceActionListener(this, deckBinderPanel1.getdBName(), newDeckBinder);
 
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -194,14 +194,14 @@ public class DeckBinderEditDialog extends JDialog {
 		if (newDeckBinder.getStyle().isBold()) {
 			boldToggle.setSelected(true);
 		}
-		boldToggle.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+		boldToggle.setFont(UIManager.getFont("Button.font").deriveFont(Font.BOLD));
 		boldToggle.setText("B");
 		boldToggle.addActionListener(fontEffectActionListener);
 
 		if (newDeckBinder.getStyle().isItalic()) {
 			italicToggle.setSelected(true);
 		}
-		italicToggle.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
+		italicToggle.setFont(UIManager.getFont("Button.font").deriveFont(Font.PLAIN).deriveFont(Font.ITALIC));
 		italicToggle.setText("I");
 		italicToggle.addActionListener(fontEffectActionListener);
 
@@ -209,7 +209,7 @@ public class DeckBinderEditDialog extends JDialog {
 			underlineToggle.setSelected(true);
 		}
 		underlineToggle.setText("U");
-		Font font = new java.awt.Font("Tahoma", 0, 11);
+		Font font = UIManager.getFont("Button.font").deriveFont(Font.PLAIN);
 		Map attributes = font.getAttributes();
 		attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
 		underlineToggle.setFont(new Font(attributes));
@@ -219,7 +219,7 @@ public class DeckBinderEditDialog extends JDialog {
 			strikethroughToggle.setSelected(true);
 		}
 		strikethroughToggle.setText("abc");
-		Font font1 = new java.awt.Font("Tahoma", 0, 11);
+		Font font1 = UIManager.getFont("Button.font").deriveFont(Font.PLAIN);
 		Map attributes1 = font1.getAttributes();
 		attributes1.put(TextAttribute.STRIKETHROUGH, TextAttribute.STRIKETHROUGH_ON);
 		strikethroughToggle.setFont(new Font(attributes1));
@@ -389,51 +389,34 @@ public class DeckBinderEditDialog extends JDialog {
 		previewPanel.revalidate();
 	}
 
-	private class FontEffectActionListener implements ActionListener {
-
-		@SuppressWarnings({ "rawtypes", "unchecked" })
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			JToggleButton btn = (JToggleButton) e.getSource();
-			boolean activate = btn.getModel().isSelected();
-			Font f = deckBinderPanel1.getdBName().getFont();
-			JLabel label = deckBinderPanel1.getdBName();
-			switch (btn.getText()) {
-			case "B":
-				label.setFont(f.deriveFont(f.getStyle() ^ Font.BOLD));
-				newDeckBinder.getStyle().setBold(label.getFont().isBold());
-				break;
-			case "I":
-				label.setFont(f.deriveFont(f.getStyle() ^ Font.ITALIC));
-				newDeckBinder.getStyle().setItalic(label.getFont().isItalic());
-				break;
-			case "U":
-				Map attributes = f.getAttributes();
-				if (activate) {
-					attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
-					newDeckBinder.getStyle().setUnderline(true);
-				} else {
-					attributes.put(TextAttribute.UNDERLINE, -1);
-					newDeckBinder.getStyle().setUnderline(false);
-				}
-				label.setFont(f.deriveFont(attributes));
-				break;
-			case "abc":
-				Map attributes1 = f.getAttributes();
-				if (activate) {
-					attributes1.put(TextAttribute.STRIKETHROUGH, TextAttribute.STRIKETHROUGH_ON);
-					newDeckBinder.getStyle().setStrikethrough(true);
-				} else {
-					attributes1.put(TextAttribute.STRIKETHROUGH, -1);
-					newDeckBinder.getStyle().setStrikethrough(false);
-				}
-				label.setFont(f.deriveFont(attributes1));
-				break;
-			default:
-				break;
-			}
-		}
-	}
+	/*
+	 * private class FontEffectActionListener implements ActionListener {
+	 * 
+	 * @SuppressWarnings({ "rawtypes", "unchecked" })
+	 * 
+	 * @Override public void actionPerformed(ActionEvent e) { JToggleButton btn
+	 * = (JToggleButton) e.getSource(); boolean activate =
+	 * btn.getModel().isSelected(); Font f =
+	 * deckBinderPanel1.getdBName().getFont(); JLabel label =
+	 * deckBinderPanel1.getdBName(); switch (btn.getText()) { case "B":
+	 * label.setFont(f.deriveFont(f.getStyle() ^ Font.BOLD));
+	 * newDeckBinder.getStyle().setBold(label.getFont().isBold()); break; case
+	 * "I": label.setFont(f.deriveFont(f.getStyle() ^ Font.ITALIC));
+	 * newDeckBinder.getStyle().setItalic(label.getFont().isItalic()); break;
+	 * case "U": Map attributes = f.getAttributes(); if (activate) {
+	 * attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+	 * newDeckBinder.getStyle().setUnderline(true); } else {
+	 * attributes.put(TextAttribute.UNDERLINE, -1);
+	 * newDeckBinder.getStyle().setUnderline(false); }
+	 * label.setFont(f.deriveFont(attributes)); break; case "abc": Map
+	 * attributes1 = f.getAttributes(); if (activate) {
+	 * attributes1.put(TextAttribute.STRIKETHROUGH,
+	 * TextAttribute.STRIKETHROUGH_ON);
+	 * newDeckBinder.getStyle().setStrikethrough(true); } else {
+	 * attributes1.put(TextAttribute.STRIKETHROUGH, -1);
+	 * newDeckBinder.getStyle().setStrikethrough(false); }
+	 * label.setFont(f.deriveFont(attributes1)); break; default: break; } } }
+	 */
 
 	private class ListOrderActionListener implements ActionListener {
 
@@ -461,32 +444,26 @@ public class DeckBinderEditDialog extends JDialog {
 		}
 	}
 
-	private class AppearanceActionListener implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			String cmd = e.getActionCommand();
-			JLabel label = deckBinderPanel1.getdBName();
-
-			if (cmd.equals("Foreground Color")) {
-				Color color = JColorChooser.showDialog(DeckBinderEditDialog.this, "Choose Foreground Color", label.getForeground());
-				if (null != color) {
-					label.setForeground(color);
-					newDeckBinder.getStyle().setForegroundColor(color);
-				}
-
-			} else if (cmd.equals("Background Color")) {
-				Color color = JColorChooser.showDialog(DeckBinderEditDialog.this, "Choose Background Color", label.getBackground());
-				if (null != color) {
-					label.setBackground(color);
-					newDeckBinder.getStyle().setBackgroundColor(color);
-				}
-			} else if (cmd.equals("Default")) {
-				label.setForeground(null);
-				label.setBackground(null);
-				newDeckBinder.getStyle().setForegroundColor(null);
-				newDeckBinder.getStyle().setBackgroundColor(null);
-			}
-		}
-	}
+	/*
+	 * private class AppearanceActionListener implements ActionListener {
+	 * 
+	 * @Override public void actionPerformed(ActionEvent e) { String cmd =
+	 * e.getActionCommand(); JLabel label = deckBinderPanel1.getdBName();
+	 * 
+	 * if (cmd.equals("Foreground Color")) { Color color =
+	 * JColorChooser.showDialog(DeckBinderEditDialog.this,
+	 * "Choose Foreground Color", label.getForeground()); if (null != color) {
+	 * label.setForeground(color);
+	 * newDeckBinder.getStyle().setForegroundColor(color); }
+	 * 
+	 * } else if (cmd.equals("Background Color")) { Color color =
+	 * JColorChooser.showDialog(DeckBinderEditDialog.this,
+	 * "Choose Background Color", label.getBackground()); if (null != color) {
+	 * label.setBackground(color);
+	 * newDeckBinder.getStyle().setBackgroundColor(color); } } else if
+	 * (cmd.equals("Default")) { label.setForeground(null);
+	 * label.setBackground(null);
+	 * newDeckBinder.getStyle().setForegroundColor(null);
+	 * newDeckBinder.getStyle().setBackgroundColor(null); } } }
+	 */
 }

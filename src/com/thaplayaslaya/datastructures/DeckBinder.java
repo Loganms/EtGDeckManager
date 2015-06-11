@@ -9,7 +9,7 @@ import com.thaplayaslaya.DeckManager;
 import com.thaplayaslaya.gui.CustomDialog;
 import com.thaplayaslaya.gui.DeckBinderPanel;
 
-public class DeckBinder {
+public class DeckBinder implements IStylish {
 
 	private String name;
 	private Style style = new Style(UIManager.getColor("Label.foreground"), UIManager.getColor("Label.background"));
@@ -78,6 +78,7 @@ public class DeckBinder {
 		return name;
 	}
 
+	@Override
 	public Style getStyle() {
 		return style;
 	}

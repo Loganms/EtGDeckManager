@@ -7,7 +7,7 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.UIManager;
 
-public class Deck {
+public class Deck implements IStylish {
 
 	private static final String DEFAULT_DECK_NAME = "add new deck";
 	public static final Deck DEFAULT = new Deck(DEFAULT_DECK_NAME);
@@ -42,6 +42,7 @@ public class Deck {
 		this.name = name;
 	}
 
+	@Override
 	public Style getStyle() {
 		return style;
 	}

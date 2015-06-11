@@ -7,14 +7,14 @@
       "name": "G/P Arena",
       "style": {
         "foregroundColor": {
-          "value": -16711936,
+          "value": -13108,
           "falpha": 0.0
         },
         "backgroundColor": {
-          "value": -6750106,
+          "value": -6750055,
           "falpha": 0.0
         },
-        "isBold": true,
+        "isBold": false,
         "isItalic": false,
         "isUnderline": false,
         "isStrikethrough": false
