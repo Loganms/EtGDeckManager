@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.net.URL;
 
 import javax.imageio.ImageIO;
+import javax.swing.UIManager;
 
 public class Deck {
 
@@ -15,6 +16,7 @@ public class Deck {
 	private transient BufferedImage deckImage;
 
 	private String name;
+	private Style style = new Style(UIManager.getColor("ComboBox.foreground"), UIManager.getColor("ComboBox.background"));
 	private String importCode;
 	private String notes;
 
@@ -38,6 +40,14 @@ public class Deck {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Style getStyle() {
+		return style;
+	}
+
+	public void setStyle(Style style) {
+		this.style = style;
 	}
 
 	public String getImportCode() {

@@ -2,12 +2,10 @@ package com.thaplayaslaya.datastructures;
 
 import java.awt.Color;
 
-import javax.swing.UIManager;
-
 public class Style {
 
-	private Color foregroundColor = UIManager.getColor("Label.foreground");
-	private Color backgroundColor = UIManager.getColor("Label.background");
+	private Color foregroundColor;
+	private Color backgroundColor;
 	private boolean isBold = true;
 	private boolean isItalic = false;
 	private boolean isUnderline = false;

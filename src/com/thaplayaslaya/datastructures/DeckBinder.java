@@ -3,6 +3,7 @@ package com.thaplayaslaya.datastructures;
 import java.util.ArrayList;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.UIManager;
 
 import com.thaplayaslaya.DeckManager;
 import com.thaplayaslaya.gui.CustomDialog;
@@ -11,7 +12,7 @@ import com.thaplayaslaya.gui.DeckBinderPanel;
 public class DeckBinder {
 
 	private String name;
-	private Style style = new Style();
+	private Style style = new Style(UIManager.getColor("Label.foreground"), UIManager.getColor("Label.background"));
 	private transient DeckBinderPanel dBP;
 	private ArrayList<Deck> decks = new ArrayList<Deck>();
 

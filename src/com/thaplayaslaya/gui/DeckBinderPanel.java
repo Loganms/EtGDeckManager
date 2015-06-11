@@ -53,7 +53,7 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 		if (null != db.getStyle()) {
 			applyStyle(db.getStyle());
 		}
-		((DeckBinderComboBox<Deck>)comboBox).disableNoteWindows();
+		((DeckBinderComboBox<Deck>) comboBox).disableNoteWindows();
 	}
 
 	public DeckBinderPanel(String name, Style style) {
@@ -68,6 +68,7 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 		dBName.setOpaque(true);
 		dBName.setForeground(style.getForegroundColor());
 		dBName.setBackground(style.getBackgroundColor());
+		// TODO: This font stuff is a pain
 		Font font = new Font(dBName.getFont().getFamily(), (style.isBold() ? Font.BOLD : 0) | (style.isItalic() ? Font.ITALIC : 0), dBName.getFont()
 				.getSize());
 		@SuppressWarnings("unchecked")
