@@ -6,11 +6,22 @@ import java.awt.event.ActionListener;
 import java.awt.font.TextAttribute;
 import java.util.Map;
 
-import javax.swing.DefaultListModel;
+import javax.swing.BorderFactory;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.GroupLayout;
+import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.JToggleButton;
+import javax.swing.LayoutStyle;
 import javax.swing.ListSelectionModel;
+import javax.swing.WindowConstants;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import com.thaplayaslaya.DeckManager;
 import com.thaplayaslaya.datastructures.Deck;
@@ -21,30 +32,30 @@ public class DeckBinderEditDialog extends JDialog {
 	private static final long serialVersionUID = 1173643001427931665L;
 	private DeckBinder originalDeckBinder;
 	private DeckBinder newDeckBinder;
-	private javax.swing.JPanel appearancePanel;
-	private javax.swing.JButton backgroundColorButton;
-	private javax.swing.JToggleButton boldToggle;
-	private javax.swing.JButton cancelButton;
+	private JPanel appearancePanel;
+	private JButton backgroundColorButton;
+	private JToggleButton boldToggle;
+	private JButton cancelButton;
 	private DeckBinderPanel deckBinderPanel1;
-	private javax.swing.JPanel deckBinderSettingsPanel;
-	private javax.swing.JButton defaultButton;
-	private javax.swing.JButton doneButton;
-	private javax.swing.JButton foregroundColorButton;
-	private javax.swing.JToggleButton italicToggle;
-	private DefaultListModel<Deck> listmodel1;
-	private javax.swing.JList<Deck> jList1;
-	private javax.swing.JLabel jListLabel;
-	private javax.swing.JPanel jPanel2;
-	private javax.swing.JPanel jPanel3;
-	private javax.swing.JPanel jPanel4;
-	private javax.swing.JScrollPane jScrollPane1;
-	private javax.swing.JTextField jTextField1;
-	private javax.swing.JButton moveDownButton;
-	private javax.swing.JButton moveUpButton;
-	private javax.swing.JLabel nameLabel;
-	private javax.swing.JPanel previewPanel;
-	private javax.swing.JToggleButton strikethroughToggle;
-	private javax.swing.JToggleButton underlineToggle;
+	private JPanel deckBinderSettingsPanel;
+	private JButton defaultButton;
+	private JButton doneButton;
+	private JButton foregroundColorButton;
+	private JToggleButton italicToggle;
+	private DefaultComboBoxModel<Deck> listmodel1;
+	private JList<Deck> jList1;
+	private JLabel jListLabel;
+	private JPanel jPanel2;
+	private JPanel jPanel3;
+	private JPanel jPanel4;
+	private JScrollPane jScrollPane1;
+	private JTextField jTextField1;
+	private JButton moveDownButton;
+	private JButton moveUpButton;
+	private JLabel nameLabel;
+	private JPanel previewPanel;
+	private JToggleButton strikethroughToggle;
+	private JToggleButton underlineToggle;
 	private FontEffectActionListener fontEffectActionListener;
 	private ListOrderActionListener listOrderActionListener;
 
@@ -52,8 +63,7 @@ public class DeckBinderEditDialog extends JDialog {
 		super(DeckManager.getDeckManagerGUI(), "Edit Deck Binder", true);
 		this.originalDeckBinder = deckBinder;
 		this.newDeckBinder = originalDeckBinder.copy();
-		System.out.println(originalDeckBinder);
-		System.out.println(newDeckBinder);
+		this.deckBinderPanel1 = newDeckBinder.getDBP();
 		initComponents();
 		setLocationRelativeTo(DeckManager.getDeckManagerGUI());
 		setVisible(true);
@@ -67,52 +77,48 @@ public class DeckBinderEditDialog extends JDialog {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void initComponents() {
 
-		previewPanel = new javax.swing.JPanel();
-		deckBinderPanel1 = newDeckBinder.getDBP();
-		appearancePanel = new javax.swing.JPanel();
-		foregroundColorButton = new javax.swing.JButton();
-		backgroundColorButton = new javax.swing.JButton();
-		jPanel2 = new javax.swing.JPanel();
-		defaultButton = new javax.swing.JButton();
-		jPanel3 = new javax.swing.JPanel();
-		deckBinderSettingsPanel = new javax.swing.JPanel();
-		nameLabel = new javax.swing.JLabel();
-		jTextField1 = new javax.swing.JTextField();
-		boldToggle = new javax.swing.JToggleButton();
-		italicToggle = new javax.swing.JToggleButton();
-		underlineToggle = new javax.swing.JToggleButton();
-		jScrollPane1 = new javax.swing.JScrollPane();
-		//jList1 = new javax.swing.JList();
-		jListLabel = new javax.swing.JLabel();
-		jPanel4 = new javax.swing.JPanel();
-		moveUpButton = new javax.swing.JButton();
-		moveDownButton = new javax.swing.JButton();
-		strikethroughToggle = new javax.swing.JToggleButton();
-		doneButton = new javax.swing.JButton();
-		cancelButton = new javax.swing.JButton();
+		previewPanel = new JPanel();
+		appearancePanel = new JPanel();
+		foregroundColorButton = new JButton();
+		backgroundColorButton = new JButton();
+		jPanel2 = new JPanel();
+		defaultButton = new JButton();
+		jPanel3 = new JPanel();
+		deckBinderSettingsPanel = new JPanel();
+		nameLabel = new JLabel();
+		jTextField1 = new JTextField();
+		boldToggle = new JToggleButton();
+		italicToggle = new JToggleButton();
+		underlineToggle = new JToggleButton();
+		jScrollPane1 = new JScrollPane();
+		jListLabel = new JLabel();
+		jPanel4 = new JPanel();
+		moveUpButton = new JButton();
+		moveDownButton = new JButton();
+		strikethroughToggle = new JToggleButton();
+		doneButton = new JButton();
+		cancelButton = new JButton();
 		fontEffectActionListener = new FontEffectActionListener();
 		listOrderActionListener = new ListOrderActionListener();
 
-		setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
-		previewPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Preview"));
+		previewPanel.setBorder(BorderFactory.createTitledBorder("Preview"));
 
-		javax.swing.GroupLayout previewPanelLayout = new javax.swing.GroupLayout(previewPanel);
+		GroupLayout previewPanelLayout = new GroupLayout(previewPanel);
 		previewPanel.setLayout(previewPanelLayout);
-		previewPanelLayout.setHorizontalGroup(previewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
+		previewPanelLayout.setHorizontalGroup(previewPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(
 				previewPanelLayout
 						.createSequentialGroup()
 						.addContainerGap()
 						.addComponent(deckBinderPanel1, deckBinderPanel1.getPreferredSize().width, deckBinderPanel1.getMaximumSize().width,
 								Short.MAX_VALUE).addContainerGap()));
-		previewPanelLayout.setVerticalGroup(previewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-				previewPanelLayout
-						.createSequentialGroup()
-						.addContainerGap()
-						.addComponent(deckBinderPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-								javax.swing.GroupLayout.PREFERRED_SIZE).addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+		previewPanelLayout.setVerticalGroup(previewPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(
+				previewPanelLayout.createSequentialGroup().addContainerGap()
+						.addComponent(deckBinderPanel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 
-		appearancePanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Appearance"));
+		appearancePanel.setBorder(BorderFactory.createTitledBorder("Appearance"));
 
 		foregroundColorButton.setText("Foreground Color");
 
@@ -120,50 +126,63 @@ public class DeckBinderEditDialog extends JDialog {
 
 		defaultButton.setText("Default");
 
-		javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+		GroupLayout jPanel2Layout = new GroupLayout(jPanel2);
 		jPanel2.setLayout(jPanel2Layout);
-		jPanel2Layout.setHorizontalGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-				javax.swing.GroupLayout.Alignment.TRAILING,
+		jPanel2Layout.setHorizontalGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(GroupLayout.Alignment.TRAILING,
 				jPanel2Layout.createSequentialGroup().addGap(0, 0, Short.MAX_VALUE).addComponent(defaultButton)));
-		jPanel2Layout.setVerticalGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(defaultButton,
-				javax.swing.GroupLayout.Alignment.TRAILING));
+		jPanel2Layout.setVerticalGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(defaultButton,
+				GroupLayout.Alignment.TRAILING));
 
-		javax.swing.GroupLayout appearancePanelLayout = new javax.swing.GroupLayout(appearancePanel);
+		GroupLayout appearancePanelLayout = new GroupLayout(appearancePanel);
 		appearancePanel.setLayout(appearancePanelLayout);
-		appearancePanelLayout.setHorizontalGroup(appearancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
+		appearancePanelLayout.setHorizontalGroup(appearancePanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(
 				appearancePanelLayout
 						.createSequentialGroup()
 						.addContainerGap()
 						.addGroup(
 								appearancePanelLayout
-										.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-										.addComponent(backgroundColorButton, javax.swing.GroupLayout.DEFAULT_SIZE,
-												javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										.addComponent(foregroundColorButton, javax.swing.GroupLayout.DEFAULT_SIZE,
-												javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										.addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE,
-												javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)).addContainerGap()));
-		appearancePanelLayout.setVerticalGroup(appearancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-				appearancePanelLayout
-						.createSequentialGroup()
-						.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(foregroundColorButton)
-						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-						.addComponent(backgroundColorButton)
-						.addGap(11, 11, 11)
-						.addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-								javax.swing.GroupLayout.PREFERRED_SIZE).addContainerGap()));
+										.createParallelGroup(GroupLayout.Alignment.LEADING)
+										.addComponent(backgroundColorButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(foregroundColorButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(jPanel2, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
+												Short.MAX_VALUE)).addContainerGap()));
+		appearancePanelLayout.setVerticalGroup(appearancePanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(
+				appearancePanelLayout.createSequentialGroup().addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(foregroundColorButton).addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+						.addComponent(backgroundColorButton).addGap(11, 11, 11)
+						.addComponent(jPanel2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE).addContainerGap()));
 
-		javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+		GroupLayout jPanel3Layout = new GroupLayout(jPanel3);
 		jPanel3.setLayout(jPanel3Layout);
-		jPanel3Layout.setHorizontalGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 0, Short.MAX_VALUE));
-		jPanel3Layout.setVerticalGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 23, Short.MAX_VALUE));
+		jPanel3Layout.setHorizontalGroup(jPanel3Layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGap(0, 0, Short.MAX_VALUE));
+		jPanel3Layout.setVerticalGroup(jPanel3Layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGap(0, 23, Short.MAX_VALUE));
 
-		deckBinderSettingsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Deck Binder Settings"));
+		deckBinderSettingsPanel.setBorder(BorderFactory.createTitledBorder("Deck Binder Settings"));
 
 		nameLabel.setText("Name:");
 
 		jTextField1.setText(newDeckBinder.getName());
+		jTextField1.getDocument().addDocumentListener(new DocumentListener() {
+
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				updatePreview();
+			}
+
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				updatePreview();
+			}
+
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				updatePreview();
+			}
+
+			private void updatePreview() {
+				deckBinderPanel1.setName(jTextField1.getText());
+			}
+		});
 
 		boldToggle.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 		boldToggle.setText("B");
@@ -187,31 +206,14 @@ public class DeckBinderEditDialog extends JDialog {
 		strikethroughToggle.setFont(new Font(attributes1));
 		strikethroughToggle.addActionListener(fontEffectActionListener);
 
-		listmodel1 = new DefaultListModel();
-		
+		// DefaultComboBoxModel so it can be used as a ListModel and sync the two up.
+		listmodel1 = new DefaultComboBoxModel();
+
 		jList1 = new JList(listmodel1);
-		for (Deck d : newDeckBinder.getDecks()){
+		for (Deck d : newDeckBinder.getDecks()) {
 			listmodel1.addElement(d);
 		}
-		
-		/*jList1.setModel(new javax.swing.DefaultListModel() {
-			private static final long serialVersionUID = -7048048338606549905L;
-			
-			Object[] decks = newDeckBinder.getDecks().toArray();
 
-			public int getSize() {
-				System.out.println(decks.length);
-				return decks.length;
-			}
-
-			public Object get(int i) {
-				return decks[i];
-			}
-			
-			public Object getElementAt(int i) {
-				return decks[i];
-			}
-		});*/
 		jList1.setVisibleRowCount(5);
 		jList1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		jScrollPane1.setViewportView(jList1);
@@ -228,142 +230,122 @@ public class DeckBinderEditDialog extends JDialog {
 
 		cancelButton.setText("Cancel");
 
-		javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+		GroupLayout jPanel4Layout = new GroupLayout(jPanel4);
 		jPanel4.setLayout(jPanel4Layout);
-		jPanel4Layout.setHorizontalGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-				javax.swing.GroupLayout.Alignment.TRAILING,
+		jPanel4Layout.setHorizontalGroup(jPanel4Layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(
+				GroupLayout.Alignment.TRAILING,
 				jPanel4Layout.createSequentialGroup().addGap(0, 0, Short.MAX_VALUE).addComponent(moveUpButton)
-						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(moveDownButton)));
-		jPanel4Layout.setVerticalGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(
-						jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(moveUpButton)
-								.addComponent(moveDownButton)));
+						.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED).addComponent(moveDownButton)));
+		jPanel4Layout.setVerticalGroup(jPanel4Layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(
+				jPanel4Layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(moveUpButton).addComponent(moveDownButton)));
 
-		javax.swing.GroupLayout deckBinderSettingsPanelLayout = new javax.swing.GroupLayout(deckBinderSettingsPanel);
+		GroupLayout deckBinderSettingsPanelLayout = new GroupLayout(deckBinderSettingsPanel);
 		deckBinderSettingsPanel.setLayout(deckBinderSettingsPanelLayout);
-		deckBinderSettingsPanelLayout
-				.setHorizontalGroup(deckBinderSettingsPanelLayout
-						.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-						.addGroup(
-								deckBinderSettingsPanelLayout
-										.createSequentialGroup()
-										.addContainerGap()
-										.addGroup(
-												deckBinderSettingsPanelLayout
-														.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-														.addGroup(
-																deckBinderSettingsPanelLayout.createSequentialGroup().addComponent(jListLabel)
-																		.addGap(0, 0, Short.MAX_VALUE))
-														.addGroup(
-																javax.swing.GroupLayout.Alignment.TRAILING,
-																deckBinderSettingsPanelLayout
-																		.createSequentialGroup()
-																		.addGroup(
-																				deckBinderSettingsPanelLayout
-																						.createParallelGroup(
-																								javax.swing.GroupLayout.Alignment.TRAILING)
-																						.addComponent(jPanel4,
-																								javax.swing.GroupLayout.Alignment.LEADING,
-																								javax.swing.GroupLayout.DEFAULT_SIZE,
-																								javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-																						.addGroup(
-																								javax.swing.GroupLayout.Alignment.LEADING,
-																								deckBinderSettingsPanelLayout
-																										.createSequentialGroup()
-																										.addComponent(nameLabel)
-																										.addPreferredGap(
-																												javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-																										.addComponent(jTextField1))
-																						.addGroup(
-																								javax.swing.GroupLayout.Alignment.LEADING,
-																								deckBinderSettingsPanelLayout
-																										.createSequentialGroup()
-																										.addComponent(boldToggle)
-																										.addPreferredGap(
-																												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-																										.addComponent(italicToggle)
-																										.addPreferredGap(
-																												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-																										.addComponent(underlineToggle)
-																										.addPreferredGap(
-																												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-																										.addComponent(strikethroughToggle)
-																										.addGap(0, 0, Short.MAX_VALUE))
-																						.addComponent(jScrollPane1,
-																								javax.swing.GroupLayout.Alignment.LEADING))
-																		.addContainerGap()))));
-		deckBinderSettingsPanelLayout.setVerticalGroup(deckBinderSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+		deckBinderSettingsPanelLayout.setHorizontalGroup(deckBinderSettingsPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
 				.addGroup(
 						deckBinderSettingsPanelLayout
 								.createSequentialGroup()
 								.addContainerGap()
 								.addGroup(
 										deckBinderSettingsPanelLayout
-												.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-												.addComponent(nameLabel)
-												.addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE,
-														javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-								.addGroup(
-										deckBinderSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-												.addComponent(boldToggle).addComponent(italicToggle).addComponent(underlineToggle)
-												.addComponent(strikethroughToggle))
-								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-								.addComponent(jListLabel)
-								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-								.addComponent(jScrollPane1)
-								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-								.addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-										javax.swing.GroupLayout.PREFERRED_SIZE).addContainerGap()));
+												.createParallelGroup(GroupLayout.Alignment.LEADING)
+												.addGroup(
+														deckBinderSettingsPanelLayout.createSequentialGroup().addComponent(jListLabel)
+																.addGap(0, 0, Short.MAX_VALUE))
+												.addGroup(
+														GroupLayout.Alignment.TRAILING,
+														deckBinderSettingsPanelLayout
+																.createSequentialGroup()
+																.addGroup(
+																		deckBinderSettingsPanelLayout
+																				.createParallelGroup(GroupLayout.Alignment.TRAILING)
+																				.addComponent(jPanel4, GroupLayout.Alignment.LEADING,
+																						GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
+																						Short.MAX_VALUE)
+																				.addGroup(
+																						GroupLayout.Alignment.LEADING,
+																						deckBinderSettingsPanelLayout
+																								.createSequentialGroup()
+																								.addComponent(nameLabel)
+																								.addPreferredGap(
+																										LayoutStyle.ComponentPlacement.UNRELATED)
+																								.addComponent(jTextField1))
+																				.addGroup(
+																						GroupLayout.Alignment.LEADING,
+																						deckBinderSettingsPanelLayout
+																								.createSequentialGroup()
+																								.addComponent(boldToggle)
+																								.addPreferredGap(
+																										LayoutStyle.ComponentPlacement.RELATED)
+																								.addComponent(italicToggle)
+																								.addPreferredGap(
+																										LayoutStyle.ComponentPlacement.RELATED)
+																								.addComponent(underlineToggle)
+																								.addPreferredGap(
+																										LayoutStyle.ComponentPlacement.RELATED)
+																								.addComponent(strikethroughToggle)
+																								.addGap(0, 0, Short.MAX_VALUE))
+																				.addComponent(jScrollPane1, GroupLayout.Alignment.LEADING))
+																.addContainerGap()))));
+		deckBinderSettingsPanelLayout.setVerticalGroup(deckBinderSettingsPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(
+				deckBinderSettingsPanelLayout
+						.createSequentialGroup()
+						.addContainerGap()
+						.addGroup(
+								deckBinderSettingsPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(nameLabel)
+										.addComponent(jTextField1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+						.addGroup(
+								deckBinderSettingsPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(boldToggle)
+										.addComponent(italicToggle).addComponent(underlineToggle).addComponent(strikethroughToggle))
+						.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED).addComponent(jListLabel)
+						.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED).addComponent(jScrollPane1)
+						.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+						.addComponent(jPanel4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE).addContainerGap()));
 
-		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+		GroupLayout layout = new GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
-		layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
+		layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(
 				layout.createSequentialGroup()
 						.addContainerGap()
 						.addGroup(
-								layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+								layout.createParallelGroup(GroupLayout.Alignment.LEADING)
 										.addGroup(
 												layout.createSequentialGroup()
-														.addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE,
-																javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-														.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(doneButton)
-														.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-														.addComponent(cancelButton))
+														.addComponent(jPanel3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+														.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED).addComponent(doneButton)
+														.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED).addComponent(cancelButton))
 										.addGroup(
 												layout.createSequentialGroup()
-														.addComponent(deckBinderSettingsPanel, javax.swing.GroupLayout.PREFERRED_SIZE,
-																javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-														.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+														.addComponent(deckBinderSettingsPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+																GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
 														.addGroup(
-																layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-																		.addComponent(appearancePanel, javax.swing.GroupLayout.DEFAULT_SIZE,
-																				javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-																		.addComponent(previewPanel, javax.swing.GroupLayout.DEFAULT_SIZE,
-																				javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-						.addContainerGap()));
-		layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-				javax.swing.GroupLayout.Alignment.TRAILING,
+																layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+																		.addComponent(appearancePanel, GroupLayout.DEFAULT_SIZE,
+																				GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+																		.addComponent(previewPanel, GroupLayout.DEFAULT_SIZE,
+																				GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))).addContainerGap()));
+		layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(
+				GroupLayout.Alignment.TRAILING,
 				layout.createSequentialGroup()
 						.addContainerGap()
 						.addGroup(
-								layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+								layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
 										.addGroup(
 												layout.createSequentialGroup()
-														.addComponent(appearancePanel, javax.swing.GroupLayout.PREFERRED_SIZE,
-																javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-														.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-														.addComponent(previewPanel, javax.swing.GroupLayout.DEFAULT_SIZE,
-																javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-										.addComponent(deckBinderSettingsPanel, javax.swing.GroupLayout.DEFAULT_SIZE,
-												javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+														.addComponent(appearancePanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+																GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+														.addComponent(previewPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
+																Short.MAX_VALUE))
+										.addComponent(deckBinderSettingsPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+						.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 						.addGroup(
-								layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-										.addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-												javax.swing.GroupLayout.PREFERRED_SIZE)
+								layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+										.addComponent(jPanel3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 										.addGroup(
-												layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(doneButton)
+												layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(doneButton)
 														.addComponent(cancelButton))).addContainerGap()));
 
 		pack();
@@ -416,19 +398,21 @@ public class DeckBinderEditDialog extends JDialog {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			int index = jList1.getSelectedIndex();
-			DefaultListModel<Deck> listModel = (DefaultListModel<Deck>) jList1.getModel();
-			Deck d = listModel.get(index);
-			
+			DefaultComboBoxModel<Deck> listModel = (DefaultComboBoxModel<Deck>) jList1.getModel();
+			Deck d = listModel.getElementAt(index);
+
 			if (index == -1) {
 				System.out.println("Select a Deck First!");
 			} else if (e.getActionCommand().equals("Move Up") && index > 0) {
-				listModel.remove(index);
-				listModel.add(index - 1, d);
-				jList1.setSelectedIndex(index -1);
+				listModel.removeElementAt(index);
+				listModel.insertElementAt(d, index - 1);
+				jList1.setSelectedIndex(index - 1);
+				deckBinderPanel1.getComboBox().setModel(listModel);
 			} else if (e.getActionCommand().equals("Move Down") && index < jList1.getModel().getSize() - 1) {
-				listModel.remove(index);
-				listModel.add(index + 1, d);
-				jList1.setSelectedIndex(index +1);
+				listModel.removeElementAt(index);
+				listModel.insertElementAt(d, index + 1);
+				jList1.setSelectedIndex(index + 1);
+				deckBinderPanel1.getComboBox().setModel(listModel);
 			} else {
 				System.out.println("Movement action failed. Action Command is: " + e.getActionCommand());
 			}
