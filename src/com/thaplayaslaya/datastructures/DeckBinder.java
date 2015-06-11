@@ -29,6 +29,15 @@ public class DeckBinder {
 		finalizeDBSetup();
 	}
 
+	// Copy Constructor
+	protected DeckBinder(DeckBinder db) {
+		this.name = db.getName();
+		for (Deck d : db.getDecks()){
+			this.decks.add(d.clone());
+		}
+		dBP = db.getDBP().copy();
+	}
+	
 	// called once Config has populated Case completely with JSON data.
 	public void setDBP() {
 		dBP = new DeckBinderPanel(this.name, this.style);
@@ -104,7 +113,11 @@ public class DeckBinder {
 		DeckManager.getDeckManagerGUI().removeDeckBinderPanel(deckBinder.dBP);
 		deckBinder = null;
 	}
-
+	
+	public DeckBinder copy() {
+		return new DeckBinder(this);
+	}
+	
 	@Override
 	public String toString() {
 		return name;

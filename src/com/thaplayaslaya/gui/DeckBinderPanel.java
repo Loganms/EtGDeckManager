@@ -42,8 +42,8 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 		init(true);
 	}
 	
-	//Only used for creating a dummy Deck Binder Panel
-	private DeckBinderPanel(DeckBinderPanel dbp) {
+	// Copy Constructor + non-Functioning
+	protected DeckBinderPanel(DeckBinderPanel dbp) {
 		init(false);
 		setName(dbp.getName());
 		DeckBinder db = DeckManager.getCase().getDeckBinder(dbp.getName());
@@ -170,11 +170,6 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 		return comboBox;
 	}
 
-	public DeckBinderPanel getCopyAsReference() {
-		DeckBinderPanel copy = new DeckBinderPanel(this);
-		return copy;
-	}
-
 	private class VertArrowAction extends AbstractAction {
 
 		private static final long serialVersionUID = 2644070230078784280L;
@@ -257,6 +252,11 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 				}
 			}
 		}
+	}
+	
+	// Returns non-functioning copy of DBP
+	public DeckBinderPanel copy(){
+		return new DeckBinderPanel(this);
 	}
 
 	@Override

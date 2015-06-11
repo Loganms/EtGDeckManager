@@ -20,6 +20,13 @@ public class Deck {
 
 	public Deck() {
 	}
+	
+	// Copy constructor
+	protected Deck(Deck d) {
+		this.name = d.name;
+		this.importCode = d.importCode;
+		this.notes = d.notes;
+	}
 
 	private Deck(String name) {
 		this.name = name;
@@ -179,6 +186,11 @@ public class Deck {
 		}
 	}
 
+	@Override
+	public Deck clone() {
+		return new Deck(this);
+	}
+	
 	@Override
 	public String toString() {
 		return this.name;

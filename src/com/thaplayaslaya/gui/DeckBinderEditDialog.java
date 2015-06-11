@@ -6,8 +6,11 @@ import java.awt.event.ActionListener;
 import java.awt.font.TextAttribute;
 import java.util.Map;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JDialog;
+import javax.swing.JList;
 import javax.swing.JToggleButton;
+import javax.swing.ListSelectionModel;
 
 import com.thaplayaslaya.DeckManager;
 import com.thaplayaslaya.datastructures.Deck;
@@ -16,7 +19,8 @@ import com.thaplayaslaya.datastructures.DeckBinder;
 public class DeckBinderEditDialog extends JDialog {
 
 	private static final long serialVersionUID = 1173643001427931665L;
-	private DeckBinder deckBinder;
+	private DeckBinder originalDeckBinder;
+	private DeckBinder newDeckBinder;
 	private javax.swing.JPanel appearancePanel;
 	private javax.swing.JButton backgroundColorButton;
 	private javax.swing.JToggleButton boldToggle;
@@ -27,6 +31,7 @@ public class DeckBinderEditDialog extends JDialog {
 	private javax.swing.JButton doneButton;
 	private javax.swing.JButton foregroundColorButton;
 	private javax.swing.JToggleButton italicToggle;
+	private DefaultListModel<Deck> listmodel1;
 	private javax.swing.JList<Deck> jList1;
 	private javax.swing.JLabel jListLabel;
 	private javax.swing.JPanel jPanel2;
@@ -41,10 +46,14 @@ public class DeckBinderEditDialog extends JDialog {
 	private javax.swing.JToggleButton strikethroughToggle;
 	private javax.swing.JToggleButton underlineToggle;
 	private FontEffectActionListener fontEffectActionListener;
+	private ListOrderActionListener listOrderActionListener;
 
 	public DeckBinderEditDialog(DeckBinder deckBinder) {
 		super(DeckManager.getDeckManagerGUI(), "Edit Deck Binder", true);
-		this.deckBinder = deckBinder;
+		this.originalDeckBinder = deckBinder;
+		this.newDeckBinder = originalDeckBinder.copy();
+		System.out.println(originalDeckBinder);
+		System.out.println(newDeckBinder);
 		initComponents();
 		setLocationRelativeTo(DeckManager.getDeckManagerGUI());
 		setVisible(true);
@@ -59,7 +68,7 @@ public class DeckBinderEditDialog extends JDialog {
 	private void initComponents() {
 
 		previewPanel = new javax.swing.JPanel();
-		deckBinderPanel1 = deckBinder.getDBP().getCopyAsReference();
+		deckBinderPanel1 = newDeckBinder.getDBP();
 		appearancePanel = new javax.swing.JPanel();
 		foregroundColorButton = new javax.swing.JButton();
 		backgroundColorButton = new javax.swing.JButton();
@@ -73,7 +82,7 @@ public class DeckBinderEditDialog extends JDialog {
 		italicToggle = new javax.swing.JToggleButton();
 		underlineToggle = new javax.swing.JToggleButton();
 		jScrollPane1 = new javax.swing.JScrollPane();
-		jList1 = new javax.swing.JList();
+		//jList1 = new javax.swing.JList();
 		jListLabel = new javax.swing.JLabel();
 		jPanel4 = new javax.swing.JPanel();
 		moveUpButton = new javax.swing.JButton();
@@ -82,6 +91,7 @@ public class DeckBinderEditDialog extends JDialog {
 		doneButton = new javax.swing.JButton();
 		cancelButton = new javax.swing.JButton();
 		fontEffectActionListener = new FontEffectActionListener();
+		listOrderActionListener = new ListOrderActionListener();
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -153,7 +163,7 @@ public class DeckBinderEditDialog extends JDialog {
 
 		nameLabel.setText("Name:");
 
-		jTextField1.setText(deckBinder.getName());
+		jTextField1.setText(newDeckBinder.getName());
 
 		boldToggle.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 		boldToggle.setText("B");
@@ -177,26 +187,46 @@ public class DeckBinderEditDialog extends JDialog {
 		strikethroughToggle.setFont(new Font(attributes1));
 		strikethroughToggle.addActionListener(fontEffectActionListener);
 
-		jList1.setModel(new javax.swing.AbstractListModel() {
+		listmodel1 = new DefaultListModel();
+		
+		jList1 = new JList(listmodel1);
+		for (Deck d : newDeckBinder.getDecks()){
+			listmodel1.addElement(d);
+		}
+		
+		/*jList1.setModel(new javax.swing.DefaultListModel() {
 			private static final long serialVersionUID = -7048048338606549905L;
-			Object[] decks = deckBinder.getDecks().toArray();
+			
+			Object[] decks = newDeckBinder.getDecks().toArray();
 
 			public int getSize() {
+				System.out.println(decks.length);
 				return decks.length;
 			}
 
+			public Object get(int i) {
+				return decks[i];
+			}
+			
 			public Object getElementAt(int i) {
 				return decks[i];
 			}
-		});
+		});*/
 		jList1.setVisibleRowCount(5);
+		jList1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		jScrollPane1.setViewportView(jList1);
 
 		jListLabel.setText("Deck Order:");
 
 		moveUpButton.setText("Move Up");
+		moveUpButton.addActionListener(listOrderActionListener);
 
 		moveDownButton.setText("Move Down");
+		moveDownButton.addActionListener(listOrderActionListener);
+
+		doneButton.setText("Done");
+
+		cancelButton.setText("Cancel");
 
 		javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
 		jPanel4.setLayout(jPanel4Layout);
@@ -286,10 +316,6 @@ public class DeckBinderEditDialog extends JDialog {
 								.addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
 										javax.swing.GroupLayout.PREFERRED_SIZE).addContainerGap()));
 
-		doneButton.setText("Done");
-
-		cancelButton.setText("Cancel");
-
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
 		layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
@@ -361,9 +387,9 @@ public class DeckBinderEditDialog extends JDialog {
 				break;
 			case "U":
 				Map attributes = f.getAttributes();
-				if(activate){
+				if (activate) {
 					attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
-					
+
 				} else {
 					attributes.put(TextAttribute.UNDERLINE, -1);
 				}
@@ -371,9 +397,9 @@ public class DeckBinderEditDialog extends JDialog {
 				break;
 			case "abc":
 				Map attributes1 = f.getAttributes();
-				if(activate){
+				if (activate) {
 					attributes1.put(TextAttribute.STRIKETHROUGH, TextAttribute.STRIKETHROUGH_ON);
-					
+
 				} else {
 					attributes1.put(TextAttribute.STRIKETHROUGH, -1);
 				}
@@ -382,9 +408,31 @@ public class DeckBinderEditDialog extends JDialog {
 			default:
 				break;
 			}
-
 		}
+	}
 
+	private class ListOrderActionListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			int index = jList1.getSelectedIndex();
+			DefaultListModel<Deck> listModel = (DefaultListModel<Deck>) jList1.getModel();
+			Deck d = listModel.get(index);
+			
+			if (index == -1) {
+				System.out.println("Select a Deck First!");
+			} else if (e.getActionCommand().equals("Move Up") && index > 0) {
+				listModel.remove(index);
+				listModel.add(index - 1, d);
+				jList1.setSelectedIndex(index -1);
+			} else if (e.getActionCommand().equals("Move Down") && index < jList1.getModel().getSize() - 1) {
+				listModel.remove(index);
+				listModel.add(index + 1, d);
+				jList1.setSelectedIndex(index +1);
+			} else {
+				System.out.println("Movement action failed. Action Command is: " + e.getActionCommand());
+			}
+		}
 	}
 
 }
