@@ -96,25 +96,29 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 						.addComponent(comboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
 								javax.swing.GroupLayout.PREFERRED_SIZE)));
 
+		// Need this regardless of isFunctional
+		// Primarily for preview panel of DBEditDialog
+		// to update properly.
+		comboBox.addPopupMenuListener(new PopupMenuListener() {
+
+			@Override
+			public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+
+			}
+
+			@Override
+			public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+				comboBox.transferFocusUpCycle();
+			}
+
+			@Override
+			public void popupMenuCanceled(PopupMenuEvent e) {
+			}
+
+		});
+
 		if (isFunctional) {
 			comboBox.setToolTipText("Move (Shft+UP/DOWN)");
-			comboBox.addPopupMenuListener(new PopupMenuListener() {
-
-				@Override
-				public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
-
-				}
-
-				@Override
-				public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
-					comboBox.transferFocusUpCycle();
-				}
-
-				@Override
-				public void popupMenuCanceled(PopupMenuEvent e) {
-				}
-
-			});
 
 			renameButton.setToolTipText("Edit Deck Binder");
 			renameButton.addActionListener(this);
@@ -190,16 +194,28 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 			String actionCommand = e.getActionCommand();
 			@SuppressWarnings("unchecked")
 			JComboBox<Deck> comboBox = (JComboBox<Deck>) e.getSource();
+			DeckBinder db = DeckManager.getCase().getDeckBinder(name);
 			Deck selectedDeck = (Deck) comboBox.getSelectedItem();
 			int selectedIndex = comboBox.getSelectedIndex();
+			ItemListener il = null;
+			loop: for (ItemListener l : comboBox.getItemListeners()) {
+				if (l instanceof ItemChangeListener) {
+					il = l;
+					comboBox.removeItemListener(l);
+					break loop;
+				}
+			}
 			if (actionCommand.equals(upArrow) && selectedIndex > 0) {
-				comboBox.removeItem(selectedDeck);
-				comboBox.insertItemAt(selectedDeck, selectedIndex - 1);
+				db.removeDeck(selectedDeck);
+				db.insertDeckAt(selectedDeck, selectedIndex - 1);
 				comboBox.setSelectedIndex(selectedIndex - 1);
 			} else if (actionCommand.equals(downArrow) && selectedIndex < comboBox.getItemCount() - 2) {
-				comboBox.removeItem(selectedDeck);
-				comboBox.insertItemAt(selectedDeck, selectedIndex + 1);
+				db.removeDeck(selectedDeck);
+				db.insertDeckAt(selectedDeck, selectedIndex + 1);
 				comboBox.setSelectedIndex(selectedIndex + 1);
+			}
+			if (null != il) {
+				comboBox.addItemListener(il);
 			}
 		}
 	}

@@ -62,9 +62,15 @@ public class DeckBinder implements IStylish {
 	}
 
 	// System is adding a deck. (if user, see "addNewDeck()")
+	// adds deck to end of DBP, but above "add new deck"
 	public void addDeck(Deck deck) {
 		decks.add(deck);
 		dBP.getComboBox().insertItemAt(deck, dBP.getComboBox().getItemCount() - 1);
+	}
+
+	public void insertDeckAt(Deck deck, int index) {
+		decks.add(index, deck);
+		dBP.getComboBox().insertItemAt(deck, index);
 	}
 
 	public void removeDeck(Deck deck) {

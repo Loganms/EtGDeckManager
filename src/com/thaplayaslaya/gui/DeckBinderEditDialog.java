@@ -3,6 +3,8 @@ package com.thaplayaslaya.gui;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.font.TextAttribute;
 import java.util.Map;
 
@@ -10,6 +12,7 @@ import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -27,6 +30,7 @@ import javax.swing.event.DocumentListener;
 import com.thaplayaslaya.DeckManager;
 import com.thaplayaslaya.datastructures.Deck;
 import com.thaplayaslaya.datastructures.DeckBinder;
+import com.thaplayaslaya.datastructures.Style;
 
 public class DeckBinderEditDialog extends JDialog {
 
@@ -57,6 +61,9 @@ public class DeckBinderEditDialog extends JDialog {
 	private JPanel previewPanel;
 	private JToggleButton strikethroughToggle;
 	private JToggleButton underlineToggle;
+
+	private JComboBox<Deck> newComboBox;
+
 	private FontEffectActionListener fontEffectActionListener;
 	private ListOrderActionListener listOrderActionListener;
 	private AppearanceActionListener appearanceActionListener;
@@ -66,6 +73,7 @@ public class DeckBinderEditDialog extends JDialog {
 		this.originalDeckBinder = deckBinder;
 		this.newDeckBinder = originalDeckBinder.copy();
 		this.deckBinderPanel1 = newDeckBinder.getDBP();
+		this.newComboBox = deckBinderPanel1.getComboBox();
 		initComponents();
 		setLocation(DeckManager.getDeckManagerGUI().getSmartExternalWindowLocation(this));
 		setVisible(true);
@@ -106,6 +114,20 @@ public class DeckBinderEditDialog extends JDialog {
 		appearanceActionListener = new AppearanceActionListener(this, deckBinderPanel1.getdBName(), newDeckBinder);
 
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
+		Style.applyStyle(newComboBox, newDeckBinder.getDecks().get(0).getStyle());
+		newComboBox.getComponent(0).setBackground(UIManager.getColor("ComboBox.background"));
+		newComboBox.addItemListener(new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				if (e.getStateChange() == ItemEvent.SELECTED) {
+					Deck deck = ((Deck) e.getItem());
+					Style.applyStyle(deckBinderPanel1.getComboBox(), deck.getStyle());
+					newComboBox.getComponent(0).setBackground(UIManager.getColor("ComboBox.background"));
+					newComboBox.transferFocusUpCycle();
+				}
+			}
+		});
 
 		previewPanel.setBorder(BorderFactory.createTitledBorder("Preview"));
 
@@ -252,8 +274,8 @@ public class DeckBinderEditDialog extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				originalDeckBinder.setName(jTextField1.getText());
-				originalDeckBinder.setStyle(newDeckBinder.getStyle());
 				originalDeckBinder.setDecks(listmodel1);
+				originalDeckBinder.setStyle(newDeckBinder.getStyle());
 				dispose();
 			}
 		});

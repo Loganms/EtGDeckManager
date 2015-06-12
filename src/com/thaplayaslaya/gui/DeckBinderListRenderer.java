@@ -18,6 +18,7 @@ public class DeckBinderListRenderer extends DefaultListCellRenderer {
 		super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 
 		Deck deck = (Deck) value;
+		System.out.println(deck.getName());
 		Style style = deck.getStyle();
 		Style.applyStyle(this, style);
 		setText(deck.getName());
