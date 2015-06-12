@@ -56,6 +56,9 @@ public class DeckBinder implements IStylish {
 	private void finalizeDBSetup() {
 		dBP.getComboBox().addItem(Deck.DEFAULT);
 		dBP.setListeners();
+		Style.applyStyle(dBP.getComboBox(), decks.get(0).getStyle());
+		dBP.getComboBox().getComponent(0).setBackground(UIManager.getColor("ComboBox.background"));
+
 	}
 
 	// System is adding a deck. (if user, see "addNewDeck()")
@@ -85,7 +88,7 @@ public class DeckBinder implements IStylish {
 
 	public void setStyle(Style style) {
 		this.style = style;
-		this.dBP.applyStyle(this.style);
+		Style.applyStyle(dBP.getdBName(), this.style);
 	}
 
 	public Deck getDeck(String name) {

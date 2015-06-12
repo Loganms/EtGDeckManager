@@ -6,35 +6,27 @@
     {
       "name": "G/P Arena",
       "style": {
-        "foregroundColor": {
-          "value": -13108,
-          "falpha": 0.0
-        },
-        "backgroundColor": {
-          "value": -6750055,
-          "falpha": 0.0
-        },
-        "isBold": false,
-        "isItalic": false,
-        "isUnderline": false,
-        "isStrikethrough": false
+        "isBold": true,
+        "isItalic": true,
+        "isUnderline": true,
+        "isStrikethrough": true
       },
       "decks": [
         {
           "name": "Chaos Wyrms",
           "style": {
             "foregroundColor": {
-              "value": -13421773,
+              "value": -3342337,
               "falpha": 0.0
             },
             "backgroundColor": {
-              "value": -1118482,
+              "value": -13057,
               "falpha": 0.0
             },
             "isBold": true,
             "isItalic": false,
             "isUnderline": false,
-            "isStrikethrough": false
+            "isStrikethrough": true
           },
           "importCode": "6u2 6u2 6u2 6u2 6u2 6u2 7ms 7ms 7ms 7ms 7ms 7ms 7mt 7mt 7mt 7mt 7mt 7mt 7mu 7mu 7mu 7mu 7mu 7mu 7nq 7nq 7nq 7nq 7nq 7nq 8pj",
           "notes": "6u2 6u2 6u2 6u2 6u2 6u2 7ms 7ms 7ms 7ms 7ms 7ms 7mt 7mt 7mt 7mt 7mt 7mt 7mu 7mu 7mu 7mu 7mu 7mu 7nq 7nq 7nq 7nq 7nq 7nq 8pj6u2 6u2 6u2 6u2 6u2 6u2 7ms 7ms 7ms 7ms 7ms 7ms 7mt 7mt 7mt 7mt 7mt 7mt 7mu 7mu 7mu 7mu 7mu 7mu 7nq 7nq 7nq 7nq 7nq 7nq 8pj6u2 6u2 6u2 6u2 6u2 6u2 7ms 7ms 7ms 7ms 7ms 7ms 7mt 7mt 7mt 7mt 7mt 7mt 7mu 7mu 7mu 7mu 7mu 7mu 7nq 7nq 7nq 7nq 7nq 7nq 8pj6u2 6u2 6u2 6u2 6u2 6u2 7ms 7ms 7ms 7ms 7ms 7ms 7mt 7mt 7mt 7mt 7mt 7mt 7mu 7mu 7mu 7mu 7mu 7mu 7nq 7nq 7nq 7nq 7nq 7nq 8pj6u2 6u2 6u2 6u2 6u2 6u2 7ms 7ms 7ms 7ms 7ms 7ms 7mt 7mt 7mt 7mt 7mt 7mt 7mu 7mu 7mu 7mu 7mu 7mu 7nq 7nq 7nq 7nq 7nq 7nq 8pj6u2 6u2 6u2 6u2 6u2 6u2 7ms 7ms 7ms 7ms 7ms 7ms 7mt 7mt 7mt 7mt 7mt 7mt 7mu 7mu 7mu 7mu 7mu 7mu 7nq 7nq 7nq 7nq 7nq 7nq 8pj"
@@ -43,16 +35,16 @@
           "name": "Pestal 101",
           "style": {
             "foregroundColor": {
-              "value": -13421773,
+              "value": -16711681,
               "falpha": 0.0
             },
             "backgroundColor": {
-              "value": -1118482,
+              "value": -13421773,
               "falpha": 0.0
             },
             "isBold": true,
             "isItalic": false,
-            "isUnderline": false,
+            "isUnderline": true,
             "isStrikethrough": false
           },
           "importCode": "7t6 7t6 7t6 7t6 7t6 7t6 7ta 7ta 7td 7td 7um 7um 7um 7um 7um 7um 7um 7um 7um 7um 808 808 808 808 80i 80i 80i 80i 80i 80i 8pu",
@@ -62,15 +54,15 @@
           "name": "Swallow",
           "style": {
             "foregroundColor": {
-              "value": -13421773,
+              "value": -26368,
               "falpha": 0.0
             },
             "backgroundColor": {
-              "value": -1118482,
+              "value": -16750849,
               "falpha": 0.0
             },
             "isBold": true,
-            "isItalic": false,
+            "isItalic": true,
             "isUnderline": false,
             "isStrikethrough": false
           },
@@ -82,14 +74,6 @@
     {
       "name": "Gods",
       "style": {
-        "foregroundColor": {
-          "value": -13421773,
-          "falpha": 0.0
-        },
-        "backgroundColor": {
-          "value": -1118482,
-          "falpha": 0.0
-        },
         "isBold": true,
         "isItalic": false,
         "isUnderline": false,
@@ -100,11 +84,11 @@
           "name": "NOT FG OTK",
           "style": {
             "foregroundColor": {
-              "value": -13421773,
+              "value": -205,
               "falpha": 0.0
             },
             "backgroundColor": {
-              "value": -1118482,
+              "value": -13108,
               "falpha": 0.0
             },
             "isBold": true,
@@ -135,14 +119,6 @@
         {
           "name": "PDials",
           "style": {
-            "foregroundColor": {
-              "value": -13421773,
-              "falpha": 0.0
-            },
-            "backgroundColor": {
-              "value": -1118482,
-              "falpha": 0.0
-            },
             "isBold": true,
             "isItalic": false,
             "isUnderline": false,
@@ -210,11 +186,11 @@
           "name": "Chaotic Firebrand 2",
           "style": {
             "foregroundColor": {
-              "value": -13421773,
+              "value": -65281,
               "falpha": 0.0
             },
             "backgroundColor": {
-              "value": -1118482,
+              "value": -6750208,
               "falpha": 0.0
             },
             "isBold": true,

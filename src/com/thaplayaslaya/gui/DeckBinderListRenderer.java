@@ -1,10 +1,8 @@
 package com.thaplayaslaya.gui;
 
 import java.awt.Component;
-import java.awt.Font;
-import java.awt.font.TextAttribute;
-import java.util.Map;
 
+import javax.swing.BorderFactory;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JList;
 
@@ -21,19 +19,16 @@ public class DeckBinderListRenderer extends DefaultListCellRenderer {
 
 		Deck deck = (Deck) value;
 		Style style = deck.getStyle();
-		Font font = new Font(getFont().getFamily(), (style.isBold() ? Font.BOLD : 0) | (style.isItalic() ? Font.ITALIC : 0), getFont().getSize());
-		@SuppressWarnings("unchecked")
-		Map<TextAttribute, Object> attributes = (Map<TextAttribute, Object>) font.getAttributes();
-		if (style.isUnderline()) {
-			attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
-		}
-		if (style.isStrikethrough()) {
-			attributes.put(TextAttribute.STRIKETHROUGH, TextAttribute.STRIKETHROUGH_ON);
-		}
-		setFont(new Font(attributes));
+		Style.applyStyle(this, style);
 		setText(deck.getName());
-		setForeground(style.getForegroundColor());
-		setBackground(style.getBackgroundColor());
+
+		if (cellHasFocus || isSelected)
+			setBorder(BorderFactory.createEmptyBorder(0, 5, 2, 0));
+
+		Style.applyFont(list, style);
+		list.setSelectionForeground(style.getForegroundColor());
+		list.setSelectionBackground(style.getBackgroundColor());
+
 		return this;
 	}
 }

@@ -10,8 +10,6 @@ import java.awt.event.InputEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
-import java.awt.font.TextAttribute;
-import java.util.Map;
 
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
@@ -20,6 +18,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
+import javax.swing.UIManager;
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
 
 import com.thaplayaslaya.DeckManager;
 import com.thaplayaslaya.datastructures.Deck;
@@ -52,7 +53,7 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 			getComboBox().addItem(d);
 		}
 		if (null != db.getStyle()) {
-			applyStyle(db.getStyle());
+			Style.applyStyle(dBName, db.getStyle());
 		}
 		((DeckBinderComboBox<Deck>) comboBox).disableNoteWindows();
 	}
@@ -60,27 +61,9 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 	public DeckBinderPanel(String name, Style style) {
 		init(true);
 		if (null != style) {
-			applyStyle(style);
+			Style.applyStyle(dBName, style);
 		}
 		setName(name);
-	}
-
-	public void applyStyle(Style style) {
-		dBName.setOpaque(true);
-		dBName.setForeground(style.getForegroundColor());
-		dBName.setBackground(style.getBackgroundColor());
-		// TODO: This font stuff is a pain
-		Font font = new Font(dBName.getFont().getFamily(), (style.isBold() ? Font.BOLD : 0) | (style.isItalic() ? Font.ITALIC : 0), dBName.getFont()
-				.getSize());
-		@SuppressWarnings("unchecked")
-		Map<TextAttribute, Object> attributes = (Map<TextAttribute, Object>) font.getAttributes();
-		if (style.isUnderline()) {
-			attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
-		}
-		if (style.isStrikethrough()) {
-			attributes.put(TextAttribute.STRIKETHROUGH, TextAttribute.STRIKETHROUGH_ON);
-		}
-		dBName.setFont(new Font(attributes));
 	}
 
 	private void init(Boolean isFunctional) {
@@ -115,6 +98,23 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 
 		if (isFunctional) {
 			comboBox.setToolTipText("Move (Shft+UP/DOWN)");
+			comboBox.addPopupMenuListener(new PopupMenuListener() {
+
+				@Override
+				public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+
+				}
+
+				@Override
+				public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+					comboBox.transferFocusUpCycle();
+				}
+
+				@Override
+				public void popupMenuCanceled(PopupMenuEvent e) {
+				}
+
+			});
 
 			renameButton.setToolTipText("Edit Deck Binder");
 			renameButton.addActionListener(this);
@@ -217,6 +217,10 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 						DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder().addNewDeck();
 					}
 				}
+				System.out.println("Applying style to " + deck.getName() + ", baby");
+				Style.applyStyle(comboBox, deck.getStyle());
+				comboBox.getComponent(0).setBackground(UIManager.getColor("ComboBox.background"));
+				comboBox.transferFocusUpCycle();
 			}
 		}
 	}
@@ -256,7 +260,9 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 					dmg.getCasePanel().revalidate();
 				}
 			}
+
 		}
+
 	}
 
 	// Returns non-functioning copy of DBP

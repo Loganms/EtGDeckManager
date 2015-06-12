@@ -1,6 +1,5 @@
 package com.thaplayaslaya.gui;
 
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -29,6 +28,8 @@ import javax.swing.LayoutStyle;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.WindowConstants;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
 import javax.swing.text.Document;
@@ -37,6 +38,7 @@ import javax.swing.undo.UndoManager;
 
 import com.thaplayaslaya.DeckManager;
 import com.thaplayaslaya.datastructures.Deck;
+import com.thaplayaslaya.datastructures.Style;
 
 public class DeckEditDialog extends JDialog {
 
@@ -51,7 +53,6 @@ public class DeckEditDialog extends JDialog {
 	private JButton foregroundColorButton;
 	private JToggleButton italicToggle;
 	private JLabel jLabel1;
-	private JPanel jPanel1;
 	private JPanel jPanel2;
 	private JPanel jPanel3;
 	private JTabbedPane tabPane;
@@ -94,7 +95,6 @@ public class DeckEditDialog extends JDialog {
 		jPanel2 = new JPanel();
 		defaultButton = new JButton();
 		previewPanel = new JPanel();
-		jPanel1 = new JPanel();
 		jLabel1 = new JLabel();
 		deckBinderSettingsPanel = new JPanel();
 		nameLabel = new JLabel();
@@ -116,10 +116,10 @@ public class DeckEditDialog extends JDialog {
 		deckNotesTextArea = new JTextArea();
 
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		
+
 		importCodeTextArea.setText(newDeck.getImportCode());
 		deckNotesTextArea.setText(newDeck.getNotes());
-		
+
 		initTextArea(importCodeTextArea);
 		tabPane.addTab("Code", importCodeTextArea);
 
@@ -137,6 +137,7 @@ public class DeckEditDialog extends JDialog {
 		backgroundColorButton.addActionListener(appearanceActionListener);
 
 		defaultButton.setText("Default");
+		defaultButton.addActionListener(appearanceActionListener);
 
 		GroupLayout jPanel2Layout = new GroupLayout(jPanel2);
 		jPanel2.setLayout(jPanel2Layout);
@@ -169,25 +170,38 @@ public class DeckEditDialog extends JDialog {
 
 		jLabel1.setHorizontalAlignment(SwingConstants.CENTER);
 		jLabel1.setOpaque(true);
+		Style.applyStyle(jLabel1, newDeck.getStyle());
 		jLabel1.setText(newDeck.getName());
 
-		GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
-		jPanel1.setLayout(jPanel1Layout);
-		jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-				.addGroup(
-						GroupLayout.Alignment.TRAILING,
-						jPanel1Layout.createSequentialGroup().addContainerGap(48, Short.MAX_VALUE).addComponent(jLabel1)
-								.addContainerGap(48, Short.MAX_VALUE)));
-		jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(
-				jPanel1Layout.createSequentialGroup().addContainerGap().addComponent(jLabel1).addContainerGap(23, Short.MAX_VALUE)));
-
-		previewPanel.add(jPanel1, new java.awt.GridBagConstraints());
+		previewPanel.add(jLabel1, new java.awt.GridBagConstraints());
 
 		deckBinderSettingsPanel.setBorder(BorderFactory.createTitledBorder("Deck Settings"));
 
 		nameLabel.setText("Name:");
 
 		jTextField1.setText(newDeck.getName());
+		jTextField1.getDocument().addDocumentListener(new DocumentListener() {
+
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				updatePreview();
+			}
+
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				updatePreview();
+			}
+
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				updatePreview();
+			}
+
+			private void updatePreview() {
+				System.out.println("HI");
+				jLabel1.setText(jTextField1.getText());
+			}
+		});
 
 		if (newDeck.getStyle().isBold()) {
 			boldToggle.setSelected(true);
@@ -226,7 +240,14 @@ public class DeckEditDialog extends JDialog {
 		doneButton.setText("Done");
 		doneButton.addActionListener(new ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				// TODO: reconcile changes
+				originalDeck.setName(jTextField1.getText());
+				originalDeck.setStyle(newDeck.getStyle());
+				originalDeck.setImportCode(newDeck.getImportCode());
+				originalDeck.setNotes(newDeck.getNotes());
+				Style.applyStyle(DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder().getDBP().getComboBox(), newDeck.getStyle());
+				DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder().getDBP().getComboBox().getComponent(0)
+						.setBackground(UIManager.getColor("ComboBox.background"));
+				dispose();
 			}
 		});
 

@@ -1,6 +1,11 @@
 package com.thaplayaslaya.datastructures;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.font.TextAttribute;
+import java.util.Map;
+
+import javax.swing.JComponent;
 
 public class Style {
 
@@ -53,6 +58,26 @@ public class Style {
 		this.isStrikethrough = isStrikethrough;
 	}
 
+	public static void applyFont(JComponent c, Style s) {
+		Font font = new Font(c.getFont().getFamily(), (s.isBold() ? Font.BOLD : 0) | (s.isItalic() ? Font.ITALIC : 0), c.getFont().getSize());
+		@SuppressWarnings("unchecked")
+		Map<TextAttribute, Object> attributes = (Map<TextAttribute, Object>) font.getAttributes();
+		if (s.isUnderline()) {
+			attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+		}
+		if (s.isStrikethrough()) {
+			attributes.put(TextAttribute.STRIKETHROUGH, TextAttribute.STRIKETHROUGH_ON);
+		}
+		c.setFont(new Font(attributes));
+	}
+
+	public static void applyStyle(JComponent c, Style s) {
+		c.setOpaque(true);
+		c.setForeground(s.getForegroundColor());
+		c.setBackground(s.getBackgroundColor());
+		applyFont(c, s);
+	}
+
 	public Color getForegroundColor() {
 		return foregroundColor;
 	}
@@ -100,5 +125,4 @@ public class Style {
 	public void setStrikethrough(boolean isStrikethrough) {
 		this.isStrikethrough = isStrikethrough;
 	}
-
 }
