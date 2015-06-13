@@ -365,10 +365,11 @@ public class DeckEditDialog extends JDialog {
 		if (null == db || (db.containsDeck(jTextField1.getText()) && !jTextField1.getText().equals(originalDeck.getName()))) {
 			JOptionPane.showMessageDialog(this, "Sorry, \"" + jTextField1.getText() + "\" " + "already exists in this deck binder.\n"
 					+ "Please enter a different name.", "Try again", JOptionPane.ERROR_MESSAGE);
+			jTextField1.requestFocusInWindow();
 			return b;
 		}
 
-			b = true;
+		b = true;
 		return b;
 	}
 

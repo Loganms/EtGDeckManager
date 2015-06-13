@@ -16,6 +16,7 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -28,6 +29,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import com.thaplayaslaya.DeckManager;
+import com.thaplayaslaya.datastructures.Case;
 import com.thaplayaslaya.datastructures.Deck;
 import com.thaplayaslaya.datastructures.DeckBinder;
 import com.thaplayaslaya.datastructures.Style;
@@ -273,10 +275,12 @@ public class DeckBinderEditDialog extends JDialog {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				originalDeckBinder.setName(jTextField1.getText());
-				originalDeckBinder.setDecks(listmodel1);
-				originalDeckBinder.setStyle(newDeckBinder.getStyle());
-				dispose();
+				if (validateDone()) {
+					originalDeckBinder.setName(jTextField1.getText());
+					originalDeckBinder.setDecks(listmodel1);
+					originalDeckBinder.setStyle(newDeckBinder.getStyle());
+					dispose();
+				}
 			}
 		});
 
@@ -411,34 +415,26 @@ public class DeckBinderEditDialog extends JDialog {
 		previewPanel.revalidate();
 	}
 
-	/*
-	 * private class FontEffectActionListener implements ActionListener {
-	 * 
-	 * @SuppressWarnings({ "rawtypes", "unchecked" })
-	 * 
-	 * @Override public void actionPerformed(ActionEvent e) { JToggleButton btn
-	 * = (JToggleButton) e.getSource(); boolean activate =
-	 * btn.getModel().isSelected(); Font f =
-	 * deckBinderPanel1.getdBName().getFont(); JLabel label =
-	 * deckBinderPanel1.getdBName(); switch (btn.getText()) { case "B":
-	 * label.setFont(f.deriveFont(f.getStyle() ^ Font.BOLD));
-	 * newDeckBinder.getStyle().setBold(label.getFont().isBold()); break; case
-	 * "I": label.setFont(f.deriveFont(f.getStyle() ^ Font.ITALIC));
-	 * newDeckBinder.getStyle().setItalic(label.getFont().isItalic()); break;
-	 * case "U": Map attributes = f.getAttributes(); if (activate) {
-	 * attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
-	 * newDeckBinder.getStyle().setUnderline(true); } else {
-	 * attributes.put(TextAttribute.UNDERLINE, -1);
-	 * newDeckBinder.getStyle().setUnderline(false); }
-	 * label.setFont(f.deriveFont(attributes)); break; case "abc": Map
-	 * attributes1 = f.getAttributes(); if (activate) {
-	 * attributes1.put(TextAttribute.STRIKETHROUGH,
-	 * TextAttribute.STRIKETHROUGH_ON);
-	 * newDeckBinder.getStyle().setStrikethrough(true); } else {
-	 * attributes1.put(TextAttribute.STRIKETHROUGH, -1);
-	 * newDeckBinder.getStyle().setStrikethrough(false); }
-	 * label.setFont(f.deriveFont(attributes1)); break; default: break; } } }
-	 */
+	private boolean validateDone() {
+		boolean b = false;
+
+		if (1 > jTextField1.getText().length()) {
+			JOptionPane.showMessageDialog(DeckBinderEditDialog.this, "The name field is blank. Please enter a name.", "Try again",
+					JOptionPane.ERROR_MESSAGE);
+			jTextField1.requestFocusInWindow();
+			return b;
+		}
+		Case c = DeckManager.getCase();
+		if (c.containsDeckBinder(jTextField1.getText()) && !jTextField1.getText().equals(originalDeckBinder.getName())) {
+			JOptionPane.showMessageDialog(this, "Sorry, \"" + jTextField1.getText() + "\" " + "already exists as a deck binder.\n"
+					+ "Please enter a different name.", "Try again", JOptionPane.ERROR_MESSAGE);
+			jTextField1.requestFocusInWindow();
+			return b;
+		}
+
+		b = true;
+		return b;
+	}
 
 	private class ListOrderActionListener implements ActionListener {
 
@@ -465,27 +461,4 @@ public class DeckBinderEditDialog extends JDialog {
 			}
 		}
 	}
-
-	/*
-	 * private class AppearanceActionListener implements ActionListener {
-	 * 
-	 * @Override public void actionPerformed(ActionEvent e) { String cmd =
-	 * e.getActionCommand(); JLabel label = deckBinderPanel1.getdBName();
-	 * 
-	 * if (cmd.equals("Foreground Color")) { Color color =
-	 * JColorChooser.showDialog(DeckBinderEditDialog.this,
-	 * "Choose Foreground Color", label.getForeground()); if (null != color) {
-	 * label.setForeground(color);
-	 * newDeckBinder.getStyle().setForegroundColor(color); }
-	 * 
-	 * } else if (cmd.equals("Background Color")) { Color color =
-	 * JColorChooser.showDialog(DeckBinderEditDialog.this,
-	 * "Choose Background Color", label.getBackground()); if (null != color) {
-	 * label.setBackground(color);
-	 * newDeckBinder.getStyle().setBackgroundColor(color); } } else if
-	 * (cmd.equals("Default")) { label.setForeground(null);
-	 * label.setBackground(null);
-	 * newDeckBinder.getStyle().setForegroundColor(null);
-	 * newDeckBinder.getStyle().setBackgroundColor(null); } } }
-	 */
 }
