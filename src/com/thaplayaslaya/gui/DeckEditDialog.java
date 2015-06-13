@@ -17,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -38,6 +39,7 @@ import javax.swing.undo.UndoManager;
 
 import com.thaplayaslaya.DeckManager;
 import com.thaplayaslaya.datastructures.Deck;
+import com.thaplayaslaya.datastructures.DeckBinder;
 import com.thaplayaslaya.datastructures.Style;
 
 public class DeckEditDialog extends JDialog {
@@ -240,14 +242,16 @@ public class DeckEditDialog extends JDialog {
 		doneButton.setText("Done");
 		doneButton.addActionListener(new ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				originalDeck.setName(jTextField1.getText());
-				originalDeck.setStyle(newDeck.getStyle());
-				originalDeck.setImportCode(newDeck.getImportCode());
-				originalDeck.setNotes(newDeck.getNotes());
-				Style.applyStyle(DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder().getDBP().getComboBox(), newDeck.getStyle());
-				DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder().getDBP().getComboBox().getComponent(0)
-						.setBackground(UIManager.getColor("ComboBox.background"));
-				dispose();
+				if (validateDone()) {
+					originalDeck.setName(jTextField1.getText());
+					originalDeck.setStyle(newDeck.getStyle());
+					originalDeck.setImportCode(newDeck.getImportCode());
+					originalDeck.setNotes(newDeck.getNotes());
+					Style.applyStyle(DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder().getDBP().getComboBox(), newDeck.getStyle());
+					DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder().getDBP().getComboBox().getComponent(0)
+							.setBackground(UIManager.getColor("ComboBox.background"));
+					dispose();
+				}
 			}
 		});
 
@@ -347,6 +351,25 @@ public class DeckEditDialog extends JDialog {
 														.addComponent(cancelButton))).addContainerGap()));
 
 		pack();
+	}
+
+	public boolean validateDone() {
+		boolean b = false;
+		if (1 > jTextField1.getText().length()) {
+			JOptionPane.showMessageDialog(DeckEditDialog.this, "The name field is blank. Please enter a name.", "Try again",
+					JOptionPane.ERROR_MESSAGE);
+			jTextField1.requestFocusInWindow();
+			return b;
+		}
+		DeckBinder db = DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder();
+		if (null == db || (db.containsDeck(jTextField1.getText()) && !jTextField1.getText().equals(originalDeck.getName()))) {
+			JOptionPane.showMessageDialog(this, "Sorry, \"" + jTextField1.getText() + "\" " + "already exists in this deck binder.\n"
+					+ "Please enter a different name.", "Try again", JOptionPane.ERROR_MESSAGE);
+			return b;
+		}
+
+			b = true;
+		return b;
 	}
 
 	public void initTextArea(JTextArea textArea) {

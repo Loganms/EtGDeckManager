@@ -7,7 +7,7 @@
       "name": "Gods",
       "style": {
         "foregroundColor": {
-          "value": -6684775,
+          "value": -10066432,
           "falpha": 0.0
         },
         "backgroundColor": {
@@ -15,34 +15,16 @@
           "falpha": 0.0
         },
         "isBold": true,
-        "isItalic": false,
+        "isItalic": true,
         "isUnderline": false,
         "isStrikethrough": false
       },
       "decks": [
         {
-          "name": "Perpetual Light",
+          "name": "PDials",
           "style": {
             "foregroundColor": {
-              "value": -3342490,
-              "falpha": 0.0
-            },
-            "backgroundColor": {
-              "value": -16777012,
-              "falpha": 0.0
-            },
-            "isBold": true,
-            "isItalic": false,
-            "isUnderline": false,
-            "isStrikethrough": false
-          },
-          "importCode": "7jp 7jp 7jp 7jp 7jp 7jp 7ju 7ju 7k4 7k4 7k4 7k4 808 808 808 808 808 80e 80e 80e 80i 80i 80i 80i 80i 81q 81q 81q 81q 81q 8pu"
-        },
-        {
-          "name": "NOT FG OTK",
-          "style": {
-            "foregroundColor": {
-              "value": -205,
+              "value": -16737895,
               "falpha": 0.0
             },
             "backgroundColor": {
@@ -51,10 +33,11 @@
             },
             "isBold": true,
             "isItalic": false,
-            "isUnderline": false,
+            "isUnderline": true,
             "isStrikethrough": false
           },
-          "importCode": "5lk 5lk 5lk 7hi 7hi 7hi 7jp 7jp 7jp 7jp 7jp 7jp 808 808 808 808 808 808 808 808 808 80e 80e 80i 80i 80i 80i 80m 80m 80m 8pp"
+          "importCode": "52q 5m6 5m6 710 710 710 710 710 710 718 718 718 718 718 718 71a 71a 71u 71u 71u 71u 71u 71u 72i 72i 72i 7km 7km 7q9 7q9 7q9 7q9 7q9 7q9 8pq",
+          "notes": ""
         },
         {
           "name": "Limitless Speed",
@@ -75,10 +58,10 @@
           "importCode": "6qq 6qq 6qq 6qq 6qq 6qq 6qq 74a 7dr 7dr 7jq 7la 7la 7la 7n9 7q5 7q5 7q5 7q5 7q5 7ri 7ri 7ri 7ri 80b 80b 80b 80d 80d 80d 80d 80d 80d 8pu"
         },
         {
-          "name": "PDials",
+          "name": "NOT FG OTK",
           "style": {
             "foregroundColor": {
-              "value": -16737895,
+              "value": -205,
               "falpha": 0.0
             },
             "backgroundColor": {
@@ -87,11 +70,28 @@
             },
             "isBold": true,
             "isItalic": false,
-            "isUnderline": true,
+            "isUnderline": false,
             "isStrikethrough": false
           },
-          "importCode": "52q 5m6 5m6 710 710 710 710 710 710 718 718 718 718 718 718 71a 71a 71u 71u 71u 71u 71u 71u 72i 72i 72i 7km 7km 7q9 7q9 7q9 7q9 7q9 7q9 8pq",
-          "notes": ""
+          "importCode": "5lk 5lk 5lk 7hi 7hi 7hi 7jp 7jp 7jp 7jp 7jp 7jp 808 808 808 808 808 808 808 808 808 80e 80e 80i 80i 80i 80i 80m 80m 80m 8pp"
+        },
+        {
+          "name": "Perpetual Light",
+          "style": {
+            "foregroundColor": {
+              "value": -3342490,
+              "falpha": 0.0
+            },
+            "backgroundColor": {
+              "value": -16777012,
+              "falpha": 0.0
+            },
+            "isBold": true,
+            "isItalic": false,
+            "isUnderline": false,
+            "isStrikethrough": false
+          },
+          "importCode": "7jp 7jp 7jp 7jp 7jp 7jp 7ju 7ju 7k4 7k4 7k4 7k4 808 808 808 808 808 80e 80e 80e 80i 80i 80i 80i 80i 81q 81q 81q 81q 81q 8pu"
         },
         {
           "name": "Voodoo Bravery",
