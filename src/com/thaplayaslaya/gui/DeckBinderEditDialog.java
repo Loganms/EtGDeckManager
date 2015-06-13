@@ -125,7 +125,6 @@ public class DeckBinderEditDialog extends JDialog {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
 					Deck deck = ((Deck) e.getItem());
 					Style.applyStyle(deckBinderPanel1.getComboBox(), deck.getStyle());
-					newComboBox.getComponent(0).setBackground(UIManager.getColor("ComboBox.background"));
 					newComboBox.transferFocusUpCycle();
 				}
 			}
@@ -276,10 +275,7 @@ public class DeckBinderEditDialog extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (validateDone()) {
-					originalDeckBinder.setName(jTextField1.getText());
-					originalDeckBinder.setDecks(listmodel1);
-					originalDeckBinder.setStyle(newDeckBinder.getStyle());
-					dispose();
+					doneAction();
 				}
 			}
 		});
@@ -434,6 +430,13 @@ public class DeckBinderEditDialog extends JDialog {
 
 		b = true;
 		return b;
+	}
+	
+	private void doneAction(){
+		originalDeckBinder.setName(jTextField1.getText());
+		originalDeckBinder.setDecks(listmodel1);
+		originalDeckBinder.setStyle(newDeckBinder.getStyle());
+		dispose();
 	}
 
 	private class ListOrderActionListener implements ActionListener {

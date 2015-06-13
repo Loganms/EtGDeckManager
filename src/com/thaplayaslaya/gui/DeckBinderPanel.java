@@ -18,7 +18,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
-import javax.swing.UIManager;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 
@@ -235,7 +234,6 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 				}
 				System.out.println("Applying style to " + deck.getName() + ", baby");
 				Style.applyStyle(comboBox, deck.getStyle());
-				comboBox.getComponent(0).setBackground(UIManager.getColor("ComboBox.background"));
 				comboBox.transferFocusUpCycle();
 			}
 		}

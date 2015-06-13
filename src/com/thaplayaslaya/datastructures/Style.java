@@ -5,7 +5,9 @@ import java.awt.Font;
 import java.awt.font.TextAttribute;
 import java.util.Map;
 
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
+import javax.swing.UIManager;
 
 public class Style {
 
@@ -75,6 +77,9 @@ public class Style {
 		c.setOpaque(true);
 		c.setForeground(s.getForegroundColor());
 		c.setBackground(s.getBackgroundColor());
+		if (c instanceof JComboBox) {
+			c.getComponent(0).setBackground(UIManager.getColor("ComboBox.background"));
+		}
 		applyFont(c, s);
 	}
 

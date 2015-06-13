@@ -6,7 +6,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.UIManager;
 
 import com.thaplayaslaya.DeckManager;
-import com.thaplayaslaya.gui.CustomDialog;
+import com.thaplayaslaya.gui.DeckAddDialog;
 import com.thaplayaslaya.gui.DeckBinderPanel;
 
 public class DeckBinder implements IStylish {
@@ -57,8 +57,6 @@ public class DeckBinder implements IStylish {
 		dBP.getComboBox().addItem(Deck.DEFAULT);
 		dBP.setListeners();
 		Style.applyStyle(dBP.getComboBox(), decks.get(0).getStyle());
-		dBP.getComboBox().getComponent(0).setBackground(UIManager.getColor("ComboBox.background"));
-
 	}
 
 	// System is adding a deck. (if user, see "addNewDeck()")
@@ -132,7 +130,7 @@ public class DeckBinder implements IStylish {
 
 	// User is adding a new deck.
 	public void addNewDeck() {
-		new CustomDialog(DeckManager.getDeckManagerGUI(), OperationType.ADD_NEW_DECK, null);
+		new DeckAddDialog();
 	}
 
 	public void delete(DeckBinder deckBinder) {
