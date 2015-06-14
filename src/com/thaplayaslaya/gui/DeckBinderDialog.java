@@ -436,24 +436,19 @@ public abstract class DeckBinderDialog extends JDialog {
 			if (index == -1) {
 				System.out.println("Select a Deck First!");
 			} else if (e.getActionCommand().equals("Move Up") && index > 0) {
-				listmodel1.removeElementAt(index);
-				listmodel1.insertElementAt(d, index - 1);
-				jList1.setSelectedIndex(index - 1);
-				deckBinderPanel1.getComboBox().setSelectedIndex(index - 1);
-				finish();
+				finish(d, index, index - 1);
 			} else if (e.getActionCommand().equals("Move Down") && index < jList1.getModel().getSize() - 1) {
-				listmodel1.removeElementAt(index);
-				listmodel1.insertElementAt(d, index + 1);
-				jList1.setSelectedIndex(index + 1);
-				deckBinderPanel1.getComboBox().setSelectedIndex(index + 1);
-				finish();
+				finish(d, index, index + 1);
 			} else {
 				System.out.println("Movement action failed. Action Command is: " + e.getActionCommand());
 			}
 		}
 
-		private void finish() {
+		private void finish(Deck d, int oldIndex, int newIndex) {
+			listmodel1.removeElementAt(oldIndex);
+			listmodel1.insertElementAt(d, newIndex);
 			deckBinderPanel1.getComboBox().setModel(listmodel1);
+			jList1.setSelectedIndex(newIndex);
 		}
 	}
 }
