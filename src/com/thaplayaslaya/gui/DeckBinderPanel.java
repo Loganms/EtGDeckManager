@@ -200,7 +200,7 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 			int selectedIndex = comboBox.getSelectedIndex();
 			ItemListener il = null;
 			loop: for (ItemListener l : comboBox.getItemListeners()) {
-				if (l instanceof ItemChangeListener) {
+				if (l instanceof StyleUpdateListener) {
 					il = l;
 					comboBox.removeItemListener(l);
 					break loop;
