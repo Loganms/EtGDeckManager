@@ -56,7 +56,11 @@ public class DeckBinder implements IStylish {
 	private void finalizeDBSetup() {
 		dBP.getComboBox().addItem(Deck.DEFAULT);
 		dBP.setListeners();
-		Style.applyStyle(dBP.getComboBox(), decks.get(0).getStyle());
+		if (decks.isEmpty()) {
+			Style.applyStyle(dBP.getComboBox(), Deck.DEFAULT.getStyle());
+		} else {
+			Style.applyStyle(dBP.getComboBox(), decks.get(0).getStyle());
+		}
 	}
 
 	// System is adding a deck. (if user, see "addNewDeck()")

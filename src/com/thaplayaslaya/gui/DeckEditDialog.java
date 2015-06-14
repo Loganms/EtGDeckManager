@@ -1,7 +1,6 @@
 package com.thaplayaslaya.gui;
 
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
 
 import com.thaplayaslaya.DeckManager;
 import com.thaplayaslaya.datastructures.Deck;
@@ -43,7 +42,7 @@ public class DeckEditDialog extends DeckDialog {
 		b = true;
 		return b;
 	}
-	
+
 	protected void doneAction() {
 		originalDeck.setName(jTextField1.getText());
 		originalDeck.setStyle(newDeck.getStyle());

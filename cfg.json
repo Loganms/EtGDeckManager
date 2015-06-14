@@ -112,33 +112,14 @@
           "importCode": "6u3 6u3 6u3 6u3 6u3 6ve 6ve 6ve 6ve 6ve 74d 74d 77l 77l 77l 77l 77l 77l 7ee 7ee 7ee 7ee 7ee 7ee 7tg 7tg 80b 80b 80b 80b 8pu"
         },
         {
-          "name": "mgmg",
+          "name": "adfsasdf",
           "style": {
             "foregroundColor": {
-              "value": -13434727,
+              "value": -13421773,
               "falpha": 0.0
             },
             "backgroundColor": {
-              "value": -16737997,
-              "falpha": 0.0
-            },
-            "isBold": true,
-            "isItalic": true,
-            "isUnderline": true,
-            "isStrikethrough": true
-          },
-          "importCode": "",
-          "notes": ""
-        },
-        {
-          "name": "ghmgg",
-          "style": {
-            "foregroundColor": {
-              "value": -154,
-              "falpha": 0.0
-            },
-            "backgroundColor": {
-              "value": -6711040,
+              "value": -1118482,
               "falpha": 0.0
             },
             "isBold": true,
@@ -426,6 +407,24 @@
           "notes": ""
         }
       ]
+    },
+    {
+      "name": "new deck b is newddd",
+      "style": {
+        "foregroundColor": {
+          "value": -6749953,
+          "falpha": 0.0
+        },
+        "backgroundColor": {
+          "value": -6711040,
+          "falpha": 0.0
+        },
+        "isBold": true,
+        "isItalic": false,
+        "isUnderline": false,
+        "isStrikethrough": false
+      },
+      "decks": []
     }
   ],
   "customFalseGodCounters": {

@@ -18,17 +18,18 @@ public class DeckBinderListRenderer extends DefaultListCellRenderer {
 		super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 
 		Deck deck = (Deck) value;
-		System.out.println(deck.getName());
-		Style style = deck.getStyle();
-		Style.applyStyle(this, style);
-		setText(deck.getName());
+		if (null != deck) {
+			Style style = deck.getStyle();
+			Style.applyStyle(this, style);
+			setText(deck.getName());
 
-		if (cellHasFocus || isSelected)
-			setBorder(BorderFactory.createEmptyBorder(0, 5, 2, 0));
+			if (cellHasFocus || isSelected)
+				setBorder(BorderFactory.createEmptyBorder(0, 5, 2, 0));
 
-		Style.applyFont(list, style);
-		list.setSelectionForeground(style.getForegroundColor());
-		list.setSelectionBackground(style.getBackgroundColor());
+			Style.applyFont(list, style);
+			list.setSelectionForeground(style.getForegroundColor());
+			list.setSelectionBackground(style.getBackgroundColor());
+		}
 
 		return this;
 	}

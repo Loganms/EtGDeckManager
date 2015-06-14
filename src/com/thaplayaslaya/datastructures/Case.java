@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import com.thaplayaslaya.DeckManager;
-import com.thaplayaslaya.gui.CustomDialog;
+import com.thaplayaslaya.gui.DeckBinderAddDialog;
 import com.thaplayaslaya.gui.DeckManagerGUI;
 import com.thaplayaslaya.gui.DeckManagerMenuBar;
 import com.thaplayaslaya.gui.DeckManagerMenuBar.Orientation;
@@ -72,7 +72,9 @@ public class Case {
 	// This is only called when user wants to make a new deck binder.
 	// Walks user through the process with prompts and validation.
 	public void addNewDeckBinder() {
-		new CustomDialog(DeckManager.getDeckManagerGUI(), OperationType.ADD_NEW_DECKBINDER, null);
+		// new CustomDialog(DeckManager.getDeckManagerGUI(),
+		// OperationType.ADD_NEW_DECKBINDER, null);
+		new DeckBinderAddDialog();
 	}
 
 	public void initializeNewFGCounterMap() {

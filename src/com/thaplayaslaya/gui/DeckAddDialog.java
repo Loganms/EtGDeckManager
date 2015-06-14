@@ -1,7 +1,6 @@
 package com.thaplayaslaya.gui;
 
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
 
 import com.thaplayaslaya.DeckManager;
 import com.thaplayaslaya.datastructures.Deck;
@@ -15,7 +14,7 @@ public class DeckAddDialog extends DeckDialog {
 	private DeckBinder db = DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder();
 
 	public DeckAddDialog() {
-		super(DeckManager.getDeckManagerGUI(), "Edit Deck", true);
+		super(DeckManager.getDeckManagerGUI(), "New Deck", true);
 		Style.applyStyle(db.getDBP().getComboBox(), ((Deck) db.getDBP().getComboBox().getSelectedItem()).getStyle());
 		db.getDBP().transferFocus();
 		this.newDeck = new Deck();
@@ -50,7 +49,7 @@ public class DeckAddDialog extends DeckDialog {
 
 		db.addDeck(newDeck);
 		db.getDBP().getComboBox().setSelectedItem(newDeck);
-		//Style.applyStyle(db.getDBP().getComboBox(), newDeck.getStyle());
+		Style.applyStyle(db.getDBP().getComboBox(), newDeck.getStyle());
 		dispose();
 	}
 

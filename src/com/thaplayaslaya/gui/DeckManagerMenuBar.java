@@ -195,7 +195,7 @@ public class DeckManagerMenuBar extends JMenuBar {
 					}
 				} else {
 					if (null != dmgui.getCurrentlySelectedDeck()) {
-						new CustomDialog(dmgui, OperationType.EDIT_DECK, null);
+						new DeckEditDialog(dmgui.getCurrentlySelectedDeck());
 					} else {
 						JOptionPane.showMessageDialog(dmgui, "Please choose a deck first.", "Try again", JOptionPane.ERROR_MESSAGE);
 					}
