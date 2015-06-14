@@ -27,6 +27,8 @@ import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import com.thaplayaslaya.datastructures.Deck;
 import com.thaplayaslaya.datastructures.DeckBinder;
@@ -256,6 +258,15 @@ public abstract class DeckBinderDialog extends JDialog {
 		jList1.setVisibleRowCount(5);
 		jList1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		jScrollPane1.setViewportView(jList1);
+		jList1.addListSelectionListener(new ListSelectionListener() {
+
+			@Override
+			public void valueChanged(ListSelectionEvent arg0) {
+				if (!arg0.getValueIsAdjusting()) {
+					deckBinderPanel1.getComboBox().setSelectedIndex(jList1.getSelectedIndex());
+				}
+			}
+		});
 
 		jListLabel.setText("Deck Order:");
 
@@ -420,24 +431,29 @@ public abstract class DeckBinderDialog extends JDialog {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			int index = jList1.getSelectedIndex();
-			DefaultComboBoxModel<Deck> listModel = (DefaultComboBoxModel<Deck>) jList1.getModel();
-			Deck d = listModel.getElementAt(index);
-
+			Deck d = listmodel1.getElementAt(index);
+			System.out.println("Stuff be moving soon.");
 			if (index == -1) {
 				System.out.println("Select a Deck First!");
 			} else if (e.getActionCommand().equals("Move Up") && index > 0) {
-				listModel.removeElementAt(index);
-				listModel.insertElementAt(d, index - 1);
+				listmodel1.removeElementAt(index);
+				listmodel1.insertElementAt(d, index - 1);
 				jList1.setSelectedIndex(index - 1);
-				deckBinderPanel1.getComboBox().setModel(listModel);
+				deckBinderPanel1.getComboBox().setSelectedIndex(index - 1);
+				finish();
 			} else if (e.getActionCommand().equals("Move Down") && index < jList1.getModel().getSize() - 1) {
-				listModel.removeElementAt(index);
-				listModel.insertElementAt(d, index + 1);
+				listmodel1.removeElementAt(index);
+				listmodel1.insertElementAt(d, index + 1);
 				jList1.setSelectedIndex(index + 1);
-				deckBinderPanel1.getComboBox().setModel(listModel);
+				deckBinderPanel1.getComboBox().setSelectedIndex(index + 1);
+				finish();
 			} else {
 				System.out.println("Movement action failed. Action Command is: " + e.getActionCommand());
 			}
+		}
+
+		private void finish() {
+			deckBinderPanel1.getComboBox().setModel(listmodel1);
 		}
 	}
 }

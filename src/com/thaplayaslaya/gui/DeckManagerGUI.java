@@ -166,8 +166,6 @@ public class DeckManagerGUI extends JFrame {
 								JOptionPane.ERROR_MESSAGE);
 					}
 				} else if (e.getActionCommand().equals(OperationType.EDIT_DECK.getText())) {
-					// new CustomDialog(DeckManagerGUI.this,
-					// OperationType.EDIT_DECK, null);
 					new DeckEditDialog(currentlySelectedDeck);
 				}
 

@@ -6,16 +6,8 @@
     {
       "name": "Gods",
       "style": {
-        "foregroundColor": {
-          "value": -10066432,
-          "falpha": 0.0
-        },
-        "backgroundColor": {
-          "value": -13108,
-          "falpha": 0.0
-        },
         "isBold": true,
-        "isItalic": true,
+        "isItalic": false,
         "isUnderline": false,
         "isStrikethrough": false
       },
@@ -40,22 +32,22 @@
           "notes": ""
         },
         {
-          "name": "Limitless Speed",
+          "name": "Perpetual Light",
           "style": {
             "foregroundColor": {
-              "value": -52276,
+              "value": -3342490,
               "falpha": 0.0
             },
             "backgroundColor": {
-              "value": -13382401,
+              "value": -16777012,
               "falpha": 0.0
             },
             "isBold": true,
-            "isItalic": true,
-            "isUnderline": true,
-            "isStrikethrough": true
+            "isItalic": false,
+            "isUnderline": false,
+            "isStrikethrough": false
           },
-          "importCode": "6qq 6qq 6qq 6qq 6qq 6qq 6qq 74a 7dr 7dr 7jq 7la 7la 7la 7n9 7q5 7q5 7q5 7q5 7q5 7ri 7ri 7ri 7ri 80b 80b 80b 80d 80d 80d 80d 80d 80d 8pu"
+          "importCode": "7jp 7jp 7jp 7jp 7jp 7jp 7ju 7ju 7k4 7k4 7k4 7k4 808 808 808 808 808 80e 80e 80e 80i 80i 80i 80i 80i 81q 81q 81q 81q 81q 8pu"
         },
         {
           "name": "NOT FG OTK",
@@ -76,32 +68,32 @@
           "importCode": "5lk 5lk 5lk 7hi 7hi 7hi 7jp 7jp 7jp 7jp 7jp 7jp 808 808 808 808 808 808 808 808 808 80e 80e 80i 80i 80i 80i 80m 80m 80m 8pp"
         },
         {
-          "name": "Perpetual Light",
+          "name": "Limitless Speed",
           "style": {
             "foregroundColor": {
-              "value": -3342490,
+              "value": -52276,
               "falpha": 0.0
             },
             "backgroundColor": {
-              "value": -16777012,
+              "value": -13382401,
               "falpha": 0.0
             },
             "isBold": true,
-            "isItalic": false,
-            "isUnderline": false,
+            "isItalic": true,
+            "isUnderline": true,
             "isStrikethrough": false
           },
-          "importCode": "7jp 7jp 7jp 7jp 7jp 7jp 7ju 7ju 7k4 7k4 7k4 7k4 808 808 808 808 808 80e 80e 80e 80i 80i 80i 80i 80i 81q 81q 81q 81q 81q 8pu"
+          "importCode": "6qq 6qq 6qq 6qq 6qq 6qq 6qq 74a 7dr 7dr 7jq 7la 7la 7la 7n9 7q5 7q5 7q5 7q5 7q5 7ri 7ri 7ri 7ri 80b 80b 80b 80d 80d 80d 80d 80d 80d 8pu"
         },
         {
           "name": "Voodoo Bravery",
           "style": {
             "foregroundColor": {
-              "value": -13421773,
+              "value": -39424,
               "falpha": 0.0
             },
             "backgroundColor": {
-              "value": -1118482,
+              "value": -10066330,
               "falpha": 0.0
             },
             "isBold": true,
@@ -110,25 +102,6 @@
             "isStrikethrough": false
           },
           "importCode": "6u3 6u3 6u3 6u3 6u3 6ve 6ve 6ve 6ve 6ve 74d 74d 77l 77l 77l 77l 77l 77l 7ee 7ee 7ee 7ee 7ee 7ee 7tg 7tg 80b 80b 80b 80b 8pu"
-        },
-        {
-          "name": "adfsasdf",
-          "style": {
-            "foregroundColor": {
-              "value": -13421773,
-              "falpha": 0.0
-            },
-            "backgroundColor": {
-              "value": -1118482,
-              "falpha": 0.0
-            },
-            "isBold": true,
-            "isItalic": false,
-            "isUnderline": false,
-            "isStrikethrough": false
-          },
-          "importCode": "",
-          "notes": ""
         }
       ]
     },
@@ -407,24 +380,6 @@
           "notes": ""
         }
       ]
-    },
-    {
-      "name": "new deck b is newddd",
-      "style": {
-        "foregroundColor": {
-          "value": -6749953,
-          "falpha": 0.0
-        },
-        "backgroundColor": {
-          "value": -6711040,
-          "falpha": 0.0
-        },
-        "isBold": true,
-        "isItalic": false,
-        "isUnderline": false,
-        "isStrikethrough": false
-      },
-      "decks": []
     }
   ],
   "customFalseGodCounters": {

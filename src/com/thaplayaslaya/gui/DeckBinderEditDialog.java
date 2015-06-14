@@ -5,6 +5,7 @@ import javax.swing.JOptionPane;
 import com.thaplayaslaya.DeckManager;
 import com.thaplayaslaya.datastructures.Case;
 import com.thaplayaslaya.datastructures.DeckBinder;
+import com.thaplayaslaya.datastructures.Style;
 
 public class DeckBinderEditDialog extends DeckBinderDialog {
 
@@ -16,7 +17,7 @@ public class DeckBinderEditDialog extends DeckBinderDialog {
 		super(DeckManager.getDeckManagerGUI(), "Edit Deck Binder", true);
 		this.originalDeckBinder = deckBinder;
 		this.newDeckBinder = originalDeckBinder.copy();
-		this.deckBinderPanel1 = newDeckBinder.getDBP();
+		this.deckBinderPanel1 = originalDeckBinder.getDBP().copy();
 		this.newComboBox = deckBinderPanel1.getComboBox();
 		initComponents();
 		setLocation(DeckManager.getDeckManagerGUI().getSmartExternalWindowLocation(this));
@@ -48,6 +49,7 @@ public class DeckBinderEditDialog extends DeckBinderDialog {
 		originalDeckBinder.setName(jTextField1.getText());
 		originalDeckBinder.setDecks(listmodel1);
 		originalDeckBinder.setStyle(newDeckBinder.getStyle());
+		Style.applyStyle(originalDeckBinder.getDBP().getComboBox(), originalDeckBinder.getDecks().get(0).getStyle());
 		dispose();
 	}
 }

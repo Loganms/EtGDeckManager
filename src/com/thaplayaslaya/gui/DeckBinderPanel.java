@@ -18,6 +18,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
+import javax.swing.event.ListDataEvent;
+import javax.swing.event.ListDataListener;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 
@@ -98,6 +100,26 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 		// Need this regardless of isFunctional
 		// Primarily for preview panel of DBEditDialog
 		// to update properly.
+
+		comboBox.addItemListener(new StyleUpdateListener());
+		comboBox.getModel().addListDataListener(new ListDataListener() {
+
+			@Override
+			public void intervalAdded(ListDataEvent e) {
+				System.out.println("int added");
+			}
+
+			@Override
+			public void intervalRemoved(ListDataEvent e) {
+				System.out.println("int removed");
+			}
+
+			@Override
+			public void contentsChanged(ListDataEvent e) {
+				System.out.println("contents changed");
+			}
+
+		});
 		comboBox.addPopupMenuListener(new PopupMenuListener() {
 
 			@Override
@@ -232,11 +254,27 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 						DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder().addNewDeck();
 					}
 				}
-				System.out.println("Applying style to " + deck.getName() + ", baby");
-				Style.applyStyle(comboBox, deck.getStyle());
-				comboBox.transferFocusUpCycle();
+				/*
+				 * System.out.println("Applying style to " + deck.getName() +
+				 * ", baby"); Style.applyStyle(comboBox, deck.getStyle());
+				 * comboBox.transferFocusUpCycle();
+				 */
 			}
 		}
+	}
+
+	private class StyleUpdateListener implements ItemListener {
+
+		@Override
+		public void itemStateChanged(ItemEvent e) {
+
+			Deck deck = ((Deck) e.getItem());
+			System.out.println("Applying style to " + deck.getName() + ", baby");
+			Style.applyStyle(comboBox, deck.getStyle());
+			comboBox.transferFocusUpCycle();
+
+		}
+
 	}
 
 	private class cBFocusListener implements FocusListener {
