@@ -21,6 +21,16 @@ public class Style {
 	public Style() {
 	}
 
+	// Copy constructor
+	private Style(Style s) {
+		this.foregroundColor = s.foregroundColor;
+		this.backgroundColor = s.backgroundColor;
+		this.isBold = s.isBold;
+		this.isItalic = s.isItalic;
+		this.isUnderline = s.isUnderline;
+		this.isStrikethrough = s.isStrikethrough;
+	}
+
 	public Style(Color foregroundColor) {
 		this.foregroundColor = foregroundColor;
 	}
@@ -81,6 +91,10 @@ public class Style {
 			c.getComponent(0).setBackground(UIManager.getColor("ComboBox.background"));
 		}
 		applyFont(c, s);
+	}
+
+	public Style copy() {
+		return new Style(this);
 	}
 
 	public Color getForegroundColor() {

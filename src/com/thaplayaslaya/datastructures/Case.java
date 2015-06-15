@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
 import com.thaplayaslaya.DeckManager;
 import com.thaplayaslaya.gui.DeckBinderAddDialog;
 import com.thaplayaslaya.gui.DeckManagerGUI;
@@ -28,11 +25,6 @@ public class Case {
 
 	public Map<String, ArrayList<Deck>> getFGCounterMap() {
 		if (customFalseGodCounters.isEmpty()) {
-			JOptionPane
-					.showMessageDialog(
-							new JFrame(),
-							"Your save data resulted in an empty field.\nNo custom-saved False God counters could be acquired.\nThis is likely due to updating from a version below v1.0.2\nThe program will now update the necessary fields.",
-							"Load Error", JOptionPane.ERROR_MESSAGE);
 			initializeNewFGCounterMap();
 		}
 		return customFalseGodCounters;

@@ -349,6 +349,7 @@ public abstract class DeckDialog extends JDialog {
 	protected abstract void doneAction();
 
 	protected void cancelAction() {
+		System.out.println("Cancel Aciton");
 		dispose();
 	}
 

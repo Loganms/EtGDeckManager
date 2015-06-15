@@ -26,7 +26,7 @@ public class Deck implements IStylish {
 	// Copy constructor
 	protected Deck(Deck d) {
 		this.name = d.name;
-		this.style = d.style;
+		this.style = d.style.copy();
 		this.importCode = d.importCode;
 		this.notes = d.notes;
 	}

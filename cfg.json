@@ -1,10 +1,10 @@
 {
   "VERSION_ID": "v1.0.4",
-  "preferredDeckImageLocation": "LEFT",
+  "preferredDeckImageLocation": "TOP",
   "preferredDeckImageLocationMod": "CENTER",
   "deckBinders": [
     {
-      "name": "Gods",
+      "name": "G/P Arena",
       "style": {
         "isBold": true,
         "isItalic": false,
@@ -13,14 +13,14 @@
       },
       "decks": [
         {
-          "name": "Voodoo Bravery",
+          "name": "Swallow",
           "style": {
             "foregroundColor": {
-              "value": -39424,
+              "value": -13421773,
               "falpha": 0.0
             },
             "backgroundColor": {
-              "value": -10066330,
+              "value": -1118482,
               "falpha": 0.0
             },
             "isBold": true,
@@ -28,17 +28,29 @@
             "isUnderline": false,
             "isStrikethrough": false
           },
-          "importCode": "6u3 6u3 6u3 6u3 6u3 6ve 6ve 6ve 6ve 6ve 74d 74d 77l 77l 77l 77l 77l 77l 7ee 7ee 7ee 7ee 7ee 7ee 7tg 7tg 80b 80b 80b 80b 8pu"
+          "importCode": "744 744 744 744 744 744 744 744 744 74b 74b 74b 74b 74b 74d 74d 752 752 752 752 75m 75m 75m 7gq 7gq 7h0 7h0 7hi 7hi 7hi 8pp",
+          "notes": ""
         },
         {
-          "name": "Perpetual Light",
+          "name": "Chaos Wyrms",
+          "style": {
+            "isBold": true,
+            "isItalic": false,
+            "isUnderline": false,
+            "isStrikethrough": false
+          },
+          "importCode": "6u2 6u2 6u2 6u2 6u2 6u2 7ms 7ms 7ms 7ms 7ms 7ms 7mt 7mt 7mt 7mt 7mt 7mt 7mu 7mu 7mu 7mu 7mu 7mu 7nq 7nq 7nq 7nq 7nq 7nq 8pj",
+          "notes": "6u2 6u2 6u2 6u2 6u2 6u2 7ms 7ms 7ms 7ms 7ms 7ms 7mt 7mt 7mt 7mt 7mt 7mt 7mu 7mu 7mu 7mu 7mu 7mu 7nq 7nq 7nq 7nq 7nq 7nq 8pj6u2 6u2 6u2 6u2 6u2 6u2 7ms 7ms 7ms 7ms 7ms 7ms 7mt 7mt 7mt 7mt 7mt 7mt 7mu 7mu 7mu 7mu 7mu 7mu 7nq 7nq 7nq 7nq 7nq 7nq 8pj6u2 6u2 6u2 6u2 6u2 6u2 7ms 7ms 7ms 7ms 7ms 7ms 7mt 7mt 7mt 7mt 7mt 7mt 7mu 7mu 7mu 7mu 7mu 7mu 7nq 7nq 7nq 7nq 7nq 7nq 8pj6u2 6u2 6u2 6u2 6u2 6u2 7ms 7ms 7ms 7ms 7ms 7ms 7mt 7mt 7mt 7mt 7mt 7mt 7mu 7mu 7mu 7mu 7mu 7mu 7nq 7nq 7nq 7nq 7nq 7nq 8pj6u2 6u2 6u2 6u2 6u2 6u2 7ms 7ms 7ms 7ms 7ms 7ms 7mt 7mt 7mt 7mt 7mt 7mt 7mu 7mu 7mu 7mu 7mu 7mu 7nq 7nq 7nq 7nq 7nq 7nq 8pj6u2 6u2 6u2 6u2 6u2 6u2 7ms 7ms 7ms 7ms 7ms 7ms 7mt 7mt 7mt 7mt 7mt 7mt 7mu 7mu 7mu 7mu 7mu 7mu 7nq 7nq 7nq 7nq 7nq 7nq 8pj"
+        },
+        {
+          "name": "Pestal 101",
           "style": {
             "foregroundColor": {
-              "value": -3342490,
+              "value": -13421773,
               "falpha": 0.0
             },
             "backgroundColor": {
-              "value": -16777012,
+              "value": -1118482,
               "falpha": 0.0
             },
             "isBold": true,
@@ -46,17 +58,37 @@
             "isUnderline": false,
             "isStrikethrough": false
           },
-          "importCode": "7jp 7jp 7jp 7jp 7jp 7jp 7ju 7ju 7k4 7k4 7k4 7k4 808 808 808 808 808 80e 80e 80e 80i 80i 80i 80i 80i 81q 81q 81q 81q 81q 8pu"
+          "importCode": "7t6 7t6 7t6 7t6 7t6 7t6 7ta 7ta 7td 7td 7um 7um 7um 7um 7um 7um 7um 7um 7um 7um 808 808 808 808 80i 80i 80i 80i 80i 80i 8pu",
+          "notes": "7um 7um 7um 7um 7um 7um 7um 7um 7um 808 808 808 808 80i 80i 80i 80i 80i 80i 8pu7um 7um 7um 7um 7um 7um 7um 7um 7um 808 808 808 808 80i 80i 80i 80i 80i 80i 8pu7um 7um 7um 7um 7um 7um 7um 7um 7um 808 808 808 808 80i 80i 80i 80i 80i 80i 8pu"
+        }
+      ]
+    },
+    {
+      "name": "Gods",
+      "style": {
+        "foregroundColor": {
+          "value": -13421773,
+          "falpha": 0.0
         },
+        "backgroundColor": {
+          "value": -1118482,
+          "falpha": 0.0
+        },
+        "isBold": true,
+        "isItalic": false,
+        "isUnderline": false,
+        "isStrikethrough": false
+      },
+      "decks": [
         {
           "name": "NOT FG OTK",
           "style": {
             "foregroundColor": {
-              "value": -205,
+              "value": -13421773,
               "falpha": 0.0
             },
             "backgroundColor": {
-              "value": -13108,
+              "value": -1118482,
               "falpha": 0.0
             },
             "isBold": true,
@@ -70,16 +102,16 @@
           "name": "Limitless Speed",
           "style": {
             "foregroundColor": {
-              "value": -52276,
+              "value": -13421773,
               "falpha": 0.0
             },
             "backgroundColor": {
-              "value": -13382401,
+              "value": -1118482,
               "falpha": 0.0
             },
             "isBold": true,
-            "isItalic": true,
-            "isUnderline": true,
+            "isItalic": false,
+            "isUnderline": false,
             "isStrikethrough": false
           },
           "importCode": "6qq 6qq 6qq 6qq 6qq 6qq 6qq 74a 7dr 7dr 7jq 7la 7la 7la 7n9 7q5 7q5 7q5 7q5 7q5 7ri 7ri 7ri 7ri 80b 80b 80b 80d 80d 80d 80d 80d 80d 8pu"
@@ -88,20 +120,56 @@
           "name": "PDials",
           "style": {
             "foregroundColor": {
-              "value": -256,
+              "value": -13421773,
               "falpha": 0.0
             },
             "backgroundColor": {
-              "value": -13434727,
+              "value": -1118482,
               "falpha": 0.0
             },
             "isBold": true,
             "isItalic": false,
-            "isUnderline": true,
+            "isUnderline": false,
             "isStrikethrough": false
           },
           "importCode": "52q 5m6 5m6 710 710 710 710 710 710 718 718 718 718 718 718 71a 71a 71u 71u 71u 71u 71u 71u 72i 72i 72i 7km 7km 7q9 7q9 7q9 7q9 7q9 7q9 8pq",
           "notes": ""
+        },
+        {
+          "name": "Perpetual Light",
+          "style": {
+            "foregroundColor": {
+              "value": -13421773,
+              "falpha": 0.0
+            },
+            "backgroundColor": {
+              "value": -1118482,
+              "falpha": 0.0
+            },
+            "isBold": true,
+            "isItalic": false,
+            "isUnderline": false,
+            "isStrikethrough": false
+          },
+          "importCode": "7jp 7jp 7jp 7jp 7jp 7jp 7ju 7ju 7k4 7k4 7k4 7k4 808 808 808 808 808 80e 80e 80e 80i 80i 80i 80i 80i 81q 81q 81q 81q 81q 8pu"
+        },
+        {
+          "name": "Voodoo Bravery",
+          "style": {
+            "foregroundColor": {
+              "value": -13421773,
+              "falpha": 0.0
+            },
+            "backgroundColor": {
+              "value": -1118482,
+              "falpha": 0.0
+            },
+            "isBold": true,
+            "isItalic": false,
+            "isUnderline": false,
+            "isStrikethrough": false
+          },
+          "importCode": "6u3 6u3 6u3 6u3 6u3 6ve 6ve 6ve 6ve 6ve 74d 74d 77l 77l 77l 77l 77l 77l 7ee 7ee 7ee 7ee 7ee 7ee 7tg 7tg 80b 80b 80b 80b 8pu"
         }
       ]
     },
@@ -126,11 +194,11 @@
           "name": "Chaotic Firebrand 2",
           "style": {
             "foregroundColor": {
-              "value": -65281,
+              "value": -13421773,
               "falpha": 0.0
             },
             "backgroundColor": {
-              "value": -6750208,
+              "value": -1118482,
               "falpha": 0.0
             },
             "isBold": true,
@@ -159,74 +227,6 @@
           },
           "importCode": "52l 52l 710 719 71a 72i 72i 7n2 7n2 7n2 7n2 7n2 7n2 7n5 7t4 7t6 7t6 7t6 7t6 7t9 7t9 7ta 7ta 7tb 7tb 7tb 7tb 7um 7um 7um 7um 8pt",
           "notes": "Added a plague. \nSwitched Death pend for tower."
-        }
-      ]
-    },
-    {
-      "name": "G/P Arena",
-      "style": {
-        "isBold": true,
-        "isItalic": true,
-        "isUnderline": true,
-        "isStrikethrough": false
-      },
-      "decks": [
-        {
-          "name": "Chaos Wyrms",
-          "style": {
-            "foregroundColor": {
-              "value": -3342337,
-              "falpha": 0.0
-            },
-            "backgroundColor": {
-              "value": -13057,
-              "falpha": 0.0
-            },
-            "isBold": true,
-            "isItalic": false,
-            "isUnderline": false,
-            "isStrikethrough": true
-          },
-          "importCode": "6u2 6u2 6u2 6u2 6u2 6u2 7ms 7ms 7ms 7ms 7ms 7ms 7mt 7mt 7mt 7mt 7mt 7mt 7mu 7mu 7mu 7mu 7mu 7mu 7nq 7nq 7nq 7nq 7nq 7nq 8pj",
-          "notes": "6u2 6u2 6u2 6u2 6u2 6u2 7ms 7ms 7ms 7ms 7ms 7ms 7mt 7mt 7mt 7mt 7mt 7mt 7mu 7mu 7mu 7mu 7mu 7mu 7nq 7nq 7nq 7nq 7nq 7nq 8pj6u2 6u2 6u2 6u2 6u2 6u2 7ms 7ms 7ms 7ms 7ms 7ms 7mt 7mt 7mt 7mt 7mt 7mt 7mu 7mu 7mu 7mu 7mu 7mu 7nq 7nq 7nq 7nq 7nq 7nq 8pj6u2 6u2 6u2 6u2 6u2 6u2 7ms 7ms 7ms 7ms 7ms 7ms 7mt 7mt 7mt 7mt 7mt 7mt 7mu 7mu 7mu 7mu 7mu 7mu 7nq 7nq 7nq 7nq 7nq 7nq 8pj6u2 6u2 6u2 6u2 6u2 6u2 7ms 7ms 7ms 7ms 7ms 7ms 7mt 7mt 7mt 7mt 7mt 7mt 7mu 7mu 7mu 7mu 7mu 7mu 7nq 7nq 7nq 7nq 7nq 7nq 8pj6u2 6u2 6u2 6u2 6u2 6u2 7ms 7ms 7ms 7ms 7ms 7ms 7mt 7mt 7mt 7mt 7mt 7mt 7mu 7mu 7mu 7mu 7mu 7mu 7nq 7nq 7nq 7nq 7nq 7nq 8pj6u2 6u2 6u2 6u2 6u2 6u2 7ms 7ms 7ms 7ms 7ms 7ms 7mt 7mt 7mt 7mt 7mt 7mt 7mu 7mu 7mu 7mu 7mu 7mu 7nq 7nq 7nq 7nq 7nq 7nq 8pj"
-        },
-        {
-          "name": "Pestal 101",
-          "style": {
-            "foregroundColor": {
-              "value": -16711681,
-              "falpha": 0.0
-            },
-            "backgroundColor": {
-              "value": -13421773,
-              "falpha": 0.0
-            },
-            "isBold": true,
-            "isItalic": false,
-            "isUnderline": true,
-            "isStrikethrough": false
-          },
-          "importCode": "7t6 7t6 7t6 7t6 7t6 7t6 7ta 7ta 7td 7td 7um 7um 7um 7um 7um 7um 7um 7um 7um 7um 808 808 808 808 80i 80i 80i 80i 80i 80i 8pu",
-          "notes": "7um 7um 7um 7um 7um 7um 7um 7um 7um 808 808 808 808 80i 80i 80i 80i 80i 80i 8pu7um 7um 7um 7um 7um 7um 7um 7um 7um 808 808 808 808 80i 80i 80i 80i 80i 80i 8pu7um 7um 7um 7um 7um 7um 7um 7um 7um 808 808 808 808 80i 80i 80i 80i 80i 80i 8pu"
-        },
-        {
-          "name": "Swallow",
-          "style": {
-            "foregroundColor": {
-              "value": -26368,
-              "falpha": 0.0
-            },
-            "backgroundColor": {
-              "value": -16750849,
-              "falpha": 0.0
-            },
-            "isBold": true,
-            "isItalic": true,
-            "isUnderline": false,
-            "isStrikethrough": false
-          },
-          "importCode": "744 744 744 744 744 744 744 744 744 74b 74b 74b 74b 74b 74d 74d 752 752 752 752 75m 75m 75m 7gq 7gq 7h0 7h0 7hi 7hi 7hi 8pp",
-          "notes": ""
         }
       ]
     },
@@ -340,6 +340,25 @@
           },
           "importCode": "4vl 50u 50u 50u 50u 50u 5f0 5f0 5f0 5f0 5f0 5f0 6u5 6u5 7dn 7dn 7dn 7ee 7ee 7ee 7ee 7ee 7ee 7n2 7n2 7n2 7n2 7n2 7n2 7n5 8po",
           "notes": "Disorientate with Discord while stockpiling fire quanta. Lay \u0027em to waste with Fahrenheit."
+        },
+        {
+          "name": "Discord\u0027s present",
+          "style": {
+            "foregroundColor": {
+              "value": -13421773,
+              "falpha": 0.0
+            },
+            "backgroundColor": {
+              "value": -1118482,
+              "falpha": 0.0
+            },
+            "isBold": true,
+            "isItalic": false,
+            "isUnderline": false,
+            "isStrikethrough": false
+          },
+          "importCode": "52q 534 5i4 5i4 5i4 5i4 5i4 5i4 5i5 5i5 5i5 5i5 5i5 5ia 5ia 5ia 710 710 710 710 710 710 719 71a 71a 7gl 7gp 7gp 7gr 7gr 8pk",
+          "notes": ""
         }
       ]
     },
@@ -380,42 +399,6 @@
           "notes": ""
         }
       ]
-    },
-    {
-      "name": "",
-      "style": {
-        "foregroundColor": {
-          "value": -13421773,
-          "falpha": 0.0
-        },
-        "backgroundColor": {
-          "value": -1118482,
-          "falpha": 0.0
-        },
-        "isBold": true,
-        "isItalic": true,
-        "isUnderline": false,
-        "isStrikethrough": true
-      },
-      "decks": []
-    },
-    {
-      "name": "",
-      "style": {
-        "foregroundColor": {
-          "value": -13421773,
-          "falpha": 0.0
-        },
-        "backgroundColor": {
-          "value": -1118482,
-          "falpha": 0.0
-        },
-        "isBold": true,
-        "isItalic": false,
-        "isUnderline": false,
-        "isStrikethrough": false
-      },
-      "decks": []
     }
   ],
   "customFalseGodCounters": {

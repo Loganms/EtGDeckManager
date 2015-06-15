@@ -35,7 +35,7 @@ public class DeckBinder implements IStylish {
 	// Copy Constructor
 	protected DeckBinder(DeckBinder db) {
 		this.name = db.getName();
-		this.style = db.getStyle();
+		this.style = db.getStyle().copy();
 		for (Deck d : db.getDecks()) {
 			this.decks.add(d.clone());
 		}
