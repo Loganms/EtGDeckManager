@@ -5,8 +5,9 @@ import java.io.InputStream;
 import java.net.URL;
 
 import javax.imageio.ImageIO;
+import javax.swing.UIManager;
 
-public class Deck {
+public class Deck implements IStylish {
 
 	private static final String DEFAULT_DECK_NAME = "add new deck";
 	public static final Deck DEFAULT = new Deck(DEFAULT_DECK_NAME);
@@ -15,10 +16,19 @@ public class Deck {
 	private transient BufferedImage deckImage;
 
 	private String name;
+	private Style style = new Style(UIManager.getColor("ComboBox.foreground"), UIManager.getColor("ComboBox.background"));
 	private String importCode;
 	private String notes;
 
 	public Deck() {
+	}
+
+	// Copy constructor
+	protected Deck(Deck d) {
+		this.name = d.name;
+		this.style = d.style.copy();
+		this.importCode = d.importCode;
+		this.notes = d.notes;
 	}
 
 	private Deck(String name) {
@@ -31,6 +41,15 @@ public class Deck {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	@Override
+	public Style getStyle() {
+		return style;
+	}
+
+	public void setStyle(Style style) {
+		this.style = style;
 	}
 
 	public String getImportCode() {
@@ -177,6 +196,11 @@ public class Deck {
 			System.out.println("From Deck.java - Function \"charToNumber\" has failed");
 			return -1;
 		}
+	}
+
+	@Override
+	public Deck clone() {
+		return new Deck(this);
 	}
 
 	@Override

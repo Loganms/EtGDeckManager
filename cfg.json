@@ -1,103 +1,585 @@
 {
-  "VERSION_ID": "v1.0.2",
+  "VERSION_ID": "v1.0.4",
   "preferredDeckImageLocation": "TOP",
   "preferredDeckImageLocationMod": "CENTER",
   "deckBinders": [
     {
+      "name": "G/P Arena",
+      "style": {
+        "isBold": true,
+        "isItalic": false,
+        "isUnderline": false,
+        "isStrikethrough": false
+      },
+      "decks": [
+        {
+          "name": "Swallow",
+          "style": {
+            "foregroundColor": {
+              "value": -13421773,
+              "falpha": 0.0
+            },
+            "backgroundColor": {
+              "value": -1118482,
+              "falpha": 0.0
+            },
+            "isBold": true,
+            "isItalic": false,
+            "isUnderline": false,
+            "isStrikethrough": false
+          },
+          "importCode": "744 744 744 744 744 744 744 744 744 74b 74b 74b 74b 74b 74d 74d 752 752 752 752 75m 75m 75m 7gq 7gq 7h0 7h0 7hi 7hi 7hi 8pp",
+          "notes": ""
+        },
+        {
+          "name": "Chaos Wyrms",
+          "style": {
+            "isBold": true,
+            "isItalic": false,
+            "isUnderline": false,
+            "isStrikethrough": false
+          },
+          "importCode": "6u2 6u2 6u2 6u2 6u2 6u2 7ms 7ms 7ms 7ms 7ms 7ms 7mt 7mt 7mt 7mt 7mt 7mt 7mu 7mu 7mu 7mu 7mu 7mu 7nq 7nq 7nq 7nq 7nq 7nq 8pj",
+          "notes": "6u2 6u2 6u2 6u2 6u2 6u2 7ms 7ms 7ms 7ms 7ms 7ms 7mt 7mt 7mt 7mt 7mt 7mt 7mu 7mu 7mu 7mu 7mu 7mu 7nq 7nq 7nq 7nq 7nq 7nq 8pj6u2 6u2 6u2 6u2 6u2 6u2 7ms 7ms 7ms 7ms 7ms 7ms 7mt 7mt 7mt 7mt 7mt 7mt 7mu 7mu 7mu 7mu 7mu 7mu 7nq 7nq 7nq 7nq 7nq 7nq 8pj6u2 6u2 6u2 6u2 6u2 6u2 7ms 7ms 7ms 7ms 7ms 7ms 7mt 7mt 7mt 7mt 7mt 7mt 7mu 7mu 7mu 7mu 7mu 7mu 7nq 7nq 7nq 7nq 7nq 7nq 8pj6u2 6u2 6u2 6u2 6u2 6u2 7ms 7ms 7ms 7ms 7ms 7ms 7mt 7mt 7mt 7mt 7mt 7mt 7mu 7mu 7mu 7mu 7mu 7mu 7nq 7nq 7nq 7nq 7nq 7nq 8pj6u2 6u2 6u2 6u2 6u2 6u2 7ms 7ms 7ms 7ms 7ms 7ms 7mt 7mt 7mt 7mt 7mt 7mt 7mu 7mu 7mu 7mu 7mu 7mu 7nq 7nq 7nq 7nq 7nq 7nq 8pj6u2 6u2 6u2 6u2 6u2 6u2 7ms 7ms 7ms 7ms 7ms 7ms 7mt 7mt 7mt 7mt 7mt 7mt 7mu 7mu 7mu 7mu 7mu 7mu 7nq 7nq 7nq 7nq 7nq 7nq 8pj"
+        },
+        {
+          "name": "Pestal 101",
+          "style": {
+            "foregroundColor": {
+              "value": -13421773,
+              "falpha": 0.0
+            },
+            "backgroundColor": {
+              "value": -1118482,
+              "falpha": 0.0
+            },
+            "isBold": true,
+            "isItalic": false,
+            "isUnderline": false,
+            "isStrikethrough": false
+          },
+          "importCode": "7t6 7t6 7t6 7t6 7t6 7t6 7ta 7ta 7td 7td 7um 7um 7um 7um 7um 7um 7um 7um 7um 7um 808 808 808 808 80i 80i 80i 80i 80i 80i 8pu",
+          "notes": "7um 7um 7um 7um 7um 7um 7um 7um 7um 808 808 808 808 80i 80i 80i 80i 80i 80i 8pu7um 7um 7um 7um 7um 7um 7um 7um 7um 808 808 808 808 80i 80i 80i 80i 80i 80i 8pu7um 7um 7um 7um 7um 7um 7um 7um 7um 808 808 808 808 80i 80i 80i 80i 80i 80i 8pu"
+        }
+      ]
+    },
+    {
       "name": "Gods",
+      "style": {
+        "foregroundColor": {
+          "value": -13421773,
+          "falpha": 0.0
+        },
+        "backgroundColor": {
+          "value": -1118482,
+          "falpha": 0.0
+        },
+        "isBold": true,
+        "isItalic": false,
+        "isUnderline": false,
+        "isStrikethrough": false
+      },
       "decks": [
         {
           "name": "NOT FG OTK",
-          "importCode": "5lk 5lk 5lk 7hi 7hi 7hi 7jp 7jp 7jp 7jp 7jp 7jp 808 808 808 808 808 808 808 808 808 80e 80e 80i 80i 80i 80i 80m 80m 80m 8pp",
-          "notes": "5lk 5lk 5lk 7hi 7hi 7hi 7jp 7jp 7jp 7jp 7jp 7jp 808 808 808 808 808 808 808 808 808 80e 80e 80i 80i 80i 80i 80m 80m 80m 8pp"
+          "style": {
+            "foregroundColor": {
+              "value": -13421773,
+              "falpha": 0.0
+            },
+            "backgroundColor": {
+              "value": -1118482,
+              "falpha": 0.0
+            },
+            "isBold": true,
+            "isItalic": false,
+            "isUnderline": false,
+            "isStrikethrough": false
+          },
+          "importCode": "5lk 5lk 5lk 7hi 7hi 7hi 7jp 7jp 7jp 7jp 7jp 7jp 808 808 808 808 808 808 808 808 808 80e 80e 80i 80i 80i 80i 80m 80m 80m 8pp"
         },
         {
           "name": "Limitless Speed",
-          "importCode": "6qq 6qq 6qq 6qq 6qq 6qq 6qq 74a 7dr 7dr 7jq 7la 7la 7la 7n9 7q5 7q5 7q5 7q5 7q5 7ri 7ri 7ri 7ri 80b 80b 80b 80d 80d 80d 80d 80d 80d 8pu",
-          "notes": "6qq 6qq 6qq 6qq 6qq 6qq 6qq 74a 7dr 7dr 7jq 7la 7la 7la 7n9 7q5 7q5 7q5 7q5 7q5 7ri 7ri 7ri 7ri 80b 80b 80b 80d 80d 80d 80d 80d 80d 8pu6qq 6qq 6qq 6qq 6qq 6qq 6qq 74a 7dr 7dr 7jq 7la 7la 7la 7n9 7q5 7q5 7q5 7q5 7q5 7ri 7ri 7ri 7ri 80b 80b 80b 80d 80d 80d 80d 80d 80d 8pu"
+          "style": {
+            "foregroundColor": {
+              "value": -13421773,
+              "falpha": 0.0
+            },
+            "backgroundColor": {
+              "value": -1118482,
+              "falpha": 0.0
+            },
+            "isBold": true,
+            "isItalic": false,
+            "isUnderline": false,
+            "isStrikethrough": false
+          },
+          "importCode": "6qq 6qq 6qq 6qq 6qq 6qq 6qq 74a 7dr 7dr 7jq 7la 7la 7la 7n9 7q5 7q5 7q5 7q5 7q5 7ri 7ri 7ri 7ri 80b 80b 80b 80d 80d 80d 80d 80d 80d 8pu"
         },
         {
           "name": "PDials",
-          "importCode": "710 710 710 710 718 718 718 718 718 718 71a 71a 71u 71u 71u 71u 71u 71u 72i 72i 72i 7km 7km 7km 7q9 7q9 7q9 7q9 7q9 7q9 8pq"
+          "style": {
+            "foregroundColor": {
+              "value": -13421773,
+              "falpha": 0.0
+            },
+            "backgroundColor": {
+              "value": -1118482,
+              "falpha": 0.0
+            },
+            "isBold": true,
+            "isItalic": false,
+            "isUnderline": false,
+            "isStrikethrough": false
+          },
+          "importCode": "52q 5m6 5m6 710 710 710 710 710 710 718 718 718 718 718 718 71a 71a 71u 71u 71u 71u 71u 71u 72i 72i 72i 7km 7km 7q9 7q9 7q9 7q9 7q9 7q9 8pq",
+          "notes": ""
         },
         {
           "name": "Perpetual Light",
+          "style": {
+            "foregroundColor": {
+              "value": -13421773,
+              "falpha": 0.0
+            },
+            "backgroundColor": {
+              "value": -1118482,
+              "falpha": 0.0
+            },
+            "isBold": true,
+            "isItalic": false,
+            "isUnderline": false,
+            "isStrikethrough": false
+          },
           "importCode": "7jp 7jp 7jp 7jp 7jp 7jp 7ju 7ju 7k4 7k4 7k4 7k4 808 808 808 808 808 80e 80e 80e 80i 80i 80i 80i 80i 81q 81q 81q 81q 81q 8pu"
         },
         {
           "name": "Voodoo Bravery",
+          "style": {
+            "foregroundColor": {
+              "value": -13421773,
+              "falpha": 0.0
+            },
+            "backgroundColor": {
+              "value": -1118482,
+              "falpha": 0.0
+            },
+            "isBold": true,
+            "isItalic": false,
+            "isUnderline": false,
+            "isStrikethrough": false
+          },
           "importCode": "6u3 6u3 6u3 6u3 6u3 6ve 6ve 6ve 6ve 6ve 74d 74d 77l 77l 77l 77l 77l 77l 7ee 7ee 7ee 7ee 7ee 7ee 7tg 7tg 80b 80b 80b 80b 8pu"
         }
       ]
     },
     {
-      "name": "G/P Arena",
+      "name": "PVP Tourny",
+      "style": {
+        "foregroundColor": {
+          "value": -13421773,
+          "falpha": 0.0
+        },
+        "backgroundColor": {
+          "value": -1118482,
+          "falpha": 0.0
+        },
+        "isBold": true,
+        "isItalic": false,
+        "isUnderline": false,
+        "isStrikethrough": false
+      },
       "decks": [
         {
-          "name": "Pestal 101",
-          "importCode": "7t6 7t6 7t6 7t6 7t6 7t6 7ta 7ta 7td 7td 7um 7um 7um 7um 7um 7um 7um 7um 7um 7um 808 808 808 808 80i 80i 80i 80i 80i 80i 8pu",
-          "notes": "no 7t6 7t6 7t6 7t6 7t6 7t6 7ta 7ta 7td 7td 7um 7um 7um 7um 7um 7um 7um 7um 7um 7um 808 808 808 808 80i 80i 80i 80i 80i 80i 8pu no"
+          "name": "Chaotic Firebrand 2",
+          "style": {
+            "foregroundColor": {
+              "value": -13421773,
+              "falpha": 0.0
+            },
+            "backgroundColor": {
+              "value": -1118482,
+              "falpha": 0.0
+            },
+            "isBold": true,
+            "isItalic": false,
+            "isUnderline": false,
+            "isStrikethrough": false
+          },
+          "importCode": "4vl 50u 50u 50u 50u 5f0 5f0 5f0 5f0 5f0 5f0 5f0 6u2 6u2 6u2 6u5 6u5 6ve 7dm 7dm 7dn 7dn 7dn 7n2 7n2 7n2 7n2 7n2 7n2 7n5 8po",
+          "notes": ""
         },
         {
-          "name": "Chaos Wyrms",
-          "importCode": "6u2 6u2 6u2 6u2 6u2 6u2 7ms 7ms 7ms 7ms 7ms 7ms 7mt 7mt 7mt 7mt 7mt 7mt 7mu 7mu 7mu 7mu 7mu 7mu 7nq 7nq 7nq 7nq 7nq 7nq 8pj",
-          "notes": "6u2 6u2 6u2 6u2 6u2 6u2 7ms 7ms 7ms 7ms 7ms 7ms 7mt 7mt 7mt 7mt 7mt 7mt 7mu 7mu 7mu 7mu 7mu 7mu 7nq 7nq 7nq 7nq 7nq 7nq 8pj ? 6u2 6u2 6u2 6u2 6u2 6u2 7ms 7ms 7ms 7ms 7ms 7ms 7mt 7mt 7mt 7mt 7mt 7mt 7mu 7mu 7mu 7mu 7mu 7mu 7nq 7nq 7nq 7nq 7nq 7nq 8pj ? 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25"
-        },
-        {
-          "name": "PDials",
-          "importCode": "710 710 710 710 718 718 718 718 718 718 71a 71a 71u 71u 71u 71u 71u 71u 72i 72i 72i 7km 7km 7km 7q9 7q9 7q9 7q9 7q9 7q9 8pq"
-        },
-        {
-          "name": "Swallow",
-          "importCode": "744 744 744 744 744 744 744 744 744 74b 74b 74b 74b 74b 74d 74d 752 752 752 752 75m 75m 75m 7gq 7gq 7h0 7h0 7hi 7hi 7hi 8pp"
+          "name": "Sudden Death v2",
+          "style": {
+            "foregroundColor": {
+              "value": -13421773,
+              "falpha": 0.0
+            },
+            "backgroundColor": {
+              "value": -1118482,
+              "falpha": 0.0
+            },
+            "isBold": true,
+            "isItalic": false,
+            "isUnderline": false,
+            "isStrikethrough": false
+          },
+          "importCode": "52l 52l 710 719 71a 72i 72i 7n2 7n2 7n2 7n2 7n2 7n2 7n5 7t4 7t6 7t6 7t6 7t6 7t9 7t9 7ta 7ta 7tb 7tb 7tb 7tb 7um 7um 7um 7um 8pt",
+          "notes": "Added a plague. \nSwitched Death pend for tower."
         }
       ]
     },
     {
-      "name": "ds",
+      "name": "To Try Later",
+      "style": {
+        "foregroundColor": {
+          "value": -13421773,
+          "falpha": 0.0
+        },
+        "backgroundColor": {
+          "value": -1118482,
+          "falpha": 0.0
+        },
+        "isBold": true,
+        "isItalic": false,
+        "isUnderline": false,
+        "isStrikethrough": false
+      },
       "decks": [
         {
+<<<<<<< HEAD
           "name": "deck1deck2deck3deck4deck5",
           "importCode": "6qq",
           "notes": "Solved it - I found someone elses thread, which said to use UIManager.put(\"TabbedPane.contentBorderInsets\", new Insets(0, 0, 0, 0));abbedPane.contentBorderInsets\", new Insets(0, 0, 0, 0));"
+=======
+          "name": "iancudorinmarian sig deck",
+          "style": {
+            "foregroundColor": {
+              "value": -13421773,
+              "falpha": 0.0
+            },
+            "backgroundColor": {
+              "value": -1118482,
+              "falpha": 0.0
+            },
+            "isBold": true,
+            "isItalic": false,
+            "isUnderline": false,
+            "isStrikethrough": false
+          },
+          "importCode": "4sj 4vg 4vg 500 6ts 6ts 6ts 6ts 6ts 6ts 6u3 6u3 6u3 6u3 6u3 6u3 6u6 6u6 6uq 6uq 6uq 6uq 6uq 6uq 6ve 6ve 6ve 6ve 6ve 6ve 8pj",
+          "notes": ""
+>>>>>>> refs/heads/develop
         },
         {
-          "name": "deck2",
-          "importCode": "556",
-          "notes": "non on non but not on nonon"
+          "name": "SoSeDBH",
+          "style": {
+            "foregroundColor": {
+              "value": -13421773,
+              "falpha": 0.0
+            },
+            "backgroundColor": {
+              "value": -1118482,
+              "falpha": 0.0
+            },
+            "isBold": true,
+            "isItalic": false,
+            "isUnderline": false,
+            "isStrikethrough": false
+          },
+          "importCode": "6qq 6qq 6qq 6qq 6qq 6u2 6u2 6u2 6u2 6u3 6u3 6u3 6u3 6u5 6u5 6u5 6uq 6uq 6uq 6uq 6uq 6uq 713 74f 74f 77g 7ae 7dq 7gm 7mu 80d 8pj"
+        },
+        {
+          "name": "Ian\u0027s Mito-Eggs",
+          "style": {
+            "foregroundColor": {
+              "value": -13421773,
+              "falpha": 0.0
+            },
+            "backgroundColor": {
+              "value": -1118482,
+              "falpha": 0.0
+            },
+            "isBold": true,
+            "isItalic": false,
+            "isUnderline": false,
+            "isStrikethrough": false
+          },
+          "importCode": "7ap 7ap 7ap 7ap 7ba 7ba 7ba 7ba 7ba 7ba 7q0 7q0 7q0 7q0 7q0 7q2 7q2 7q2 7q2 7q2 7q2 7q3 7q8 7qu 7qu 7qu 7qu 7qu 7qu 7ri 7ri 7ri 7ri 7ri 7ri 8pn",
+          "notes": "iancudorinmarian\u0027s mito-egg deck."
+        }
+      ]
+    },
+    {
+      "name": "AI3",
+      "style": {
+        "foregroundColor": {
+          "value": -13421773,
+          "falpha": 0.0
+        },
+        "backgroundColor": {
+          "value": -1118482,
+          "falpha": 0.0
+        },
+        "isBold": true,
+        "isItalic": false,
+        "isUnderline": false,
+        "isStrikethrough": false
+      },
+      "decks": [
+        {
+          "name": "Chaotic Firebrand",
+          "style": {
+            "foregroundColor": {
+              "value": -13421773,
+              "falpha": 0.0
+            },
+            "backgroundColor": {
+              "value": -1118482,
+              "falpha": 0.0
+            },
+            "isBold": true,
+            "isItalic": false,
+            "isUnderline": false,
+            "isStrikethrough": false
+          },
+          "importCode": "4vl 50u 50u 50u 50u 50u 5f0 5f0 5f0 5f0 5f0 5f0 6u5 6u5 7dn 7dn 7dn 7ee 7ee 7ee 7ee 7ee 7ee 7n2 7n2 7n2 7n2 7n2 7n2 7n5 8po",
+          "notes": "Disorientate with Discord while stockpiling fire quanta. Lay \u0027em to waste with Fahrenheit."
+        },
+        {
+          "name": "Discord\u0027s present",
+          "style": {
+            "foregroundColor": {
+              "value": -13421773,
+              "falpha": 0.0
+            },
+            "backgroundColor": {
+              "value": -1118482,
+              "falpha": 0.0
+            },
+            "isBold": true,
+            "isItalic": false,
+            "isUnderline": false,
+            "isStrikethrough": false
+          },
+          "importCode": "52q 534 5i4 5i4 5i4 5i4 5i4 5i4 5i5 5i5 5i5 5i5 5i5 5ia 5ia 5ia 710 710 710 710 710 710 719 71a 71a 7gl 7gp 7gp 7gr 7gr 8pk",
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "name": "Personal",
+      "style": {
+        "foregroundColor": {
+          "value": -13421773,
+          "falpha": 0.0
+        },
+        "backgroundColor": {
+          "value": -1118482,
+          "falpha": 0.0
+        },
+        "isBold": true,
+        "isItalic": false,
+        "isUnderline": false,
+        "isStrikethrough": false
+      },
+      "decks": [
+        {
+          "name": "SoSer superbow",
+          "style": {
+            "foregroundColor": {
+              "value": -13421773,
+              "falpha": 0.0
+            },
+            "backgroundColor": {
+              "value": -1118482,
+              "falpha": 0.0
+            },
+            "isBold": true,
+            "isItalic": false,
+            "isUnderline": false,
+            "isStrikethrough": false
+          },
+          "importCode": "568 593 5ro 623 623 6qq 6qq 6qq 6qq 6qq 6qq 6qq 6u3 6u3 6u3 6u3 6u3 6u3 6u4 6uq 6uq 6uq 6uq 6uq 6uq 7am 7h0 7q5 7q8 7t9 8pj",
+          "notes": ""
         }
       ]
     }
   ],
   "customFalseGodCounters": {
-    "AKEBONO": [],
-    "GEMINI": [],
-    "MORTE": [],
-    "OCTANE": [],
-    "FEROX": [],
-    "DESTINY": [],
-    "CHAOS_LORD": [],
     "FIRE_QUEEN": [],
-    "ETERNAL_PHOENIX": [],
-    "HERMES": [],
-    "RAINBOW": [],
-    "DARK_MATTER": [],
-    "JEZEBEL": [],
-    "LIONHEART": [],
-    "PARADOX": [],
-    "SERKET": [],
-    "SEISM": [],
-    "INCARNATE": [],
-    "GRAVITON": [],
+    "NEPTUNE": [],
+    "MORTE": [
+      {
+        "style": {
+          "foregroundColor": {
+            "value": -13421773,
+            "falpha": 0.0
+          },
+          "backgroundColor": {
+            "value": -1118482,
+            "falpha": 0.0
+          },
+          "isBold": true,
+          "isItalic": false,
+          "isUnderline": false,
+          "isStrikethrough": false
+        },
+        "importCode": "4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 4sa 5ia 5ia 5ia 5ia 5ig 5ig 5pu 5pu 5pu 5rl 5rl 5rl 5rp 5rp 5rp 5rp 5rp 5rp 61t 61t 61t 61t 61t 61t 621 621 6qq 6qq 6qq 6qq 6qq 6qq 6qq 7h0 7q5 7q5 7q5 8ps"
+      }
+    ],
     "DECAY": [],
-    "DREAM_CATCHER": [],
-    "OSIRIS": [],
-    "DIVINE_GLORY": [],
-    "MIRACLE": [],
+    "HECATE": [
+      {
+        "style": {
+          "foregroundColor": {
+            "value": -13421773,
+            "falpha": 0.0
+          },
+          "backgroundColor": {
+            "value": -1118482,
+            "falpha": 0.0
+          },
+          "isBold": true,
+          "isItalic": false,
+          "isUnderline": false,
+          "isStrikethrough": false
+        },
+        "importCode": "4vn 4vn 4vn 4vn 4vn 4vn 50u 50u 50u 50u 50u 50u 50u 50u 50u 50u 50u 50u 50u 50u 50u 61r 61r 61r 61v 61v 61v 80b 80b 80b 8pu"
+      }
+    ],
+    "CHAOS_LORD": [],
+    "RAINBOW": [],
+    "LIONHEART": [],
+    "GRAVITON": [],
+    "ETERNAL_PHOENIX": [],
     "ELIDNIS": [],
     "SCORPIO": [],
-    "OBLITERATOR": [],
-    "NEPTUNE": [],
-    "HECATE": []
+    "OCTANE": [],
+    "INCARNATE": [],
+    "MIRACLE": [],
+    "DREAM_CATCHER": [],
+    "JEZEBEL": [],
+    "SEISM": [],
+    "FEROX": [
+      {
+        "style": {
+          "foregroundColor": {
+            "value": -13421773,
+            "falpha": 0.0
+          },
+          "backgroundColor": {
+            "value": -1118482,
+            "falpha": 0.0
+          },
+          "isBold": true,
+          "isItalic": false,
+          "isUnderline": false,
+          "isStrikethrough": false
+        },
+        "importCode": "5jm 5jm 5jm 5lj 5lk 5lk 5lk 5lk 5lk 61o 622 7hi 7hi 7hi 7jp 7jp 7jp 7jp 7jp 7jp 7k2 7q9 7q9 7q9 7q9 7q9 7q9 808 808 808 808 80i 80i 80i 80i 8pu"
+      }
+    ],
+    "DIVINE_GLORY": [],
+    "HERMES": [],
+    "DESTINY": [],
+    "GEMINI": [
+      {
+        "style": {
+          "foregroundColor": {
+            "value": -13421773,
+            "falpha": 0.0
+          },
+          "backgroundColor": {
+            "value": -1118482,
+            "falpha": 0.0
+          },
+          "isBold": true,
+          "isItalic": false,
+          "isUnderline": false,
+          "isStrikethrough": false
+        },
+        "importCode": "52q 53e 5m6 5m6 710 710 710 710 710 710 718 718 718 718 718 718 71a 71a 71u 71u 71u 71u 71u 72i 72i 72i 7km 7km 7q9 7q9 7q9 7q9 7q9 7q9 8pq"
+      }
+    ],
+    "SERKET": [
+      {
+        "style": {
+          "foregroundColor": {
+            "value": -13421773,
+            "falpha": 0.0
+          },
+          "backgroundColor": {
+            "value": -1118482,
+            "falpha": 0.0
+          },
+          "isBold": true,
+          "isItalic": false,
+          "isUnderline": false,
+          "isStrikethrough": false
+        },
+        "importCode": "5oc 5oc 5of 5of 5of 5of 5of 5oo 5oo 5oo 5oo 5oo 5oo 5rr 5rr 5rr 5rr 5rr 7ms 7ms 7ms 7ms 7ms 7ms 7mt 7mt 7mt 7mt 7mt 7mt 8ps"
+      }
+    ],
+    "OBLITERATOR": [
+      {
+        "style": {
+          "foregroundColor": {
+            "value": -13421773,
+            "falpha": 0.0
+          },
+          "backgroundColor": {
+            "value": -1118482,
+            "falpha": 0.0
+          },
+          "isBold": true,
+          "isItalic": false,
+          "isUnderline": false,
+          "isStrikethrough": false
+        },
+        "importCode": "4vn 4vn 4vn 4vn 4vn 4vn 5us 5us 5uu 5uu 5uu 5uu 5uu 606 606 606 606 606 606 7te 7um 7um 7um 7um 7um 7um 7um 7um 7um 7um 8pj"
+      }
+    ],
+    "PARADOX": [],
+    "DARK_MATTER": [],
+    "AKEBONO": [
+      {
+        "style": {
+          "foregroundColor": {
+            "value": -13421773,
+            "falpha": 0.0
+          },
+          "backgroundColor": {
+            "value": -1118482,
+            "falpha": 0.0
+          },
+          "isBold": true,
+          "isItalic": false,
+          "isUnderline": false,
+          "isStrikethrough": false
+        },
+        "importCode": "7t6 7t6 7t6 7t6 7t6 7t6 7ta 7ta 7td 7td 7um 7um 7um 7um 7um 7um 7um 7um 7um 7um 808 808 808 808 80i 80i 80i 80i 80i 80i 8pu"
+      }
+    ],
+    "OSIRIS": [
+      {
+        "style": {
+          "foregroundColor": {
+            "value": -13421773,
+            "falpha": 0.0
+          },
+          "backgroundColor": {
+            "value": -1118482,
+            "falpha": 0.0
+          },
+          "isBold": true,
+          "isItalic": false,
+          "isUnderline": false,
+          "isStrikethrough": false
+        },
+        "importCode": "61o 61o 61o 61o 61o 61o 61o 61o 61t 61t 61t 61t 61t 61t 61u 61u 61v 61v 61v 61v 62m 62m 62m 808 808 808 808 80e 80e 816 8pu"
+      }
+    ]
   }
 }

@@ -42,6 +42,8 @@ public class DeckBinderComboBox<Object> extends JComboBox<Object> {
 	private Timer enterTimer;
 
 	public DeckBinderComboBox() {
+		setRenderer(new DeckBinderListRenderer());
+
 		enterTimer = new Timer(750, new insideTimerAction());
 		enterTimer.setRepeats(false);
 		uninstall();
@@ -127,6 +129,10 @@ public class DeckBinderComboBox<Object> extends JComboBox<Object> {
 		ComboPopup popup = (ComboPopup) getUI().getAccessibleChild(this, 0);
 		return popup.getList();
 
+	}
+
+	public void disableNoteWindows() {
+		uninstall();
 	}
 
 	static class NoteWindow extends JWindow {

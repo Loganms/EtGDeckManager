@@ -1,6 +1,7 @@
 package com.thaplayaslaya.gui;
 
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -17,46 +18,59 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
 
 import com.thaplayaslaya.DeckManager;
 import com.thaplayaslaya.datastructures.Deck;
-import com.thaplayaslaya.datastructures.OperationType;
+import com.thaplayaslaya.datastructures.DeckBinder;
+import com.thaplayaslaya.datastructures.Style;
 
 public class DeckBinderPanel extends JPanel implements ActionListener {
 
 	public static final int MAX_HORIZONTAL = 200;
+	public static final int MIN_HORIZONTAL = 60;
 	private static final long serialVersionUID = -1215607079828446786L;
 	private String name = "[Default Name]", upArrow = "UpArrow", downArrow = "DownArrow";
 	private JLabel dBName = new JLabel(this.name, JLabel.LEFT);
 	private JComboBox<Deck> comboBox = new DeckBinderComboBox<Deck>();
-	private JButton renameButton = new JButton(OperationType.RENAME_DECKBINDER.getText()), deleteButton = new JButton("D");
+	private JButton renameButton = new JButton("E"), deleteButton = new JButton("D");
 	private ItemChangeListener itemChangeListener = new ItemChangeListener();
 	private cBFocusListener focusListener = new cBFocusListener();
 	private boolean hasListenersEnabled = false;
 
 	public DeckBinderPanel() {
-		init();
+		init(true);
 	}
 
-	public DeckBinderPanel(String name) {
-		init();
+	// Copy Constructor + non-Functioning
+	protected DeckBinderPanel(DeckBinderPanel dbp) {
+		init(false);
+		setName(dbp.getName());
+		DeckBinder db = DeckManager.getCase().getDeckBinder(dbp.getName());
+		for (Deck d : db.getDecks()) {
+			getComboBox().addItem(d);
+		}
+		if (null != db.getStyle()) {
+			Style.applyStyle(dBName, db.getStyle());
+		}
+		((DeckBinderComboBox<Deck>) comboBox).disableNoteWindows();
+	}
+
+	public DeckBinderPanel(String name, Style style) {
+		init(true);
+		if (null != style) {
+			Style.applyStyle(dBName, style);
+		}
 		setName(name);
 	}
 
-	private void init() {
-		comboBox.setToolTipText("Move (Shft+UP/DOWN)");
-
-		renameButton.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+	private void init(Boolean isFunctional) {
+		renameButton.setFont(new Font("Dialog", 0, 10)); // NOI18N
 		renameButton.setMargin(new java.awt.Insets(0, 2, 0, 2));
-		renameButton.setToolTipText("Rename Deck Binder");
-		renameButton.addActionListener(this);
 
-		deleteButton.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+		deleteButton.setFont(new Font("Dialog", 0, 10)); // NOI18N
 		deleteButton.setMargin(new java.awt.Insets(0, 2, 0, 2));
-		deleteButton.setToolTipText("Delete Deck Binder");
-		deleteButton.addActionListener(this);
-
-		dBName.setToolTipText("Move (Ctrl+UP/DOWN)");
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
 		this.setLayout(layout);
@@ -81,7 +95,42 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 						.addComponent(comboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
 								javax.swing.GroupLayout.PREFERRED_SIZE)));
 
-		DeckManager.getDeckManagerGUI().getDeckBinderPanels().add(this);
+		// Need this regardless of isFunctional
+		// Primarily for preview panel of DBEditDialog
+		// to update properly.
+
+		comboBox.addItemListener(new StyleUpdateListener());
+		comboBox.addPopupMenuListener(new PopupMenuListener() {
+
+			@Override
+			public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+
+			}
+
+			@Override
+			public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+				comboBox.transferFocusUpCycle();
+			}
+
+			@Override
+			public void popupMenuCanceled(PopupMenuEvent e) {
+			}
+
+		});
+
+		if (isFunctional) {
+			comboBox.setToolTipText("Move (Shft+UP/DOWN)");
+
+			renameButton.setToolTipText("Edit Deck Binder");
+			renameButton.addActionListener(this);
+
+			deleteButton.setToolTipText("Delete Deck Binder");
+			deleteButton.addActionListener(this);
+
+			dBName.setToolTipText("Move (Ctrl+UP/DOWN)");
+
+			DeckManager.getDeckManagerGUI().getDeckBinderPanels().add(this);
+		}
 	}
 
 	public void setListeners() {
@@ -123,6 +172,10 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 		return this.name;
 	}
 
+	public JLabel getdBName() {
+		return dBName;
+	}
+
 	public JComboBox<Deck> getComboBox() {
 		return comboBox;
 	}
@@ -142,16 +195,28 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 			String actionCommand = e.getActionCommand();
 			@SuppressWarnings("unchecked")
 			JComboBox<Deck> comboBox = (JComboBox<Deck>) e.getSource();
+			DeckBinder db = DeckManager.getCase().getDeckBinder(name);
 			Deck selectedDeck = (Deck) comboBox.getSelectedItem();
 			int selectedIndex = comboBox.getSelectedIndex();
+			ItemListener il = null;
+			loop: for (ItemListener l : comboBox.getItemListeners()) {
+				if (l instanceof StyleUpdateListener) {
+					il = l;
+					comboBox.removeItemListener(l);
+					break loop;
+				}
+			}
 			if (actionCommand.equals(upArrow) && selectedIndex > 0) {
-				comboBox.removeItem(selectedDeck);
-				comboBox.insertItemAt(selectedDeck, selectedIndex - 1);
+				db.removeDeck(selectedDeck);
+				db.insertDeckAt(selectedDeck, selectedIndex - 1);
 				comboBox.setSelectedIndex(selectedIndex - 1);
 			} else if (actionCommand.equals(downArrow) && selectedIndex < comboBox.getItemCount() - 2) {
-				comboBox.removeItem(selectedDeck);
-				comboBox.insertItemAt(selectedDeck, selectedIndex + 1);
+				db.removeDeck(selectedDeck);
+				db.insertDeckAt(selectedDeck, selectedIndex + 1);
 				comboBox.setSelectedIndex(selectedIndex + 1);
+			}
+			if (null != il) {
+				comboBox.addItemListener(il);
 			}
 		}
 	}
@@ -171,6 +236,20 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 				}
 			}
 		}
+	}
+
+	private class StyleUpdateListener implements ItemListener {
+
+		@Override
+		public void itemStateChanged(ItemEvent e) {
+
+			Deck deck = ((Deck) e.getItem());
+			System.out.println("Applying style to " + deck.getName() + ", baby");
+			Style.applyStyle(comboBox, deck.getStyle());
+			comboBox.transferFocusUpCycle();
+
+		}
+
 	}
 
 	private class cBFocusListener implements FocusListener {
@@ -195,18 +274,27 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getActionCommand().equals(OperationType.RENAME_DECKBINDER.getText())) {
-			new CustomDialog(DeckManager.getDeckManagerGUI(), OperationType.RENAME_DECKBINDER, this.name);
-		} else if (e.getActionCommand().equals("D")) {
-			if (JOptionPane.showConfirmDialog(DeckManager.getDeckManagerGUI(), "Are you sure you want to delete this deck binder?") == JOptionPane.YES_OPTION) {
-				DeckManagerGUI dmg = DeckManager.getDeckManagerGUI();
-				if (DeckManager.getCase().getDeckBinder(this.name).getDecks().contains(dmg.getCurrentlySelectedDeck())) {
-					dmg.setCurrentlySelectedDeck(null);
+		if (hasListenersEnabled) {
+			if (e.getActionCommand().equals("E")) {
+				new DeckBinderEditDialog(DeckManager.getCase().getDeckBinder(dBName.getText()));
+			} else if (e.getActionCommand().equals("D")) {
+				if (JOptionPane.showConfirmDialog(DeckManager.getDeckManagerGUI(), "Are you sure you want to delete this deck binder?") == JOptionPane.YES_OPTION) {
+					DeckManagerGUI dmg = DeckManager.getDeckManagerGUI();
+					if (DeckManager.getCase().getDeckBinder(this.name).getDecks().contains(dmg.getCurrentlySelectedDeck())) {
+						dmg.setCurrentlySelectedDeck(null);
+					}
+					DeckManager.getCase().removeDeckBinder(DeckManager.getCase().getDeckBinder(this.name));
+					dmg.getCasePanel().revalidate();
 				}
-				DeckManager.getCase().removeDeckBinder(DeckManager.getCase().getDeckBinder(this.name));
-				dmg.getCasePanel().revalidate();
 			}
+
 		}
+
+	}
+
+	// Returns non-functioning copy of DBP
+	public DeckBinderPanel copy() {
+		return new DeckBinderPanel(this);
 	}
 
 	@Override

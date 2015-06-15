@@ -4,19 +4,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
 import com.thaplayaslaya.DeckManager;
-import com.thaplayaslaya.gui.CustomDialog;
+import com.thaplayaslaya.gui.DeckBinderAddDialog;
 import com.thaplayaslaya.gui.DeckManagerGUI;
 import com.thaplayaslaya.gui.DeckManagerMenuBar;
 import com.thaplayaslaya.gui.DeckManagerMenuBar.Orientation;
 
 public class Case {
 
-	@SuppressWarnings("unused")
-	private String VERSION_ID = DeckManager.VERSION_ID;
+	public String VERSION_ID = DeckManager.VERSION_ID;
 	private String preferredDeckImageLocation;
 	private String preferredDeckImageLocationMod;
 	private ArrayList<DeckBinder> deckBinders = new ArrayList<DeckBinder>();
@@ -29,11 +25,6 @@ public class Case {
 
 	public Map<String, ArrayList<Deck>> getFGCounterMap() {
 		if (customFalseGodCounters.isEmpty()) {
-			JOptionPane
-					.showMessageDialog(
-							new JFrame(),
-							"Your save data resulted in an empty field.\nNo custom-saved False God counters could be acquired.\nThis is likely due to updating from a version below v1.0.2\nThe program will now update the necessary fields.",
-							"Load Error", JOptionPane.ERROR_MESSAGE);
 			initializeNewFGCounterMap();
 		}
 		return customFalseGodCounters;
@@ -73,7 +64,9 @@ public class Case {
 	// This is only called when user wants to make a new deck binder.
 	// Walks user through the process with prompts and validation.
 	public void addNewDeckBinder() {
-		new CustomDialog(DeckManager.getDeckManagerGUI(), OperationType.ADD_NEW_DECKBINDER, null);
+		// new CustomDialog(DeckManager.getDeckManagerGUI(),
+		// OperationType.ADD_NEW_DECKBINDER, null);
+		new DeckBinderAddDialog();
 	}
 
 	public void initializeNewFGCounterMap() {

@@ -86,6 +86,7 @@ public class DeckManagerGUI extends JFrame {
 		this.revalidate();
 		this.pack();
 		this.setVisible(true);
+		// TODO: Worry about this later
 		int minFrameX = MINIMUM_CONTENT_SIZE.width + getInsets().left + getInsets().right;
 		int minFrameY = MINIMUM_CONTENT_SIZE.height + getInsets().top + getInsets().bottom + menuBar.getHeight();
 		this.setMinimumSize(new Dimension(minFrameX, minFrameY));
@@ -113,7 +114,6 @@ public class DeckManagerGUI extends JFrame {
 		innerRightPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		promptPanel.setLayout(new BorderLayout());
 		promptPanel.add(rightPromptLabel, BorderLayout.NORTH);
-		
 		promptPanel.add(currentlySelectedDeckLabel, BorderLayout.SOUTH);
 		innerRightPanel.add(promptPanel, BorderLayout.NORTH);
 
@@ -165,7 +165,7 @@ public class DeckManagerGUI extends JFrame {
 								JOptionPane.ERROR_MESSAGE);
 					}
 				} else if (e.getActionCommand().equals(OperationType.EDIT_DECK.getText())) {
-					new CustomDialog(DeckManagerGUI.this, OperationType.EDIT_DECK, null);
+					new DeckEditDialog(currentlySelectedDeck);
 				}
 
 				else if (e.getActionCommand().equals("Delete")) {
@@ -323,7 +323,7 @@ public class DeckManagerGUI extends JFrame {
 		if (deck != null && !deck.equals(Deck.DEFAULT)) {
 			currentlySelectedDeck = deck;
 			currentlySelectedDeckLabel.setText(deck.getName());
-			//TODO: I am setting the preferredSize. Oh no!
+			// TODO: I am setting the preferredSize. Oh no!
 			currentlySelectedDeckLabel.setPreferredSize(rightPromptLabel.getSize());
 			promptPanel.revalidate();
 		} else {

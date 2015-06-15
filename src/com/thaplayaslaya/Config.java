@@ -63,8 +63,16 @@ public class Config {
 						.showMessageDialog(
 								new JFrame(),
 								"Your cfg.json file is probably empty. EtG Deck Manager will attemp to populate the file now.\nIf you think this is an error do not click OK.\nSave a copy of your cfg.json file outside of this program's directory and contact the creator of this program.\nOnce a copy of the cfg.json file is created, feel free to continue.",
-								"Error", JOptionPane.ERROR_MESSAGE);
+								"Deck Manager Error", JOptionPane.ERROR_MESSAGE);
 				briefcase = new Case();
+			}
+
+			if (null == briefcase.VERSION_ID || !briefcase.VERSION_ID.equals(DeckManager.VERSION_ID)) {
+				JOptionPane.showMessageDialog(new JFrame(), "The version of your save data does not match the version of your Deck Manager.\n"
+						+ "You will now be updated from " + briefcase.VERSION_ID + " to " + DeckManager.VERSION_ID + ".", "Deck Manager Update",
+						JOptionPane.INFORMATION_MESSAGE);
+				Update.updateFrom(briefcase, briefcase.VERSION_ID);
+
 			}
 
 			for (DeckBinder db : briefcase.getDeckBinders()) {
