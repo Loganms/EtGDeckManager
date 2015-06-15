@@ -323,6 +323,7 @@ public class DeckManagerGUI extends JFrame {
 		if (deck != null && !deck.equals(Deck.DEFAULT)) {
 			currentlySelectedDeck = deck;
 			currentlySelectedDeckLabel.setText(deck.getName());
+		
 			// TODO: I am setting the preferredSize. Oh no!
 			currentlySelectedDeckLabel.setPreferredSize(rightPromptLabel.getSize());
 			promptPanel.revalidate();

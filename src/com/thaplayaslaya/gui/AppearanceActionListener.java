@@ -6,8 +6,10 @@ import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JColorChooser;
+import javax.swing.JLabel;
+import javax.swing.UIManager;
 
+import com.thaplayaslaya.SwingUtil;
 import com.thaplayaslaya.datastructures.IStylish;
 
 public class AppearanceActionListener implements ActionListener {
@@ -28,23 +30,25 @@ public class AppearanceActionListener implements ActionListener {
 		String cmd = e.getActionCommand();
 
 		if (cmd.equals("Foreground Color")) {
-			Color color = JColorChooser.showDialog(parent, "Choose Foreground Color", comp.getForeground());
+			Color color = SwingUtil.showColorChooserDialog(parent, "Choose Foreground Color", comp.getForeground(), false);
 			if (null != color) {
 				comp.setForeground(color);
 				datastruct.getStyle().setForegroundColor(color);
 			}
 
 		} else if (cmd.equals("Background Color")) {
-			Color color = JColorChooser.showDialog(parent, "Choose Background Color", comp.getBackground());
+			Color color = SwingUtil.showColorChooserDialog(parent, "Choose Background Color", comp.getBackground(), false);
 			if (null != color) {
 				comp.setBackground(color);
 				datastruct.getStyle().setBackgroundColor(color);
 			}
 		} else if (cmd.equals("Default")) {
-			comp.setForeground(null);
-			comp.setBackground(null);
-			datastruct.getStyle().setForegroundColor(null);
-			datastruct.getStyle().setBackgroundColor(null);
+			if (comp instanceof JLabel) {
+				comp.setForeground(UIManager.getColor("Label.foreground"));
+				comp.setBackground(UIManager.getColor("Label.background"));
+				datastruct.getStyle().setForegroundColor(UIManager.getColor("Label.foreground"));
+				datastruct.getStyle().setBackgroundColor(UIManager.getColor("Label.background"));
+			}
 		}
 	}
 }
