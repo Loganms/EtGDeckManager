@@ -6,6 +6,14 @@
     {
       "name": "G/P Arena",
       "style": {
+        "foregroundColor": {
+          "value": -13395066,
+          "falpha": 0.0
+        },
+        "backgroundColor": {
+          "value": -6697984,
+          "falpha": 0.0
+        },
         "isBold": true,
         "isItalic": false,
         "isUnderline": false,
@@ -34,6 +42,14 @@
         {
           "name": "Chaos Wyrms",
           "style": {
+            "foregroundColor": {
+              "value": -10066177,
+              "falpha": 0.0
+            },
+            "backgroundColor": {
+              "value": -16724788,
+              "falpha": 0.0
+            },
             "isBold": true,
             "isItalic": false,
             "isUnderline": false,
