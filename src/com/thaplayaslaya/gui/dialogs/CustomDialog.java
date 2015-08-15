@@ -1,4 +1,4 @@
-package com.thaplayaslaya.gui;
+package com.thaplayaslaya.gui.dialogs;
 
 import java.awt.Dimension;
 import java.awt.Frame;
@@ -37,6 +37,8 @@ import com.thaplayaslaya.datastructures.Case;
 import com.thaplayaslaya.datastructures.Deck;
 import com.thaplayaslaya.datastructures.DeckBinder;
 import com.thaplayaslaya.datastructures.OperationType;
+import com.thaplayaslaya.gui.CounterDeckLabelImage;
+import com.thaplayaslaya.gui.ImageMagnifier;
 
 /*Thank you to David Kroukamp from StackExchange
  <http://stackoverflow.com/questions/13055107/joptionpane-check-user-input-and-prevent-from-closing-until-conditions-are-met>

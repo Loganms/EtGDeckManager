@@ -16,6 +16,7 @@ import javax.swing.border.Border;
 import com.thaplayaslaya.DeckManager;
 import com.thaplayaslaya.datastructures.Deck;
 import com.thaplayaslaya.datastructures.OperationType;
+import com.thaplayaslaya.gui.dialogs.CustomDialog;
 
 public class CounterDeckLabelImage extends LabelImage {
 

@@ -42,6 +42,7 @@ import com.thaplayaslaya.DeckManager;
 import com.thaplayaslaya.datastructures.Deck;
 import com.thaplayaslaya.datastructures.DeckBinder;
 import com.thaplayaslaya.datastructures.OperationType;
+import com.thaplayaslaya.gui.dialogs.DeckEditDialog;
 
 public class DeckManagerGUI extends JFrame {
 

@@ -5,10 +5,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.thaplayaslaya.DeckManager;
-import com.thaplayaslaya.gui.DeckBinderAddDialog;
 import com.thaplayaslaya.gui.DeckManagerGUI;
 import com.thaplayaslaya.gui.DeckManagerMenuBar;
 import com.thaplayaslaya.gui.DeckManagerMenuBar.Orientation;
+import com.thaplayaslaya.gui.dialogs.DeckBinderAddDialog;
 
 public class Case {
 

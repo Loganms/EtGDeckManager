@@ -25,6 +25,7 @@ import com.thaplayaslaya.DeckManager;
 import com.thaplayaslaya.datastructures.Deck;
 import com.thaplayaslaya.datastructures.DeckBinder;
 import com.thaplayaslaya.datastructures.Style;
+import com.thaplayaslaya.gui.dialogs.DeckBinderEditDialog;
 
 public class DeckBinderPanel extends JPanel implements ActionListener {
 

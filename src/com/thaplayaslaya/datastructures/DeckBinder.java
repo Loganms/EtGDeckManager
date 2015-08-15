@@ -6,8 +6,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.UIManager;
 
 import com.thaplayaslaya.DeckManager;
-import com.thaplayaslaya.gui.DeckAddDialog;
 import com.thaplayaslaya.gui.DeckBinderPanel;
+import com.thaplayaslaya.gui.dialogs.DeckAddDialog;
 
 public class DeckBinder implements IStylish {
 

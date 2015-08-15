@@ -8,7 +8,7 @@ import javax.swing.JWindow;
 
 import com.thaplayaslaya.DeckManager;
 
-class ImageMagnifier extends JWindow {
+public class ImageMagnifier extends JWindow {
 
 	private static final long serialVersionUID = 3772686270645875087L;
 	private static Container contentPane;

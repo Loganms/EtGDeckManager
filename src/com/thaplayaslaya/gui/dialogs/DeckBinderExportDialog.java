@@ -1,4 +1,4 @@
-package com.thaplayaslaya.gui;
+package com.thaplayaslaya.gui.dialogs;
 
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;

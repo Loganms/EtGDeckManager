@@ -1,4 +1,4 @@
-package com.thaplayaslaya.gui;
+package com.thaplayaslaya.gui.dialogs;
 
 import java.awt.Font;
 import java.awt.Frame;
@@ -41,6 +41,8 @@ import javax.swing.undo.UndoManager;
 
 import com.thaplayaslaya.datastructures.Deck;
 import com.thaplayaslaya.datastructures.Style;
+import com.thaplayaslaya.gui.AppearanceActionListener;
+import com.thaplayaslaya.gui.FontEffectActionListener;
 
 public abstract class DeckDialog extends JDialog {
 

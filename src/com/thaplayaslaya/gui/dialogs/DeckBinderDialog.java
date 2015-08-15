@@ -1,4 +1,4 @@
-package com.thaplayaslaya.gui;
+package com.thaplayaslaya.gui.dialogs;
 
 import java.awt.Font;
 import java.awt.Frame;
@@ -33,6 +33,9 @@ import javax.swing.event.ListSelectionListener;
 import com.thaplayaslaya.datastructures.Deck;
 import com.thaplayaslaya.datastructures.DeckBinder;
 import com.thaplayaslaya.datastructures.Style;
+import com.thaplayaslaya.gui.AppearanceActionListener;
+import com.thaplayaslaya.gui.DeckBinderPanel;
+import com.thaplayaslaya.gui.FontEffectActionListener;
 
 public abstract class DeckBinderDialog extends JDialog {
 

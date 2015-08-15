@@ -35,6 +35,10 @@ import javax.swing.text.StyledDocument;
 
 import com.thaplayaslaya.DeckManager;
 import com.thaplayaslaya.datastructures.OperationType;
+import com.thaplayaslaya.gui.dialogs.CaseExportDialog;
+import com.thaplayaslaya.gui.dialogs.CustomDialog;
+import com.thaplayaslaya.gui.dialogs.DeckBinderExportDialog;
+import com.thaplayaslaya.gui.dialogs.DeckEditDialog;
 
 @SuppressWarnings("serial")
 public class DeckManagerMenuBar extends JMenuBar {
