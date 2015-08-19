@@ -1,18 +1,26 @@
 package com.thaplayaslaya.gui.dialogs;
 
-import javax.swing.ComboBoxModel;
-import javax.swing.DefaultComboBoxModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
 import com.thaplayaslaya.DeckManager;
+import com.thaplayaslaya.Util;
 
 
 public class SortDialog extends JDialog {
 
-    /**
+	private static final long serialVersionUID = -2013173436874522492L;
+	private static final String[] levelOneOptions = new String[] {"Alpha", "Most", "Mark", ""};
+	private static final String[] alphaOptions = new String[] {"Abc", "Zyx"};
+	private static final String[] mostOptions = new String[] {"Upgraded", "Copies of", "Cards", "Elements*"};
+	private static final String[] elementOptions = Util.ELEMENTS;
+	
+	/**
      * Creates new form SortDialog
      */
     public SortDialog() {
@@ -27,36 +35,26 @@ public class SortDialog extends JDialog {
     private void initComponents() {
 
         jPanel1 = new JPanel();
-        cB11 = new JComboBox();
-        cB12 = new JComboBox();
+        cB11 = new JComboBox(levelOneOptions);
+        cB12 = new JComboBox(alphaOptions);
         cB13 = new JComboBox();
         jPanel2 = new JPanel();
-        cB21 = new JComboBox();
+        cB21 = new JComboBox(levelOneOptions);
         cB22 = new JComboBox();
         cB23 = new JComboBox();
         jPanel3 = new JPanel();
-        cB31 = new JComboBox();
+        cB31 = new JComboBox(levelOneOptions);
         cB32 = new JComboBox();
         cB33 = new JComboBox();
         jPanel4 = new JPanel();
         doneButton = new JButton();
         cancelButton = new JButton();
         
-        
-        
-        levelOneSortOptionsArray = new SortOption[];
-        levelOneSortOptions = new DefaultComboBoxModel<SortOption>(levelOneSortOptionsArray);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Sort \"" + DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder().getName() + "\" by"));
-
-        cB11.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        cB12.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        cB13.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -85,12 +83,6 @@ public class SortDialog extends JDialog {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Then by"));
 
-        cB21.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        cB22.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        cB23.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -118,12 +110,6 @@ public class SortDialog extends JDialog {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Then by"));
 
-        cB31.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        cB32.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        cB33.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -150,18 +136,20 @@ public class SortDialog extends JDialog {
         );
 
         doneButton.setText("Done");
-        doneButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                doneButtonActionPerformed(evt);
-            }
-        });
+        doneButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//TODO: 
+			}
+		});
 
         cancelButton.setText("Cancel");
-        cancelButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelButtonActionPerformed(evt);
-            }
-        });
+        cancelButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -214,16 +202,10 @@ public class SortDialog extends JDialog {
         );
 
         pack();
-    }// </editor-fold>                        
-
-    private void doneButtonActionPerformed(java.awt.event.ActionEvent evt) {                                           
-
-    }                                          
-
-    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
-        // TODO add your handling code here:
-    }                                            
-  
+        
+        
+    }                     
+                                        
     // Variables declaration - do not modify                     
     private javax.swing.JComboBox cB11;
     private javax.swing.JComboBox cB12;
@@ -241,25 +223,4 @@ public class SortDialog extends JDialog {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     // End of variables declaration    
-    
-    private SortOption[] levelOneSortOptionsArray;
-    private DefaultComboBoxModel<SortOption> levelOneSortOptions;
-    
-    private class SortOption {
-    	String name;
-    	SortOption[] nextLevelSorts;
-    	
-    	public SortOption(String sortName, SortOption[] nextLevelSorts){
-    		name = sortName;
-    		this.nextLevelSorts = nextLevelSorts;    		
-    	}
-    	
-    	public SortOption[] getNextLevelSorts() {
-    		return nextLevelSorts;
-    	}
-    	
-    	public String toString() {
-    		return name;
-    	}
-    }
 }
