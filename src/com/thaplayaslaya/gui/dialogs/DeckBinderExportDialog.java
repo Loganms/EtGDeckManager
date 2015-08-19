@@ -69,7 +69,6 @@ public class DeckBinderExportDialog extends JDialog {
 		jPanel2Layout.setVerticalGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 100, Short.MAX_VALUE));
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-		setTitle("Export");
 
 		jButton2.setText("Cancel");
 		jButton2.addActionListener(new ActionListener() {

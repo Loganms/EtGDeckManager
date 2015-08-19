@@ -39,6 +39,7 @@ import com.thaplayaslaya.gui.dialogs.CaseExportDialog;
 import com.thaplayaslaya.gui.dialogs.CustomDialog;
 import com.thaplayaslaya.gui.dialogs.DeckBinderExportDialog;
 import com.thaplayaslaya.gui.dialogs.DeckEditDialog;
+import com.thaplayaslaya.gui.dialogs.SortDialog;
 
 @SuppressWarnings("serial")
 public class DeckManagerMenuBar extends JMenuBar {
@@ -47,7 +48,7 @@ public class DeckManagerMenuBar extends JMenuBar {
 
 	private JMenu fileMenu;
 	private JMenu newMenu, editMenu;
-	private JMenuItem newDeckBinderOption, selectedDeckOption, exportOption;
+	private JMenuItem newDeckBinderOption;
 	private MenuActionListener menuActionListener;
 	private String newDeckBinderOptionLabel = "Deck Binder";
 
@@ -85,21 +86,11 @@ public class DeckManagerMenuBar extends JMenuBar {
 		editMenu = new JMenu("Edit");
 		editMenu.setMnemonic(KeyEvent.VK_E);
 
-		selectedDeckOption = new JMenuItem("Selected Deck");
-		selectedDeckOption.setMnemonic(KeyEvent.VK_S);
-		selectedDeckOption.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, InputEvent.CTRL_DOWN_MASK));
-		selectedDeckOption.setActionCommand("Selected Deck");
-
-		selectedDeckOption.addActionListener(menuActionListener);
-		editMenu.add(selectedDeckOption);
+		createQuickMenuItem("Selected Deck", KeyEvent.VK_S, KeyEvent.VK_E, editMenu);
 		fileMenu.add(editMenu);
 
-		exportOption = new JMenuItem("Export");
-		exportOption.setMnemonic(KeyEvent.VK_X);
-		exportOption.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.CTRL_DOWN_MASK));
-		exportOption.setActionCommand("Export");
-		exportOption.addActionListener(menuActionListener);
-		fileMenu.add(exportOption);
+		createQuickMenuItem("Export", KeyEvent.VK_X, KeyEvent.VK_X, fileMenu);
+		createQuickMenuItem("Sort", KeyEvent.VK_S, KeyEvent.VK_S, fileMenu);
 
 		viewMenu = new JMenu("View");
 		deckImagesMenu = new JMenu("Deck Images");
@@ -132,6 +123,15 @@ public class DeckManagerMenuBar extends JMenuBar {
 			mi.addActionListener(menuActionListener);
 			helpMenu.add(mi);
 		}
+	}
+
+	private void createQuickMenuItem(String menuItemName, int mnemonicKeyEventCode, int acceleratorKeyEventCode, JMenu menu) {
+		JMenuItem mi = new JMenuItem(menuItemName);
+		mi.setMnemonic(mnemonicKeyEventCode);
+		mi.setAccelerator(KeyStroke.getKeyStroke(acceleratorKeyEventCode, InputEvent.CTRL_DOWN_MASK));
+		mi.setActionCommand(menuItemName);
+		mi.addActionListener(menuActionListener);
+		menu.add(mi);
 	}
 
 	private void createDeckImagesOptions() {
@@ -232,6 +232,14 @@ public class DeckManagerMenuBar extends JMenuBar {
 				default:
 					break;
 				}
+			} else if (button.equals("Sort")) {
+				if (null != DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder())
+					new SortDialog();
+				else
+					JOptionPane
+							.showMessageDialog(DeckManager.getDeckManagerGUI(),
+									"A Deck Binder must be selected in order to sort.\nClick on a Deck Binder and try again.", "Error",
+									JOptionPane.OK_OPTION);
 			} else if (button.equals(helpMenuNames[0])) {
 				JLabel label1 = new JLabel("Deck Manager", SwingConstants.LEFT);
 				JTextArea text1 = new JTextArea(

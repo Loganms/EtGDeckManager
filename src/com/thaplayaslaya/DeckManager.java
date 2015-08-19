@@ -7,7 +7,7 @@ import com.thaplayaslaya.gui.DeckManagerGUI;
 
 public class DeckManager {
 
-	public static final String VERSION_ID = "v1.0.4";
+	public static final String VERSION_ID = "v1.0.5";
 	private static DeckManagerGUI DMGUI;
 	public static Gson gson;
 	public static Config cfg;
