@@ -21,24 +21,6 @@
       },
       "decks": [
         {
-          "name": "NOT FG OTK",
-          "style": {
-            "foregroundColor": {
-              "value": -13421773,
-              "falpha": 0.0
-            },
-            "backgroundColor": {
-              "value": -1118482,
-              "falpha": 0.0
-            },
-            "isBold": true,
-            "isItalic": false,
-            "isUnderline": false,
-            "isStrikethrough": false
-          },
-          "importCode": "5lk 5lk 5lk 7hi 7hi 7hi 7jp 7jp 7jp 7jp 7jp 7jp 808 808 808 808 808 808 808 808 808 80e 80e 80i 80i 80i 80i 80m 80m 80m 8pp"
-        },
-        {
           "name": "Limitless Speed",
           "style": {
             "foregroundColor": {
@@ -55,6 +37,24 @@
             "isStrikethrough": true
           },
           "importCode": "6qq 6qq 6qq 6qq 6qq 6qq 6qq 74a 7dr 7dr 7jq 7la 7la 7la 7n9 7q5 7q5 7q5 7q5 7q5 7ri 7ri 7ri 7ri 80b 80b 80b 80d 80d 80d 80d 80d 80d 8pu"
+        },
+        {
+          "name": "NOT FG OTK",
+          "style": {
+            "foregroundColor": {
+              "value": -13421773,
+              "falpha": 0.0
+            },
+            "backgroundColor": {
+              "value": -1118482,
+              "falpha": 0.0
+            },
+            "isBold": true,
+            "isItalic": false,
+            "isUnderline": false,
+            "isStrikethrough": false
+          },
+          "importCode": "5lk 5lk 5lk 7hi 7hi 7hi 7jp 7jp 7jp 7jp 7jp 7jp 808 808 808 808 808 808 808 808 808 80e 80e 80i 80i 80i 80i 80m 80m 80m 8pp"
         },
         {
           "name": "PDials",

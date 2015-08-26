@@ -3,6 +3,7 @@ package com.thaplayaslaya.datastructures;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Comparator;
 
 import javax.imageio.ImageIO;
 import javax.swing.UIManager;
@@ -206,5 +207,20 @@ public class Deck implements IStylish {
 	@Override
 	public String toString() {
 		return this.name;
+	}
+
+	public static class DeckNameComparator implements Comparator<Deck> {
+
+		private int order;
+
+		public DeckNameComparator(int order) {
+			this.order = order;
+		}
+
+		@Override
+		public int compare(Deck o1, Deck o2) {
+			return order * o1.getName().compareTo(o2.getName());
+		}
+
 	}
 }

@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.LinkedList;
+import java.util.Queue;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
@@ -23,12 +25,12 @@ public class SortDialog extends JDialog {
 	private static final int LEVEL_ONE_SORT_WIDTH = 60;
 	private static final int LEVEL_TWO_SORT_WIDTH = 85;
 	private static final int LEVEL_THREE_SORT_WIDTH = 85;
-	private static final String[] levelOneOptions = new String[] { "Alpha", "Most", "Mark", "" };
-	private static final String[] alphaOptions = new String[] { "Abc", "Zyx" };
-	private static final String[] mostOptions = new String[] { "Upgraded", "Copies of", "Cards", "Elements*" };
+	public static final String[] levelOneOptions = new String[] { "Alpha", "Most", "Mark", "" };
+	public static final String[] alphaOptions = new String[] { "Abc", "Zyx" };
+	public static final String[] mostOptions = new String[] { "Upgraded", "Copies of", "Cards", "Elements*" };
 	private static final String[] elementOptions = Util.ELEMENTS;
 
-	private static LevelOneItemListener l1ItemListener;
+	private static SortingCBListener sortListener;
 
 	/**
 	 * Creates new form SortDialog
@@ -45,19 +47,19 @@ public class SortDialog extends JDialog {
 
 		doneButton = new JButton();
 		cancelButton = new JButton();
-
-		l1ItemListener = new LevelOneItemListener();
+		sortListener = new SortingCBListener();
 		sortFields = new JComponent[3][3];
+
 		panels = new JPanel[] { new JPanel(), new JPanel(), new JPanel(), new JPanel() };
 
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
 				if (j == 0) {
 					sortFields[i][j] = new SortDialogComboBox<String>(levelOneOptions, i, j);
-					((SortDialogComboBox<String>) sortFields[i][j]).addItemListener(l1ItemListener);
+					((SortDialogComboBox<String>) sortFields[i][j]).addItemListener(sortListener);
 				} else if (j == 1) {
 					sortFields[i][j] = new SortDialogComboBox<String>(i, j);
-					((SortDialogComboBox<String>) sortFields[i][j]).addItemListener(l1ItemListener);
+					((SortDialogComboBox<String>) sortFields[i][j]).addItemListener(sortListener);
 				} else {
 					sortFields[i][j] = new SortDialogComboBox<String>(i, j);
 				}
@@ -71,6 +73,37 @@ public class SortDialog extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO:
+				
+				Queue<String> sortList = new LinkedList<String>();
+				
+				for (int i = 0; i < 3; i++) {
+					for (int j = 0; j < 3; j++) {
+						JComponent comp = sortFields[i][j];
+						if (comp.isEnabled()) {
+							if(comp instanceof SortDialogComboBox){
+								String sortOption = (String) ((SortDialogComboBox<String>) comp).getSelectedItem();
+								if(sortOption.equals(levelOneOptions[3])){
+									break;
+								} else{
+									sortList.add(sortOption);
+								}
+							} else {
+								String sortOption = (String) ((JTextField) comp).getText().trim();
+								if(sortOption.equals(levelOneOptions[3])){
+									//no card code entered
+									break;
+								} else if (sortOption.length() == 3){
+									//card code entered
+									sortList.add(sortOption);
+								} else{
+									//card code entered but invalid
+									break;
+								}
+							}
+						}
+					}
+				}
+				Util.Sort(DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder(), sortList);
 			}
 		});
 
@@ -254,7 +287,7 @@ public class SortDialog extends JDialog {
 	private JPanel[] panels;
 	private JComponent[][] sortFields;
 
-	private class LevelOneItemListener implements ItemListener {
+	private class SortingCBListener implements ItemListener {
 		@SuppressWarnings("unchecked")
 		public void itemStateChanged(ItemEvent e) {
 
@@ -290,10 +323,10 @@ public class SortDialog extends JDialog {
 						sortFields[i][j + 2].setEnabled(true);
 						sortFields[i + 1][j].setEnabled(true);
 						if (!((SortDialogComboBox<String>) sortFields[i + 1][j]).getSelectedItem().equals(levelOneOptions[3])) {
-							SortDialogComboBox<String> temp = (SortDialogComboBox<String>) sortFields[i+1][j+1];
+							SortDialogComboBox<String> temp = (SortDialogComboBox<String>) sortFields[i + 1][j + 1];
 							temp.setEnabled(true);
 							if (temp.getSelectedItem().equals(mostOptions[1]) || temp.getSelectedItem().equals(mostOptions[3])) {
-								sortFields[i+1][j+2].setEnabled(true);
+								sortFields[i + 1][j + 2].setEnabled(true);
 							}
 						}
 					} else {
