@@ -1,5 +1,18 @@
 package com.thaplayaslaya.gui.dialogs;
 
+import static com.thaplayaslaya.datastructures.DeckSort.ALPHA_OPTIONS;
+import static com.thaplayaslaya.datastructures.DeckSort.ELEMENT_OPTIONS;
+import static com.thaplayaslaya.datastructures.DeckSort.ELEMENT_OPTIONS_ALT;
+import static com.thaplayaslaya.datastructures.DeckSort.L1Alpha;
+import static com.thaplayaslaya.datastructures.DeckSort.L1Empty;
+import static com.thaplayaslaya.datastructures.DeckSort.L1Least;
+import static com.thaplayaslaya.datastructures.DeckSort.L1Mark;
+import static com.thaplayaslaya.datastructures.DeckSort.L1Most;
+import static com.thaplayaslaya.datastructures.DeckSort.LEVEL_ONE_OPTIONS;
+import static com.thaplayaslaya.datastructures.DeckSort.MLCopiesOf;
+import static com.thaplayaslaya.datastructures.DeckSort.MLElements;
+import static com.thaplayaslaya.datastructures.DeckSort.M_L_OPTIONS;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -16,7 +29,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import com.thaplayaslaya.DeckManager;
-import com.thaplayaslaya.Util;
+import com.thaplayaslaya.datastructures.DeckSort;
 import com.thaplayaslaya.gui.SortDialogComboBox;
 
 public class SortDialog extends JDialog {
@@ -25,10 +38,6 @@ public class SortDialog extends JDialog {
 	private static final int LEVEL_ONE_SORT_WIDTH = 60;
 	private static final int LEVEL_TWO_SORT_WIDTH = 85;
 	private static final int LEVEL_THREE_SORT_WIDTH = 85;
-	public static final String[] levelOneOptions = new String[] { "Alpha", "Most", "Mark", "" };
-	public static final String[] alphaOptions = new String[] { "Abc", "Zyx" };
-	public static final String[] mostOptions = new String[] { "Upgraded", "Copies of", "Cards", "Elements*" };
-	private static final String[] elementOptions = Util.ELEMENTS;
 
 	private static SortingCBListener sortListener;
 
@@ -55,7 +64,7 @@ public class SortDialog extends JDialog {
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
 				if (j == 0) {
-					sortFields[i][j] = new SortDialogComboBox<String>(levelOneOptions, i, j);
+					sortFields[i][j] = new SortDialogComboBox<String>(LEVEL_ONE_OPTIONS, i, j);
 					((SortDialogComboBox<String>) sortFields[i][j]).addItemListener(sortListener);
 				} else if (j == 1) {
 					sortFields[i][j] = new SortDialogComboBox<String>(i, j);
@@ -66,44 +75,44 @@ public class SortDialog extends JDialog {
 			}
 		}
 
-		((SortDialogComboBox<String>) sortFields[0][1]).setModel(new DefaultComboBoxModel<String>(alphaOptions));
+		((SortDialogComboBox<String>) sortFields[0][1]).setModel(new DefaultComboBoxModel<String>(ALPHA_OPTIONS));
 
 		doneButton.setText("Done");
 		doneButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO:
-				
+
 				Queue<String> sortList = new LinkedList<String>();
-				
+
 				for (int i = 0; i < 3; i++) {
 					for (int j = 0; j < 3; j++) {
 						JComponent comp = sortFields[i][j];
 						if (comp.isEnabled()) {
-							if(comp instanceof SortDialogComboBox){
+							if (comp instanceof SortDialogComboBox) {
 								String sortOption = (String) ((SortDialogComboBox<String>) comp).getSelectedItem();
-								if(sortOption.equals(levelOneOptions[3])){
+								if (sortOption.equals(LEVEL_ONE_OPTIONS[L1Empty])) {
 									break;
-								} else{
+								} else {
 									sortList.add(sortOption);
 								}
 							} else {
 								String sortOption = (String) ((JTextField) comp).getText().trim();
-								if(sortOption.equals(levelOneOptions[3])){
-									//no card code entered
+								if (sortOption.equals(LEVEL_ONE_OPTIONS[L1Empty])) {
+									// no card code entered
 									break;
-								} else if (sortOption.length() == 3){
-									//card code entered
+								} else if (sortOption.length() == 3) {
+									// card code entered
 									sortList.add(sortOption);
-								} else{
-									//card code entered but invalid
+								} else {
+									// card code entered but invalid
 									break;
 								}
 							}
 						}
 					}
 				}
-				Util.Sort(DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder(), sortList);
+				DeckSort.sort(DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder(), sortList);
 			}
 		});
 
@@ -275,9 +284,9 @@ public class SortDialog extends JDialog {
 			}
 		}
 
-		((SortDialogComboBox<String>) sortFields[1][0]).setSelectedIndex(3);
+		((SortDialogComboBox<String>) sortFields[1][0]).setSelectedIndex(L1Empty);
 
-		((SortDialogComboBox<String>) sortFields[2][0]).setSelectedIndex(3);
+		((SortDialogComboBox<String>) sortFields[2][0]).setSelectedIndex(L1Empty);
 
 	} // Variables declaration - do not modify
 
@@ -299,7 +308,7 @@ public class SortDialog extends JDialog {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
 					System.out.println(item + " " + ((SortDialogComboBox<String>) e.getSource()).getPosition());
 
-					if (item.equals(levelOneOptions[3])) {
+					if (item.equals(LEVEL_ONE_OPTIONS[L1Empty])) {
 						System.out.println("EMPTY");
 
 						System.out.println("******");
@@ -310,23 +319,29 @@ public class SortDialog extends JDialog {
 								}
 							}
 						}
-					} else if (item.equals(levelOneOptions[0])) {
-						setNextLevelOptions(i, j, alphaOptions);
-					} else if (item.equals(levelOneOptions[1])) {
-						setNextLevelOptions(i, j, mostOptions);
-					} else if (item.equals(levelOneOptions[2])) {
-						setNextLevelOptions(i, j, elementOptions);
+					} else if (item.equals(LEVEL_ONE_OPTIONS[L1Alpha])) {
+						setNextLevelOptions(i, j, ALPHA_OPTIONS);
+					} else if (item.equals(LEVEL_ONE_OPTIONS[L1Most]) || item.equals(LEVEL_ONE_OPTIONS[L1Least])) {
+						String prevSelect = ((SortDialogComboBox<String>) e.getSource()).getPreviouslySelected();
+						if (!(prevSelect.equals(LEVEL_ONE_OPTIONS[L1Most]) || prevSelect.equals(LEVEL_ONE_OPTIONS[L1Least]))) {
+							setNextLevelOptions(i, j, M_L_OPTIONS);
+						}
+					} else if (item.equals(LEVEL_ONE_OPTIONS[L1Mark])) {
+						setNextLevelOptions(i, j, ELEMENT_OPTIONS);
 					}
-				} else if (e.getStateChange() == ItemEvent.DESELECTED && item.equals(levelOneOptions[3])) {
-					if (i != 2) {
-						sortFields[i][j + 1].setEnabled(true);
-						sortFields[i][j + 2].setEnabled(true);
-						sortFields[i + 1][j].setEnabled(true);
-						if (!((SortDialogComboBox<String>) sortFields[i + 1][j]).getSelectedItem().equals(levelOneOptions[3])) {
-							SortDialogComboBox<String> temp = (SortDialogComboBox<String>) sortFields[i + 1][j + 1];
-							temp.setEnabled(true);
-							if (temp.getSelectedItem().equals(mostOptions[1]) || temp.getSelectedItem().equals(mostOptions[3])) {
-								sortFields[i + 1][j + 2].setEnabled(true);
+				} else if (e.getStateChange() == ItemEvent.DESELECTED) {
+					((SortDialogComboBox<String>) e.getSource()).setPreviouslySelected((String) item);
+					if (item.equals(LEVEL_ONE_OPTIONS[L1Empty])) {
+						if (i != 2) {
+							sortFields[i][j + 1].setEnabled(true);
+							sortFields[i][j + 2].setEnabled(true);
+							sortFields[i + 1][j].setEnabled(true);
+							if (!((SortDialogComboBox<String>) sortFields[i + 1][j]).getSelectedItem().equals(LEVEL_ONE_OPTIONS[L1Empty])) {
+								SortDialogComboBox<String> temp = (SortDialogComboBox<String>) sortFields[i + 1][j + 1];
+								temp.setEnabled(true);
+								if (temp.getSelectedItem().equals(M_L_OPTIONS[MLCopiesOf]) || temp.getSelectedItem().equals(M_L_OPTIONS[MLElements])) {
+									sortFields[i + 1][j + 2].setEnabled(true);
+								}
 							}
 						}
 					} else {
@@ -336,18 +351,21 @@ public class SortDialog extends JDialog {
 				}
 			} else if (j == 1) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
-					if (item.equals(mostOptions[1])) {
+					if (item.equals(M_L_OPTIONS[MLCopiesOf])) {
 						sortFields[i][j + 1].setEnabled(true);
 						JTextField tempComponent = new JTextField(3);
 						((GroupLayout) panels[i].getLayout()).replace(sortFields[i][j + 1], tempComponent);
 						sortFields[i][j + 1] = tempComponent;
-					} else if (item.equals(mostOptions[3])) {
+					} else if (item.equals(M_L_OPTIONS[MLElements])) {
 						sortFields[i][j + 1].setEnabled(true);
-						SortDialogComboBox<String> tempComponent = new SortDialogComboBox<String>(elementOptions, i, j);
+						SortDialogComboBox<String> tempComponent = new SortDialogComboBox<String>(ELEMENT_OPTIONS, i, j);
+						tempComponent.insertItemAt(ELEMENT_OPTIONS_ALT, 0);
+						tempComponent.setSelectedIndex(0);
 						((GroupLayout) panels[i].getLayout()).replace(sortFields[i][j + 1], tempComponent);
 						sortFields[i][j + 1] = tempComponent;
 					}
-				} else if (e.getStateChange() == ItemEvent.DESELECTED && (item.equals(mostOptions[1]) || item.equals(mostOptions[3]))) {
+				} else if (e.getStateChange() == ItemEvent.DESELECTED
+						&& (item.equals(M_L_OPTIONS[MLCopiesOf]) || item.equals(M_L_OPTIONS[MLElements]))) {
 					sortFields[i][j + 1].setEnabled(false);
 				}
 			}

@@ -5,6 +5,7 @@ import javax.swing.JComboBox;
 public class SortDialogComboBox<E> extends JComboBox<E> {
 	private static final long serialVersionUID = 7039890626526317955L;
 
+	private String previouslySelected = "";
 	private int i;
 	private int j;
 
@@ -33,6 +34,14 @@ public class SortDialogComboBox<E> extends JComboBox<E> {
 
 	public int getJ() {
 		return this.j;
+	}
+
+	public String getPreviouslySelected() {
+		return previouslySelected;
+	}
+
+	public void setPreviouslySelected(String previouslySelected) {
+		this.previouslySelected = previouslySelected;
 	}
 
 }

@@ -3,7 +3,8 @@ package com.thaplayaslaya.datastructures;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.Comparator;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
 import javax.swing.UIManager;
@@ -70,6 +71,72 @@ public class Deck implements IStylish {
 			importCode = importCode.replaceAll("[\\\t|\\\n|\\\r]", "");
 			this.importCode = importCode;
 		}
+	}
+
+	public String[] getCardCodes() {
+		return importCode.split(" ");
+	}
+
+	public int getNumUpgradedCards() {
+		String[] cardCodes = getCardCodes();
+		int upgradedCards = 0;
+		for (int i = 0; i < cardCodes.length; i++) {
+			// 6qq is the first upgraded card (Quantum Tower) in 1.327
+			if (cardCodes[i].compareTo("6qq") >= 0)
+				upgradedCards++;
+		}
+		return upgradedCards;
+	}
+
+	public int getNumCopiesOf(String cardCode) {
+		int copyCounter = 0;
+		Pattern p = Pattern.compile(cardCode);
+		Matcher m = p.matcher(importCode);
+		while (m.find()) {
+			copyCounter++;
+		}
+		return copyCounter;
+	}
+
+	public int getNumDiffElements() {
+		int numElements = 0;
+		for (Element e : Element.values()) {
+			if (importCode.contains(e.getMark())) {
+				numElements++;
+			} else {
+				String[] cardCodes = getCardCodes();
+				for (int i = 0; i < cardCodes.length; i++) {
+					if (cardCodes[i].equals(e.getCard()) || cardCodes[i].equals(e.getuCard())
+							|| (cardCodes[i].compareTo(e.getBegin()) > 0 && cardCodes[i].compareTo(e.getEnd()) < 0)
+							|| (cardCodes[i].compareTo(e.getuBegin()) > 0 && cardCodes[i].compareTo(e.getuEnd()) < 0)) {
+						numElements++;
+						break;
+					}
+				}
+			}
+		}
+		return numElements;
+	}
+
+	public int getNumCardsOfSameElement(String element) {
+		int counter = 0;
+		Element e = Element.stringToElement(element);
+		String[] cardCodes = getCardCodes();
+		for (int i = 0; i < cardCodes.length; i++) {
+			if (cardCodes[i].equals(e.getCard()) || cardCodes[i].equals(e.getuCard())
+					|| (cardCodes[i].compareTo(e.getBegin()) > 0 && cardCodes[i].compareTo(e.getEnd()) < 0)
+					|| (cardCodes[i].compareTo(e.getuBegin()) > 0 && cardCodes[i].compareTo(e.getuEnd()) < 0)) {
+				counter++;
+			}
+		}
+		return counter;
+	}
+	
+	public String getMark() {
+		for(Element e : Element.values()){
+			if(importCode.contains(e.getMark())) return e.getMark();
+		}
+		return null;
 	}
 
 	public String getNotes() {
@@ -207,20 +274,5 @@ public class Deck implements IStylish {
 	@Override
 	public String toString() {
 		return this.name;
-	}
-
-	public static class DeckNameComparator implements Comparator<Deck> {
-
-		private int order;
-
-		public DeckNameComparator(int order) {
-			this.order = order;
-		}
-
-		@Override
-		public int compare(Deck o1, Deck o2) {
-			return order * o1.getName().compareTo(o2.getName());
-		}
-
 	}
 }
