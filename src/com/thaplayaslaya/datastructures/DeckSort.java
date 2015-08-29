@@ -1,10 +1,12 @@
 package com.thaplayaslaya.datastructures;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Queue;
 
 public class DeckSort {
+
 	public static final String[] LEVEL_ONE_OPTIONS = new String[] { "Alpha", "Most", "Least", "Mark", "" };
 	public static final String[] ALPHA_OPTIONS = new String[] { "Abc", "Zyx" };
 	public static final String[] M_L_OPTIONS = new String[] { "Upgraded", "Copies of", "Cards", "Element" };
@@ -25,6 +27,8 @@ public class DeckSort {
 	public static final int MLCopiesOf = 1;
 	public static final int MLCards = 2;
 	public static final int MLElements = 3;
+
+	private static ArrayList<Comparator<Deck>> comparatorList = new ArrayList<>();
 
 	public static class DeckNameComparator implements Comparator<Deck> {
 
@@ -66,8 +70,11 @@ public class DeckSort {
 
 		@Override
 		public int compare(Deck o1, Deck o2) {
-			/*System.out.println(o1.getName() + " Upgrades: " + o1.getNumUpgradedCards() + " / " + o2.getName() + " Upgrades: "
-					+ o2.getNumUpgradedCards());*/
+			/*
+			 * System.out.println(o1.getName() + " Upgrades: " +
+			 * o1.getNumUpgradedCards() + " / " + o2.getName() + " Upgrades: " +
+			 * o2.getNumUpgradedCards());
+			 */
 			return order * Integer.compare(o1.getNumUpgradedCards(), o2.getNumUpgradedCards());
 		}
 
@@ -85,8 +92,11 @@ public class DeckSort {
 
 		@Override
 		public int compare(Deck o1, Deck o2) {
-			/*System.out.println(o1.getName() + " Copies: " + o1.getNumCopiesOf(cardCode) + " / " + o2.getName() + " Copies: "
-					+ o2.getNumCopiesOf(cardCode));*/
+			/*
+			 * System.out.println(o1.getName() + " Copies: " +
+			 * o1.getNumCopiesOf(cardCode) + " / " + o2.getName() + " Copies: "
+			 * + o2.getNumCopiesOf(cardCode));
+			 */
 
 			return order * Integer.compare(o1.getNumCopiesOf(cardCode), o2.getNumCopiesOf(cardCode));
 		}
@@ -154,11 +164,13 @@ public class DeckSort {
 	}
 
 	public static void sort(DeckBinder currentlySelectedDeckBinder, Queue<String> sortList) {
-		/*System.out.print("[");
-		for (Deck d : currentlySelectedDeckBinder.getDecks()) {
-			System.out.print(d.getName() + " " + d.getMark() + ", ");
-		}
-		System.out.print("]");*/
+		
+		/*
+		 * System.out.print("["); for (Deck d :
+		 * currentlySelectedDeckBinder.getDecks()) {
+		 * System.out.print(d.getName() + " " + d.getMark() + ", "); }
+		 * System.out.print("]");
+		 */
 		if (!sortList.isEmpty()) {
 
 			String sortOption = sortList.peek();
@@ -173,8 +185,9 @@ public class DeckSort {
 					order = 1;
 				if (sortOption.equals(ALPHA_OPTIONS[AlphaZyx]))
 					order = -1;
-
-				Collections.sort(currentlySelectedDeckBinder.getDecks(), new DeckNameComparator(order));
+				comparatorList.add(new DeckNameComparator(order));
+				// Collections.sort(currentlySelectedDeckBinder.getDecks(), new
+				// DeckNameComparator(order));
 
 			} else if (sortOption.equals(LEVEL_ONE_OPTIONS[L1Most]) || sortOption.equals(LEVEL_ONE_OPTIONS[L1Least])) {
 				if (sortOption.equals(LEVEL_ONE_OPTIONS[L1Most]))
@@ -186,28 +199,45 @@ public class DeckSort {
 				sortList.remove();
 
 				if (sortOption.equals(M_L_OPTIONS[MLUpgraded])) {
-					Collections.sort(currentlySelectedDeckBinder.getDecks(), new DeckUpgradesComparator(order));
+					comparatorList.add(new DeckUpgradesComparator(order));
+					// Collections.sort(currentlySelectedDeckBinder.getDecks(),
+					// new DeckUpgradesComparator(order));
 				} else if (sortOption.equals(M_L_OPTIONS[MLCopiesOf])) {
 					sortOption = sortList.peek();
 					sortList.remove();
-					Collections.sort(currentlySelectedDeckBinder.getDecks(), new DeckCardCopiesComparator(sortOption, order));
+					comparatorList.add(new DeckCardCopiesComparator(sortOption, order));
+					// Collections.sort(currentlySelectedDeckBinder.getDecks(),
+					// new DeckCardCopiesComparator(sortOption, order));
 				} else if (sortOption.equals(M_L_OPTIONS[MLCards])) {
-					Collections.sort(currentlySelectedDeckBinder.getDecks(), new DeckSizeComparator(order));
+					comparatorList.add(new DeckSizeComparator(order));
+					// Collections.sort(currentlySelectedDeckBinder.getDecks(),
+					// new DeckSizeComparator(order));
 				} else if (sortOption.equals(M_L_OPTIONS[MLElements])) {
 					sortOption = sortList.peek();
 					sortList.remove();
 					if (sortOption.equals(ELEMENT_OPTIONS_ALT)) {
-						Collections.sort(currentlySelectedDeckBinder.getDecks(), new DeckNumDiffElementComparator(order));
+						comparatorList.add(new DeckNumDiffElementComparator(order));
+						// Collections.sort(currentlySelectedDeckBinder.getDecks(),
+						// new DeckNumDiffElementComparator(order));
 					} else {
-						Collections.sort(currentlySelectedDeckBinder.getDecks(), new DeckNumCardsOfSameElementComparator(sortOption, order));
+						comparatorList.add(new DeckNumCardsOfSameElementComparator(sortOption, order));
+						// Collections.sort(currentlySelectedDeckBinder.getDecks(),
+						// new DeckNumCardsOfSameElementComparator(sortOption,
+						// order));
 					}
 				}
 			} else if (sortOption.equals(LEVEL_ONE_OPTIONS[L1Mark])) {
 				sortOption = sortList.peek();
 				sortList.remove();
-				Collections.sort(currentlySelectedDeckBinder.getDecks(), new DeckElementComparator(sortOption));
+				comparatorList.add(new DeckElementComparator(sortOption));
+				// Collections.sort(currentlySelectedDeckBinder.getDecks(), new
+				// DeckElementComparator(sortOption));
 			}
 		} else {
+			
+				Collections.sort(currentlySelectedDeckBinder.getDecks(), new MultiComparator<Deck>(comparatorList));
+				comparatorList.clear();
+			
 			return;
 		}
 		sort(currentlySelectedDeckBinder, sortList);

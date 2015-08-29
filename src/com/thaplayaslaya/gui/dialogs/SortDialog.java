@@ -112,7 +112,9 @@ public class SortDialog extends JDialog {
 						}
 					}
 				}
+				System.out.println(DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder().getDecks());
 				DeckSort.sort(DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder(), sortList);
+				System.out.println(DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder().getDecks());
 			}
 		});
 
