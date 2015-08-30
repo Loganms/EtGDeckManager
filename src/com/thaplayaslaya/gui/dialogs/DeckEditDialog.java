@@ -25,7 +25,7 @@ public class DeckEditDialog extends DeckDialog {
 
 	protected boolean validateDone() {
 		boolean b = false;
-		if (1 > jTextField1.getText().length()) {
+		if (jTextField1.getText().length() < 1) {
 			JOptionPane.showMessageDialog(DeckEditDialog.this, "The name field is blank. Please enter a name.", "Try again",
 					JOptionPane.ERROR_MESSAGE);
 			jTextField1.requestFocusInWindow();
@@ -46,8 +46,8 @@ public class DeckEditDialog extends DeckDialog {
 	protected void doneAction() {
 		originalDeck.setName(jTextField1.getText());
 		originalDeck.setStyle(newDeck.getStyle());
-		originalDeck.setImportCode(newDeck.getImportCode());
-		originalDeck.setNotes(newDeck.getNotes());
+		originalDeck.setImportCode(importCodeTextArea.getText());
+		originalDeck.setNotes(deckNotesTextArea.getText());
 		Style.applyStyle(DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder().getDBP().getComboBox(), newDeck.getStyle());
 		dispose();
 	}

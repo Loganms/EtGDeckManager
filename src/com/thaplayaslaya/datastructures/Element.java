@@ -109,7 +109,7 @@ public enum Element {
 			e = null;
 			break;
 		}
-		if( null == e){
+		if (null == e) {
 			System.out.println("element is NULL");
 		}
 		return e;

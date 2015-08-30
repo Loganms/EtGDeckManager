@@ -21,6 +21,44 @@
       },
       "decks": [
         {
+          "name": "afffffffff",
+          "style": {
+            "foregroundColor": {
+              "value": -13369600,
+              "falpha": 0.0
+            },
+            "backgroundColor": {
+              "value": -6697729,
+              "falpha": 0.0
+            },
+            "isBold": true,
+            "isItalic": true,
+            "isUnderline": true,
+            "isStrikethrough": true
+          },
+          "importCode": "",
+          "notes": ""
+        },
+        {
+          "name": "GravityBow",
+          "style": {
+            "foregroundColor": {
+              "value": -13421773,
+              "falpha": 0.0
+            },
+            "backgroundColor": {
+              "value": -1118482,
+              "falpha": 0.0
+            },
+            "isBold": true,
+            "isItalic": false,
+            "isUnderline": false,
+            "isStrikethrough": false
+          },
+          "importCode": "4vj 4vj 4vj 4vj 4vj 4vj 5c1 5if 6qq 6qq 6qq 6qq 6qq 6u1 71a 74b 74d 74d 74e 752 752 752 77g 77g 7dr 7n7 7n7 7q4 7tb 80a 8pl",
+          "notes": ""
+        },
+        {
           "name": "Limitless Speed",
           "style": {
             "foregroundColor": {
@@ -55,6 +93,25 @@
             "isStrikethrough": false
           },
           "importCode": "5lk 5lk 5lk 7hi 7hi 7hi 7jp 7jp 7jp 7jp 7jp 7jp 808 808 808 808 808 808 808 808 808 80e 80e 80i 80i 80i 80i 80m 80m 80m 8pp"
+        },
+        {
+          "name": "PVP GrabbowUNUP",
+          "style": {
+            "foregroundColor": {
+              "value": -13421773,
+              "falpha": 0.0
+            },
+            "backgroundColor": {
+              "value": -1118482,
+              "falpha": 0.0
+            },
+            "isBold": true,
+            "isItalic": false,
+            "isUnderline": false,
+            "isStrikethrough": false
+          },
+          "importCode": "4sa 4sa 4sa 4sa 4vh 4vh 4vj 4vj 4vj 4vj 4vj 4vj 52q 52q 55q 55q 590 590 590 590 590 5c1 5c1 5f6 5f6 5i7 5og 5og 61q 61q 8pm",
+          "notes": ""
         },
         {
           "name": "PDials",
@@ -96,7 +153,7 @@
           "name": "Voodoo Bravery",
           "style": {
             "foregroundColor": {
-              "value": -39424,
+              "value": -26368,
               "falpha": 0.0
             },
             "backgroundColor": {
@@ -105,10 +162,11 @@
             },
             "isBold": true,
             "isItalic": false,
-            "isUnderline": false,
+            "isUnderline": true,
             "isStrikethrough": false
           },
-          "importCode": "6u3 6u3 6u3 6u3 6u3 6ve 6ve 6ve 6ve 6ve 74d 74d 77l 77l 77l 77l 77l 77l 7ee 7ee 7ee 7ee 7ee 7ee 7tg 7tg 80b 80b 80b 80b 8pu"
+          "importCode": "6u3",
+          "notes": "hi there mister me."
         }
       ]
     },
@@ -204,7 +262,7 @@
       ]
     },
     {
-      "name": "",
+      "name": "SortTest",
       "style": {
         "foregroundColor": {
           "value": -13421773,
@@ -219,25 +277,103 @@
         "isUnderline": false,
         "isStrikethrough": false
       },
-      "decks": []
-    },
-    {
-      "name": "ffffff",
-      "style": {
-        "foregroundColor": {
-          "value": -13421773,
-          "falpha": 0.0
+      "decks": [
+        {
+          "name": "Bick Darkness",
+          "style": {
+            "foregroundColor": {
+              "value": -13421773,
+              "falpha": 0.0
+            },
+            "backgroundColor": {
+              "value": -1118482,
+              "falpha": 0.0
+            },
+            "isBold": true,
+            "isItalic": false,
+            "isUnderline": false,
+            "isStrikethrough": false
+          },
+          "importCode": "8pt",
+          "notes": ""
         },
-        "backgroundColor": {
-          "value": -1118482,
-          "falpha": 0.0
+        {
+          "name": "Bates Darkness",
+          "style": {
+            "foregroundColor": {
+              "value": -13421773,
+              "falpha": 0.0
+            },
+            "backgroundColor": {
+              "value": -1118482,
+              "falpha": 0.0
+            },
+            "isBold": true,
+            "isItalic": false,
+            "isUnderline": false,
+            "isStrikethrough": false
+          },
+          "importCode": "8pt",
+          "notes": ""
         },
-        "isBold": true,
-        "isItalic": false,
-        "isUnderline": false,
-        "isStrikethrough": false
-      },
-      "decks": []
+        {
+          "name": "Abacus Fire",
+          "style": {
+            "foregroundColor": {
+              "value": -13421773,
+              "falpha": 0.0
+            },
+            "backgroundColor": {
+              "value": -1118482,
+              "falpha": 0.0
+            },
+            "isBold": true,
+            "isItalic": false,
+            "isUnderline": false,
+            "isStrikethrough": false
+          },
+          "importCode": "8po",
+          "notes": ""
+        },
+        {
+          "name": "Beta Entropy",
+          "style": {
+            "foregroundColor": {
+              "value": -13421773,
+              "falpha": 0.0
+            },
+            "backgroundColor": {
+              "value": -1118482,
+              "falpha": 0.0
+            },
+            "isBold": true,
+            "isItalic": false,
+            "isUnderline": false,
+            "isStrikethrough": false
+          },
+          "importCode": "8pj",
+          "notes": ""
+        },
+        {
+          "name": "Aard Death",
+          "style": {
+            "foregroundColor": {
+              "value": -13421773,
+              "falpha": 0.0
+            },
+            "backgroundColor": {
+              "value": -1118482,
+              "falpha": 0.0
+            },
+            "isBold": true,
+            "isItalic": false,
+            "isUnderline": false,
+            "isStrikethrough": false
+          },
+          "importCode": "8pk",
+          "notes": ""
+        }
+      ]
     }
   ],
   "customFalseGodCounters": {

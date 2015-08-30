@@ -1,5 +1,6 @@
 package com.thaplayaslaya.gui.dialogs;
 
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 import com.thaplayaslaya.DeckManager;
@@ -48,8 +49,12 @@ public class DeckAddDialog extends DeckDialog {
 		newDeck.setNotes(deckNotesTextArea.getText());
 
 		db.addDeck(newDeck);
-		db.getDBP().getComboBox().setSelectedItem(newDeck);
-		Style.applyStyle(db.getDBP().getComboBox(), newDeck.getStyle());
+
+		JComboBox<Deck> cb = db.getDBP().getComboBox();
+		Style.applyStyle(cb, newDeck.getStyle());
+
+		cb.setSelectedItem(newDeck);
+
 		dispose();
 	}
 

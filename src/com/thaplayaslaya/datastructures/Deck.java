@@ -131,10 +131,11 @@ public class Deck implements IStylish {
 		}
 		return counter;
 	}
-	
+
 	public String getMark() {
-		for(Element e : Element.values()){
-			if(importCode.contains(e.getMark())) return e.getMark();
+		for (Element e : Element.values()) {
+			if (importCode.contains(e.getMark()))
+				return e.getMark();
 		}
 		return null;
 	}

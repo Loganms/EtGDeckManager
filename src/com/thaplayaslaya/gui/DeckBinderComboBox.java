@@ -32,8 +32,9 @@ import javax.swing.plaf.basic.ComboPopup;
 import com.thaplayaslaya.DeckManager;
 import com.thaplayaslaya.datastructures.Deck;
 
-@SuppressWarnings({ "serial", "hiding" })
-public class DeckBinderComboBox<Object> extends JComboBox<Object> {
+public class DeckBinderComboBox<E> extends JComboBox<E> {
+
+	private static final long serialVersionUID = -3685064067119310644L;
 	private boolean isMouseInside = false;
 	private ListSelectionListener listener;
 	private MouseListener mouseListener;
@@ -135,7 +136,9 @@ public class DeckBinderComboBox<Object> extends JComboBox<Object> {
 		uninstall();
 	}
 
-	static class NoteWindow extends JWindow {
+	static final class NoteWindow extends JWindow {
+
+		private static final long serialVersionUID = -9056010143768180368L;
 		private static JTextArea notes;
 		private static final int BORDERGAP_TOP_AND_BOTTOM = 5;
 		private static final int BORDERGAP_LEFT = 17;
@@ -146,6 +149,8 @@ public class DeckBinderComboBox<Object> extends JComboBox<Object> {
 		private static Point pointOnScreen = null;
 		private static Point pointer = null;
 		private static final JPanel contentPane = new JPanel() {
+
+			private static final long serialVersionUID = 7637008183415331565L;
 
 			@Override
 			public Dimension getPreferredSize() {
@@ -233,11 +238,13 @@ public class DeckBinderComboBox<Object> extends JComboBox<Object> {
 		}
 
 		public static NoteWindow getInstance(String newNotes, Point point) {
+			System.out.println("Getting NoteWindow Instance");
 			if (null == newNotes || newNotes.equals("")) {
+				System.out.println("No notes to show.");
 				instance.setVisible(false);
 				return null;
 			}
-
+			System.out.println("Readying note instance.");
 			readyInstance(newNotes, point);
 			return instance;
 		}
@@ -303,6 +310,7 @@ public class DeckBinderComboBox<Object> extends JComboBox<Object> {
 					SwingUtilities.convertPointToScreen(p, list);
 					p.x += getSize().width;
 					Deck d = (Deck) list.getSelectedValue();
+					System.out.println(d + d.getNotes());
 					nw = NoteWindow.getInstance(d.getNotes(), p);
 
 					if (null != nw) {

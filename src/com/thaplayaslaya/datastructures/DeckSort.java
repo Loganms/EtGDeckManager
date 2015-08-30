@@ -30,6 +30,20 @@ public class DeckSort {
 
 	private static ArrayList<Comparator<Deck>> comparatorList = new ArrayList<>();
 
+	public static class DeckFirstLetterComparator implements Comparator<Deck> {
+
+		private int order;
+
+		public DeckFirstLetterComparator(int order) {
+			this.order = order;
+		}
+
+		@Override
+		public int compare(Deck o1, Deck o2) {
+			return order * Integer.compare(o1.getName().toLowerCase().charAt(0), o2.getName().toLowerCase().charAt(0));
+		}
+	}
+
 	public static class DeckNameComparator implements Comparator<Deck> {
 
 		private int order;
@@ -42,7 +56,6 @@ public class DeckSort {
 		public int compare(Deck o1, Deck o2) {
 			return order * o1.getName().compareToIgnoreCase(o2.getName());
 		}
-
 	}
 
 	public static class DeckSizeComparator implements Comparator<Deck> {
@@ -164,7 +177,7 @@ public class DeckSort {
 	}
 
 	public static void sort(DeckBinder currentlySelectedDeckBinder, Queue<String> sortList) {
-		
+
 		/*
 		 * System.out.print("["); for (Deck d :
 		 * currentlySelectedDeckBinder.getDecks()) {
@@ -181,11 +194,18 @@ public class DeckSort {
 				sortOption = sortList.peek();
 				sortList.remove();
 
-				if (sortOption.equals(ALPHA_OPTIONS[AlphaAbc]))
+				if (sortOption.equals(ALPHA_OPTIONS[AlphaAbc])) {
 					order = 1;
-				if (sortOption.equals(ALPHA_OPTIONS[AlphaZyx]))
+				} else if (sortOption.equals(ALPHA_OPTIONS[AlphaZyx])) {
 					order = -1;
-				comparatorList.add(new DeckNameComparator(order));
+				}
+
+				if (sortList.isEmpty()) {
+					comparatorList.add(new DeckNameComparator(order));
+				} else {
+					comparatorList.add(new DeckFirstLetterComparator(order));
+				}
+
 				// Collections.sort(currentlySelectedDeckBinder.getDecks(), new
 				// DeckNameComparator(order));
 
@@ -234,10 +254,10 @@ public class DeckSort {
 				// DeckElementComparator(sortOption));
 			}
 		} else {
-			
-				Collections.sort(currentlySelectedDeckBinder.getDecks(), new MultiComparator<Deck>(comparatorList));
-				comparatorList.clear();
-			
+
+			Collections.sort(currentlySelectedDeckBinder.getDecks(), new MultiComparator<Deck>(comparatorList));
+			comparatorList.clear();
+
 			return;
 		}
 		sort(currentlySelectedDeckBinder, sortList);
