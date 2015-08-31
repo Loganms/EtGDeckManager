@@ -150,7 +150,6 @@ public class DeckManagerGUI extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			if (currentlySelectedDeck != null) {
 				if (e.getActionCommand().equals("Copy Code")) {
-					System.out.println(getX() + ", " + getY());
 					Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(currentlySelectedDeck.getImportCode()), null);
 				} else if (e.getActionCommand().equals("View Deck")) {
 					BufferedImage img = currentlySelectedDeck.getDeckImage();
@@ -390,7 +389,8 @@ public class DeckManagerGUI extends JFrame {
 		} else if (pmod == DeckManagerMenuBar.FLUSH_BOTTOM) {
 			loc.y = loc.y + getHeight() - windowToBeDisplayed.getHeight();
 		}
-
+		
+		//TODO: window will always appear on main monitor. Fix for multi-monitor setups.
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		
 		if (loc.y < 0){
