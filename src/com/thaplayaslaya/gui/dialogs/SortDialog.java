@@ -1,6 +1,9 @@
 package com.thaplayaslaya.gui.dialogs;
 
 import static com.thaplayaslaya.datastructures.DeckSort.ALPHA_OPTIONS;
+import static com.thaplayaslaya.datastructures.DeckSort.ALPHA_OPTIONS_ORDER;
+import static com.thaplayaslaya.datastructures.DeckSort.AlphaLetter;
+import static com.thaplayaslaya.datastructures.DeckSort.AlphaWord;
 import static com.thaplayaslaya.datastructures.DeckSort.ELEMENT_OPTIONS;
 import static com.thaplayaslaya.datastructures.DeckSort.ELEMENT_OPTIONS_ALT;
 import static com.thaplayaslaya.datastructures.DeckSort.L1Alpha;
@@ -76,6 +79,7 @@ public class SortDialog extends JDialog {
 		}
 
 		((SortDialogComboBox<String>) sortFields[0][1]).setModel(new DefaultComboBoxModel<String>(ALPHA_OPTIONS));
+		((SortDialogComboBox<String>) sortFields[0][2]).setModel(new DefaultComboBoxModel<String>(ALPHA_OPTIONS_ORDER));
 
 		doneButton.setText("Done");
 		doneButton.addActionListener(new ActionListener() {
@@ -280,7 +284,7 @@ public class SortDialog extends JDialog {
 
 		pack();
 
-		for (int i = 0; i < 3; i++) {
+		for (int i = 1; i < 3; i++) {
 			for (int j = 2; j > 1 - i; j--) {
 				sortFields[i][j].setEnabled(false);
 			}
@@ -322,7 +326,8 @@ public class SortDialog extends JDialog {
 							}
 						}
 					} else if (item.equals(LEVEL_ONE_OPTIONS[L1Alpha])) {
-						setNextLevelOptions(i, j, ALPHA_OPTIONS);
+						((SortDialogComboBox<String>) sortFields[i][j + 1]).setModel(new DefaultComboBoxModel<String>(ALPHA_OPTIONS));
+						populateL3ComboBox(i, ALPHA_OPTIONS_ORDER);
 					} else if (item.equals(LEVEL_ONE_OPTIONS[L1Most]) || item.equals(LEVEL_ONE_OPTIONS[L1Least])) {
 						String prevSelect = ((SortDialogComboBox<String>) e.getSource()).getPreviouslySelected();
 						if (!(prevSelect.equals(LEVEL_ONE_OPTIONS[L1Most]) || prevSelect.equals(LEVEL_ONE_OPTIONS[L1Least]))) {
@@ -341,15 +346,16 @@ public class SortDialog extends JDialog {
 							if (!((SortDialogComboBox<String>) sortFields[i + 1][j]).getSelectedItem().equals(LEVEL_ONE_OPTIONS[L1Empty])) {
 								SortDialogComboBox<String> temp = (SortDialogComboBox<String>) sortFields[i + 1][j + 1];
 								temp.setEnabled(true);
-								if (temp.getSelectedItem().equals(M_L_OPTIONS[MLCopiesOf]) || temp.getSelectedItem().equals(M_L_OPTIONS[MLElements])) {
+								if (temp.getSelectedItem().equals(M_L_OPTIONS[MLCopiesOf]) || temp.getSelectedItem().equals(M_L_OPTIONS[MLElements])
+										|| temp.getItemAt(0).equals(ALPHA_OPTIONS[0])) {
 									sortFields[i + 1][j + 2].setEnabled(true);
 								}
 							}
+						} else {
+							sortFields[i][j + 1].setEnabled(true);
+							sortFields[i][j + 2].setEnabled(true);
 						}
-					} else {
-						sortFields[i][j + 1].setEnabled(true);
-						sortFields[i][j + 2].setEnabled(true);
-					}
+					} 
 				}
 			} else if (j == 1) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -359,15 +365,13 @@ public class SortDialog extends JDialog {
 						((GroupLayout) panels[i].getLayout()).replace(sortFields[i][j + 1], tempComponent);
 						sortFields[i][j + 1] = tempComponent;
 					} else if (item.equals(M_L_OPTIONS[MLElements])) {
-						sortFields[i][j + 1].setEnabled(true);
-						SortDialogComboBox<String> tempComponent = new SortDialogComboBox<String>(ELEMENT_OPTIONS, i, j);
-						tempComponent.insertItemAt(ELEMENT_OPTIONS_ALT, 0);
-						tempComponent.setSelectedIndex(0);
-						((GroupLayout) panels[i].getLayout()).replace(sortFields[i][j + 1], tempComponent);
-						sortFields[i][j + 1] = tempComponent;
+						populateL3ComboBox(i, ELEMENT_OPTIONS);
+					} else if (item.equals(ALPHA_OPTIONS[AlphaWord]) || item.equals(ALPHA_OPTIONS[AlphaLetter])) {
+						populateL3ComboBox(i, ALPHA_OPTIONS_ORDER);
 					}
 				} else if (e.getStateChange() == ItemEvent.DESELECTED
-						&& (item.equals(M_L_OPTIONS[MLCopiesOf]) || item.equals(M_L_OPTIONS[MLElements]))) {
+						&& (item.equals(M_L_OPTIONS[MLCopiesOf]) || item.equals(M_L_OPTIONS[MLElements]) || item.equals(ALPHA_OPTIONS[AlphaWord]) || item
+								.equals(ALPHA_OPTIONS[AlphaLetter]))) {
 					sortFields[i][j + 1].setEnabled(false);
 				}
 			}
@@ -377,6 +381,17 @@ public class SortDialog extends JDialog {
 		private void setNextLevelOptions(int i, int j, String[] options) {
 			((SortDialogComboBox<String>) sortFields[i][j + 1]).setModel(new DefaultComboBoxModel<String>(options));
 			sortFields[i][j + 2].setEnabled(false);
+		}
+
+		private void populateL3ComboBox(int i, String[] options) {
+			sortFields[i][2].setEnabled(true);
+			SortDialogComboBox<String> tempComponent = new SortDialogComboBox<String>(options, i, 2);
+			if (options[0].equals(ELEMENT_OPTIONS[0])) {
+				tempComponent.insertItemAt(ELEMENT_OPTIONS_ALT, 0);
+				tempComponent.setSelectedIndex(0);
+			}
+			((GroupLayout) panels[i].getLayout()).replace(sortFields[i][2], tempComponent);
+			sortFields[i][2] = tempComponent;
 		}
 
 	}

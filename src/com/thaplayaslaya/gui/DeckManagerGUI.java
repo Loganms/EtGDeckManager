@@ -150,6 +150,7 @@ public class DeckManagerGUI extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			if (currentlySelectedDeck != null) {
 				if (e.getActionCommand().equals("Copy Code")) {
+					System.out.println(getX() + ", " + getY());
 					Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(currentlySelectedDeck.getImportCode()), null);
 				} else if (e.getActionCommand().equals("View Deck")) {
 					BufferedImage img = currentlySelectedDeck.getDeckImage();
@@ -388,6 +389,20 @@ public class DeckManagerGUI extends JFrame {
 			loc.x = loc.x + getWidth() - windowToBeDisplayed.getWidth();
 		} else if (pmod == DeckManagerMenuBar.FLUSH_BOTTOM) {
 			loc.y = loc.y + getHeight() - windowToBeDisplayed.getHeight();
+		}
+
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		
+		if (loc.y < 0){
+			loc.y = 0;
+		} else if (loc.y + windowToBeDisplayed.getHeight() > screenSize.height){
+			loc.y = screenSize.height - windowToBeDisplayed.getHeight();
+		}
+		
+		if (loc.x < 0){
+			loc.x = 0;
+		} else if (loc.x + windowToBeDisplayed.getWidth() > screenSize.width){
+			loc.x = screenSize.width - windowToBeDisplayed.getWidth();
 		}
 
 		return loc;

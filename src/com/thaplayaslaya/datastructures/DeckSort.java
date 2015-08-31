@@ -8,7 +8,8 @@ import java.util.Queue;
 public class DeckSort {
 
 	public static final String[] LEVEL_ONE_OPTIONS = new String[] { "Alpha", "Most", "Least", "Mark", "" };
-	public static final String[] ALPHA_OPTIONS = new String[] { "Abc", "Zyx" };
+	public static final String[] ALPHA_OPTIONS = new String[] { "Word", "First Letter" };
+	public static final String[] ALPHA_OPTIONS_ORDER = new String[] { "Abc", "Zyx" };
 	public static final String[] M_L_OPTIONS = new String[] { "Upgraded", "Copies of", "Cards", "Element" };
 	public static final String[] ELEMENT_OPTIONS = Element.DISPLAY_NAMES;
 
@@ -19,6 +20,9 @@ public class DeckSort {
 	public static final int L1Least = 2;
 	public static final int L1Mark = 3;
 	public static final int L1Empty = 4;
+
+	public static final int AlphaWord = 0;
+	public static final int AlphaLetter = 1;
 
 	public static final int AlphaAbc = 0;
 	public static final int AlphaZyx = 1;
@@ -194,20 +198,25 @@ public class DeckSort {
 				sortOption = sortList.peek();
 				sortList.remove();
 
-				if (sortOption.equals(ALPHA_OPTIONS[AlphaAbc])) {
-					order = 1;
-				} else if (sortOption.equals(ALPHA_OPTIONS[AlphaZyx])) {
-					order = -1;
-				}
-
-				if (sortList.isEmpty()) {
+				if (sortOption.equals(ALPHA_OPTIONS[AlphaWord])) {
+					sortOption = sortList.peek();
+					sortList.remove();
+					if (sortOption.equals(ALPHA_OPTIONS_ORDER[AlphaAbc])) {
+						order = 1;
+					} else if (sortOption.equals(ALPHA_OPTIONS_ORDER[AlphaZyx])) {
+						order = -1;
+					}
 					comparatorList.add(new DeckNameComparator(order));
-				} else {
+				} else if (sortOption.equals(ALPHA_OPTIONS[AlphaLetter])) {
+					sortOption = sortList.peek();
+					sortList.remove();
+					if (sortOption.equals(ALPHA_OPTIONS_ORDER[AlphaAbc])) {
+						order = 1;
+					} else if (sortOption.equals(ALPHA_OPTIONS_ORDER[AlphaZyx])) {
+						order = -1;
+					}
 					comparatorList.add(new DeckFirstLetterComparator(order));
 				}
-
-				// Collections.sort(currentlySelectedDeckBinder.getDecks(), new
-				// DeckNameComparator(order));
 
 			} else if (sortOption.equals(LEVEL_ONE_OPTIONS[L1Most]) || sortOption.equals(LEVEL_ONE_OPTIONS[L1Least])) {
 				if (sortOption.equals(LEVEL_ONE_OPTIONS[L1Most]))
@@ -220,38 +229,31 @@ public class DeckSort {
 
 				if (sortOption.equals(M_L_OPTIONS[MLUpgraded])) {
 					comparatorList.add(new DeckUpgradesComparator(order));
-					// Collections.sort(currentlySelectedDeckBinder.getDecks(),
-					// new DeckUpgradesComparator(order));
+
 				} else if (sortOption.equals(M_L_OPTIONS[MLCopiesOf])) {
 					sortOption = sortList.peek();
 					sortList.remove();
 					comparatorList.add(new DeckCardCopiesComparator(sortOption, order));
-					// Collections.sort(currentlySelectedDeckBinder.getDecks(),
-					// new DeckCardCopiesComparator(sortOption, order));
+
 				} else if (sortOption.equals(M_L_OPTIONS[MLCards])) {
 					comparatorList.add(new DeckSizeComparator(order));
-					// Collections.sort(currentlySelectedDeckBinder.getDecks(),
-					// new DeckSizeComparator(order));
+
 				} else if (sortOption.equals(M_L_OPTIONS[MLElements])) {
 					sortOption = sortList.peek();
 					sortList.remove();
 					if (sortOption.equals(ELEMENT_OPTIONS_ALT)) {
 						comparatorList.add(new DeckNumDiffElementComparator(order));
-						// Collections.sort(currentlySelectedDeckBinder.getDecks(),
-						// new DeckNumDiffElementComparator(order));
+
 					} else {
 						comparatorList.add(new DeckNumCardsOfSameElementComparator(sortOption, order));
-						// Collections.sort(currentlySelectedDeckBinder.getDecks(),
-						// new DeckNumCardsOfSameElementComparator(sortOption,
-						// order));
+
 					}
 				}
 			} else if (sortOption.equals(LEVEL_ONE_OPTIONS[L1Mark])) {
 				sortOption = sortList.peek();
 				sortList.remove();
 				comparatorList.add(new DeckElementComparator(sortOption));
-				// Collections.sort(currentlySelectedDeckBinder.getDecks(), new
-				// DeckElementComparator(sortOption));
+
 			}
 		} else {
 

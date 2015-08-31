@@ -1,6 +1,6 @@
 {
   "VERSION_ID": "v1.0.5",
-  "preferredDeckImageLocation": "TOP",
+  "preferredDeckImageLocation": "BOTTOM",
   "preferredDeckImageLocationMod": "CENTER",
   "deckBinders": [
     {
@@ -95,25 +95,6 @@
           "importCode": "5lk 5lk 5lk 7hi 7hi 7hi 7jp 7jp 7jp 7jp 7jp 7jp 808 808 808 808 808 808 808 808 808 80e 80e 80i 80i 80i 80i 80m 80m 80m 8pp"
         },
         {
-          "name": "PVP GrabbowUNUP",
-          "style": {
-            "foregroundColor": {
-              "value": -13421773,
-              "falpha": 0.0
-            },
-            "backgroundColor": {
-              "value": -1118482,
-              "falpha": 0.0
-            },
-            "isBold": true,
-            "isItalic": false,
-            "isUnderline": false,
-            "isStrikethrough": false
-          },
-          "importCode": "4sa 4sa 4sa 4sa 4vh 4vh 4vj 4vj 4vj 4vj 4vj 4vj 52q 52q 55q 55q 590 590 590 590 590 5c1 5c1 5f6 5f6 5i7 5og 5og 61q 61q 8pm",
-          "notes": ""
-        },
-        {
           "name": "PDials",
           "style": {
             "foregroundColor": {
@@ -150,6 +131,25 @@
           "importCode": "7jp 7jp 7jp 7jp 7jp 7jp 7ju 7ju 7k4 7k4 7k4 7k4 808 808 808 808 808 80e 80e 80e 80i 80i 80i 80i 80i 81q 81q 81q 81q 81q 8pu"
         },
         {
+          "name": "PVP GrabbowUNUP",
+          "style": {
+            "foregroundColor": {
+              "value": -13421773,
+              "falpha": 0.0
+            },
+            "backgroundColor": {
+              "value": -1118482,
+              "falpha": 0.0
+            },
+            "isBold": true,
+            "isItalic": false,
+            "isUnderline": false,
+            "isStrikethrough": false
+          },
+          "importCode": "4sa 4sa 4sa 4sa 4vh 4vh 4vj 4vj 4vj 4vj 4vj 4vj 52q 52q 55q 55q 590 590 590 590 590 5c1 5c1 5f6 5f6 5i7 5og 5og 61q 61q 8pm",
+          "notes": ""
+        },
+        {
           "name": "Voodoo Bravery",
           "style": {
             "foregroundColor": {
@@ -166,7 +166,7 @@
             "isStrikethrough": false
           },
           "importCode": "6u3",
-          "notes": "hi there mister me."
+          "notes": "hi there mister me. 123\nlmnop\nhi hi hi\nno no no\nyes yes yes\n"
         }
       ]
     },
