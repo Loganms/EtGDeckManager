@@ -355,7 +355,7 @@ public class SortDialog extends JDialog {
 							sortFields[i][j + 1].setEnabled(true);
 							sortFields[i][j + 2].setEnabled(true);
 						}
-					} 
+					}
 				}
 			} else if (j == 1) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {

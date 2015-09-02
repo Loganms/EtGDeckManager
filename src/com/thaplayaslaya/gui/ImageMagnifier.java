@@ -43,12 +43,15 @@ public class ImageMagnifier extends JWindow {
 		contentPane.add(label);
 
 		instance.setLocation(DeckManager.getDeckManagerGUI().getSmartExternalWindowLocation(instance));
+
+		// Check if image will obscure where the mouse is hovering
 		Rectangle r1 = new Rectangle(instance.getX(), instance.getY(), instance.getWidth(), instance.getHeight());
 		if (r1.contains(MouseInfo.getPointerInfo().getLocation())) {
 			JOptionPane.showMessageDialog(DeckManager.getDeckManagerGUI(),
 					"There is not enough screen space to show the preview image.\nChange your View options or try moving the window.", "Error",
 					JOptionPane.ERROR_MESSAGE);
 		}
+
 		instance.setVisible(true);
 	}
 

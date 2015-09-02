@@ -8,6 +8,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
 import javax.swing.AbstractListModel;
+import javax.swing.DefaultListSelectionModel;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 
@@ -61,6 +62,8 @@ public class DeckBinderExportDialog extends JDialog {
 		jList1 = new javax.swing.JList();
 		jComboBox1 = new javax.swing.JComboBox();
 		jLabel1 = new javax.swing.JLabel();
+
+		jList1.setToolTipText("Select all decks you want exported");
 
 		javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
 		jPanel2.setLayout(jPanel2Layout);
@@ -175,6 +178,44 @@ public class DeckBinderExportDialog extends JDialog {
 				return decks[i];
 			}
 		});
+
+		jList1.setSelectionModel(new DefaultListSelectionModel() {
+			private static final long serialVersionUID = 1L;
+
+			private boolean mGestureStarted;
+
+			@Override
+			public void setSelectionInterval(int index0, int index1) {
+				// Toggle only one element while the user is dragging the mouse
+				if (!mGestureStarted) {
+					if (isSelectedIndex(index0)) {
+						super.removeSelectionInterval(index0, index1);
+					} else {
+						if (getSelectionMode() == SINGLE_SELECTION) {
+							super.setSelectionInterval(index0, index1);
+						} else {
+							super.addSelectionInterval(index0, index1);
+						}
+					}
+				}
+
+				// Disable toggling till the adjusting is over, or keep it
+				// enabled in case setSelectionInterval was called directly.
+				mGestureStarted = getValueIsAdjusting();
+			}
+
+			@Override
+			public void setValueIsAdjusting(boolean isAdjusting) {
+				super.setValueIsAdjusting(isAdjusting);
+
+				if (isAdjusting == false) {
+					// Enable toggling
+					mGestureStarted = false;
+				}
+			}
+
+		});
+
 		jList1.setLayoutOrientation(javax.swing.JList.VERTICAL_WRAP);
 		jList1.setVisibleRowCount(3);
 		jScrollPane1.setViewportView(jList1);
@@ -238,6 +279,15 @@ public class DeckBinderExportDialog extends JDialog {
 
 	private void actionHandler(java.awt.event.ActionEvent evt) {
 		if (((JCheckBox) evt.getSource()).isSelected()) {
+			// if any element is selected
+			if (jList1.getSelectedIndex() != -1) {
+				// select that element again to deselect it
+				int[] indecies = jList1.getSelectedIndices();
+				for (int i = 0; i < indecies.length; i++) {
+					jList1.setSelectedIndex(indecies[i]);
+				}
+			}
+			// select all elements
 			jList1.setSelectionInterval(0, jList1.getModel().getSize() - 1);
 			jList1.setEnabled(false);
 		} else {

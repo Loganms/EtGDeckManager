@@ -389,19 +389,20 @@ public class DeckManagerGUI extends JFrame {
 		} else if (pmod == DeckManagerMenuBar.FLUSH_BOTTOM) {
 			loc.y = loc.y + getHeight() - windowToBeDisplayed.getHeight();
 		}
-		
-		//TODO: window will always appear on main monitor. Fix for multi-monitor setups.
+
+		// TODO: window will always appear on main monitor. Fix for
+		// multi-monitor setups.
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		
-		if (loc.y < 0){
+
+		if (loc.y < 0) {
 			loc.y = 0;
-		} else if (loc.y + windowToBeDisplayed.getHeight() > screenSize.height){
+		} else if (loc.y + windowToBeDisplayed.getHeight() > screenSize.height) {
 			loc.y = screenSize.height - windowToBeDisplayed.getHeight();
 		}
-		
-		if (loc.x < 0){
+
+		if (loc.x < 0) {
 			loc.x = 0;
-		} else if (loc.x + windowToBeDisplayed.getWidth() > screenSize.width){
+		} else if (loc.x + windowToBeDisplayed.getWidth() > screenSize.width) {
 			loc.x = screenSize.width - windowToBeDisplayed.getWidth();
 		}
 

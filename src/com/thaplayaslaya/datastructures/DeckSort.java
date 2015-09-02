@@ -8,9 +8,9 @@ import java.util.Queue;
 public class DeckSort {
 
 	public static final String[] LEVEL_ONE_OPTIONS = new String[] { "Alpha", "Most", "Least", "Mark", "" };
-	public static final String[] ALPHA_OPTIONS = new String[] { "Word", "First Letter" };
+	public static final String[] ALPHA_OPTIONS = new String[] { "Word", "1st Letter" };
 	public static final String[] ALPHA_OPTIONS_ORDER = new String[] { "Abc", "Zyx" };
-	public static final String[] M_L_OPTIONS = new String[] { "Upgraded", "Copies of", "Cards", "Element" };
+	public static final String[] M_L_OPTIONS = new String[] { "Upgraded", "Copies Of", "Cards", "Element" };
 	public static final String[] ELEMENT_OPTIONS = Element.DISPLAY_NAMES;
 
 	public static final String ELEMENT_OPTIONS_ALT = "Variety";
