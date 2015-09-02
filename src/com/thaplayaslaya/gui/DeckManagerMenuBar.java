@@ -34,6 +34,7 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
 import com.thaplayaslaya.DeckManager;
+import com.thaplayaslaya.datastructures.DeckBinder;
 import com.thaplayaslaya.datastructures.OperationType;
 import com.thaplayaslaya.gui.dialogs.CaseExportDialog;
 import com.thaplayaslaya.gui.dialogs.CustomDialog;
@@ -48,9 +49,8 @@ public class DeckManagerMenuBar extends JMenuBar {
 
 	private JMenu fileMenu;
 	private JMenu newMenu, editMenu;
-	private JMenuItem newDeckBinderOption;
 	private MenuActionListener menuActionListener;
-	private String newDeckBinderOptionLabel = "Deck Binder";
+	private String newDeckBinderOptionLabel = "Deck Binder", newDeckOptionLabel = "Deck";
 
 	private JMenu viewMenu;
 	private JMenu deckImagesMenu;
@@ -75,14 +75,20 @@ public class DeckManagerMenuBar extends JMenuBar {
 		newMenu = new JMenu("New");
 		newMenu.setMnemonic(KeyEvent.VK_N);
 
-		newDeckBinderOption = new JMenuItem(newDeckBinderOptionLabel);
-		newDeckBinderOption.setMnemonic(KeyEvent.VK_B);
-		newDeckBinderOption.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B, InputEvent.CTRL_DOWN_MASK));
-		newDeckBinderOption.setActionCommand(newDeckBinderOptionLabel);
-
-		newDeckBinderOption.addActionListener(menuActionListener);
-		newMenu.add(newDeckBinderOption);
+		createQuickMenuItem(newDeckBinderOptionLabel, KeyEvent.VK_B, KeyEvent.VK_B, newMenu);
+		createQuickMenuItem(newDeckOptionLabel, KeyEvent.VK_D, KeyEvent.VK_D, newMenu);
+		/*
+		 * newDeckBinderOption = new JMenuItem(newDeckBinderOptionLabel);
+		 * newDeckBinderOption.setMnemonic(KeyEvent.VK_B);
+		 * newDeckBinderOption.setAccelerator
+		 * (KeyStroke.getKeyStroke(KeyEvent.VK_B, InputEvent.CTRL_DOWN_MASK));
+		 * newDeckBinderOption.setActionCommand(newDeckBinderOptionLabel);
+		 * 
+		 * newDeckBinderOption.addActionListener(menuActionListener);
+		 * newMenu.add(newDeckBinderOption);
+		 */
 		fileMenu.add(newMenu);
+
 		editMenu = new JMenu("Edit");
 		editMenu.setMnemonic(KeyEvent.VK_E);
 
@@ -189,6 +195,14 @@ public class DeckManagerMenuBar extends JMenuBar {
 			System.out.println(button);
 			if (button.equals(newDeckBinderOptionLabel)) {
 				DeckManager.cfg.getCase().addNewDeckBinder();
+			} else if (button.equals(newDeckOptionLabel)) {
+				DeckBinder db = DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder();
+				if(db != null){
+					db.addNewDeck();
+				} else {
+					JOptionPane.showMessageDialog(DeckManager.getDeckManagerGUI(), 
+							"Please choose a Deck Binder first.", "Try again", JOptionPane.ERROR_MESSAGE);
+				}
 			} else if (button.equals("Selected Deck")) {
 				DeckManagerGUI dmgui = DeckManager.getDeckManagerGUI();
 				if (dmgui.getOraclePanel().isShowing()) {

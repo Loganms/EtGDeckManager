@@ -7,11 +7,11 @@
       "name": "Gods",
       "style": {
         "foregroundColor": {
-          "value": -13421773,
+          "value": -16738048,
           "falpha": 0.0
         },
         "backgroundColor": {
-          "value": -1118482,
+          "value": -6684775,
           "falpha": 0.0
         },
         "isBold": true,
@@ -21,22 +21,23 @@
       },
       "decks": [
         {
-          "name": "PDials",
+          "name": "GravityBow",
           "style": {
             "foregroundColor": {
-              "value": -205,
+              "value": -13421773,
               "falpha": 0.0
             },
             "backgroundColor": {
-              "value": -6749953,
+              "value": -1118482,
               "falpha": 0.0
             },
             "isBold": true,
             "isItalic": false,
-            "isUnderline": true,
+            "isUnderline": false,
             "isStrikethrough": false
           },
-          "importCode": "710 710 710 710 718 718 718 718 718 718 71a 71a 71u 71u 71u 71u 71u 71u 72i 72i 72i 7km 7km 7km 7q9 7q9 7q9 7q9 7q9 7q9 8pq"
+          "importCode": "4vj 4vj 4vj 4vj 4vj 4vj 5c1 5if 6qq 6qq 6qq 6qq 6qq 6u1 71a 74b 74d 74d 74e 752 752 752 77g 77g 7dr 7n7 7n7 7q4 7tb 80a 8pl",
+          "notes": ""
         },
         {
           "name": "afffffffff",
@@ -58,41 +59,23 @@
           "notes": ""
         },
         {
-          "name": "GravityBow",
+          "name": "Voodoo Bravery",
           "style": {
             "foregroundColor": {
-              "value": -13421773,
+              "value": -26368,
               "falpha": 0.0
             },
             "backgroundColor": {
-              "value": -1118482,
+              "value": -10066330,
               "falpha": 0.0
             },
             "isBold": true,
             "isItalic": false,
-            "isUnderline": false,
+            "isUnderline": true,
             "isStrikethrough": false
           },
-          "importCode": "4vj 4vj 4vj 4vj 4vj 4vj 5c1 5if 6qq 6qq 6qq 6qq 6qq 6u1 71a 74b 74d 74d 74e 752 752 752 77g 77g 7dr 7n7 7n7 7q4 7tb 80a 8pl",
-          "notes": ""
-        },
-        {
-          "name": "Limitless Speed",
-          "style": {
-            "foregroundColor": {
-              "value": -1,
-              "falpha": 0.0
-            },
-            "backgroundColor": {
-              "value": -13382401,
-              "falpha": 0.0
-            },
-            "isBold": true,
-            "isItalic": false,
-            "isUnderline": false,
-            "isStrikethrough": true
-          },
-          "importCode": "6qq 6qq 6qq 6qq 6qq 6qq 6qq 74a 7dr 7dr 7jq 7la 7la 7la 7n9 7q5 7q5 7q5 7q5 7q5 7ri 7ri 7ri 7ri 80b 80b 80b 80d 80d 80d 80d 80d 80d 8pu"
+          "importCode": "6u3",
+          "notes": "hi there mister me. 123\nlmnop\nhi hi hi\nno no no\nyes yes yes\n"
         },
         {
           "name": "NOT FG OTK",
@@ -113,6 +96,24 @@
           "importCode": "5lk 5lk 5lk 7hi 7hi 7hi 7jp 7jp 7jp 7jp 7jp 7jp 808 808 808 808 808 808 808 808 808 80e 80e 80i 80i 80i 80i 80m 80m 80m 8pp"
         },
         {
+          "name": "PDials",
+          "style": {
+            "foregroundColor": {
+              "value": -205,
+              "falpha": 0.0
+            },
+            "backgroundColor": {
+              "value": -6749953,
+              "falpha": 0.0
+            },
+            "isBold": true,
+            "isItalic": false,
+            "isUnderline": true,
+            "isStrikethrough": false
+          },
+          "importCode": "710 710 710 710 718 718 718 718 718 718 71a 71a 71u 71u 71u 71u 71u 71u 72i 72i 72i 7km 7km 7km 7q9 7q9 7q9 7q9 7q9 7q9 8pq"
+        },
+        {
           "name": "Perpetual Light",
           "style": {
             "foregroundColor": {
@@ -129,6 +130,24 @@
             "isStrikethrough": false
           },
           "importCode": "7jp 7jp 7jp 7jp 7jp 7jp 7ju 7ju 7k4 7k4 7k4 7k4 808 808 808 808 808 80e 80e 80e 80i 80i 80i 80i 80i 81q 81q 81q 81q 81q 8pu"
+        },
+        {
+          "name": "Limitless Speed",
+          "style": {
+            "foregroundColor": {
+              "value": -1,
+              "falpha": 0.0
+            },
+            "backgroundColor": {
+              "value": -13382401,
+              "falpha": 0.0
+            },
+            "isBold": true,
+            "isItalic": false,
+            "isUnderline": false,
+            "isStrikethrough": true
+          },
+          "importCode": "6qq 6qq 6qq 6qq 6qq 6qq 6qq 74a 7dr 7dr 7jq 7la 7la 7la 7n9 7q5 7q5 7q5 7q5 7q5 7ri 7ri 7ri 7ri 80b 80b 80b 80d 80d 80d 80d 80d 80d 8pu"
         },
         {
           "name": "PVP GrabbowUNUP",
@@ -148,25 +167,6 @@
           },
           "importCode": "4sa 4sa 4sa 4sa 4vh 4vh 4vj 4vj 4vj 4vj 4vj 4vj 52q 52q 55q 55q 590 590 590 590 590 5c1 5c1 5f6 5f6 5i7 5og 5og 61q 61q 8pm",
           "notes": ""
-        },
-        {
-          "name": "Voodoo Bravery",
-          "style": {
-            "foregroundColor": {
-              "value": -26368,
-              "falpha": 0.0
-            },
-            "backgroundColor": {
-              "value": -10066330,
-              "falpha": 0.0
-            },
-            "isBold": true,
-            "isItalic": false,
-            "isUnderline": true,
-            "isStrikethrough": false
-          },
-          "importCode": "6u3",
-          "notes": "hi there mister me. 123\nlmnop\nhi hi hi\nno no no\nyes yes yes\n"
         }
       ]
     },
@@ -374,6 +374,24 @@
           "notes": ""
         }
       ]
+    },
+    {
+      "name": "",
+      "style": {
+        "foregroundColor": {
+          "value": -13421773,
+          "falpha": 0.0
+        },
+        "backgroundColor": {
+          "value": -1118482,
+          "falpha": 0.0
+        },
+        "isBold": true,
+        "isItalic": false,
+        "isUnderline": false,
+        "isStrikethrough": false
+      },
+      "decks": []
     }
   ],
   "customFalseGodCounters": {

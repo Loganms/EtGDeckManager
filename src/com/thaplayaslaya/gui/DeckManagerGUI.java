@@ -49,7 +49,7 @@ public class DeckManagerGUI extends JFrame {
 	private static final long serialVersionUID = 3686286211660935696L;
 	private static final Dimension MINIMUM_CONTENT_SIZE = new Dimension(364, 214);
 	private static final String NO_DECK_SELECTED = "[No Deck Selected]";
-	private static final String windowName = "EtG Deck Manager", upArrow = "UpArrow", downArrow = "DownArrow", newDeck = "newDeck";
+	private static final String windowName = "EtG Deck Manager", upArrow = "UpArrow", downArrow = "DownArrow";
 	private static final JButton[] rightPanelButtons = {
 			new JButton("Copy Code"),
 			new JButton("View Deck"),
@@ -220,8 +220,6 @@ public class DeckManagerGUI extends JFrame {
 					DeckManager.getCase().getDeckBinders().add(index + 1, db);
 
 					casePanel.revalidate();
-				} else if (actionCommand.equals(newDeck)) {
-					DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder().addNewDeck();
 				}
 			} else {
 				System.out.println("HotkeyAction fails.");
@@ -253,11 +251,9 @@ public class DeckManagerGUI extends JFrame {
 		JRootPane p = this.getRootPane();
 		p.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, InputEvent.CTRL_DOWN_MASK), upArrow);
 		p.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, InputEvent.CTRL_DOWN_MASK), downArrow);
-		p.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_D, InputEvent.CTRL_DOWN_MASK), newDeck);
-
+		
 		p.getActionMap().put(upArrow, new HotkeyAction(upArrow));
 		p.getActionMap().put(downArrow, new HotkeyAction(downArrow));
-		p.getActionMap().put(newDeck, new HotkeyAction(newDeck));
 	}
 
 	private void addAButton(JButton button, Container container) {
