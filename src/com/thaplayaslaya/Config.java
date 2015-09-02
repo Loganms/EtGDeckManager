@@ -67,7 +67,7 @@ public class Config {
 				briefcase = new Case();
 			}
 
-			if (null == briefcase.VERSION_ID || !briefcase.VERSION_ID.equals(DeckManager.VERSION_ID)) {
+			if (null == briefcase.VERSION_ID || briefcase.VERSION_ID.compareTo(DeckManager.VERSION_ID) < 0) {
 				JOptionPane.showMessageDialog(new JFrame(), "The version of your save data does not match the version of your Deck Manager.\n"
 						+ "You will now be updated from " + briefcase.VERSION_ID + " to " + DeckManager.VERSION_ID + ".", "Deck Manager Update",
 						JOptionPane.INFORMATION_MESSAGE);
