@@ -16,10 +16,6 @@ public class DeckBinder implements IStylish {
 	private transient DeckBinderPanel dBP;
 	private ArrayList<Deck> decks = new ArrayList<Deck>();
 
-	public DeckBinder() {
-
-	}
-
 	// If this constructor is called, it is because
 	// the user made a new DeckBinder.
 	public DeckBinder(String name) {

@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.font.TextAttribute;
 import java.util.Map;
 
@@ -111,7 +113,16 @@ public abstract class DeckBinderDialog extends JDialog {
 		listOrderActionListener = new ListOrderActionListener();
 		appearanceActionListener = new AppearanceActionListener(this, deckBinderPanel1.getdBName(), newDeckBinder);
 
-		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+
+		addWindowListener(new WindowAdapter() {
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+				cancelAction();
+			}
+
+		});
 
 		if (newDeckBinder.getDecks().isEmpty()) {
 			Style.applyStyle(newComboBox, Deck.DEFAULT.getStyle());

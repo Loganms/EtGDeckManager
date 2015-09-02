@@ -27,7 +27,7 @@ public class DeckBinderAddDialog extends DeckBinderDialog {
 	protected boolean validateDone() {
 		boolean b = false;
 
-		if (1 > jTextField1.getText().length()) {
+		if (jTextField1.getText().length() < 1) {
 			JOptionPane.showMessageDialog(DeckBinderAddDialog.this, "The name field is blank. Please enter a name.", "Try again",
 					JOptionPane.ERROR_MESSAGE);
 			jTextField1.requestFocusInWindow();
@@ -40,8 +40,9 @@ public class DeckBinderAddDialog extends DeckBinderDialog {
 			jTextField1.requestFocusInWindow();
 			return b;
 		}
-
+		
 		b = true;
+		System.out.println("Validation Result: " + b);
 		return b;
 	}
 
@@ -53,6 +54,12 @@ public class DeckBinderAddDialog extends DeckBinderDialog {
 		DeckManager.getDeckManagerGUI().getCasePanel().add(DeckManager.getDeckManagerGUI().getDeckBinderPanels().getLast());
 		DeckManager.getDeckManagerGUI().getCasePanel().revalidate();
 		dispose();
+	}
+	
+	@Override
+	protected void cancelAction() {
+		DeckManager.getCase().removeDeckBinder(originalDeckBinder);
+		super.cancelAction();
 	}
 
 }

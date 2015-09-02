@@ -77,16 +77,7 @@ public class DeckManagerMenuBar extends JMenuBar {
 
 		createQuickMenuItem(newDeckBinderOptionLabel, KeyEvent.VK_B, KeyEvent.VK_B, newMenu);
 		createQuickMenuItem(newDeckOptionLabel, KeyEvent.VK_D, KeyEvent.VK_D, newMenu);
-		/*
-		 * newDeckBinderOption = new JMenuItem(newDeckBinderOptionLabel);
-		 * newDeckBinderOption.setMnemonic(KeyEvent.VK_B);
-		 * newDeckBinderOption.setAccelerator
-		 * (KeyStroke.getKeyStroke(KeyEvent.VK_B, InputEvent.CTRL_DOWN_MASK));
-		 * newDeckBinderOption.setActionCommand(newDeckBinderOptionLabel);
-		 * 
-		 * newDeckBinderOption.addActionListener(menuActionListener);
-		 * newMenu.add(newDeckBinderOption);
-		 */
+		
 		fileMenu.add(newMenu);
 
 		editMenu = new JMenu("Edit");
