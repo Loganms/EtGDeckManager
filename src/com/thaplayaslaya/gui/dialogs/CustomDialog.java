@@ -21,7 +21,6 @@ import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -33,9 +32,7 @@ import javax.swing.undo.CannotUndoException;
 import javax.swing.undo.UndoManager;
 
 import com.thaplayaslaya.DeckManager;
-import com.thaplayaslaya.datastructures.Case;
 import com.thaplayaslaya.datastructures.Deck;
-import com.thaplayaslaya.datastructures.DeckBinder;
 import com.thaplayaslaya.datastructures.OperationType;
 import com.thaplayaslaya.gui.CounterDeckLabelImage;
 import com.thaplayaslaya.gui.ImageMagnifier;
@@ -53,7 +50,6 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 	private JTextField nameTextField;
 	private JTabbedPane tabPane;
 	private JTextArea importCodeTextArea;
-	private JTextArea deckNotesTextArea;
 	private JOptionPane optionPane;
 	private OperationType typeOfOperation;
 	private UndoManager undoManager;
@@ -78,48 +74,8 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 		String msgString1 = null;
 
 		nameTextField = new JTextField(10);
-		if (typeOfOperation == OperationType.ADD_NEW_DECK || typeOfOperation == OperationType.EDIT_DECK) {
-			undoManager = new UndoManager();
-			importCodeTextArea = new JTextArea(7, 20);
-			tabPane = new JTabbedPane();
-
-			initTextArea(importCodeTextArea);
-			importCodeTextArea.setMinimumSize(new Dimension(300, 100));
-			tabPane.addTab("Code", importCodeTextArea);
-			deckNotesTextArea = new JTextArea();
-			initTextArea(deckNotesTextArea);
-			JScrollPane scroll = new JScrollPane(deckNotesTextArea);
-			scroll.setBorder(BorderFactory.createEmptyBorder());
-			tabPane.addTab("Notes", scroll);
-		}
 
 		switch (typeOfOperation) {
-		case ADD_NEW_DECK:
-			setTitle("New Deck");
-			msgString1 = "Enter a name for the deck.";
-			// msgString2 = "Enter an import code or leave blank.";
-			break;
-		case ADD_NEW_DECKBINDER:
-			setTitle("New Deck Binder");
-			msgString1 = "Enter a name for the deck binder.";
-			break;
-		case RENAME_DECKBINDER:
-			setTitle("Rename Deck Binder");
-			msgString1 = "Enter a new name for this deck binder.";
-			nameTextField.setText(getExtraInfo());
-			nameTextField.selectAll();
-			break;
-		case EDIT_DECK:
-			setTitle("Edit Deck");
-			msgString1 = "Edit this deck's name.";
-			Deck d = DeckManager.getDeckManagerGUI().getCurrentlySelectedDeck();
-			// TODO: setting text after undomanager is installed
-			// creates the opportunity to undo the setText() method.
-			importCodeTextArea.setText(d.getImportCode());
-			deckNotesTextArea.setText(d.getNotes());
-			nameTextField.setText(d.getName());
-			nameTextField.selectAll();
-			break;
 		case ADD_NEW_FG_COUNTER_DECK:
 			setTitle("New Custom Counter");
 			msgString1 = "Enter a properly formatted deck code.";
@@ -223,95 +179,10 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 
 			typedText = nameTextField.getText();
 
-			boolean nameTaken;
-			boolean nameIsSame;
-
 			if (btnString1.equals(value)) {
 				if (typedText.length() > 0 || getTypeOfOperation().equals(OperationType.ADD_NEW_FG_COUNTER_DECK)
 						|| getTypeOfOperation().equals(OperationType.EDIT_FG_COUNTER_DECK)) {
 					switch (getTypeOfOperation()) {
-					case ADD_NEW_DECK:
-						DeckBinder db = DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder();
-
-						if (db != null) {
-							if (!db.containsDeck(typedText)) {
-								Deck newDeck = new Deck();
-								newDeck.setName(typedText);
-								newDeck.setImportCode(importCodeTextArea.getText());
-								newDeck.setNotes(deckNotesTextArea.getText());
-								db.addDeck(newDeck);
-								db.getDeckBinderPanel().getComboBox().setSelectedItem(newDeck);
-								exit();
-							} else {
-								JOptionPane.showMessageDialog(this, "Sorry, \"" + typedText + "\" " + "already exists in this deck binder.\n"
-										+ "Please enter a different name.", "Try again", JOptionPane.ERROR_MESSAGE);
-								typedText = null;
-								nameTextField.requestFocusInWindow();
-							}
-						} else {
-							System.out.println("CustomDialog class: the DB, " + db + " is null.");
-						}
-
-						break;
-
-					case ADD_NEW_DECKBINDER:
-						Case briefcase = DeckManager.cfg.getCase();
-
-						if (!briefcase.containsDeckBinder(typedText)) {
-							new DeckBinder(typedText);
-							// TODO: should have a function to do this for me.
-							DeckManager.getDeckManagerGUI().getCasePanel().add(DeckManager.getDeckManagerGUI().getDeckBinderPanels().getLast());
-							DeckManager.getDeckManagerGUI().getCasePanel().revalidate();
-							exit();
-						} else {
-							JOptionPane.showMessageDialog(this, "Sorry, \"" + typedText + "\" " + "already exists as a deck binder.\n"
-									+ "Please enter a different name.", "Try again", JOptionPane.ERROR_MESSAGE);
-							typedText = null;
-							nameTextField.requestFocusInWindow();
-						}
-						break;
-					case RENAME_DECKBINDER:
-						DeckBinder oldDB = DeckManager.getCase().getDeckBinder(getExtraInfo());
-						nameTaken = DeckManager.getCase().containsDeckBinder(typedText);
-						nameIsSame = typedText.equals(oldDB.getName());
-
-						if (!nameIsSame && !nameTaken) {
-							oldDB.setName(typedText);
-							exit();
-						} else if (!nameIsSame && nameTaken) {
-							JOptionPane.showMessageDialog(this, "Sorry, \"" + typedText + "\" " + "already exists as a deck binder.\n"
-									+ "Please enter a different name.", "Try again", JOptionPane.ERROR_MESSAGE);
-							typedText = null;
-							nameTextField.requestFocusInWindow();
-						}
-						break;
-					case EDIT_DECK:
-						Deck oldDeck = DeckManager.getDeckManagerGUI().getCurrentlySelectedDeck();
-						nameTaken = DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder().containsDeck(typedText);
-						nameIsSame = typedText.equals(oldDeck.getName());
-
-						if (nameTaken && nameIsSame) {
-							// Then I know the name of the deck has not been
-							// changed.
-							oldDeck.setImportCode(importCodeTextArea.getText());
-							oldDeck.setNotes(deckNotesTextArea.getText());
-							exit();
-						} else if (!nameTaken && !nameIsSame) {
-							// Then I know the name has been changed and is
-							// valid.
-							oldDeck.setName(typedText);
-							oldDeck.setImportCode(importCodeTextArea.getText());
-							oldDeck.setNotes(deckNotesTextArea.getText());
-							DeckManager.getDeckManagerGUI().setCurrentlySelectedDeck(oldDeck);
-							exit();
-						} else if (nameTaken && !nameIsSame) {
-							// Then this name is already in use.
-							JOptionPane.showMessageDialog(this, "Sorry, \"" + typedText + "\" " + "already exists in this deck binder.\n"
-									+ "Please enter a different name.", "Try again", JOptionPane.ERROR_MESSAGE);
-							typedText = null;
-							nameTextField.requestFocusInWindow();
-						}
-						break;
 					case ADD_NEW_FG_COUNTER_DECK:
 						if (importCodeTextArea.getText().length() > 1) {
 							Deck newDeck = new Deck();
@@ -419,18 +290,6 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 
 	public void escapeTheWindow() {
 		typedText = null;
-		// need if statement to take focus off of "add new deck" option upon
-		// window closing.
-		if (getTypeOfOperation().equals(OperationType.ADD_NEW_DECK)) {
-			DeckBinder db = DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder();
-			db.getDeckBinderPanel().getComboBox().setSelectedIndex(0);
-			// For the case where only "add new deck" is left in the DBP
-			if (db.getDecks().isEmpty()) {
-				db.getDeckBinderPanel().getComboBox().setFocusable(false);
-				db.getDeckBinderPanel().getComboBox().setFocusable(true);
-				db.getDeckBinderPanel().revalidate();
-			}
-		}
 		ImageMagnifier.cleanInstance();
 		exit();
 	}

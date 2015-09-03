@@ -41,7 +41,6 @@ import javax.swing.WindowConstants;
 import com.thaplayaslaya.DeckManager;
 import com.thaplayaslaya.datastructures.Deck;
 import com.thaplayaslaya.datastructures.DeckBinder;
-import com.thaplayaslaya.datastructures.OperationType;
 import com.thaplayaslaya.gui.dialogs.DeckEditDialog;
 
 public class DeckManagerGUI extends JFrame {
@@ -53,7 +52,7 @@ public class DeckManagerGUI extends JFrame {
 	private static final JButton[] rightPanelButtons = {
 			new JButton("Copy Code"),
 			new JButton("View Deck"),
-			new JButton(OperationType.EDIT_DECK.getText()),
+			new JButton("Edit Deck"),
 			new JButton("Delete") };
 
 	private DeckManagerMenuBar menuBar;
@@ -107,7 +106,7 @@ public class DeckManagerGUI extends JFrame {
 		String[] rightPanelButtonsToolTips = {
 				"Copy this deck's import code to your clipboard",
 				"Display an image of this deck in a separate window",
-				"Edit this deck's name and import code",
+				"Edit this deck's name, import code, and style",
 				"Delete this deck" };
 
 		rightPanel.setLayout(new BorderLayout());
@@ -165,7 +164,7 @@ public class DeckManagerGUI extends JFrame {
 								"A deck image could not be created from " + currentlySelectedDeck.getName() + "'s import code.", "Error",
 								JOptionPane.ERROR_MESSAGE);
 					}
-				} else if (e.getActionCommand().equals(OperationType.EDIT_DECK.getText())) {
+				} else if (e.getActionCommand().equals("Edit Deck")) {
 					new DeckEditDialog(currentlySelectedDeck);
 				}
 
