@@ -40,7 +40,7 @@ public class DeckBinderAddDialog extends DeckBinderDialog {
 			jTextField1.requestFocusInWindow();
 			return b;
 		}
-		
+
 		b = true;
 		System.out.println("Validation Result: " + b);
 		return b;
@@ -55,7 +55,7 @@ public class DeckBinderAddDialog extends DeckBinderDialog {
 		DeckManager.getDeckManagerGUI().getCasePanel().revalidate();
 		dispose();
 	}
-	
+
 	@Override
 	protected void cancelAction() {
 		DeckManager.getCase().removeDeckBinder(originalDeckBinder);

@@ -36,14 +36,14 @@ public class Case {
 
 	public void removeDeckBinder(DeckBinder deckBinder) {
 		DeckManagerGUI dmg = DeckManager.getDeckManagerGUI();
-		
+
 		if (DeckManager.getCase().getDeckBinder(deckBinder.getName()).getDecks().contains(dmg.getCurrentlySelectedDeck())) {
 			dmg.setCurrentlySelectedDeck(null);
 		}
-		
+
 		deckBinders.remove(deckBinder);
 		deckBinder.delete(deckBinder);
-		
+
 		dmg.getCasePanel().revalidate();
 	}
 

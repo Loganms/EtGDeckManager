@@ -244,10 +244,14 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 		@Override
 		public void itemStateChanged(ItemEvent e) {
 
-			Deck deck = ((Deck) e.getItem());
-			System.out.println("Applying style to " + deck.getName() + ", baby");
-			Style.applyStyle(comboBox, deck.getStyle());
-			comboBox.transferFocusUpCycle();
+			if (e.getStateChange() == ItemEvent.SELECTED) {
+				Deck deck = ((Deck) e.getItem());
+				if (deck != Deck.DEFAULT) {
+					System.out.println("Applying style to " + deck.getName() + "[DeckBinderPanel:250]");
+					Style.applyStyle(comboBox, deck.getStyle());
+					comboBox.transferFocusUpCycle();
+				}
+			}
 
 		}
 

@@ -77,7 +77,7 @@ public class DeckManagerMenuBar extends JMenuBar {
 
 		createQuickMenuItem(newDeckBinderOptionLabel, KeyEvent.VK_B, KeyEvent.VK_B, newMenu);
 		createQuickMenuItem(newDeckOptionLabel, KeyEvent.VK_D, KeyEvent.VK_D, newMenu);
-		
+
 		fileMenu.add(newMenu);
 
 		editMenu = new JMenu("Edit");
@@ -188,11 +188,11 @@ public class DeckManagerMenuBar extends JMenuBar {
 				DeckManager.cfg.getCase().addNewDeckBinder();
 			} else if (button.equals(newDeckOptionLabel)) {
 				DeckBinder db = DeckManager.getDeckManagerGUI().getCurrentlySelectedDeckBinder();
-				if(db != null){
+				if (db != null) {
 					db.addNewDeck();
 				} else {
-					JOptionPane.showMessageDialog(DeckManager.getDeckManagerGUI(), 
-							"Please choose a Deck Binder first.", "Try again", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(DeckManager.getDeckManagerGUI(), "Please choose a Deck Binder first.", "Try again",
+							JOptionPane.ERROR_MESSAGE);
 				}
 			} else if (button.equals("Selected Deck")) {
 				DeckManagerGUI dmgui = DeckManager.getDeckManagerGUI();

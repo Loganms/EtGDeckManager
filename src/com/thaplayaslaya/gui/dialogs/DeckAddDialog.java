@@ -51,9 +51,8 @@ public class DeckAddDialog extends DeckDialog {
 		db.addDeck(newDeck);
 
 		JComboBox<Deck> cb = db.getDBP().getComboBox();
-		Style.applyStyle(cb, newDeck.getStyle());
-
 		cb.setSelectedItem(newDeck);
+		Style.applyStyle(cb, newDeck.getStyle());
 
 		dispose();
 	}
