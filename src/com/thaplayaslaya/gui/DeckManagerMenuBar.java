@@ -252,11 +252,11 @@ public class DeckManagerMenuBar extends JMenuBar {
 				
 				createInfoTab(
 						"Deck Manager",
-						"     Deck management begins by creating a Deck Binder. To do this, access File > New > Deck Binder. You will be prompted for a name. Enter what ever you like, you can always edit it's name later by pressing the button with an \"E\" on it. Alternatively, you can delete the entire Deck Binder from the list by pressing the \"D\" button. Be careful, in addition to deleting the Deck Binder, any decks that were saved inside will also be erased.\n\n     A new Deck Binder will be empty except for the option labeled \"add new deck\". Clicking on \"add new deck\" will create a deck and prompt you for a name and import code. Only a name is required to create a new deck; you can add the import code later or edit the name and import code by pressing the \"Edit Deck\" button, on the right side of the Deck Manager tab. The button labeled \"Copy Code\" copies the selected deck's import code to your system clipboard so that you can paste it elsewhere.\n\n     If a deck has its import code set, clicking the \"View Deck\" button will display an image of the deck in a seperate window. This feature requires an Internet connection. Lastly, the \"Delete\" button deletes the selected deck from its respective Deck Binder.",
+						"     Deck management begins by creating a Deck Binder. To do this, access File > New > Deck Binder. You will be prompted for a name. Enter what ever you like, you can always edit the Deck Binder's name later by pressing the button with an \"E\" on it. Alternatively, you can delete the entire Deck Binder by pressing the \"D\" button. Be careful, in addition to deleting the Deck Binder, any decks that were saved inside will also be erased.\n\n     A new Deck Binder will be empty except for the option labeled \"add new deck\". Clicking on \"add new deck\" will create a deck and prompt you for a name and import code. Only a name is required to create a new deck; you can add the import code later by pressing the \"Edit Deck\" button, on the right side of the Deck Manager tab. The button labeled \"Copy Code\" copies the selected deck's import code to your system clipboard so that you can paste it elsewhere.\n\n     If a deck has its import code set, clicking the \"View Deck\" button will display an image of the deck in a seperate window. This feature requires an Internet connection. Lastly, the \"Delete\" button deletes the selected deck from its respective Deck Binder.",
 						tabPane);
 				createInfoTab(
 						"Oracle",
-						"     Every day, the Oracle predicts the next False God you will encounter. To make the most of this information, navigate to the Oracle tab. On the Oracle tab, find the name of the False God that the oracle predicted and click the \"Go\" button. Alternatively, you can begin typing the name of the False God into the search box which will auto-complete the name for you.\n\n     Within a couple seconds, depending on your Internet connection, you will see various thumbnail images of decks pop up. Hover over any of the decks to see a complete image. To the right of the search box is the deck that the False God will use against you. Realize that all False God decks contain twice as many cards as are shown in the image. In addition, False Gods fight with a 3x Mark and draw two cards per turn.\n\n     In the lower portion of the Oracle area you will see two tabs, one labeled \"Community Deck(s)\" and another labeled \"Custom Deck(s)\". All decks in the Community section come straight from the community forums. Each False God has at least one community-recommended deck. Once you find a suitable deck, click its thumbnail image to copy the import code to your system clipboard.\n\n     If there is a deck that you enjoy using against a specific False God, you can save it into the \"Custom Deck(s)\" tab by clicking on the plus(+) thumbnail. In order to delete a custom deck you have saved, select the deck by clicking on it and press the delete key on your keyboard. You can also change to order of your custom saved decks by selecting one of them and using the left and right arrow keys.",
+						"     Every day, the Oracle predicts the next False God you will encounter. To make the most of this information, navigate to the Oracle tab. On the Oracle tab, find the name of the False God that the oracle predicted and click the \"Go\" button. Alternatively, you can begin typing the name of the False God into the search box which will auto-complete the name for you.\n\n     Within a couple of seconds, depending on your Internet connection, you will see various thumbnail images of decks appear. Hover over any of the decks to see the full image. To the right of the search box is the deck that the False God will use. Remember that all False God decks contain twice as many cards as are shown in the image. In addition, False Gods duel with a 3x Mark and draw two cards per turn.\n\n     In the lower portion of the Oracle tab you will see two more tabs labeled \"Community Deck(s)\" and \"Custom Deck(s)\". All decks shown in the Community section come straight from the community forums. Each False God has at least one community-recommended deck. Once you choose a deck, click its thumbnail image to copy the import code to your system clipboard.\n\n     If there is a deck that you enjoy using against a specific False God, you can save it into the \"Custom Deck(s)\" tab by clicking on the plus(+) thumbnail. In order to delete a custom deck you have saved, select the deck by clicking on it and press the delete key on your keyboard. You can also change the order of your custom decks by selecting one of them and using the hotkeys CTRL + LEFT Arrow or CTRL + RIGHT Arrow.",
 						tabPane);
 	
 				createInfoTab("Sorting",
@@ -275,11 +275,13 @@ public class DeckManagerMenuBar extends JMenuBar {
 				JLabel deckManager = new JLabel(" Deck Manager Shortcuts ", SwingConstants.CENTER);
 				deckManager.setBorder(BorderFactory.createRaisedBevelBorder());
 				ShortcutDescription editDeck = new ShortcutDescription("Edit Deck", "A deck must be selected", "Ctrl + E");
-				ShortcutDescription moveDeckBinder = new ShortcutDescription("Move Deck Binder UP/DOWN", "A deck must be selected",
+				ShortcutDescription exportDecks = new ShortcutDescription("Export Decks", null, "Ctrl + X");
+				ShortcutDescription sortDeckBinder = new ShortcutDescription("Sort Deck Binder", "A deck binder must be selected", "Ctrl + S");
+				ShortcutDescription moveDeckBinder = new ShortcutDescription("Move Deck Binder UP/DOWN", "A deck binder must be selected",
 						"Ctrl + UP/DOWN Arrow");
 				ShortcutDescription moveDeck = new ShortcutDescription("Move Deck UP/DOWN", "A deck must be selected", "Shft + UP/DOWN Arrow");
 				ShortcutDescription createNewDeckBinder = new ShortcutDescription("Create New Deck Binder", null, "Ctrl + B");
-				ShortcutDescription createNewDeck = new ShortcutDescription("Create New Deck Binder", "A deck must be selected", "Ctrl + D");
+				ShortcutDescription createNewDeck = new ShortcutDescription("Create New Deck Binder", "A deck binder must be selected", "Ctrl + D");
 				JLabel oracle = new JLabel(" Oracle Shortcuts ", SwingConstants.CENTER);
 				oracle.setBorder(BorderFactory.createRaisedBevelBorder());
 				ShortcutDescription editCounterDeck = new ShortcutDescription("Edit Custom Deck", "A custom deck must be selected", "Ctrl + E");
@@ -290,6 +292,8 @@ public class DeckManagerMenuBar extends JMenuBar {
 				Component[] comps = new Component[] {
 						deckManager,
 						editDeck,
+						exportDecks,
+						sortDeckBinder,
 						moveDeckBinder,
 						moveDeck,
 						createNewDeckBinder,
@@ -333,6 +337,7 @@ public class DeckManagerMenuBar extends JMenuBar {
 
 				(new NewestVersionFinder()).execute();
 
+				dialog.setIconImage(DeckManager.getDeckManagerGUI().getIconImage());
 				dialog.setVisible(true);
 
 			} else if (button.equals(helpMenuNames[3])) {
@@ -483,6 +488,7 @@ public class DeckManagerMenuBar extends JMenuBar {
 			if (needsScrollPanel) {
 				setSize(new Dimension(getWidth(), 440));
 			}
+			setIconImage(DeckManager.getDeckManagerGUI().getIconImage());
 			setLocationRelativeTo(DeckManager.getDeckManagerGUI());
 			setVisible(true);
 		}
