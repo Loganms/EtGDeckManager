@@ -2,6 +2,7 @@ package com.thaplayaslaya.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,6 +25,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.KeyStroke;
@@ -246,20 +248,29 @@ public class DeckManagerMenuBar extends JMenuBar {
 									"A Deck Binder must be selected in order to sort.\nClick on a Deck Binder and try again.", "Error",
 									JOptionPane.OK_OPTION);
 			} else if (button.equals(helpMenuNames[0])) {
-				JLabel label1 = new JLabel("Deck Manager", SwingConstants.LEFT);
-				JTextArea text1 = new JTextArea(
+				JTabbedPane tabPane = new JTabbedPane(JTabbedPane.TOP);
+				
+				createInfoTab(
+						"Deck Manager",
 						"     Deck management begins by creating a Deck Binder. To do this, access File > New > Deck Binder. You will be prompted for a name. Enter what ever you like, you can always edit it's name later by pressing the button with an \"E\" on it. Alternatively, you can delete the entire Deck Binder from the list by pressing the \"D\" button. Be careful, in addition to deleting the Deck Binder, any decks that were saved inside will also be erased.\n\n     A new Deck Binder will be empty except for the option labeled \"add new deck\". Clicking on \"add new deck\" will create a deck and prompt you for a name and import code. Only a name is required to create a new deck; you can add the import code later or edit the name and import code by pressing the \"Edit Deck\" button, on the right side of the Deck Manager tab. The button labeled \"Copy Code\" copies the selected deck's import code to your system clipboard so that you can paste it elsewhere.\n\n     If a deck has its import code set, clicking the \"View Deck\" button will display an image of the deck in a seperate window. This feature requires an Internet connection. Lastly, the \"Delete\" button deletes the selected deck from its respective Deck Binder.",
-						12, 30);
-				dressTextArea(text1);
-
-				JLabel label2 = new JLabel("Oracle", SwingConstants.LEFT);
-				JTextArea text2 = new JTextArea(
+						tabPane);
+				createInfoTab(
+						"Oracle",
 						"     Every day, the Oracle predicts the next False God you will encounter. To make the most of this information, navigate to the Oracle tab. On the Oracle tab, find the name of the False God that the oracle predicted and click the \"Go\" button. Alternatively, you can begin typing the name of the False God into the search box which will auto-complete the name for you.\n\n     Within a couple seconds, depending on your Internet connection, you will see various thumbnail images of decks pop up. Hover over any of the decks to see a complete image. To the right of the search box is the deck that the False God will use against you. Realize that all False God decks contain twice as many cards as are shown in the image. In addition, False Gods fight with a 3x Mark and draw two cards per turn.\n\n     In the lower portion of the Oracle area you will see two tabs, one labeled \"Community Deck(s)\" and another labeled \"Custom Deck(s)\". All decks in the Community section come straight from the community forums. Each False God has at least one community-recommended deck. Once you find a suitable deck, click its thumbnail image to copy the import code to your system clipboard.\n\n     If there is a deck that you enjoy using against a specific False God, you can save it into the \"Custom Deck(s)\" tab by clicking on the plus(+) thumbnail. In order to delete a custom deck you have saved, select the deck by clicking on it and press the delete key on your keyboard. You can also change to order of your custom saved decks by selecting one of them and using the left and right arrow keys.",
-						12, 30);
-				dressTextArea(text2);
-				Component[] comps = new Component[] { label1, text1, label2, text2 };
+						tabPane);
+	
+				createInfoTab("Sorting",
+						"     Sorting...",
+						tabPane);
+				tabPane.setPreferredSize(new Dimension(DeckManager.getDeckManagerGUI().getWidth(), 300));
 
-				new InformationWindow(helpMenuNames[0], comps, true);
+				JOptionPane optionPane = new JOptionPane(tabPane, JOptionPane.PLAIN_MESSAGE, JOptionPane.DEFAULT_OPTION);
+				JDialog dialog = optionPane.createDialog(DeckManager.getDeckManagerGUI(), helpMenuNames[0]);
+				
+				dialog.setIconImage(DeckManager.getDeckManagerGUI().getIconImage());
+				dialog.setModalityType(Dialog.ModalityType.MODELESS);
+				dialog.setVisible(true);
+
 			} else if (button.equals(helpMenuNames[1])) {
 				JLabel deckManager = new JLabel(" Deck Manager Shortcuts ", SwingConstants.CENTER);
 				deckManager.setBorder(BorderFactory.createRaisedBevelBorder());
@@ -381,6 +392,15 @@ public class DeckManagerMenuBar extends JMenuBar {
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
 		textArea.setOpaque(false);
+	}
+
+	private void createInfoTab(String tabName, String formattedInfo, JTabbedPane tabbedPane) {
+		JTextArea text = new JTextArea(formattedInfo, 12, 30);
+		dressTextArea(text);
+		int whiteSpace = 7;
+		text.setBorder(BorderFactory.createEmptyBorder(whiteSpace, whiteSpace, whiteSpace, whiteSpace));
+		JScrollPane scroll = new JScrollPane(text);
+		tabbedPane.addTab(tabName, scroll);
 	}
 
 	private class ShortcutDescription extends JPanel {
