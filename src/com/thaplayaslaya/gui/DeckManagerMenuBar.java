@@ -14,6 +14,7 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -28,12 +29,14 @@ import javax.swing.JTextPane;
 import javax.swing.KeyStroke;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
+import javax.swing.SwingWorker;
 import javax.swing.UIManager;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
 import com.thaplayaslaya.DeckManager;
+import com.thaplayaslaya.DownloadPage;
 import com.thaplayaslaya.datastructures.DeckBinder;
 import com.thaplayaslaya.datastructures.OperationType;
 import com.thaplayaslaya.gui.dialogs.CaseExportDialog;
@@ -60,9 +63,7 @@ public class DeckManagerMenuBar extends JMenuBar {
 	private ButtonGroup locationGroup = new ButtonGroup(), modifierGroup = new ButtonGroup();
 
 	private JMenu helpMenu;
-	private String[] helpMenuNames = { "User Manual", "Shortcuts", "Source Code", "About" };
-	@SuppressWarnings("unused")
-	private JMenuItem[] helpMenuItems;
+	private String[] helpMenuNames = { "User Manual", "Shortcuts", "Check for Updates", "Source Code", "About" };
 
 	boolean isSetup = true;
 
@@ -112,7 +113,6 @@ public class DeckManagerMenuBar extends JMenuBar {
 	}
 
 	private void createHelpMenuItems() {
-		helpMenuItems = new JMenuItem[3];
 		JMenuItem mi;
 		for (String s : helpMenuNames) {
 			mi = new JMenuItem(s);
@@ -289,6 +289,39 @@ public class DeckManagerMenuBar extends JMenuBar {
 						deleteCounterDeck };
 				new InformationWindow(helpMenuNames[1], comps, true);
 			} else if (button.equals(helpMenuNames[2])) {
+
+				final JOptionPane optionPane = new JOptionPane("Please wait ...\nYour version is: " + DeckManager.VERSION_ID,
+						JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION);
+
+				final JDialog dialog = optionPane.createDialog(DeckManager.getDeckManagerGUI(), "Update");
+
+				final class NewestVersionFinder extends SwingWorker<String, Object> {
+					@Override
+					public String doInBackground() {
+						return DownloadPage.getNewestVersion();
+					}
+
+					@Override
+					protected void done() {
+						try {
+							String newestVersion = get();
+							if (newestVersion != null) {
+								optionPane.setMessage("Newest version is: " + newestVersion + "\nYour version is: " + DeckManager.VERSION_ID);
+
+							} else {
+								optionPane.setMessage("Could not determine newest Version\nYour version is: " + DeckManager.VERSION_ID);
+							}
+						} catch (Exception ignore) {
+							ignore.printStackTrace();
+						}
+					}
+				}
+
+				(new NewestVersionFinder()).execute();
+
+				dialog.setVisible(true);
+
+			} else if (button.equals(helpMenuNames[3])) {
 				JLabel label1 = new JLabel("EtG Deck Manager is an Open Source Project");
 				JLabel label2 = new JLabel("All Source Code is Available at:");
 
@@ -297,9 +330,9 @@ public class DeckManagerMenuBar extends JMenuBar {
 				f.setText("https://github.com/ThaPlayaSlaya/EtGDeckManager");
 
 				Component[] comps = new Component[] { label1, label2, f };
-				new InformationWindow(helpMenuNames[2], comps, false);
-			} else if (button.equals(helpMenuNames[3])) {
-				JLabel label1 = new JLabel(helpMenuNames[3] + " EtG Deck Manager " + DeckManager.VERSION_ID);
+				new InformationWindow(helpMenuNames[3], comps, false);
+			} else if (button.equals(helpMenuNames[4])) {
+				JLabel label1 = new JLabel(helpMenuNames[4] + " EtG Deck Manager " + DeckManager.VERSION_ID);
 
 				JTextArea text1 = new JTextArea("     EtG Deck Manager " + DeckManager.VERSION_ID + " was made by Logan Scheiner. EtG Deck Manager "
 						+ DeckManager.VERSION_ID + " is free, open source software. If you paid for EtG Deck Manager " + DeckManager.VERSION_ID
@@ -328,7 +361,7 @@ public class DeckManagerMenuBar extends JMenuBar {
 				dressTextArea(text3);
 
 				Component[] comps = new Component[] { label1, text1, label2, textpane1, textpane2, label3, text2, text3 };
-				new InformationWindow(helpMenuNames[3], comps, true);
+				new InformationWindow(helpMenuNames[4], comps, true);
 			}
 		}
 	}

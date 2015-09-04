@@ -10,6 +10,8 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import com.thaplayaslaya.datastructures.FalseGod;
 
 public class DownloadPage {
@@ -123,5 +125,35 @@ public class DownloadPage {
 		index2 = string.indexOf(".png", index1) + 4;
 		string = string.substring(index1, index2);
 		return new URL(string);
+	}
+
+	public static String getNewestVersion() {
+		try {
+			URL EtGM_URL = new URL("http://elementscommunity.org/forum/index.php?topic=58303.msg1188627#msg1188627");
+			URLConnection con = EtGM_URL.openConnection();
+			InputStream is = con.getInputStream();
+			BufferedReader br = new BufferedReader(new InputStreamReader(is));
+			String line;
+			String key = "releases/download";
+			while ((line = br.readLine()) != null) {
+				if (line.contains(key)) {
+					int begin = line.indexOf(key) + key.length() + 1;
+					int end = line.indexOf('/', begin);
+					line = line.substring(begin, end);
+					return line;
+				}
+			}
+		} catch (MalformedURLException e1) {
+			e1.printStackTrace();
+			JOptionPane.showMessageDialog(DeckManager.getDeckManagerGUI(),
+					"MalformedURLException - DownloadPage.getNewestVersion()\n Contact developer if problem persists.", "Error",
+					JOptionPane.ERROR_MESSAGE);
+
+		} catch (IOException e1) {
+			e1.printStackTrace();
+			JOptionPane.showMessageDialog(DeckManager.getDeckManagerGUI(),
+					"IOException - DownloadPage.getNewestVersion()\n Contact developer if problem persists.", "Error", JOptionPane.ERROR_MESSAGE);
+		}
+		return null;
 	}
 }
