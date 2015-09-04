@@ -304,12 +304,15 @@ public class DeckManagerMenuBar extends JMenuBar {
 					@Override
 					protected void done() {
 						try {
-							String newestVersion = get();
-							if (newestVersion != null) {
-								optionPane.setMessage("Newest version is: " + newestVersion + "\nYour version is: " + DeckManager.VERSION_ID);
+							// Check that the dialog is still showing
+							if (optionPane != null && optionPane.isVisible()) {
+								String newestVersion = get();
+								if (newestVersion != null) {
+									optionPane.setMessage("Newest version is: " + newestVersion + "\nYour version is: " + DeckManager.VERSION_ID);
 
-							} else {
-								optionPane.setMessage("Could not determine newest Version\nYour version is: " + DeckManager.VERSION_ID);
+								} else {
+									optionPane.setMessage("Could not determine newest Version\nYour version is: " + DeckManager.VERSION_ID);
+								}
 							}
 						} catch (Exception ignore) {
 							ignore.printStackTrace();
