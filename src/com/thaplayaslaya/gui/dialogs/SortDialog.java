@@ -51,6 +51,7 @@ public class SortDialog extends JDialog {
 		super(DeckManager.getDeckManagerGUI(), "Sort", true);
 		initComponents();
 		setLocationRelativeTo(DeckManager.getDeckManagerGUI());
+		setIconImage(DeckManager.getDeckManagerGUI().getIconImage());
 		setVisible(true);
 	}
 

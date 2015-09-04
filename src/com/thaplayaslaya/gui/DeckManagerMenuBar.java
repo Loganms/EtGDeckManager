@@ -249,7 +249,7 @@ public class DeckManagerMenuBar extends JMenuBar {
 									JOptionPane.OK_OPTION);
 			} else if (button.equals(helpMenuNames[0])) {
 				JTabbedPane tabPane = new JTabbedPane(JTabbedPane.TOP);
-				
+
 				createInfoTab(
 						"Deck Manager",
 						"     Deck management begins by creating a Deck Binder. To do this, access File > New > Deck Binder. You will be prompted for a name. Enter what ever you like, you can always edit the Deck Binder's name later by pressing the button with an \"E\" on it. Alternatively, you can delete the entire Deck Binder by pressing the \"D\" button. Be careful, in addition to deleting the Deck Binder, any decks that were saved inside will also be erased.\n\n     A new Deck Binder will be empty except for the option labeled \"add new deck\". Clicking on \"add new deck\" will create a deck and prompt you for a name and import code. Only a name is required to create a new deck; you can add the import code later by pressing the \"Edit Deck\" button, on the right side of the Deck Manager tab. The button labeled \"Copy Code\" copies the selected deck's import code to your system clipboard so that you can paste it elsewhere.\n\n     If a deck has its import code set, clicking the \"View Deck\" button will display an image of the deck in a seperate window. This feature requires an Internet connection. Lastly, the \"Delete\" button deletes the selected deck from its respective Deck Binder.",
@@ -258,15 +258,16 @@ public class DeckManagerMenuBar extends JMenuBar {
 						"Oracle",
 						"     Every day, the Oracle predicts the next False God you will encounter. To make the most of this information, navigate to the Oracle tab. On the Oracle tab, find the name of the False God that the oracle predicted and click the \"Go\" button. Alternatively, you can begin typing the name of the False God into the search box which will auto-complete the name for you.\n\n     Within a couple of seconds, depending on your Internet connection, you will see various thumbnail images of decks appear. Hover over any of the decks to see the full image. To the right of the search box is the deck that the False God will use. Remember that all False God decks contain twice as many cards as are shown in the image. In addition, False Gods duel with a 3x Mark and draw two cards per turn.\n\n     In the lower portion of the Oracle tab you will see two more tabs labeled \"Community Deck(s)\" and \"Custom Deck(s)\". All decks shown in the Community section come straight from the community forums. Each False God has at least one community-recommended deck. Once you choose a deck, click its thumbnail image to copy the import code to your system clipboard.\n\n     If there is a deck that you enjoy using against a specific False God, you can save it into the \"Custom Deck(s)\" tab by clicking on the plus(+) thumbnail. In order to delete a custom deck you have saved, select the deck by clicking on it and press the delete key on your keyboard. You can also change the order of your custom decks by selecting one of them and using the hotkeys CTRL + LEFT Arrow or CTRL + RIGHT Arrow.",
 						tabPane);
-	
-				createInfoTab("Sorting",
+
+				createInfoTab(
+						"Sorting",
 						"     Decks can be sorted by accessing File > Sort, or with the hotkey CTRL + S. A Deck Binder must be selected before sorting is attempted. Up to three sort funcitons may be chosen, although not all combinations produce unique results. The main catagories for sorting include \"Alpha,\" \"Most,\" \"Least,\" and \"Mark.\"\n\n     Alpha sorts order decks according to the alphabet. Modifiers for Alpha sorts are \"Word,\" and \"1st Letter.\" It's important to choose \"1st Letter\" if more sorting functions follow. \"1st Letter\" allows decks that tie (decks that start with the same letter) to be sorted by a subsequent sort. Since all decks have unique names, choosing to sort by \"Word\" produces no ties and overshadows any further sorts. Lastly, all Alpha sorts can be modified by \"Abc\" and \"Zyx,\" producing alphabetical and reverse alphabetical orderings respectively.\n\n     Most and Least sorts share the same modifiers: \"Upgraded,\" \"Copies Of,\" \"Cards,\" and \"Element.\" Sorting by Most/Least \"Upgraded\" places decks with the Most/Least upgraded cards first. By selecting the \"Copies Of\" modifier, decks are sorted depending on which have the Most/Least copies of the three digit card code (or mark code) you enterd. The \"Cards\" modifier sorts the decks depending on which has the Most/Least cards. Finally, the \"Element\" modifier has two purposes. Decks sorted by Most/Least \"Element\" \"Variety\" will likely separate into mono, duo, trio, ..., and rainbow decks. Decks can also be sorted by which of them contain the Most/Least cards of the chosen element using any \"Element\" modifier besides \"Variety.\"\n\n     The last main sorting function is Mark. Mark's modifiers are the twelve main elements, \"Entropy\" through \"Aether.\" Decks with the mark of the chosen element will appear first, followed by decks with the mark of the next natural element.",
 						tabPane);
 				tabPane.setPreferredSize(new Dimension(DeckManager.getDeckManagerGUI().getWidth(), 300));
 
 				JOptionPane optionPane = new JOptionPane(tabPane, JOptionPane.PLAIN_MESSAGE, JOptionPane.DEFAULT_OPTION);
 				JDialog dialog = optionPane.createDialog(DeckManager.getDeckManagerGUI(), helpMenuNames[0]);
-				
+
 				dialog.setIconImage(DeckManager.getDeckManagerGUI().getIconImage());
 				dialog.setModalityType(Dialog.ModalityType.MODELESS);
 				dialog.setVisible(true);

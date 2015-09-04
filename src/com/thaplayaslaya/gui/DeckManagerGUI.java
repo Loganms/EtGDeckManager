@@ -157,8 +157,10 @@ public class DeckManagerGUI extends JFrame {
 						frame.getContentPane().add(new JLabel(new ImageIcon(img)));
 						frame.pack();
 						frame.setLocation(getSmartExternalWindowLocation(frame));
-						frame.setVisible(true);
 						frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+						frame.setIconImage(getIconImage());
+						frame.setVisible(true);
+
 					} else {
 						JOptionPane.showMessageDialog(DeckManagerGUI.this,
 								"A deck image could not be created from " + currentlySelectedDeck.getName() + "'s import code.", "Error",
