@@ -29,6 +29,13 @@ public class Main {
 				createDeckManager();
 			}
 		});
+		
+		Runtime.getRuntime().addShutdownHook(new Thread() {
+			public void run() {
+				//Mostly for Command+Q but saves on End Task as well
+				DeckManager.saveAndExit();
+			}
+		});
 	}
 
 	private static void createDeckManager() {

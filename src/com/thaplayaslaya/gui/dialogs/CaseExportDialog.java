@@ -1,7 +1,5 @@
 package com.thaplayaslaya.gui.dialogs;
 
-import java.awt.Toolkit;
-import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -11,6 +9,7 @@ import javax.swing.JDialog;
 
 import com.thaplayaslaya.DeckManager;
 import com.thaplayaslaya.Export;
+import com.thaplayaslaya.Util;
 import com.thaplayaslaya.datastructures.DeckBinder;
 
 public class CaseExportDialog extends JDialog {
@@ -196,7 +195,7 @@ public class CaseExportDialog extends JDialog {
 
 				String s = Export.exportCase(jTextField1.getText(), jList1.getSelectedValuesList(), jCheckBox2.isSelected(), jCheckBox3.isSelected());
 				System.out.println(s);
-				Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(s), null);
+				Util.setSysClipboardText(s);
 			}
 		});
 

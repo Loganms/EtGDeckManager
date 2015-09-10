@@ -9,7 +9,6 @@ import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.Window;
-import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
@@ -39,6 +38,7 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
 import com.thaplayaslaya.DeckManager;
+import com.thaplayaslaya.Util;
 import com.thaplayaslaya.datastructures.Deck;
 import com.thaplayaslaya.datastructures.DeckBinder;
 import com.thaplayaslaya.gui.dialogs.DeckEditDialog;
@@ -149,7 +149,7 @@ public class DeckManagerGUI extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			if (currentlySelectedDeck != null) {
 				if (e.getActionCommand().equals("Copy Code")) {
-					Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(currentlySelectedDeck.getImportCode()), null);
+					Util.setSysClipboardText(currentlySelectedDeck.getImportCode());
 				} else if (e.getActionCommand().equals("View Deck")) {
 					BufferedImage img = currentlySelectedDeck.getDeckImage();
 					if (img != null) {

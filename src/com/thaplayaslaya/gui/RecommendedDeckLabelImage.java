@@ -1,8 +1,6 @@
 package com.thaplayaslaya.gui;
 
 import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.datatransfer.StringSelection;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.net.URL;
@@ -12,6 +10,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 
 import com.thaplayaslaya.DeckManager;
+import com.thaplayaslaya.Util;
 import com.thaplayaslaya.datastructures.Deck;
 
 public class RecommendedDeckLabelImage extends LabelImage {
@@ -50,7 +49,7 @@ public class RecommendedDeckLabelImage extends LabelImage {
 
 	@Override
 	public void mouseClicked(MouseEvent event) {
-		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(this.getDeckCode()), null);
+		Util.setSysClipboardText(this.getDeckCode());
 
 		OraclePanel op = DeckManager.getDeckManagerGUI().getOraclePanel();
 

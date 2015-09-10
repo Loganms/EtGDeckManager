@@ -3,8 +3,6 @@ package com.thaplayaslaya.gui;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.datatransfer.StringSelection;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
@@ -14,6 +12,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
 import com.thaplayaslaya.DeckManager;
+import com.thaplayaslaya.Util;
 import com.thaplayaslaya.datastructures.Deck;
 import com.thaplayaslaya.datastructures.OperationType;
 import com.thaplayaslaya.gui.dialogs.CustomDialog;
@@ -76,7 +75,7 @@ public class CounterDeckLabelImage extends LabelImage {
 			new CustomDialog(DeckManager.getDeckManagerGUI(), OperationType.ADD_NEW_FG_COUNTER_DECK, DeckManager.getDeckManagerGUI().getOraclePanel()
 					.getCurrentlySelectedFG().name());
 		} else {
-			Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(this.getDeckCode()), null);
+			Util.setSysClipboardText(this.getDeckCode());
 			OraclePanel op = DeckManager.getDeckManagerGUI().getOraclePanel();
 			if (null != op.getCurrentlySelectedDeck()) {
 				op.getCurrentlySelectedDeck().setBorder(DEFAULT_BORDER);

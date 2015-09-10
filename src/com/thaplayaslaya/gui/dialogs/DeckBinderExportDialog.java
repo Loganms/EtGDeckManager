@@ -1,7 +1,5 @@
 package com.thaplayaslaya.gui.dialogs;
 
-import java.awt.Toolkit;
-import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -14,6 +12,7 @@ import javax.swing.JDialog;
 
 import com.thaplayaslaya.DeckManager;
 import com.thaplayaslaya.Export;
+import com.thaplayaslaya.Util;
 import com.thaplayaslaya.datastructures.Deck;
 import com.thaplayaslaya.datastructures.DeckBinder;
 
@@ -90,7 +89,7 @@ public class DeckBinderExportDialog extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				String s = Export.exportDeckBinder(jComboBox1.getSelectedItem().toString(), jList1.getSelectedValuesList(), jCheckBox2.isSelected(),
 						jCheckBox3.isSelected());
-				Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(s), null);
+				Util.setSysClipboardText(s);
 			}
 
 		});
