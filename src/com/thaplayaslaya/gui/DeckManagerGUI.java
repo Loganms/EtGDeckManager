@@ -244,7 +244,9 @@ public class DeckManagerGUI extends JFrame {
 		this.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				DeckManager.saveAndExit();
+				// Shutdown Hook will save data
+				dispose();
+				System.exit(0);
 			}
 		});
 

@@ -12,37 +12,36 @@ public class Util {
 	public static boolean isMac;
 	public static String keyMod;
 	public static final int MENU_SHORTCUT_KEY_MASK = Toolkit.getDefaultToolkit().getMenuShortcutKeyMask();
-			
+
 	/**
-     * get string from Clipboard
-     */
-    public static String getSysClipboardText() {
-        String ret = "";
-        Clipboard sysClip = Toolkit.getDefaultToolkit().getSystemClipboard();
+	 * get string from Clipboard
+	 */
+	public static String getSysClipboardText() {
+		String ret = "";
+		Clipboard sysClip = Toolkit.getDefaultToolkit().getSystemClipboard();
 
-        Transferable clipTf = sysClip.getContents(null);
+		Transferable clipTf = sysClip.getContents(null);
 
-        if (clipTf != null) {
+		if (clipTf != null) {
 
-            if (clipTf.isDataFlavorSupported(DataFlavor.stringFlavor)) {
-                try {
-                    ret = (String) clipTf
-                            .getTransferData(DataFlavor.stringFlavor);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+			if (clipTf.isDataFlavorSupported(DataFlavor.stringFlavor)) {
+				try {
+					ret = (String) clipTf.getTransferData(DataFlavor.stringFlavor);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
 
-        return ret;
-    }
+		return ret;
+	}
 
-    /**
-     * put string into Clipboard
-     */
-    public static void setSysClipboardText(String writeMe) {
-        Clipboard clip = Toolkit.getDefaultToolkit().getSystemClipboard();
-        Transferable tText = new StringSelection(writeMe);
-        clip.setContents(tText, null);
-    }
+	/**
+	 * put string into Clipboard
+	 */
+	public static void setSysClipboardText(String writeMe) {
+		Clipboard clip = Toolkit.getDefaultToolkit().getSystemClipboard();
+		Transferable tText = new StringSelection(writeMe);
+		clip.setContents(tText, null);
+	}
 }

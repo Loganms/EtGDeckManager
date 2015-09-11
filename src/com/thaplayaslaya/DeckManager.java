@@ -31,8 +31,8 @@ public class DeckManager {
 		return DMGUI;
 	}
 
-	public static void saveAndExit() {
+	public static void save() {
+		System.out.println("Config is Saving");
 		cfg.writeToFile();
-		System.exit(0);
 	}
 }
