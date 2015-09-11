@@ -3,7 +3,6 @@ package com.thaplayaslaya.gui;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.net.URL;
 import java.util.ArrayList;
@@ -30,6 +29,7 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 import com.thaplayaslaya.DeckManager;
 import com.thaplayaslaya.DownloadPage;
+import com.thaplayaslaya.Util;
 import com.thaplayaslaya.datastructures.Deck;
 import com.thaplayaslaya.datastructures.FalseGod;
 
@@ -96,8 +96,8 @@ public class OraclePanel extends JPanel {
 		InputMap inMap = getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
 
 		inMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0), DELETE);
-		inMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, InputEvent.CTRL_DOWN_MASK), LEFT_ARROW);
-		inMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, InputEvent.CTRL_DOWN_MASK), RIGHT_ARROW);
+		inMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, Util.MENU_SHORTCUT_KEY_MASK), LEFT_ARROW);
+		inMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, Util.MENU_SHORTCUT_KEY_MASK), RIGHT_ARROW);
 
 		getActionMap().put(DELETE, new KeyboardAction(DELETE));
 		getActionMap().put(LEFT_ARROW, new KeyboardAction(LEFT_ARROW));

@@ -2,7 +2,6 @@ package com.thaplayaslaya.gui.dialogs;
 
 import java.awt.Font;
 import java.awt.Frame;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -39,6 +38,7 @@ import javax.swing.text.Document;
 import javax.swing.undo.CannotUndoException;
 import javax.swing.undo.UndoManager;
 
+import com.thaplayaslaya.Util;
 import com.thaplayaslaya.datastructures.Deck;
 import com.thaplayaslaya.datastructures.Style;
 import com.thaplayaslaya.gui.AppearanceActionListener;
@@ -370,8 +370,8 @@ public abstract class DeckDialog extends JDialog {
 		InputMap im = textArea.getInputMap(JComponent.WHEN_FOCUSED);
 		ActionMap am = textArea.getActionMap();
 
-		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_Z, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()), "Undo");
-		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_Y, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()), "Redo");
+		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_Z, Util.MENU_SHORTCUT_KEY_MASK), "Undo");
+		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_Y, Util.MENU_SHORTCUT_KEY_MASK), "Redo");
 
 		am.put("Undo", new AbstractAction() {
 

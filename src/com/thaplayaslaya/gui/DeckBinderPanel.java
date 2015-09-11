@@ -22,6 +22,7 @@ import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 
 import com.thaplayaslaya.DeckManager;
+import com.thaplayaslaya.Util;
 import com.thaplayaslaya.datastructures.Deck;
 import com.thaplayaslaya.datastructures.DeckBinder;
 import com.thaplayaslaya.datastructures.Style;
@@ -128,7 +129,7 @@ public class DeckBinderPanel extends JPanel implements ActionListener {
 			deleteButton.setToolTipText("Delete Deck Binder");
 			deleteButton.addActionListener(this);
 
-			dBName.setToolTipText("Move (Ctrl+UP/DOWN)");
+			dBName.setToolTipText("Move (" + Util.keyMod + "+UP/DOWN)");
 
 			DeckManager.getDeckManagerGUI().getDeckBinderPanels().add(this);
 		}

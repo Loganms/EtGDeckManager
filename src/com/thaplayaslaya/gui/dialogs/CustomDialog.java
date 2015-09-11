@@ -2,7 +2,6 @@ package com.thaplayaslaya.gui.dialogs;
 
 import java.awt.Dimension;
 import java.awt.Frame;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
@@ -32,6 +31,7 @@ import javax.swing.undo.CannotUndoException;
 import javax.swing.undo.UndoManager;
 
 import com.thaplayaslaya.DeckManager;
+import com.thaplayaslaya.Util;
 import com.thaplayaslaya.datastructures.Deck;
 import com.thaplayaslaya.datastructures.OperationType;
 import com.thaplayaslaya.gui.CounterDeckLabelImage;
@@ -251,8 +251,8 @@ public class CustomDialog extends JDialog implements ActionListener, PropertyCha
 		InputMap im = textArea.getInputMap(JComponent.WHEN_FOCUSED);
 		ActionMap am = textArea.getActionMap();
 
-		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_Z, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()), "Undo");
-		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_Y, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()), "Redo");
+		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_Z, Util.MENU_SHORTCUT_KEY_MASK), "Undo");
+		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_Y, Util.MENU_SHORTCUT_KEY_MASK), "Redo");
 
 		am.put("Undo", new AbstractAction() {
 			@Override

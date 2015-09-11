@@ -11,7 +11,6 @@ import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -134,8 +133,8 @@ public class DeckManagerGUI extends JFrame {
 		tabbedPane.addTab("Oracle", null, oraclePanel, "Prediction Help");
 		tabbedPane.setMnemonicAt(tabbedPane.getTabCount() - 1, KeyEvent.VK_O);
 
-		KeyStroke ctrlUp = KeyStroke.getKeyStroke(KeyEvent.VK_UP, InputEvent.CTRL_DOWN_MASK);
-		KeyStroke ctrlDown = KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, InputEvent.CTRL_DOWN_MASK);
+		KeyStroke ctrlUp = KeyStroke.getKeyStroke(KeyEvent.VK_UP, Util.MENU_SHORTCUT_KEY_MASK);
+		KeyStroke ctrlDown = KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, Util.MENU_SHORTCUT_KEY_MASK);
 		InputMap inputMap = tabbedPane.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 		inputMap.put(ctrlUp, "none");
 		inputMap.put(ctrlDown, "none");
@@ -250,8 +249,8 @@ public class DeckManagerGUI extends JFrame {
 		});
 
 		JRootPane p = this.getRootPane();
-		p.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, InputEvent.CTRL_DOWN_MASK), upArrow);
-		p.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, InputEvent.CTRL_DOWN_MASK), downArrow);
+		p.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, Util.MENU_SHORTCUT_KEY_MASK), upArrow);
+		p.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, Util.MENU_SHORTCUT_KEY_MASK), downArrow);
 
 		p.getActionMap().put(upArrow, new HotkeyAction(upArrow));
 		p.getActionMap().put(downArrow, new HotkeyAction(downArrow));
