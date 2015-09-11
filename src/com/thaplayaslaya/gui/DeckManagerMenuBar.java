@@ -280,7 +280,7 @@ public class DeckManagerMenuBar extends JMenuBar {
 				ShortcutDescription exportDecks = new ShortcutDescription("Export Decks", null, Util.keyMod + " + X");
 				ShortcutDescription sortDeckBinder = new ShortcutDescription("Sort Deck Binder", "A deck binder must be selected", Util.keyMod + " + S");
 				ShortcutDescription moveDeckBinder = new ShortcutDescription("Move Deck Binder UP/DOWN", "A deck binder must be selected",
-						"Ctrl + UP/DOWN Arrow");
+						Util.keyMod + " + UP/DOWN Arrow");
 				ShortcutDescription moveDeck = new ShortcutDescription("Move Deck UP/DOWN", "A deck must be selected", "Shft + UP/DOWN Arrow");
 				ShortcutDescription createNewDeckBinder = new ShortcutDescription("Create New Deck Binder", null, Util.keyMod + " + B");
 				ShortcutDescription createNewDeck = new ShortcutDescription("Create New Deck Binder", "A deck binder must be selected", Util.keyMod + " + D");
